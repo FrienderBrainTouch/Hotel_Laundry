@@ -31,6 +31,8 @@ module.exports = {
     extend: {
       fontFamily: {
         'pretendard': ['Pretendard', 'sans-serif'],
+        'KoPubWorldBatang': ['KoPubWorldBatang', 'serif'],
+        'KoPubWorldDotum': ['KoPubWorldDotum', 'sans-serif'],
       },
       colors: {
         // 프로젝트 컬러 팔레트

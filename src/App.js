@@ -1,11 +1,20 @@
 import './App.css';
 import React, { useState } from 'react';
 import Header from './components/Header';
+import Hero from './components/Main/Hero';
+import WhyHotelLaundry from './components/Main/WhyHotelLaundry';
+import SmartTech from './components/Main/SmartTech';
+import AboutUs from './components/Main/AboutUs';
+import BeyondLaundry from './components/Main/BeyondLaundry';
+import StepByStep from './components/Main/StepByStep';
+import OurStores from './components/Main/OurStores';
+import Contact from './components/Main/Contact';
 import HotelLaundry from './components/HotelLaundry';
 import SmartSystem from './components/SmartSystem';
 import StartupGuide from './components/StartupGuide';
 import StoreInfo from './components/StoreInfo';
-import Contact from './components/Contact';
+import ContactPage from './components/Contact';
+import Footer from './components/Footer';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -57,15 +66,19 @@ function App() {
           </div>
         );
       case 'contact':
-        return <Contact />;
+        return <ContactPage />;
       default:
         return (
-          <div className="container mx-auto px-4 py-8">
-            <h1 className="text-3xl font-bold mb-6">호텔런드리에 오신 것을 환영합니다</h1>
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <p className="text-gray-600">메인 페이지 내용이 들어갈 자리입니다.</p>
-            </div>
-          </div>
+          <>
+            <Hero />
+            <WhyHotelLaundry />
+            <SmartTech />
+            <AboutUs />
+            <BeyondLaundry />
+            <StepByStep />
+            <OurStores />
+            <Contact />
+          </>
         );
     }
   };
@@ -73,9 +86,10 @@ function App() {
   return (
     <div className="w-full min-h-screen m-0 p-0 overflow-x-hidden">
       <Header onPageChange={setCurrentPage} currentPage={currentPage} />
-      <main className="bg-gray-50 min-h-screen">
+      <main className="bg-white min-h-screen">
         {renderPage()}
       </main>
+      <Footer />
     </div>  
   );
 }

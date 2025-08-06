@@ -69,7 +69,7 @@ const Header = ({ onPageChange, currentPage }) => {
         className="bg-[#1a237e] w-screen h-[100px] relative"
         onMouseLeave={() => setHoveredMenu(null)}
       >
-        <div className="w-full p-10 h-full flex items-center justify-between">
+        <div className="w-full px-4 h-full flex items-center justify-between">
           {/* 로고 */}
           <div className="flex items-center py-4">
             <button 
