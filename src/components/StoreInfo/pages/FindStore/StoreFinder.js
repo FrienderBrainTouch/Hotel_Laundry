@@ -81,22 +81,21 @@ const StoreFinder = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen w-full">
-      {/* 검색바 */}
-      <div className="w-full border-b">
+<div className="flex flex-col min-h-[calc(100vh-500px)] w-full font-pretendard"> {/* min-h-screen 대신 계산된 높이 사용 */}      {/* 검색바 */}
+    <div className="w-full">
         <div className="max-w-xl mx-auto p-4 text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-2">
+          <h2 className="text-hero-title font-bold text-gray-800 mb-2">
             매장 찾기
           </h2>
-          <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-600 mb-4">
-            찾으시고자 하는 지역을 검색해주세요.
+          <h3 className="text-hero-subtitle text-gray-600 mb-4">
+            지역명 또는 매장명을 검색해주세요
           </h3>
           <form onSubmit={handleSearch} className="relative">
             <input
               type="text"
               placeholder="지역명 또는 매장명을 입력하세요"
               onChange={(e) => setSearchKeyword(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg pr-12"
+              className="w-full px-4 py-2 border rounded-lg pr-12 text-24"
             />
             <button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2 p-1">
               <img src={SearchIcon} alt="검색" className="w-5 h-5" />
@@ -104,9 +103,9 @@ const StoreFinder = () => {
           </form>
         </div>
       </div>
-  
+
     {/* 회색 배경 메인 영역 - 뷰포트 전체 너비 */}
-    <div className="w-[100vw] relative left-[50%] right-[50%] ml-[-50vw] mr-[-50vw] bg-gray-100">
+    <div className="w-[100vw] relative left-[50%] right-[50%] ml-[-50vw] mr-[-50vw] bg-gray-100 mt-7">
       <div className="max-w-[1920px] mx-auto flex flex-col lg:flex-row justify-center gap-6 p-6">
         {/* 왼쪽: 지도 */}
         <MapPanel 
@@ -125,57 +124,6 @@ const StoreFinder = () => {
         </div>
       </div>
     </div>
-
-      {/* 푸터 */}
-      <footer className="bg-white border-t">
-        <div className="container mx-auto py-8 px-6">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {/* 회사 정보 */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-gray-800">호텔런드리</h3>
-              <p className="text-sm text-gray-600">
-                최고의 세탁 서비스로<br />
-                호텔급 세탁을 경험하세요
-              </p>
-            </div>
-            
-            {/* 고객 서비스 */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-gray-800">고객 서비스</h3>
-              <ul className="space-y-2 text-sm text-gray-600">
-                <li>이용 안내</li>
-                <li>자주 묻는 질문</li>
-                <li>1:1 문의</li>
-              </ul>
-            </div>
-  
-            {/* 회사 소개 */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-gray-800">회사 소개</h3>
-              <ul className="space-y-2 text-sm text-gray-600">
-                <li>회사 소개</li>
-                <li>인재 채용</li>
-                <li>제휴 문의</li>
-              </ul>
-            </div>
-  
-            {/* 연락처 */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-gray-800">고객센터</h3>
-              <p className="text-2xl font-bold text-blue-600">1544-0000</p>
-              <p className="text-sm text-gray-600">
-                평일 09:00 - 18:00<br />
-                주말 및 공휴일 휴무
-              </p>
-            </div>
-          </div>
-  
-          {/* 카피라이트 */}
-          <div className="mt-8 pt-8 border-t text-center text-sm text-gray-600">
-            <p>© 2024 호텔런드리. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };

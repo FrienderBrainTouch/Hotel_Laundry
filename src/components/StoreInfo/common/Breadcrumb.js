@@ -11,11 +11,11 @@ const Breadcrumb = ({ currentPage, onPageChange }) => {
     ];
   
     return (
-        <div className="flex items-center gap-2 sm:gap-4">
+        <div className="flex items-center gap-2 sm:gap-4 font-pretendard">
             <img src={homeIcon} alt="홈" />
-            <span className="text-[#1C262B]">/</span>
-            <span className="text-[#1C262B]">매장 안내</span>
-            <span className="text-[#1C262B]">/</span>
+            <span className="text-brand-dark text-20">/</span>
+            <span className="text-brand-dark text-20">매장 안내</span>
+            <span className="text-brand-dark text-20">/</span>
             
             {/* 드롭다운 메뉴의 기준점이 되는 relative 컨테이너 */}
             <div className="relative">
@@ -24,7 +24,7 @@ const Breadcrumb = ({ currentPage, onPageChange }) => {
                     className="flex items-center" 
                     onClick={() => setIsOpen(!isOpen)}
                 >
-                    <span className="text-[#1C262B]">{currentPage}</span>
+                    <span className="text-brand-dark text-20">{currentPage}</span>
                     <img 
                         src={downIcon} 
                         alt="더보기" 
@@ -42,7 +42,7 @@ const Breadcrumb = ({ currentPage, onPageChange }) => {
                                     onPageChange(item.pageKey);
                                     setIsOpen(false); // 메뉴를 닫아줍니다.
                                 }}
-                                className="w-full px-4 py-3 text-left text-[#1C262B] hover:bg-gray-50 transition-colors whitespace-nowrap"
+                                className="w-full px-4 py-3 text-left text-brand-dark text-20 hover:bg-gray-50 transition-colors whitespace-nowrap"
                             >
                                 <span>{item.title}</span>
                             </button>

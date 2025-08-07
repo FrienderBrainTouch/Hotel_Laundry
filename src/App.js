@@ -11,7 +11,7 @@ import OurStores from './components/Main/OurStores';
 import Contact from './components/Main/Contact';
 import HotelLaundry from './components/HotelLaundry';
 import SmartSystem from './components/SmartSystem';
-import StartupGuide from './components/StartupGuide';
+import StartupGuide from './components/StartupGuide/StartupGuide';
 import StoreInfo from './components/StoreInfo';
 import ContactPage from './components/Contact';
 import Footer from './components/Footer';
