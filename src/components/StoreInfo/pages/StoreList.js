@@ -144,8 +144,8 @@ const StoreList = () => {
         </section>
 
         {/* ✨ 3. 배경이 전체 너비를 차지하는 새로운 섹션 */}
-        <section className="bg-blue-50">
-          {/* 내부 텍스트는 가독성을 위해 다시 중앙 컨테이너 안에 배치합니다. */}
+        <section className="w-[100vw] relative left-[50%] right-[50%] ml-[-50vw] mr-[-50vw] bg-blue-50">
+        {/* 내부 텍스트는 가독성을 위해 다시 중앙 컨테이너 안에 배치합니다. */}
           <div className="max-w-7xl mx-auto py-12 px-4 md:px-8 text-center">
             <p className="text-lg">
               4년간 쌓아온 누적 매장 수는 숫자를 넘어 신뢰의 지표입니다.
