@@ -5,6 +5,7 @@ module.exports = {
   ],
   theme: {
     screens: {
+      'xs': '375px',
       'sm': '576px',
       'md': '768px',
       'lg': '1024px',
@@ -31,6 +32,8 @@ module.exports = {
     extend: {
       fontFamily: {
         'pretendard': ['Pretendard', 'sans-serif'],
+        'KoPubWorldBatang': ['KoPubWorldBatang', 'serif'],
+        'KoPubWorldDotum': ['KoPubWorldDotum', 'sans-serif'],
       },
       colors: {
         // 프로젝트 컬러 팔레트
