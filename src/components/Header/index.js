@@ -19,6 +19,7 @@ const Header = ({ onPageChange, currentPage }) => {
       onPageChange(page);
       setIsMenuOpen(false);
       setExpandedSubmenu(null);
+      setHoveredMenu(null);
     };
 
     const handleSubmenuClick = (submenu) => {
@@ -66,7 +67,7 @@ const Header = ({ onPageChange, currentPage }) => {
   
     return (
       <header 
-        className="bg-[#1a237e] w-screen h-[100px] relative"
+        className="bg-[#1a237e] w-screen h-[100px] relative z-50"
         onMouseLeave={() => setHoveredMenu(null)}
       >
         <div className="w-full px-4 h-full flex items-center justify-between">
@@ -108,7 +109,7 @@ const Header = ({ onPageChange, currentPage }) => {
                           />
                           {/* 서브메뉴 */}
                           <div 
-                            className="absolute top-[calc(100%+32px)] -left-6 bg-[#1a237e] shadow-lg z-50 min-w-[150px] border border-white border-t-1 rounded-b-lg"
+                            className="absolute top-[calc(100%+32px)] -left-6 bg-[#1a237e] shadow-lg z-[9999] min-w-[150px] border border-white border-t-1 rounded-b-lg"
                           >
                             {item.submenu.map((subItem) => (
                               <button
