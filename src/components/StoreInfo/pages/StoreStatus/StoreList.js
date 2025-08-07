@@ -153,8 +153,8 @@ const StoreList = () => {
             </p>
           </div>
         </section>
-        {/* ✨ 새로 추가된 전국 매장 현황 섹션 */}
-        <section className="py-20 bg-gray-50">
+        {/* ✨ 새로 추가된 전국 매장 현황 섹션 */} 
+        <section className="py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-hero-title font-bold text-center mb-6">전국 매장 현황</h2>
 
