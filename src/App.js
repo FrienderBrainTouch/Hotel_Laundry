@@ -46,25 +46,10 @@ function App() {
       case 'startup-guide':
         return <StartupGuide />;
       case 'store-info':
-        return <StoreInfo />;
       case 'store-status':
-        return (
-          <div className="container mx-auto px-4 py-8">
-            <h1 className="text-3xl font-bold mb-6">전국 매장 현황</h1>
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <p className="text-gray-600">전국 매장 현황 내용이 들어갈 자리입니다.</p>
-            </div>
-          </div>
-        );
+        return <StoreInfo mode="list" onPageChange={setCurrentPage} />;
       case 'find-store':
-        return (
-          <div className="container mx-auto px-4 py-8">
-            <h1 className="text-3xl font-bold mb-6">매장 찾기</h1>
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <p className="text-gray-600">매장 찾기 내용이 들어갈 자리입니다.</p>
-            </div>
-          </div>
-        );
+        return <StoreInfo mode="finder" onPageChange={setCurrentPage} />;
       case 'contact':
         return <ContactPage />;
       default:
