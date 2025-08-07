@@ -1,6 +1,6 @@
 import React from 'react';
-import Next from './StoreListImage/next.svg';
-import ToNext from './StoreListImage/tonext.svg';
+import Next from '../StoreStatus/StoreListImage/next.svg';
+import ToNext from '../StoreStatus/StoreListImage/tonext.svg';
 
 const ListPanel = ({ stores, totalPages, currentPage, handlePageChange }) => {
   return (

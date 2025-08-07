@@ -1,7 +1,7 @@
 // components/StoreInfo/index.js
 import React from 'react';
-import StoreList from './pages/StoreList';
-import StoreFinder from './pages/StoreFinder';
+import StoreList from './pages/StoreStatus/StoreList'; // 경로 수정
+import StoreFinder from './pages/FindStore/StoreFinder'; // 경로 수정
 import Breadcrumb from './common/Breadcrumb';
 
 const StoreInfo = ({ mode = 'list' , onPageChange}) => {

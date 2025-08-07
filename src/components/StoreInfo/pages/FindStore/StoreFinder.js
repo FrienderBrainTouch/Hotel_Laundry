@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import SearchIcon from './StoreFinderImage/search_icon.svg';
 import MapPanel from './MapPanel';
-import ListPanel from './ListPanel';
+import ListPanel from './ListPanel'; 
 
 // 동일한 더미 데이터 사용
 const dummyStores = [
@@ -84,8 +84,13 @@ const StoreFinder = () => {
     <div className="flex flex-col min-h-screen w-full">
       {/* 검색바 */}
       <div className="w-full border-b">
-        <div className="max-w-xl mx-auto p-4">
-        <h2>매장 찾기</h2>
+        <div className="max-w-xl mx-auto p-4 text-center">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-2">
+            매장 찾기
+          </h2>
+          <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-600 mb-4">
+            찾으시고자 하는 지역을 검색해주세요.
+          </h3>
           <form onSubmit={handleSearch} className="relative">
             <input
               type="text"
