@@ -45,7 +45,7 @@ const BeyondLaundry = () => {
       <div className="px-4 w-full">
         {/* Title */}
         <h2 
-          className="text-[36px] font-[500] text-[#1C262B] mb-4 text-center"
+          className="2xl:text-[36px] font-[500] text-[#1C262B] mb-4 text-center"
           style={{ fontFamily: 'KoPubWorldBatang, serif' }}
         >
           Beyond Laundry
@@ -53,7 +53,7 @@ const BeyondLaundry = () => {
         
         {/* Subtitle */}
         <p 
-          className="text-[28px] font-[500] text-[#1C262B] mb-12 text-center"
+          className="2xl:text-[28px] font-[500] text-[#1C262B] mb-12 text-center"
           style={{ fontFamily: 'KoPubWorldDotum, serif' }}
         >
           기술과 경헙이 결합된 호텔런드리만의 프리미엄 세탁 시스템을 소개합니다.
@@ -62,7 +62,7 @@ const BeyondLaundry = () => {
         {/* 3x3 Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {gridItems.map((item, index) => (
-            <div key={index} className="relative overflow-hidden rounded-[20px] h-[23rem]">
+            <div key={index} className="relative overflow-hidden rounded-[20px] 2xl:h-[23rem]">
               {/* Background Image */}
               <div 
                 className="w-full h-full bg-cover bg-center"
@@ -73,20 +73,20 @@ const BeyondLaundry = () => {
               
               {/* Content Box */}
               <div 
-                className="absolute bottom-0 left-0 right-0 p-10"
+                className="absolute bottom-0 left-0 right-0 2xl:p-10"
                 style={{
                   borderRadius: '0 0 20px 20px',
                   background: '#102254'
                 }}
               >
                 <h3 
-                  className="text-[26px] font-[700] text-white mb-2 text-left"
+                  className="2xl:text-[26px] font-[700] text-white mb-2 text-left"
                   style={{ fontFamily: 'KoPubWorldDotum, serif' }}
                 >
                   {item.title}
                 </h3>
                 <p 
-                  className="text-[22px] font-[300] text-white text-left whitespace-pre-line"
+                  className="2xl:text-[22px] font-[300] text-white text-left whitespace-pre-line"
                   style={{ fontFamily: 'KoPubWorldDotum, serif' }}
                 >
                   {item.subtitle}

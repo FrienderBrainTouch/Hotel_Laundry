@@ -84,7 +84,7 @@ function App() {
   };
 
   return (
-    <div className="w-full min-h-screen m-0 p-0 overflow-x-hidden">
+    <div className="w-full min-h-screen m-0 p-0 overflow-hidden">
       <Header onPageChange={setCurrentPage} currentPage={currentPage} />
       <main className="bg-white min-h-screen">
         {renderPage()}

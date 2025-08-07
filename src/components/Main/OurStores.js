@@ -6,7 +6,7 @@ const OurStores = () => {
       <div className="w-full">
         {/* Title */}
         <h2 
-          className="text-[40px] font-[500] text-[#1C262B] mb-4 text-center"
+          className="2xl:text-[40px] font-[500] text-[#1C262B] mb-4 text-center"
           style={{ fontFamily: 'KoPubWorldBatang, serif' }}
         >
           Our Stores
@@ -14,7 +14,7 @@ const OurStores = () => {
         
         {/* Subtitle */}
         <p 
-          className="text-[32px] font-[500] text-[#1C262B] mb-12 text-center"
+          className="2xl:text-[32px] font-[500] text-[#1C262B] mb-12 text-center"
           style={{ fontFamily: 'KoPubWorldDotum, serif' }}
         >
           전국 곳곳의 호텔런드리 매장을 직접 확인해보세요.
@@ -27,7 +27,7 @@ const OurStores = () => {
               <img 
                 src="/images/main-Images/main-ourstores.png" 
                 alt={`Store ${index + 1}`}
-                className="w-full h-auto max-w-[465px] max-h-[465px] object-cover mx-auto"
+                className="w-full h-auto 2xl:max-w-[465px] 2xl:max-h-[465px] object-cover mx-auto"
               />
             </div>
           ))}

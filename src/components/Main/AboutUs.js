@@ -29,10 +29,10 @@ const AboutUs = () => {
       <div className="w-full">
         {/* Title and Subtitle */}
         <div className="text-center mb-16">
-          <h2 className="text-[36px] font-[500] text-[#1C262B] mb-6" style={{ fontFamily: 'KoPubWorldBatang' }}>
+          <h2 className="2xl:text-[36px] font-[500] text-[#1C262B] mb-6" style={{ fontFamily: 'KoPubWorldBatang' }}>
             About Us
           </h2>
-          <p className="text-[28px] font-[500] text-[#1C262B] mx-auto leading-relaxed" style={{ fontFamily: 'KoPubWorldDotum' }}>
+          <p className="2xl:text-[28px] font-[500] text-[#1C262B] mx-auto leading-relaxed" style={{ fontFamily: 'KoPubWorldDotum' }}>
             호텔런드리의 창업은 생계를 위한 고된 노동이나 반복적인 일상이 아닌,<br /> 시스템과 자동화 설비를 통해 노동력 없이도 안정적으로 운영되는 안전한 창업 방식입니다.
           </p>
         </div>
@@ -48,13 +48,13 @@ const AboutUs = () => {
                       <img 
                         src={`/images/main-Images/${feature.icon}`} 
                         alt={feature.title}
-                        className="w-16 h-16 mx-auto"
+                        className="2xl:w-16 2xl:h-16 mx-auto"
                       />
                     </div>
-                    <h3 className="text-[26px] font-bold text-[#1C262B] mb-4" style={{ fontFamily: 'KoPubWorldDotum' }}>
+                    <h3 className="2xl:text-[26px] font-bold text-[#1C262B] mb-4" style={{ fontFamily: 'KoPubWorldDotum' }}>
                       {feature.title}
                     </h3>
-                    <p className="text-[22px] font-medium text-[#1C262B] leading-relaxed" style={{ fontFamily: 'KoPubWorldDotum' }} dangerouslySetInnerHTML={{ __html: feature.subtitle }}>
+                    <p className="2xl:text-[22px] font-medium text-[#1C262B] leading-relaxed" style={{ fontFamily: 'KoPubWorldDotum' }} dangerouslySetInnerHTML={{ __html: feature.subtitle }}>
                     </p>
                   </div>
                   

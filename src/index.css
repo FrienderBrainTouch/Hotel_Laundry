@@ -117,27 +117,27 @@ code {
 
 /* md (768px~) */
 @media (min-width: 768px) {
-  .hero-title { font-size: calc(1.5rem + 1.2vw); }
-  .hero-subtitle { font-size: calc(1.25rem + 1vw); }
-}
-
-/* lg (1024px~) */
-@media (min-width: 1024px) {
-  .hero-title { font-size: calc(1.75rem + 1.5vw); }
-  .hero-subtitle { font-size: calc(1.5rem + 1vw); }
-}
-
-/* xl (1440px~) */
-@media (min-width: 1440px) {
-  .hero-title { font-size: calc(2rem + 2vw); }
-  .hero-subtitle { font-size: calc(1.75rem + 1.25vw); }
-}
-
-/* 2xl (1920px~) */
-@media (min-width: 1920px) {
-  .hero-title { font-size: calc(2.5rem + 2vw); }
-  .hero-subtitle { font-size: calc(2rem + 1.5vw); }
-}
+  .hero-title { font-size: clamp(1rem, calc(1.5rem + 1.2vw), 3rem); }
+  .hero-subtitle { font-size: clamp(1rem, calc(1.25rem + 1vw), 2.5rem); }
+ }
+ 
+ /* lg (1024px~) */
+ @media (min-width: 1024px) {
+  .hero-title { font-size: clamp(1rem, calc(1.75rem + 1.5vw), 4rem); }
+  .hero-subtitle { font-size: clamp(1rem, calc(1.5rem + 1vw), 3rem); }
+ }
+ 
+ /* xl (1440px~) */
+ @media (min-width: 1440px) {
+  .hero-title { font-size: clamp(1rem, calc(2rem + 2vw), 5rem); }
+  .hero-subtitle { font-size: clamp(1rem, calc(1.75rem + 1.25vw), 3.5rem); }
+ }
+ 
+ /* 2xl (1920px~) */
+ @media (min-width: 1920px) {
+  .hero-title { font-size: clamp(1rem, calc(2.5rem + 2vw), 6rem); }
+  .hero-subtitle { font-size: clamp(1rem, calc(2rem + 1.5vw), 4rem); }
+ }
 
 /* 기본 텍스트 반응형 */
 /* 모바일 기본 (≤575px) */

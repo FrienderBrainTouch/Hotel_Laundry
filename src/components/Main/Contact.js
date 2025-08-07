@@ -19,12 +19,12 @@ const Contact = () => {
         {/* 텍스트 콘텐츠 */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4">
         <h2 
-          className="mb-6 font-['KoPubWorldBatang'] text-[40px] font-normal font-[500] text-[#FFF]"
+          className="mb-6 font-['KoPubWorldBatang'] 2xl:text-[40px] font-normal font-[500] text-[#FFF]"
         >
           Ready to Start?
         </h2>
         <p 
-          className="mb-8 font-['KoPubWorldDotum'] text-[32px] font-normal font-[500] leading-relaxed"
+          className="mb-8 font-['KoPubWorldDotum'] 2xl:text-[32px] font-normal font-[500] leading-relaxed"
         >
           호텔런드리 창업이 궁금하시다면, 지금 바로 상담을 신청해보세요.
         </p>

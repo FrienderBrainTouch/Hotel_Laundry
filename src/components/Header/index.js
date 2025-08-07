@@ -57,7 +57,7 @@ const Header = ({ onPageChange, currentPage }) => {
     ];
 
     const mobileNavClasses = isMobile
-      ? `fixed top-[101px] w-full h-[calc(100vh-101px)] bg-[#1a237e] transition-all duration-300 ease-in-out ${isMenuOpen ? 'right-0' : '-right-full'}`
+      ? `fixed top-[101px] w-full h-[calc(100vh-101px)] bg-[#1a237e] transition-all duration-300 ease-in-out z-50 border-t border-white ${isMenuOpen ? 'right-0' : '-right-full'}`
       : '';
 
     const navListClasses = isMobile
@@ -96,7 +96,7 @@ const Header = ({ onPageChange, currentPage }) => {
                     >
                       <button 
                         onClick={() => handleNavClick(item.id)}
-                        className={`text-white font-pretendard text-[18px] sm:text-[20px] md:text-[22px] lg:text-header transition-all duration-200 ${hoveredMenu === item.id ? 'font-bold opacity-100' : 'opacity-80'}`}
+                        className={`text-white font-pretendard text-[18px] lg:text-[18px] xl:text-[20px] 2xl:text-[24px] transition-all duration-200 ${hoveredMenu === item.id ? 'font-bold opacity-100' : 'opacity-80'}`}
                       >
                         {item.label}
                       </button>
@@ -139,7 +139,7 @@ const Header = ({ onPageChange, currentPage }) => {
                       <div className="w-full">
                         <button 
                           onClick={() => item.hasSubmenu ? handleSubmenuClick(item.id) : handleNavClick(item.id)}
-                          className={`text-white font-pretendard text-[18px] sm:text-[20px] md:text-[22px] lg:text-header transition-all duration-200 flex items-center justify-between w-full ${currentPage === item.id ? 'opacity-100' : 'opacity-80'}`}
+                          className={`text-white font-pretendard text-[18px] lg:text-[18px] xl:text-[20px] 2xl:text-[24px] transition-all duration-200 flex items-center justify-between w-full ${currentPage === item.id ? 'opacity-100' : 'opacity-80'}`}
                         >
                           <span>{item.label}</span>
                           {item.hasSubmenu && (
@@ -179,7 +179,7 @@ const Header = ({ onPageChange, currentPage }) => {
                 px-[12px] py-[6px] sm:px-[14px] sm:py-[7px] md:px-[16px] md:py-[8px] lg:px-[18px] lg:py-[9px]
                 bg-white rounded-[7px] 
                 text-[#1a237e] font-pretendard 
-                text-[16px] sm:text-[17px] md:text-[18px] lg:text-header
+                text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] 2xl:text-[28px]
                 font-semibold leading-[150%] 
                 whitespace-nowrap 
                 transition-all duration-200 
@@ -214,7 +214,7 @@ const Header = ({ onPageChange, currentPage }) => {
                   <img 
                     src="/images/hamburger.svg" 
                     alt="메뉴" 
-                    className="w-[24px] h-[16px] sm:w-[28px] sm:h-[18px] md:w-[34px] md:h-[22px]" 
+                    className="w-[19px] h-[13px] sm:w-[19px] sm:h-[13px] md:w-[34px] md:h-[22px]" 
                   />
                 )}
               </button>

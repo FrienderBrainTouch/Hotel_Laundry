@@ -29,7 +29,7 @@ const StepByStep = () => {
       <div className="px-4 w-full">
         {/* Title */}
         <h2 
-          className="text-[40px] font-[500] text-[#1C262B] mb-4 text-center"
+          className="2xl:text-[40px] font-[500] text-[#1C262B] mb-4 text-center"
           style={{ fontFamily: 'KoPubWorldBatang, serif' }}
         >
           Step by Step, with Full Support
@@ -37,7 +37,7 @@ const StepByStep = () => {
         
         {/* Subtitle */}
         <p 
-          className="text-[32px] font-[500] text-[#1C262B] mb-12 text-center"
+          className="2xl:text-[32px] font-[500] text-[#1C262B] mb-12 text-center"
           style={{ fontFamily: 'KoPubWorldDotum, serif' }}
         >
           상담부터 오픈까지, 본사가 전 과정을 함께합니다.
@@ -60,13 +60,13 @@ const StepByStep = () => {
               <div className="2xl:w-[700px] xl:w-[650px] lg:w-[600px] md:w-[550px] sm:w-[500px] xs:w-[450px] 2xl:h-[300px] xl:h-[280px] lg:h-[260px] md:h-[240px] sm:h-[220px] xs:h-[200px] flex flex-col justify-end 2xl:p-8 xl:p-7 lg:p-6 md:p-5 sm:p-4 xs:p-3" style={{ backgroundColor: '#1022540D' }}>
                 <div className={`${index % 2 === 0 ? 'text-left' : 'text-right'}`}>
                   <h3 
-                    className="text-[28px] font-[700] text-[#1C262B] mb-4"
+                    className="2xl:text-[28px] font-[700] text-[#1C262B] mb-4"
                     style={{ fontFamily: 'KoPubWorldDotum, serif' }}
                   >
                     {step.title}
                   </h3>
                   <p 
-                    className="text-[24px] font-[500] text-[#1C262B] leading-relaxed"
+                    className="2xl:text-[24px] font-[500] text-[#1C262B] leading-relaxed"
                     style={{ fontFamily: 'KoPubWorldDotum, serif' }}
                   >
                     {step.subtitle}
