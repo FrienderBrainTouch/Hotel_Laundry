@@ -1,7 +1,7 @@
 // src/components/StoreInfo/pages/StoreList.js
 import React, { useState } from 'react';
 import section1MainImage from './StoreListImage/section1_main.svg';
-import ListChartImage from './StoreListImage/ListChart.svg';
+import ListChartImage from './StoreListImage/ListChartImage.svg';
 import ListMap from './StoreListImage/ListMap.svg';
 import Next from './StoreListImage/next.svg';
 import ToNext from './StoreListImage/tonext.svg';
@@ -98,7 +98,7 @@ const StoreList = () => {
 
     return (
       // 전체 컴포넌트를 감싸는 div는 유지합니다.
-      <div>
+      <div className="font-pretendard">
         {/* 상단 콘텐츠 섹션 */}
         <section className="py-16">
           {/* 콘텐츠를 중앙에 모아주는 컨테이너 */}
@@ -112,10 +112,10 @@ const StoreList = () => {
             </div>
             
             {/* ✨ 1. 반응형 글자 크기 적용 */}
-            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-4">
+            <h2 className="text-hero-title font-bold text-center mb-4">
               지금 이 순간에도, 전국에서 운영되고 있습니다
             </h2>
-            <p className="text-center text-gray-600 mb-12">
+            <p className="text-center text-gray-600 mb-12 text-24">
               호텔런드리는 서울, 경기, 수도권을 비롯해 전국 각지에서 지속적으로 매장을 오픈하여 무인 세탁 시장을 선도하고 있습니다.
               <br />
               전국 매장이 꾸준히 늘어나는 동시에, <span className="font-semibold">폐점율 0%</span>의 기록을 유지하고 있습니다.
@@ -124,13 +124,12 @@ const StoreList = () => {
             <div className="grid md:grid-cols-2 gap-8">
               {/* ✨ 2. 두 컨테이너에 동일한 스타일을 적용하여 높이를 맞춤 */}
               <div className="bg-white p-6 rounded-lg shadow-lg">
-                <img 
-                  src={ListChartImage} 
-                  alt="연도별 매장 현황 그래프" 
-                  className="w-full h-auto"
+                <img                   
+                    src={ListChartImage} 
+                    alt="전국 매장 현황 이미지" 
+                    className="w-full h-auto"
                 />
               </div>
-  
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <img                   
                     src={ListMap} 
@@ -147,7 +146,7 @@ const StoreList = () => {
         <section className="w-[100vw] relative left-[50%] right-[50%] ml-[-50vw] mr-[-50vw] bg-blue-50">
         {/* 내부 텍스트는 가독성을 위해 다시 중앙 컨테이너 안에 배치합니다. */}
           <div className="max-w-7xl mx-auto py-12 px-4 md:px-8 text-center">
-            <p className="text-lg">
+            <p className="text-section-title">
               4년간 쌓아온 누적 매장 수는 숫자를 넘어 신뢰의 지표입니다.
               <br />
               매년 지속적으로 늘어난 결과는 고객과 창업자가 모두 증명하고 있습니다.
@@ -157,15 +156,15 @@ const StoreList = () => {
         {/* ✨ 새로 추가된 전국 매장 현황 섹션 */}
         <section className="py-20 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-center mb-6">전국 매장 현황</h2>
+            <h2 className="text-hero-title font-bold text-center mb-6">전국 매장 현황</h2>
 
             {/* 버튼을 누르면 activeFilter 상태값이 변경되고, 컴포넌트가 리렌더링됩니다. */}
             <div className="flex justify-center flex-wrap gap-4 mb-12">
-              <button onClick={() => handleFilterChange('전국')} className={`px-6 py-2 rounded-full font-semibold ${activeFilter === '전국' ? 'bg-gray-800 text-white' : 'bg-white text-gray-800 border'}`}>전국</button>
-              <button onClick={() => handleFilterChange('서울')} className={`px-6 py-2 rounded-full font-semibold ${activeFilter === '서울' ? 'bg-gray-800 text-white' : 'bg-white text-gray-800 border'}`}>서울</button>
-              <button onClick={() => handleFilterChange('경기')} className={`px-6 py-2 rounded-full font-semibold ${activeFilter === '경기' ? 'bg-gray-800 text-white' : 'bg-white text-gray-800 border'}`}>경기</button>
-              <button onClick={() => handleFilterChange('인천')} className={`px-6 py-2 rounded-full font-semibold ${activeFilter === '인천' ? 'bg-gray-800 text-white' : 'bg-white text-gray-800 border'}`}>인천</button>              
-              <button onClick={() => handleFilterChange('그 외')} className={`px-6 py-2 rounded-full font-semibold ${activeFilter === '그 외' ? 'bg-gray-800 text-white' : 'bg-white text-gray-800 border'}`}>그 외</button>              
+              <button onClick={() => handleFilterChange('전국')} className={`px-6 py-2 rounded-full font-semibold text-24 ${activeFilter === '전국' ? 'bg-gray-800 text-white' : 'bg-white text-gray-800 border'}`}>전국</button>
+              <button onClick={() => handleFilterChange('서울')} className={`px-6 py-2 rounded-full font-semibold text-24 ${activeFilter === '서울' ? 'bg-gray-800 text-white' : 'bg-white text-gray-800 border'}`}>서울</button>
+              <button onClick={() => handleFilterChange('경기')} className={`px-6 py-2 rounded-full font-semibold text-24 ${activeFilter === '경기' ? 'bg-gray-800 text-white' : 'bg-white text-gray-800 border'}`}>경기</button>
+              <button onClick={() => handleFilterChange('인천')} className={`px-6 py-2 rounded-full font-semibold text-24 ${activeFilter === '인천' ? 'bg-gray-800 text-white' : 'bg-white text-gray-800 border'}`}>인천</button>              
+              <button onClick={() => handleFilterChange('그 외')} className={`px-6 py-2 rounded-full font-semibold text-24 ${activeFilter === '그 외' ? 'bg-gray-800 text-white' : 'bg-white text-gray-800 border'}`}>그 외</button>              
             </div>
 
             {/* 필터링된 결과인 'filteredStores'를 화면에 그립니다. */}
@@ -188,7 +187,7 @@ const StoreList = () => {
                 <button
                   key={index + 1}
                   onClick={() => handlePageChange(index + 1)}
-                  className={`w-8 h-8 rounded ${currentPage === index + 1 ? 'text-white bg-gray-800' : 'text-gray-700 hover:bg-gray-200'}`}
+                  className={`w-8 h-8 rounded text-24 ${currentPage === index + 1 ? 'text-white bg-gray-800' : 'text-gray-700 hover:bg-gray-200'}`}
                 >
                   {index + 1}
                 </button>
