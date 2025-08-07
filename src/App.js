@@ -22,25 +22,9 @@ function App() {
   const renderPage = () => {
     switch (currentPage) {
       case 'hotel-laundry':
-        return <HotelLaundry />;
       case 'company-intro':
-        return (
-          <div className="container mx-auto px-4 py-8">
-            <h1 className="text-3xl font-bold mb-6">회사 소개</h1>
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <p className="text-gray-600">회사 소개 내용이 들어갈 자리입니다.</p>
-            </div>
-          </div>
-        );
       case 'history':
-        return (
-          <div className="container mx-auto px-4 py-8">
-            <h1 className="text-3xl font-bold mb-6">연혁</h1>
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <p className="text-gray-600">연혁 내용이 들어갈 자리입니다.</p>
-            </div>
-          </div>
-        );
+        return <HotelLaundry onPageChange={setCurrentPage} currentPage={currentPage} />;
       case 'smart-system':
         return <SmartSystem />;
       case 'startup-guide':
