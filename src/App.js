@@ -28,7 +28,7 @@ function App() {
       case 'smart-system':
         return <SmartSystem />;
       case 'startup-guide':
-        return <StartupGuide />;
+        return <StartupGuide onPageChange={setCurrentPage} />;
       case 'store-info':
       case 'store-status':
         return <StoreInfo mode="list" onPageChange={setCurrentPage} />;
