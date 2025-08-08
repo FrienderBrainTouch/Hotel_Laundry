@@ -16,18 +16,16 @@ const Section1 = () => {
             </div>
           </div>
 
-          {/* 메인 이미지 */}
-          <div className="mb-8 sm:mb-10">
-            <img 
-              src={section1MainImage} 
-              alt="호텔런드리 창업 안내" 
-              className="w-full max-w-[1400px] h-[320px] sm:h-[340px] md:h-[360px] lg:h-[380px] xl:h-[400px] object-contain rounded-lg mx-auto"
-            />
-          </div>
+           <div className="w-full max-w-[1400px] mx-auto">
+              <img 
+                src={section1MainImage} 
+                alt="호텔런드리 창업 안내" 
+                className="w-full h-auto object-contain rounded-lg"/>
+            </div>
 
           {/* 제목 */}
-          <div className="text-center mb-8 sm:mb-10">
-            <h1 
+          <div className="text-center mt-6 sm:mt-8 mb-8 sm:mb-10">
+          <h1 
               className="text-2xl sm:text-3xl md:text-[40px] font-bold leading-normal mb-6 sm:mb-8 md:mb-10"
               style={{
                 color: '#1C262B',

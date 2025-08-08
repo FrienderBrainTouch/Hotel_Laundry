@@ -68,30 +68,40 @@ const Section1 = ({ onPageChange }) => {
             </div>
           </div>
 
-          {/* 메인 이미지 */}
-          <div className="mb-10">
-            <img 
-              src={section1MainImage} 
-              alt="호텔런드리 매장 현황" 
-              className="w-full max-w-[1400px] h-[400px] object-cover rounded-lg mx-auto"
-            />
-          </div>
+              {/* 메인 이미지 */}
+              <div className="mb-10">
+                <div className="w-full max-w-[1400px] mx-auto">
+                  <img 
+                    src={section1MainImage}
+                    alt="호텔런드리 매장 현황"
+                    className="w-full h-auto object-cover rounded-lg"
+                  />
+                </div>
+              </div>
 
-          {/* 제목 */}
-          <div className="text-center mb-10">
-            <h1 className="font-KoPubWorldDotum text-brand-dark text-[40px] font-bold leading-normal mb-10">
-              지금 이 순간에도, 전국에서 운영되고 있습니다
-            </h1>
-            {/* 부제목 */}
-            <div className="text-center mx-auto font-KoPubWorldDotum text-brand-dark text-24 font-light tracking-[-0.48px]">
-              <p className="mb-4">
-                호텔런드리는 서울, 경기, 수도권을 비롯해 전국 각지에서 지속적으로 매장을 오픈하여 무인 세탁 시장을 선도하고 있습니다.
-              </p>
-              <p>
-                전국 매장이 꾸준히 늘어나는 동시에, <span className="font-semibold">폐점율 0%</span>의 기록을 유지하고 있습니다.
-              </p>
-            </div>
-          </div>
+              {/* 제목 */}
+              <div className="text-center mb-10">
+              <h1 
+              className="text-2xl sm:text-3xl md:text-[40px] font-bold leading-normal mb-6 sm:mb-8 md:mb-10"
+              style={{
+                color: '#1C262B',
+                fontFamily: 'KoPubWorldDotum, sans-serif',
+                fontWeight: 700,
+                lineHeight: 'normal'
+              }}
+              >
+                지금 이 순간에도, 전국에서 운영되고 있습니다.
+              </h1>
+                {/* 부제목 */}
+                <div className="text-center mx-auto font-KoPubWorldDotum text-brand-dark text-24 font-light tracking-[-0.48px]">
+                  <p className="mb-4">
+                    호텔런드리는 서울, 경기, 수도권을 비롯해 전국 각지에서 지속적으로 매장을 오픈하여 무인 세탁 시장을 선도하고 있습니다.
+                  </p>
+                  <p>
+                    전국 매장이 꾸준히 늘어나는 동시에, <span className="font-semibold">폐점율 0%</span>의 기록을 유지하고 있습니다.
+                  </p>
+                </div>
+              </div>
 
           {/* 차트와 지도 */}
           <div className="grid md:grid-cols-2 gap-8">
