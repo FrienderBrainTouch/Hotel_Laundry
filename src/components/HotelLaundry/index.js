@@ -7,12 +7,6 @@ const HotelLaundry = ({ onPageChange, currentPage }) => {
     <div className="hotel-laundry">
       {currentPage === 'company-intro' && <CompanyIntro onPageChange={onPageChange} />}
       {currentPage === 'history' && <History onPageChange={onPageChange} />}
-      {currentPage === 'hotel-laundry' && (
-        <>
-          <CompanyIntro onPageChange={onPageChange} />
-          <History onPageChange={onPageChange} />
-        </>
-      )}
     </div>
   );
 };

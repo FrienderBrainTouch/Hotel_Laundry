@@ -21,7 +21,6 @@ function App() {
 
   const renderPage = () => {
     switch (currentPage) {
-      case 'hotel-laundry':
       case 'company-intro':
       case 'history':
         return <HotelLaundry onPageChange={setCurrentPage} currentPage={currentPage} />;

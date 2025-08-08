@@ -25,7 +25,7 @@ const Section3 = () => {
     {
       id: 'marketing',
       title: '마케팅팀',
-      subtitle: '가맹 오픈 마케팅, SNS 홍보,\n운영 전략 지원',
+      subtitle: '가맹 오픈 마케팅,\nSNS 홍보, 운영 전략 지원',
       icon: '/images/CompanyInfo/Company-infra-4.svg'
     }
   ];
@@ -41,29 +41,29 @@ const Section3 = () => {
     smart: {
       title: '누구나 쉽게 운영할 수 있는 무인 세탁 시스템',
       content: [
-        '호텔런드리는 IoT 기반 장비 제어, 키오스크 결제, 모바일 앱 예약 기능\n등 전 과정을 자동화한 시스템으로 운영의 부담을 최소화합니다.',
-        '인건비 없이도 안정적인 매장 운영이 가능하며, 점주는 원격으로 상태를 관리하고\n고객은 대기 없이 세탁기 이용이 가능합니다.'
+        '호텔런드리는 IoT 기반 장비 제어, 키오스크 결제, 모바일 앱 예약 기능 등\n전 과정을 자동화한 시스템으로 운영의 부담을 최소화합니다.',
+        '인건비 없이도 안정적인 매장 운영이 가능하며, 점주는 원격으로 상태를 관리하고\n고객은 대기 없이 세탁을 경험할 수 있습니다.'
       ]
     },
     space: {
-      title: '편안한 공간에서의 세탁 경험',
+      title: '호텔처럼 머물고 싶은 세탁 공간',
       content: [
-        '호텔런드리는 단순한 세탁 공간을 넘어 고객이 편안하게\n머물 수 있는 공간으로 설계되었습니다.',
-        '깔끔한 인테리어와 편의시설을 통해 세탁 시간을 즐거운 경험으로 만들어드립니다.'
+        '단순한 세탁소가 아닌, 고객이 머무르고 싶은 공간을 설계합니다.',
+        '쾌적한 조명, 공기질, 향까지 고려한 공간은 브랜드의 얼굴이자 고객 경험의 핵심입니다.\n매장에 들어서는 순간부터 퇴장할 때까지, 감성적인 공간이 브랜드의 프리미엄 가치를\n완성합니다.'
       ]
     },
     brand: {
-      title: '자체 기술로 구축한 독립적인 브랜드',
+      title: '모든 기술을 직접 설계하는 독립형 브랜드',
       content: [
-        '호텔런드리는 외부 의존도 없이 자체 기술로 모든 시스템을 구축한 독립적인 브랜드입니다.',
-        '장비부터 앱까지 모든 것을 직접 개발하여 안정적이고 신뢰할 수 있는 서비스를 제공합니다.'
+        '호텔런드리는 외부 시스템에 의존하지 않고, 자체 개발한 세탁기 제어 시스템, 앱,\n키오스크, 마케팅 플랫폼까지 모든 운영 인프라를 직접 설계하고 보유하고 있습니다.',
+        '기술의 자립성이 곧 운영의 신뢰로 이어지며, 브랜드의 지속 가능성을 뒷받침합니다.'
       ]
     },
     trust: {
-      title: '신뢰할 수 있는 서비스 제공',
+      title: '고객과 창업자 모두에게 신뢰받는 브랜드',
       content: [
-        '호텔런드리는 투명한 운영과 정확한 서비스로 고객의 신뢰를 얻고 있습니다.',
-        '24시간 모니터링 시스템과 정기적인 점검을 통해 안전하고 깨끗한 세탁 서비스를 보장합니다.'
+        '반복 이용률이 높은 고객, 오픈 후 안정적인 수익을 경험하는 점주,\n그리고 빠른 대응과 끊김 없는 운영 지원.',
+        '호텔런드리는 서비스 하나하나에 "신뢰"를 가장 중요한 가치로 둡니다.\n믿고 찾는 브랜드가 되는 것, 그것이 호텔런드리의 핵심 철학입니다.'
       ]
     }
   };
@@ -81,26 +81,26 @@ const Section3 = () => {
               장비부터 앱, 마케팅까지 직접 만드는 원스톱 체계
             </p>
             
-            <div className="flex justify-center gap-2 sm:gap-3 md:gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 max-w-6xl mx-auto">
               {teams.map((team) => (
                 <div
                   key={team.id}
-                  className="flex flex-col justify-center items-center gap-3 sm:gap-4 w-[280px] sm:w-[300px] md:w-[335px] h-[250px] sm:h-[280px] md:h-[300px] rounded-lg border border-gray-400 bg-white"
+                  className="flex flex-col justify-center items-center gap-2 sm:gap-3 p-3 sm:p-4 h-[200px] sm:h-[220px] lg:h-[250px] rounded-lg border border-gray-400 bg-white"
                   style={{
                     border: '0.5px solid #666',
                     borderRadius: '8px',
                     background: '#FFF'
                   }}
                 >
-                  <div className="w-[60px] h-[60px] sm:w-[70px] sm:h-[70px] md:w-[83px] md:h-[83px] flex-shrink-0">
+                  <div className="w-[50px] h-[50px] sm:w-[60px] sm:h-[60px] lg:w-[70px] lg:h-[70px] flex-shrink-0">
                     <img src={team.icon} alt={team.title} className="w-full h-full" />
                   </div>
                   <h3 
-                    className="text-lg sm:text-xl md:text-2xl font-bold text-center px-2"
+                    className="text-base sm:text-lg lg:text-xl font-bold text-center px-2"
                     style={{
                       color: '#1C262B',
                       fontFamily: 'KoPubWorldDotum',
-                      fontSize: 'clamp(18px, 2.5vw, 28px)',
+                      fontSize: 'clamp(16px, 2.5vw, 24px)',
                       fontStyle: 'normal',
                       fontWeight: '700',
                       lineHeight: 'normal'
@@ -109,12 +109,12 @@ const Section3 = () => {
                     {team.title}
                   </h3>
                   <p 
-                    className="text-sm sm:text-base md:text-lg text-center px-2"
+                    className="text-xs sm:text-sm lg:text-base text-center px-2"
                     style={{
                       color: '#1C262B',
                       textAlign: 'center',
                       fontFamily: 'KoPubWorldDotum',
-                      fontSize: 'clamp(14px, 2vw, 20px)',
+                      fontSize: 'clamp(12px, 2vw, 18px)',
                       fontStyle: 'normal',
                       fontWeight: '500',
                       lineHeight: 'normal',
@@ -129,43 +129,69 @@ const Section3 = () => {
           </div>
 
           {/* 새로운 세탁의 가치 섹션 */}
-          <div>
+          <div className='flex flex-col items-center'>
             <h2 className="text-[22px] sm:text-[24px] md:text-[28px] lg:text-[32px] xl:text-[36px] 2xl:text-[40px] font-bold text-gray-800 mb-8 text-center">
               기술, 공간, 일상 - 새로운 세탁의 가치
             </h2>
             
             {/* 콘텐츠 영역 */}
-            <div className="flex flex-col lg:flex-row gap-8 sm:gap-10 md:gap-12 items-start">
-              {/* 왼쪽 이미지 */}
-              <div className="flex-shrink-0 w-full lg:w-auto">
+            <div className="flex flex-col 2xl:flex-row gap-8 sm:gap-10 md:gap-12 items-start">
+              {/* 상단 이미지 (xl 이하) / 왼쪽 이미지 (2xl) */}
+              <div className="flex-shrink-0 w-[355px] sm:w-[535px] md:w-[728px] lg:w-[924px] xl:w-[1200px] 2xl:w-auto order-1 2xl:order-1">
                 <img
                   src="/images/CompanyInfo/Company-tech-1.png"
                   alt="호텔런드리 기술 시스템"
-                  className="rounded-lg w-full max-w-[400px] sm:max-w-[450px] md:max-w-[500px] h-auto"
-                  style={{
-                    width: 'clamp(300px, 50vw, 500px)',
-                    height: 'auto',
-                    aspectRatio: '500/330',
-                    flexShrink: '0'
-                  }}
+                  className="rounded-lg w-full h-auto hidden 2xl:block"
+                />
+                <img
+                  src="/images/CompanyInfo/Company-Tech-2.png"
+                  alt="호텔런드리 기술 시스템"
+                  className="rounded-lg w-full h-[180px] sm:h-[200px] md:h-[250px] lg:h-[250px] xl:h-[300px] 2xl:h-auto block 2xl:hidden object-cover"
                 />
               </div>
 
               {/* 오른쪽 콘텐츠 */}
-              <div className="flex-1 w-full lg:w-auto">
-                {/* 탭 메뉴 */}
+              <div className="flex-1 w-[355px] sm:w-[535px] md:w-[728px] lg:w-[924px] xl:w-[1200px] 2xl:w-auto order-2 2xl:order-2">
+                {/* 탭 메뉴 - xs 모바일 드래그 버전 */}
                 <div 
-                  className="flex justify-center items-center mb-2 sm:mb-4 md:mb-6 lg:mb-8 xl:mb-10 2xl:mb-3 flex-wrap h-[40px] sm:h-[44px] md:h-[48px] lg:h-[52px] xl:h-[54px] 2xl:h-[56px]"
+                  className="flex items-center mb-2 sm:mb-4 md:mb-6 lg:mb-8 xl:mb-10 2xl:mb-3 h-[50px] sm:h-[44px] md:h-[48px] lg:h-[52px] xl:h-[54px] 2xl:h-[56px] w-[355px] sm:w-[535px] md:w-[728px] lg:w-[924px] xl:w-[1200px] 2xl:w-auto overflow-x-auto flex-nowrap gap-[10px] xs:flex sm:hidden"
                   style={{
-                    width: 'clamp(300px, 60vw, 863px)',
-                    gap: '70px'
+                    gap: '10px',
+                    scrollbarWidth: 'none',
+                    msOverflowStyle: 'none'
                   }}
                 >
                   {tabs.map((tab) => (
                     <button
-                      key={tab.id}
+                      key={`xs-${tab.id}`}
                       onClick={() => setActiveTab(tab.id)}
-                      className="relative text-center mb-3"
+                      className={`flex flex-row justify-center items-center px-[10px] py-[5px] rounded-[50px] flex-shrink-0 text-[20px] font-light text-[#1C262B] w-[180px] whitespace-nowrap ${
+                        activeTab === tab.id 
+                          ? 'text-white font-bold border border-white bg-[#102254]' 
+                          : 'text-[#1C262B] font-light border-[0.5px] border-[#102256] bg-white'
+                      }`}
+                      style={{
+                        fontFamily: 'KoPubWorldDotum',
+                        fontStyle: 'normal',
+                        lineHeight: 'normal'
+                      }}
+                    >
+                      {tab.title}
+                    </button>
+                  ))}
+                </div>
+
+                {/* 탭 메뉴 - sm 이상 기존 버전 */}
+                <div 
+                  className="hidden sm:flex justify-between items-center self-stretch mb-2 sm:mb-4 md:mb-6 lg:mb-8 xl:mb-10 2xl:mb-3 h-[40px] sm:h-[44px] md:h-[48px] lg:h-[52px] xl:h-[54px] 2xl:h-[56px] w-[355px] sm:w-[535px] md:w-[728px] lg:w-[924px] xl:w-[1200px] 2xl:w-auto"
+                >
+                  {tabs.map((tab) => (
+                    <button
+                      key={`sm-${tab.id}`}
+                      onClick={() => setActiveTab(tab.id)}
+                      className={`relative text-center mb-3 px-2 ${
+                        tab.title.length > 4 ? 'min-w-[120px]' : 'min-w-[100px]'
+                      }`}
                       style={{
                         color: '#1C262B',
                         fontFamily: 'KoPubWorldDotum',
@@ -192,7 +218,7 @@ const Section3 = () => {
                 {/* 탭 메뉴 하단 외곽선 제거 */}
 
                 {/* 콘텐츠 내용 */}
-                <div>
+                <div className="w-[355px] sm:w-[535px] md:w-[728px] lg:w-[924px] xl:w-[1200px] 2xl:w-auto">
                   <h3 
                     className="text-xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-6"
                     style={{
@@ -222,7 +248,8 @@ const Section3 = () => {
                           whiteSpace: 'pre-line'
                         }}
                       >
-                        {paragraph}
+                        <span className="xs:hidden sm:inline">{paragraph}</span>
+                        <span className="xs:inline sm:hidden">{paragraph.replace(/\n/g, ' ')}</span>
                       </p>
                     ))}
                   </div>
