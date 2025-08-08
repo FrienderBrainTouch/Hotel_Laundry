@@ -47,68 +47,133 @@ const Section2 = () => {
   return (
     <section className="py-20 bg-white">
       <div className="flex justify-center">
-        <div className="max-w-8xl mx-auto">
+        <div className="w-[355px] sm:w-[535px] md:w-[728px] lg:w-[924px] xl:w-[1200px] 2xl:w-[1400px] mx-auto">
           {timelineData.map((yearData, yearIndex) => (
             <div key={yearData.year} className="mb-16">
-              <div className="flex items-start gap-24">
+              {/* sm, xs 화면용 레이아웃 */}
+              <div className="block md:hidden">
                 {/* 년도 */}
                 <div 
-                  className="text-left min-w-[120px]"
+                  className="text-left mb-6"
                   style={{
                     color: '#1C262B',
                     fontFamily: 'KoPubWorldDotum, sans-serif',
-                    fontSize: '40px',
+                    fontSize: '32px',
                     fontWeight: 700,
                     lineHeight: 'normal',
-                    letterSpacing: '-0.8px'
+                    letterSpacing: '-0.64px'
                   }}
                 >
                   {yearData.year}
                 </div>
 
                 {/* 연혁 내용 */}
-                <div className="flex-1">
-                  <div className="space-y-6">
-                    {yearData.events.map((event, eventIndex) => (
-                      <div key={eventIndex} className="flex items-start gap-32">
-                        {/* 월 */}
-                        <div 
-                          className="text-left min-w-[60px]"
-                          style={{
-                            color: '#1C262B',
-                            fontFamily: 'KoPubWorldDotum, sans-serif',
-                            fontSize: '24px',
-                            fontWeight: 700,
-                            lineHeight: 'normal',
-                            letterSpacing: '-0.48px'
-                          }}
-                        >
-                          {String(event.month).padStart(2, '0')}
-                        </div>
-                        
-                        {/* 연혁 내용 */}
-                        <div className="flex-1">
-                          <div className="space-y-2">
-                            {event.content.map((item, itemIndex) => (
-                              <div 
-                                key={itemIndex}
-                                className="text-left"
-                                style={{
-                                  color: '#1C262B',
-                                  fontFamily: 'KoPubWorldDotum, sans-serif',
-                                  fontSize: '20px',
-                                  fontWeight: 500,
-                                  lineHeight: 'normal',
-                                  letterSpacing: '-0.4px'
-                                }}
-                              >
-                                {item}
-                              </div>
-                            ))}
-                          </div>
+                <div className="space-y-4">
+                  {yearData.events.map((event, eventIndex) => (
+                    <div key={eventIndex} className="flex items-start gap-4">
+                      {/* 월 */}
+                      <div 
+                        className="text-left min-w-[40px]"
+                        style={{
+                          color: '#1C262B',
+                          fontFamily: 'KoPubWorldDotum, sans-serif',
+                          fontSize: '20px',
+                          fontWeight: 700,
+                          lineHeight: 'normal',
+                          letterSpacing: '-0.4px'
+                        }}
+                      >
+                        {String(event.month).padStart(2, '0')}
+                      </div>
+                      
+                      {/* 연혁 내용 */}
+                      <div className="flex-1">
+                        <div className="space-y-1">
+                          {event.content.map((item, itemIndex) => (
+                            <div 
+                              key={itemIndex}
+                              className="text-left"
+                              style={{
+                                color: '#1C262B',
+                                fontFamily: 'KoPubWorldDotum, sans-serif',
+                                fontSize: '16px',
+                                fontWeight: 500,
+                                lineHeight: 'normal',
+                                letterSpacing: '-0.32px'
+                              }}
+                            >
+                              {item}
+                            </div>
+                          ))}
                         </div>
                       </div>
-                    ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* md 이상 화면용 레이아웃 */}
+              <div className="hidden md:block">
+                <div className="flex items-start gap-24">
+                  {/* 년도 */}
+                  <div 
+                    className="text-left min-w-[120px]"
+                    style={{
+                      color: '#1C262B',
+                      fontFamily: 'KoPubWorldDotum, sans-serif',
+                      fontSize: '40px',
+                      fontWeight: 700,
+                      lineHeight: 'normal',
+                      letterSpacing: '-0.8px'
+                    }}
+                  >
+                    {yearData.year}
+                  </div>
+
+                  {/* 연혁 내용 */}
+                  <div className="flex-1">
+                    <div className="space-y-6">
+                      {yearData.events.map((event, eventIndex) => (
+                        <div key={eventIndex} className="flex items-start gap-32">
+                          {/* 월 */}
+                          <div 
+                            className="text-left min-w-[60px]"
+                            style={{
+                              color: '#1C262B',
+                              fontFamily: 'KoPubWorldDotum, sans-serif',
+                              fontSize: '24px',
+                              fontWeight: 700,
+                              lineHeight: 'normal',
+                              letterSpacing: '-0.48px'
+                            }}
+                          >
+                            {String(event.month).padStart(2, '0')}
+                          </div>
+                          
+                          {/* 연혁 내용 */}
+                          <div className="flex-1">
+                            <div className="space-y-2">
+                              {event.content.map((item, itemIndex) => (
+                                <div 
+                                  key={itemIndex}
+                                  className="text-left"
+                                  style={{
+                                    color: '#1C262B',
+                                    fontFamily: 'KoPubWorldDotum, sans-serif',
+                                    fontSize: '20px',
+                                    fontWeight: 500,
+                                    lineHeight: 'normal',
+                                    letterSpacing: '-0.4px'
+                                  }}
+                                >
+                                  {item}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>

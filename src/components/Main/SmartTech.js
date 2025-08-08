@@ -61,13 +61,13 @@ const SmartTech = () => {
         {/* Title and Subtitle */}
         <div className="text-center mb-8 md:mb-12">
           <h2 
-            className="text-[22px] sm:text-[24px] md:text-[28px] lg:text-[32px] xl:text-[36px] 2xl:text-[40px] font-normal font-['KoPubWorldBatang'] text-[#1C262B] mb-3 md:mb-4"
+            className="text-center font-['KoPubWorldBatang'] text-[#1C262B] text-[22px] sm:text-[24px] md:text-[28px] lg:text-[32px] xl:text-[36px] 2xl:text-[40px] tracking-[-0.44px] sm:tracking-[-0.48px] md:tracking-[-0.56px] lg:tracking-[-0.64px] xl:tracking-[-0.72px] 2xl:tracking-[-0.8px] mb-[5px] sm:mb-[5px] md:mb-[12px] lg:mb-[12px] xl:mb-[12px] 2xl:mb-[12px]"
             style={{ fontWeight: 500 }}
           >
             Smart Tech
           </h2>
           <p 
-            className="text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[28px] 2xl:text-[32px] font-normal font-['KoPubWorldDotum'] text-[#1C262B] max-w-4xl mx-auto "
+            className="text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[28px] 2xl:text-[32px] font-['KoPubWorldDotum'] text-[#1C262B] max-w-4xl mx-auto leading-normal xl:leading-[30px] 2xl:leading-[30px] tracking-[-0.36px] sm:tracking-[-0.4px] md:tracking-[-0.44px] lg:tracking-[-0.48px] xl:tracking-[-0.56px] 2xl:tracking-[-0.64px]"
             style={{ fontWeight: 500 }}
           >
             <span className="hidden sm:inline">단순한 빨래방이 아닌 </span>기술 기반의 프랜차이즈 경쟁력을 제공합니다.
@@ -119,23 +119,23 @@ const SmartTech = () => {
                       
                       {/* Text Overlay - Bottom Half */}
                       <div 
-                        className="absolute bottom-[10px] left-0 right-0 z-20 p-10 bg-white w-[355px] h-[140px] shadow-[3px_6px_10px_-5px_rgba(16,34,84,0.15)]"
+                        className="absolute bottom-[10px] left-0 right-0 z-20 p-6 bg-white w-[355px] h-[140px] shadow-[3px_6px_10px_-5px_rgba(16,34,84,0.15)]"
                         style={{
                           borderBottomLeftRadius: '20px',
                           borderBottomRightRadius: '20px',
                           boxShadow: '3px 6px 10px -5px rgba(16, 34, 84, 0.15)'
                         }}
                       >
-                        <h3 
-                          className="text-[#1C262B] font-['KoPubWorldDotum'] text-[16px] font-normal font-[700] mb-2"
-                          style={{ fontWeight: 700 }}
-                        >
+                      <h3 
+                        className="text-[#1C262B] font-['KoPubWorldDotum'] text-[20px] font-[700] tracking-[-0.4px] mb-[11px]"
+                        style={{ fontWeight: 700 }}
+                      >
                           {slide.title}
                         </h3>
-                        <p 
-                          className="text-[#1C262B] font-['KoPubWorldDotum'] text-[14px] font-normal font-[500] whitespace-pre-line"
-                          style={{ fontWeight: 500 }}
-                        >
+                      <p 
+                        className="text-[#1C262B] font-['KoPubWorldDotum'] text-[15px] font-[500] tracking-[-0.3px] whitespace-pre-line"
+                        style={{ fontWeight: 500 }}
+                      >
                           {slide.subtitle}
                         </p>
                       </div>
@@ -198,13 +198,13 @@ const SmartTech = () => {
                       }}
                     >
                       <h3 
-                        className="text-[#1C262B] font-['KoPubWorldDotum'] 2xl:text-[28px] xl:text-[24px] lg:text-[20px] font-normal 2xl:font-[700] xl:font-[700] lg:font-[700] mb-2 md:mb-3"
+                        className="text-[#1C262B] font-['KoPubWorldDotum'] lg:text-[24px] xl:text-[26px] 2xl:text-[28px] 2xl:font-[700] xl:font-[700] lg:font-[700] lg:tracking-[-0.48px] xl:tracking-[-0.52px] 2xl:tracking-[-0.56px] lg:mb-[15px] xl:mb-[20px] 2xl:mb-[20px]"
                         style={{ fontWeight: 700 }}
                       >
                         {slide.title}
                       </h3>
                       <p 
-                        className="text-[#1C262B] font-['KoPubWorldDotum'] 2xl:text-[24px] xl:text-[20px] lg:text-[16px] font-normal 2xl:font-[500] xl:font-[500] lg:font-[500] whitespace-pre-line"
+                        className="text-[#1C262B] font-['KoPubWorldDotum'] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] 2xl:font-[500] xl:font-[500] lg:font-[500] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px] whitespace-pre-line"
                         style={{ fontWeight: 500 }}
                       >
                         {slide.subtitle}
@@ -233,13 +233,13 @@ const SmartTech = () => {
                       }}
                     >
                       <h3 
-                        className="text-[#1C262B] font-['KoPubWorldDotum'] text-[18px] sm:text-[18px] md:text-[20px] font-normal font-[700] mb-2"
+                        className="text-[#1C262B] font-['KoPubWorldDotum'] sm:text-[20px] md:text-[22px] font-[700] sm:tracking-[-0.4px] md:tracking-[-0.44px] sm:mb-[15px] md:mb-[15px]"
                         style={{ fontWeight: 700 }}
                       >
                         {slide.title}
                       </h3>
                       <p 
-                        className="text-[#1C262B] font-['KoPubWorldDotum'] text-[16px] sm:text-[16px] md:text-[18px] font-normal font-[500] whitespace-pre-line"
+                        className="text-[#1C262B] font-['KoPubWorldDotum'] sm:text-[16px] md:text-[18px] font-[500] sm:tracking-[-0.32px] md:tracking-[-0.36px] whitespace-pre-line"
                         style={{ fontWeight: 500 }}
                       >
                         {slide.subtitle}
