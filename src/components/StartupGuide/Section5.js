@@ -20,17 +20,17 @@ const processStepsData = [
 
 const Section5 = () => {
   return (
-    <div className="bg-white py-16 sm:py-24 px-4 font-pretendard">
-      <div className="max-w-4xl mx-auto text-center mb-16">
-        <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-4">창업 진행 단계</h2>
-        <p className="text-lg text-gray-600">처음 시작하는 분도 안심할 수 있도록 단계별로 체계적인 창업 과정을 제공합니다.</p>
+    <div className="bg-white py-10 sm:py-16 md:py-24 px-4 font-pretendard">
+      <div className="max-w-4xl mx-auto text-center mb-10 sm:mb-16">
+        <h2 className="section-title font-bold text-gray-800 mb-3 sm:mb-4">창업 진행 단계</h2>
+        <p className="section-subtitle text-gray-600">처음 시작하는 분도 안심할 수 있도록 단계별로 체계적인 창업 과정을 제공합니다.</p>
       </div>
 
-      <div className="relative max-w-5xl mx-auto mt-12">
+      <div className="relative max-w-5xl mx-auto mt-8 sm:mt-12">
         {/* 중앙 세로선 */}
         <div className="absolute left-1/2 top-0 h-full w-0.5 bg-gray-200 -translate-x-1/2 hidden md:block" aria-hidden="true" />
 
-        <div className="space-y-12 md:space-y-0">
+        <div className="space-y-8 sm:space-y-12 md:space-y-0">
           {processStepsData.map((item, index) => (
             <div key={item.step} className="relative md:mb-12">
               {/* 짝수 → md:flex-row-reverse (왼쪽에 콘텐츠), 홀수 → 기본 md:flex-row (오른쪽에 콘텐츠) */}
@@ -43,18 +43,18 @@ const Section5 = () => {
                 <div className="hidden md:block w-1/2" />
 
                 {/* 콘텐츠 블록 */}
-                <div className="w-full md:w-1/2 md:px-8 py-4 border-b border-gray-200">
-                  <div className="flex items-center justify-between gap-4 p-4 rounded-lg ">
+                <div className="w-full md:w-1/2 md:px-8 py-3 sm:py-4 border-b border-gray-200">
+                  <div className="flex items-center justify-between gap-3 sm:gap-4 p-3 sm:p-4 rounded-lg ">
                     
                     {/* 아이콘: 짝수→가장 바깥쪽(1), 홀수→가장 바깥쪽(3) */}
                     <div className={`flex-shrink-0 ${index % 2 === 0 ? 'md:order-1' : 'md:order-3'}`}>
-                    <img src={item.icon} alt={`${item.title} 아이콘`} className="h-12 w-12" />
+                    <img src={item.icon} alt={`${item.title} 아이콘`} className="h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20" />
                     </div>
 
                     {/* 텍스트: 항상 가운데(2) */}
                     <div className="flex-grow text-left md:order-2">
-                      <h3 className="text-xl font-bold text-gray-800 mb-2">{item.title}</h3>
-                      <ul className="space-y-1 text-gray-600 text-sm">
+                      <h3 className="text-28 md:text-xl lg:text-2xl font-bold text-gray-800 mb-2">{item.title}</h3>
+                      <ul className="space-y-1 text-gray-600 text-20 sm:text-sm md:text-base">
                         {item.details.map((detail, i) => (
                           <li key={i}>{detail}</li>
                         ))}
@@ -63,7 +63,7 @@ const Section5 = () => {
 
                     {/* 단계 번호: 짝수→가장 중앙쪽(3), 홀수→가장 중앙쪽(1) */}
                     <div className={`flex-shrink-0 ${index % 2 === 0 ? 'md:order-3' : 'md:order-1'}`}>
-                      <img src={item.step} alt={`단계 ${index + 1}`} className="h-8 w-8" />
+                      <img src={item.step} alt={`단계 ${index + 1}`} className="h-6 w-6 sm:h-8 sm:w-8" />
                     </div>
 
                   </div>

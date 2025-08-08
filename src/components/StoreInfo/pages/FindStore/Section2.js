@@ -4,13 +4,13 @@ import ListPanel from './ListPanel';
 
 const Section2 = ({ filteredStores, currentStores, totalPages, currentPage, handlePageChange }) => {
   return (
-    <section className="py-20 bg-gray-100">
+    <section className="py-8 sm:py-12 md:py-20 pb-4 sm:pb-8 md:pb-20 bg-gray-100">
       <div className="w-[100vw] relative left-[50%] right-[50%] ml-[-50vw] mr-[-50vw] bg-gray-100">
-        <div className="max-w-[1920px] mx-auto flex flex-col lg:flex-row justify-center gap-6 p-6">
+        <div className="max-w-[1920px] mx-auto flex flex-col lg:flex-row justify-center gap-4 sm:gap-6 p-4 sm:p-6">
           {/* 왼쪽: 지도 */}
           <MapPanel 
             stores={filteredStores}
-            className="w-full lg:w-[800px] h-[680px] rounded-lg shadow-md" 
+            className="w-full lg:w-[800px] h-[300px] sm:h-[400px] md:h-[500px] lg:h-[680px] rounded-lg shadow-md" 
           />
           
           {/* 오른쪽: 목록 패널 */}
