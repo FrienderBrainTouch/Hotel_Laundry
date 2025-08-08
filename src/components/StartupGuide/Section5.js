@@ -21,13 +21,13 @@ const processStepsData = [
 const Section5 = () => {
   return (
     <div className="bg-white py-10 sm:py-16 md:py-24 px-4 font-pretendard">
-      <div className="max-w-4xl mx-auto text-center mb-10 sm:mb-16">
+      <div className="max-w-5xl mx-auto text-center mb-10 sm:mb-16">
         <h2 className="section-title font-bold text-gray-800 mb-3 sm:mb-4">창업 진행 단계</h2>
         <p className="section-subtitle text-gray-600">처음 시작하는 분도 안심할 수 있도록 단계별로 체계적인 창업 과정을 제공합니다.</p>
       </div>
 
-      <div className="relative max-w-5xl mx-auto mt-8 sm:mt-12">
-        {/* 중앙 세로선 */}
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 sm:mt-12">
+      {/* 중앙 세로선 */}
         <div className="absolute left-1/2 top-0 h-full w-0.5 bg-gray-200 -translate-x-1/2 hidden md:block" aria-hidden="true" />
 
         <div className="space-y-8 sm:space-y-12 md:space-y-0">
@@ -44,7 +44,7 @@ const Section5 = () => {
 
                 {/* 콘텐츠 블록 */}
                 <div className="w-full md:w-1/2 md:px-8 py-3 sm:py-4 border-b border-gray-200">
-                  <div className="flex items-center justify-between gap-3 sm:gap-4 p-3 sm:p-4 rounded-lg ">
+                  <div className="flex items-start justify-between gap-3 sm:gap-4 p-3 sm:p-4 rounded-lg ">
                     
                     {/* 아이콘: 짝수→가장 바깥쪽(1), 홀수→가장 바깥쪽(3) */}
                     <div className={`flex-shrink-0 ${index % 2 === 0 ? 'md:order-1' : 'md:order-3'}`}>
@@ -56,7 +56,7 @@ const Section5 = () => {
                       <h3 className="text-28 md:text-xl lg:text-2xl font-bold text-gray-800 mb-2">{item.title}</h3>
                       <ul className="space-y-1 text-gray-600 text-20 sm:text-sm md:text-base">
                         {item.details.map((detail, i) => (
-                          <li key={i}>{detail}</li>
+                          <li key={i} className="list-disc list-inside">{detail}</li>
                         ))}
                       </ul>
                     </div>
