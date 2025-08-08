@@ -27,9 +27,9 @@ const Section1 = ({ onPageChange, searchKeyword, setSearchKeyword, handleSearch 
   };
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-10 sm:py-16 md:py-20 bg-white">
       {/* 브레드크럼 - 컨테이너 밖으로 */}
-      <div className="mb-8 md:mb-12">
+      <div className="mb-6 sm:mb-8 md:mb-12">
         <div className="max-w-[1400px] mx-auto px-6">
           <div className="flex items-center gap-2 sm:gap-4 font-pretendard">
             <img src={homeIcon} alt="홈" />
@@ -68,9 +68,9 @@ const Section1 = ({ onPageChange, searchKeyword, setSearchKeyword, handleSearch 
       </div>
 
       {/* 검색바 - 별도 컨테이너 */}
-        <div className="max-w-3xl mx-auto p-4 flex flex-col items-center gap-y-4">
+        <div className="max-w-3xl mx-auto p-4 flex flex-col items-center gap-y-3 sm:gap-y-4">
           <h1 
-            className="text-[40px] font-bold leading-normal"
+            className="text-2xl sm:text-3xl md:text-[40px] font-bold leading-normal"
             style={{
               color: '#1C262B',
               fontFamily: 'KoPubWorldDotum, sans-serif',

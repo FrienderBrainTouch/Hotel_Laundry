@@ -79,29 +79,11 @@ const Section1 = ({ onPageChange }) => {
 
           {/* 제목 */}
           <div className="text-center mb-10">
-            <h1 
-              className="text-[40px] font-bold leading-normal mb-10"
-              style={{
-                color: '#1C262B',
-                fontFamily: 'KoPubWorldDotum, sans-serif',
-                fontWeight: 700,
-                lineHeight: 'normal'
-              }}
-            >
+            <h1 className="font-KoPubWorldDotum text-brand-dark text-[40px] font-bold leading-normal mb-10">
               지금 이 순간에도, 전국에서 운영되고 있습니다
             </h1>
             {/* 부제목 */}
-            <div 
-              className="text-center mx-auto"
-              style={{
-                color: '#1C262B',
-                fontFamily: 'KoPubWorldDotum, sans-serif',
-                fontSize: '24px',
-                fontWeight: 300,
-                lineHeight: 'normal',
-                letterSpacing: '-0.48px'
-              }}
-            >
+            <div className="text-center mx-auto font-KoPubWorldDotum text-brand-dark text-24 font-light tracking-[-0.48px]">
               <p className="mb-4">
                 호텔런드리는 서울, 경기, 수도권을 비롯해 전국 각지에서 지속적으로 매장을 오픈하여 무인 세탁 시장을 선도하고 있습니다.
               </p>

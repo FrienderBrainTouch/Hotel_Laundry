@@ -129,7 +129,7 @@ const StoreModal = ({ store, onClose }) => {
 
         <div className="inline-block align-bottom bg-white rounded-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl w-full p-6 sm:p-8">
           
-          <h2 className="text-section-title font-bold text-center mb-6 text-gray-800">매장 상세 정보</h2>
+          <h2 className="font-KoPubWorldDotum text-section-title font-bold text-center mb-6 text-gray-800">매장 상세 정보</h2>
           
           <button onClick={onClose} className="absolute right-6 top-6 text-gray-400 hover:text-gray-600">
             <CloseIcon className="w-6 h-6" />
@@ -172,7 +172,7 @@ const StoreModal = ({ store, onClose }) => {
                     <LocationPinIcon className="w-6 h-6" />
                   </div>
                   <div>
-                    <h3 className="text-section-title font-bold text-gray-800">{currentStore.name}</h3>
+                    <h3 className="font-KoPubWorldDotum text-section-title font-bold text-gray-800">{currentStore.name}</h3>
                     <p className="mt-2 text-24 text-gray-600">{currentStore.address}</p>
                     <p className="mt-1 text-24 text-gray-500">{currentStore.phone}</p>
                     <div className="mt-3 flex flex-wrap gap-2">
@@ -205,7 +205,7 @@ const StoreModal = ({ store, onClose }) => {
             {/* 실시간 세탁기 사용 현황 */}
             <div>
               <div className="flex justify-between items-center mb-4">
-                <h4 className="text-section-title font-bold text-gray-800">실시간 세탁기 사용 현황</h4>
+                <h4 className="font-KoPubWorldDotum text-section-title font-bold text-gray-800">실시간 세탁기 사용 현황</h4>
                 <select className="text-24 border border-gray-300 rounded-md px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-500">
                   <option>세탁기 종류</option>
                   <option>전체</option>
@@ -229,7 +229,7 @@ const StoreModal = ({ store, onClose }) => {
 
             {/* 전월 대비 수익 상승률 */}
             <div>
-              <h4 className="text-section-title font-bold text-gray-800 mb-4">전월 대비 수익 상승률</h4>
+              <h4 className="font-KoPubWorldDotum text-section-title font-bold text-gray-800 mb-4">전월 대비 수익 상승률</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center"> {/* md:grid-cols-3에서 md:grid-cols-2로 변경 */}
                 <div className="md:col-span-1"> {/* 차트 영역 */}
                   <Chart data={chartData} />

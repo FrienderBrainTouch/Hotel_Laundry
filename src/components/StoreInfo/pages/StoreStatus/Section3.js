@@ -89,7 +89,7 @@ const Section3 = () => {
   return (
     <section className="py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-hero-title font-bold text-center mb-6">전국 매장 현황</h2>
+        <h2 className="font-KoPubWorldDotum text-hero-title font-bold text-center mb-6">전국 매장 현황</h2>
 
         {/* 필터 버튼 */}
         <div className="flex justify-center flex-wrap gap-4 mb-12">
@@ -100,15 +100,27 @@ const Section3 = () => {
           <button onClick={() => handleFilterChange('그 외')} className={`px-6 py-2 rounded-full font-semibold text-24 ${activeFilter === '그 외' ? 'bg-gray-800 text-white' : 'bg-white text-gray-800 border'}`}>그 외</button>              
         </div>
 
-        {/* 매장 카드 그리드 */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* 매장 카드 그리드 - 모바일에서만 슬라이드, 태블릿/데스크톱에서는 그리드 */}
+        {/* 모바일 슬라이드 컨테이너 */}
+        <div className="md:hidden overflow-x-auto pb-4">
+          <div className="flex space-x-4" style={{ width: `${filteredStores.length * 280}px` }}>
+            {filteredStores.map(store => (
+              <div key={store.id} className="flex-shrink-0 w-70">
+                <StoreCard store={store} />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 태블릿/데스크톱 그리드 */}
+        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-8">
           {currentStores.map(store => (
             <StoreCard key={store.id} store={store} />
           ))}
         </div>
 
-        {/* 페이지네이션 */}
-        <nav className="flex justify-center items-center mt-16 space-x-2">
+        {/* 페이지네이션 - 태블릿/데스크톱에서만 표시 */}
+        <nav className="hidden md:flex justify-center items-center mt-16 space-x-2">
           <button onClick={() => handlePageChange(1)} disabled={currentPage === 1} className="p-2 text-gray-500 hover:text-gray-800 disabled:opacity-50">
             <img src={ToNext} alt="마지막 이전 페이지" className="h-5 w-5 rotate-180" />
           </button>

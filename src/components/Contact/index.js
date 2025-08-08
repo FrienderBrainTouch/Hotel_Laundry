@@ -72,7 +72,7 @@ const regionData = {
 // 각 입력 필드를 위한 재사용 가능한 컴포넌트
 const FormRow = ({ label, required, children }) => (
   <div className="grid grid-cols-1 md:grid-cols-4 py-4 border-b border-gray-200 items-center">
-    <div className="font-semibold text-24 text-gray-800 col-span-1 mb-2 md:mb-0">
+    <div className="font-semibold text-24 text-gray-800 col-span-1 mb-2 md:mb-0" style={{ wordBreak: 'keep-all' }}>
       {label}
       {required && <span className="text-red-500 ml-1">*</span>}
     </div>
@@ -300,7 +300,7 @@ const Contact = () => {
             </div>
           </FormRow>
 
-          <FormRow label="호텔 런드리를 알게 된 경로">
+          <FormRow label={<>호텔 런드리를 알게된<wbr /> 경로</>}>
             <select name="knowPath" value={formData.knowPath} onChange={handleChange} className="border border-gray-300 p-2 rounded-sm text-24">
               <option value="">선택하세요</option>
               <option value="internet">인터넷 검색</option>
