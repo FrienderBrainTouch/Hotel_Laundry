@@ -94,18 +94,26 @@ const BeyondLaundry = () => {
 
   return (
     <section className="w-full py-16 bg-white">
-      <div className="px-4 w-full">
+      <div className="px-2 sm:px-4 w-full">
         {/* Title */}
         <h2 
-          className="text-[22px] sm:text-[24px] md:text-[28px] lg:text-[32px] xl:text-[36px] 2xl:text-[40px] font-[500] text-[#1C262B] mb-4 text-center"
+          className="text-[22px] sm:text-[24px] md:text-[28px] lg:text-[32px] xl:text-[36px] 2xl:text-[40px] font-[500] text-[#1C262B] text-center mb-[5px] md:mb-[12px] tracking-[-0.44px] sm:tracking-[-0.48px] md:tracking-[-0.56px] lg:tracking-[-0.64px] xl:tracking-[-0.72px] 2xl:tracking-[-0.8px]"
           style={{ fontFamily: 'KoPubWorldBatang, serif' }}
         >
           Beyond Laundry
         </h2>
         
-        {/* Subtitle */}
+        {/* Subtitle (xs, sm 전용) */}
         <p 
-          className="text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[28px] 2xl:text-[32px] font-[500] text-[#1C262B] mb-12 text-center"
+          className="md:hidden text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[28px] 2xl:text-[32px] font-[500] text-[#1C262B] text-center mb-12 tracking-[-0.36px] sm:tracking-[-0.4px] md:tracking-[-0.44px] lg:tracking-[-0.48px] xl:tracking-[-0.56px] 2xl:tracking-[-0.64px] 2xl:leading-[30px]"
+          style={{ fontFamily: 'KoPubWorldDotum, serif' }}
+        >
+          호텔런드리만의 프리미엄 세탁시스템을 소개합니다.
+        </p>
+
+        {/* Subtitle (md 이상 전용) */}
+        <p 
+          className="hidden md:block text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[28px] 2xl:text-[32px] font-[500] text-[#1C262B] text-center mb-12 tracking-[-0.36px] sm:tracking-[-0.4px] md:tracking-[-0.44px] lg:tracking-[-0.48px] xl:tracking-[-0.56px] 2xl:tracking-[-0.64px] 2xl:leading-[30px]"
           style={{ fontFamily: 'KoPubWorldDotum, serif' }}
         >
           기술과 경헙이 결합된 호텔런드리만의 프리미엄 세탁 시스템을 소개합니다.

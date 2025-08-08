@@ -58,7 +58,7 @@ const Header = ({ onPageChange, currentPage }) => {
     ];
 
     const mobileNavClasses = isMobile
-      ? `fixed top-[101px] w-full h-[calc(100vh-101px)] bg-[#1a237e] transition-all duration-300 ease-in-out z-50 border-t border-white ${isMenuOpen ? 'right-0' : '-right-full'}`
+      ? `fixed top-[101px] w-full h-[calc(100vh-101px)] bg-[#102254] transition-all duration-300 ease-in-out z-50 border-t border-white ${isMenuOpen ? 'right-0' : '-right-full'}`
       : '';
 
     const navListClasses = isMobile
@@ -67,7 +67,7 @@ const Header = ({ onPageChange, currentPage }) => {
   
     return (
       <header 
-        className="bg-[#1a237e] w-screen h-[100px] relative z-50"
+        className="bg-[#102254] w-screen h-[100px] relative z-50"
         onMouseLeave={() => setHoveredMenu(null)}
       >
         <div className="w-full px-4 h-full flex items-center justify-between">
@@ -77,18 +77,22 @@ const Header = ({ onPageChange, currentPage }) => {
               onClick={() => handleNavClick('home')}
               className="block"
             >
-              <img 
-                src="/images/logo.svg" 
-                alt="로고" 
-                className="h-[30px] sm:h-[35px] md:h-[40px] lg:h-[50px] xl:h-[60px] w-auto object-contain" 
-              />
+                             <picture>
+                 <source media="(min-width: 1024px)" srcSet="/images/Header/lg-xl-2xl-logo.png" />
+                 <source media="(min-width: 768px)" srcSet="/images/Header/md-logo.png" />
+                 <img 
+                   src="/images/Header/xs-sm-logo.png" 
+                   alt="로고" 
+                   className="w-auto h-auto object-contain" 
+                 />
+               </picture>
             </button>
           </div>
 
           {/* 중앙 네비게이션 - 데스크톱에서만 표시 */}
           {!isMobile && (
             <nav className="flex items-center absolute left-1/2 transform -translate-x-1/2">
-              <ul className="flex list-none gap-[clamp(20px,2vw,40px)]">
+              <ul className="flex list-none gap-[60px] lg:gap-[60px] xl:gap-[100px] 2xl:gap-[80px]">
                 {menuItems.map((item) => (
                   <li key={item.id} className="py-2 relative">
                     <div
@@ -96,8 +100,8 @@ const Header = ({ onPageChange, currentPage }) => {
                       className="relative"
                     >
                       <button 
-                        onClick={() => handleNavClick(item.id)}
-                        className={`text-white font-pretendard text-[18px] lg:text-[18px] xl:text-[20px] 2xl:text-[24px] transition-all duration-200 ${hoveredMenu === item.id ? 'font-bold opacity-100' : 'opacity-80'}`}
+                        onClick={() => item.id === 'hotel-laundry' ? handleNavClick('company-intro') : handleNavClick(item.id)}
+                        className={`text-white font-pretendard text-[18px] lg:text-[18px] xl:text-[20px] 2xl:text-[24px] font-medium leading-normal transition-all duration-200 ${hoveredMenu === item.id ? 'font-bold opacity-100' : 'opacity-80'}`}
                       >
                         {item.label}
                       </button>
@@ -109,7 +113,7 @@ const Header = ({ onPageChange, currentPage }) => {
                           />
                           {/* 서브메뉴 */}
                           <div 
-                            className="absolute top-[calc(100%+32px)] -left-6 bg-[#1a237e] shadow-lg z-[9999] min-w-[150px] border border-white border-t-1 rounded-b-lg"
+                            className="absolute top-[calc(100%+32px)] -left-6 bg-[#102254] shadow-lg z-[9999] min-w-[150px] border border-white border-t-1 rounded-b-lg"
                           >
                             {item.submenu.map((subItem) => (
                               <button
@@ -130,7 +134,7 @@ const Header = ({ onPageChange, currentPage }) => {
             </nav>
           )}
 
-          <div className="flex items-center gap-8 sm:gap-10 md:gap-12 lg:gap-16 mr-[16px] sm:mr-[20px] md:mr-[24px] lg:mr-[30px] xl:mr-[36px]">
+          <div className="flex items-center gap-[14px] sm:gap-[10px] md:gap-[20px] mr-[16px] sm:mr-[20px] md:mr-[24px] lg:mr-[30px] xl:mr-[36px]">
             {/* 모바일 네비게이션 */}
             {isMobile && (
               <nav className={`flex items-start ${mobileNavClasses}`}>
@@ -139,7 +143,15 @@ const Header = ({ onPageChange, currentPage }) => {
                     <li key={item.id} className="py-2 relative w-full">
                       <div className="w-full">
                         <button 
-                          onClick={() => item.hasSubmenu ? handleSubmenuClick(item.id) : handleNavClick(item.id)}
+                          onClick={() => {
+                            if (item.hasSubmenu) {
+                              handleSubmenuClick(item.id);
+                            } else if (item.id === 'hotel-laundry') {
+                              handleNavClick('company-intro');
+                            } else {
+                              handleNavClick(item.id);
+                            }
+                          }}
                           className={`text-white font-pretendard text-[18px] lg:text-[18px] xl:text-[20px] 2xl:text-[24px] transition-all duration-200 flex items-center justify-between w-full ${currentPage === item.id ? 'opacity-100' : 'opacity-80'}`}
                         >
                           <span>{item.label}</span>
@@ -177,14 +189,15 @@ const Header = ({ onPageChange, currentPage }) => {
               onClick={() => handleNavClick('contact')}
               className="
                 flex items-center justify-center 
-                px-[12px] py-[6px] sm:px-[14px] sm:py-[7px] md:px-[16px] md:py-[8px] lg:px-[18px] lg:py-[9px]
-                bg-white rounded-[7px] 
-                text-[#1a237e] font-pretendard 
+                w-[86px] h-[35px] sm:w-[100px] sm:h-[40px] md:w-[120px] md:h-[40px] lg:w-[130px] lg:h-[45px] xl:w-[140px] xl:h-[50px] 2xl:w-[170px] 2xl:h-[60px]
+                bg-white rounded-[5px] sm:rounded-[7px] md:rounded-[7px] lg:rounded-[7px] xl:rounded-[7px] 2xl:rounded-[7px]
+                text-[#102254] font-pretendard 
                 text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] 2xl:text-[28px]
-                font-semibold leading-[150%] 
+                font-bold leading-normal
                 whitespace-nowrap 
                 transition-all duration-200 
                 hover:scale-[1.02] active:scale-[0.98]
+                flex-shrink-0
               "
             >
               문의하기
@@ -193,30 +206,29 @@ const Header = ({ onPageChange, currentPage }) => {
             {/* 햄버거 메뉴/X 버튼 - 모바일에서만 표시 */}
             {isMobile && (
               <button 
-                className="bg-transparent border-none p-0 cursor-pointer flex items-center"
+                className="bg-transparent border-none p-0 cursor-pointer flex items-center justify-center w-[20px] h-[20px] sm:w-[20px] sm:h-[20px] md:w-[40px] md:h-[40px]"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
               >
                 {isMenuOpen ? (
-                  <div 
-                    className="
-                      flex items-center justify-center 
-                      w-8 h-8
-                      bg-transparent
-                      text-white font-pretendard 
-                      font-semibold
-                      transition-all duration-200 
-                      hover:opacity-80
-                    "
-                    style={{ fontSize: '24px' }}
-                  >
-                    ✕
-                  </div>
+                  <picture>
+                    <source media="(min-width: 768px)" srcSet="/images/Header/md-X.svg" />
+                    <source media="(min-width: 640px)" srcSet="/images/Header/sm-X.svg" />
+                    <img 
+                      src="/images/Header/xs-X.svg" 
+                      alt="닫기" 
+                      className="w-auto h-auto object-contain" 
+                    />
+                  </picture>
                 ) : (
-                  <img 
-                    src="/images/hamburger.svg" 
-                    alt="메뉴" 
-                    className="w-[19px] h-[13px] sm:w-[19px] sm:h-[13px] md:w-[34px] md:h-[22px]" 
-                  />
+                  <picture>
+                    <source media="(min-width: 768px)" srcSet="/images/Header/md-hamburger.svg" />
+                    <source media="(min-width: 640px)" srcSet="/images/Header/sm-hamburger.svg" />
+                    <img 
+                      src="/images/Header/xs-hamburger.svg" 
+                      alt="메뉴" 
+                      className="w-auto h-auto object-contain" 
+                    />
+                  </picture>
                 )}
               </button>
             )}
