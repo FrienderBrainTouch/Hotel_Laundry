@@ -52,8 +52,11 @@ const Section2 = () => {
                                  <div 
                    className="w-full h-[200px] sm:h-[250px] md:h-[280px] lg:h-[300px] p-6 sm:p-8 md:p-10 lg:p-[40px] flex flex-col justify-end items-start rounded-[10px] transition-all duration-300"
                    style={{
-                     background: hoveredIndex === index 
+                     backgroundImage: hoveredIndex === index 
                        ? `url(${area.image})`
+                       : 'none',
+                     backgroundColor: hoveredIndex === index 
+                       ? 'transparent' 
                        : 'rgba(16, 34, 84, 0.15)',
                      backgroundSize: hoveredIndex === index ? 'cover' : 'auto',
                      backgroundPosition: 'center'

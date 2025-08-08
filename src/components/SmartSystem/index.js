@@ -1,12 +1,16 @@
 import React from 'react';
+import IoTOverview from './IoTOverview';
+import SmartStoreOperation from './SmartStoreOperation';
+import AutomationSolutions from './AutomationSolutions';
+import SmartRevenue from './SmartRevenue';
 
 const SmartSystem = () => {
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6">스마트 시스템</h1>
-      <div className="bg-white p-6 rounded-lg shadow-md">
-        <p className="text-gray-600">스마트 시스템 내용이 들어갈 자리입니다.</p>
-      </div>
+    <div>
+      <IoTOverview />
+      <SmartStoreOperation />
+      <AutomationSolutions />
+      <SmartRevenue />
     </div>
   );
 };
