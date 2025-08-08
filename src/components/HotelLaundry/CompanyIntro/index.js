@@ -1,16 +1,16 @@
 import React from 'react';
-import Section1 from './Section1';
-import Section2 from './Section2';
-import Section3 from './Section3';
-import Section4 from './Section4';
+import CompanyOverview from './CompanyOverview';
+import BusinessModel from './BusinessModel';
+import CoreValues from './CoreValues';
+import Vision from './Vision';
 
 const CompanyIntro = ({ onPageChange }) => {
   return (
     <div className="company-intro">
-      <Section1 onPageChange={onPageChange} />
-      <Section2 />
-      <Section3 />
-      <Section4 />
+      <CompanyOverview onPageChange={onPageChange} />
+      <BusinessModel />
+      <CoreValues />
+      <Vision />
     </div>
   );
 };
