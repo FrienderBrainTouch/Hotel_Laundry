@@ -18,37 +18,35 @@ const Section1 = () => {
 
           {/* 메인 이미지 */}
           <div className="mb-8 sm:mb-10">
-            <img 
-              src={section1MainImage} 
-              alt="호텔런드리 창업 안내" 
+            <img
+              src={section1MainImage}
+              alt="호텔런드리 창업 안내"
               className="w-full max-w-[1400px] h-[320px] sm:h-[340px] md:h-[360px] lg:h-[380px] xl:h-[400px] object-contain rounded-lg mx-auto"
             />
           </div>
 
           {/* 제목 */}
           <div className="text-center mb-8 sm:mb-10">
-            <h1 
+            <h1
               className="text-2xl sm:text-3xl md:text-[40px] font-bold leading-normal mb-6 sm:mb-8 md:mb-10"
               style={{
-                color: '#1C262B',
-                fontFamily: 'KoPubWorldDotum, sans-serif',
-                fontWeight: 700,
-                lineHeight: 'normal'
+                fontFamily: 'KoPubWorldDotum',
+                fontWeight: '700',
+                fontSize: '24px',
+                color: '#1C262B'
               }}
             >
               처음 시작하는 창업, 호텔런드리라면 다릅니다.
             </h1>
 
             {/* 부제목 */}
-            <div 
+            <div
               className="text-center mx-auto"
               style={{
-                color: '#1C262B',
-                fontFamily: 'KoPubWorldDotum, sans-serif',
-                fontSize: 'clamp(1rem, 1.5vw + 0.5rem, 1.5rem)',
-                fontWeight: 300,
-                lineHeight: 'normal',
-                letterSpacing: '-0.48px'
+                fontFamily: 'KoPubWorldDotum',
+                fontWeight: '500',
+                fontSize: '18px',
+                color: '#1C262B'
               }}
             >
               <p className="mb-3 sm:mb-4">

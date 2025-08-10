@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 const BeyondLaundry = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  
+
   const gridItems = [
     {
       title: "세탁기 모바일 예약 서비스",
@@ -58,33 +58,40 @@ const BeyondLaundry = () => {
     return () => clearInterval(interval);
   }, []);
 
-    const renderGridItem = (item, index) => (
+  const renderGridItem = (item, index) => (
     <div key={index} className="relative overflow-hidden rounded-[20px] h-full">
       {/* Background Image */}
-      <div 
+      <div
         className="w-full h-full bg-cover bg-center"
         style={{
           backgroundImage: 'url(/images/main-Images/main-Beyond.png)'
         }}
       />
-      
+
       {/* Content Box */}
-      <div 
+      <div
         className="absolute bottom-0 left-0 right-0 py-6 px-2"
         style={{
           borderRadius: '0 0 20px 20px',
           background: '#102254'
         }}
       >
-        <h3 
+        <h3
           className="text-[20px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[26px] 2xl:text-[28px] font-[700] text-white mb-2 text-left"
-          style={{ fontFamily: 'KoPubWorldDotum, serif' }}
+          style={{
+            fontFamily: 'KoPubWorldDotum',
+            letterSpacing: '-0.4px'
+          }}
         >
           {item.title}
         </h3>
-        <p 
-          className="text-[15px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] font-[300] text-white text-left whitespace-pre-line"
-          style={{ fontFamily: 'KoPubWorldDotum, serif' }}
+        <p
+          className="text-[15px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] font-[500] text-white text-left whitespace-pre-line"
+          style={{
+            fontFamily: 'KoPubWorldDotum',
+            letterSpacing: '-0.3px',
+            lineHeight: 'normal'
+          }}
         >
           {item.subtitle}
         </p>
@@ -96,25 +103,28 @@ const BeyondLaundry = () => {
     <section className="w-full py-16 bg-white">
       <div className="px-2 sm:px-4 w-full">
         {/* Title */}
-        <h2 
-          className="text-[22px] sm:text-[24px] md:text-[28px] lg:text-[32px] xl:text-[36px] 2xl:text-[40px] font-[500] text-[#1C262B] text-center mb-[5px] md:mb-[12px] tracking-[-0.44px] sm:tracking-[-0.48px] md:tracking-[-0.56px] lg:tracking-[-0.64px] xl:tracking-[-0.72px] 2xl:tracking-[-0.8px]"
-          style={{ fontFamily: 'KoPubWorldBatang, serif' }}
+        <h2
+          className="text-[22px] sm:text-[24px] md:text-[28px] lg:text-[32px] xl:text-[36px] 2xl:text-[40px] font-[500] text-[#1C262B] text-center mb-[5px] md:mb-[12px]"
+          style={{
+            fontFamily: 'KoPubWorldBatang',
+            letterSpacing: '-0.44px'
+          }}
         >
           Beyond Laundry
         </h2>
-        
+
         {/* Subtitle (xs, sm 전용) */}
-        <p 
+        <p
           className="md:hidden text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[28px] 2xl:text-[32px] font-[500] text-[#1C262B] text-center mb-12 tracking-[-0.36px] sm:tracking-[-0.4px] md:tracking-[-0.44px] lg:tracking-[-0.48px] xl:tracking-[-0.56px] 2xl:tracking-[-0.64px] 2xl:leading-[30px]"
-          style={{ fontFamily: 'KoPubWorldDotum, serif' }}
+          style={{ fontFamily: 'KoPubWorldDotum' }}
         >
           호텔런드리만의 프리미엄 세탁시스템을 소개합니다.
         </p>
 
         {/* Subtitle (md 이상 전용) */}
-        <p 
+        <p
           className="hidden md:block text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[28px] 2xl:text-[32px] font-[500] text-[#1C262B] text-center mb-12 tracking-[-0.36px] sm:tracking-[-0.4px] md:tracking-[-0.44px] lg:tracking-[-0.48px] xl:tracking-[-0.56px] 2xl:tracking-[-0.64px] 2xl:leading-[30px]"
-          style={{ fontFamily: 'KoPubWorldDotum, serif' }}
+          style={{ fontFamily: 'KoPubWorldDotum' }}
         >
           기술과 경헙이 결합된 호텔런드리만의 프리미엄 세탁 시스템을 소개합니다.
         </p>
@@ -124,33 +134,39 @@ const BeyondLaundry = () => {
           {gridItems.map((item, index) => (
             <div key={index} className="relative overflow-hidden rounded-[20px] h-[365px] 2xl:h-[400px]">
               {/* Background Image */}
-              <div 
+              <div
                 className="w-full h-full bg-cover bg-center"
                 style={{
                   backgroundImage: 'url(/images/main-Images/main-Beyond.png)'
                 }}
               />
-              
-                             {/* Content Box */}
-               <div 
-                 className="absolute bottom-0 left-0 right-0 py-6 px-2 2xl:p-10"
-                 style={{
-                   borderRadius: '0 0 20px 20px',
-                   background: '#102254'
-                 }}
-               >
-                <h3 
+
+              {/* Content Box */}
+              <div
+                className="absolute bottom-0 left-0 right-0 py-6 px-2 2xl:p-10"
+                style={{
+                  borderRadius: '0 0 20px 20px',
+                  background: '#102254'
+                }}
+              >
+                <h3
                   className="text-[26px] 2xl:text-[28px] font-[700] text-white mb-2 text-left"
-                  style={{ fontFamily: 'KoPubWorldDotum, serif' }}
+                  style={{
+                    fontFamily: 'KoPubWorldDotum',
+                    letterSpacing: '-0.52px'
+                  }}
                 >
                   {item.title}
                 </h3>
-                                 <p 
-                   className="text-[22px] 2xl:text-[24px] font-[300] text-white text-left whitespace-pre-line"
-                   style={{ fontFamily: 'KoPubWorldDotum, serif' }}
-                 >
-                   {item.subtitle2xl ? item.subtitle2xl : item.subtitle}
-                 </p>
+                <p
+                  className="text-[22px] 2xl:text-[24px] font-[300] text-white text-left whitespace-pre-line"
+                  style={{
+                    fontFamily: 'KoPubWorldDotum',
+                    lineHeight: '30px'
+                  }}
+                >
+                  {item.subtitle2xl ? item.subtitle2xl : item.subtitle}
+                </p>
               </div>
             </div>
           ))}
@@ -161,15 +177,15 @@ const BeyondLaundry = () => {
           {/* xs: 1개씩 보이기 */}
           <div className="block sm:hidden">
             <div className="relative overflow-hidden rounded-[20px]" style={{ height: '280px' }}>
-              <div 
+              <div
                 className="flex transition-transform duration-500 ease-in-out h-full"
                 style={{
                   transform: `translateX(-${currentSlide * 100}%)`
                 }}
               >
                 {gridItems.map((item, index) => (
-                  <div 
-                    key={index} 
+                  <div
+                    key={index}
                     className="w-full flex-shrink-0 h-full"
                   >
                     {renderGridItem(item, index)}
@@ -181,10 +197,10 @@ const BeyondLaundry = () => {
 
           {/* sm 이상: 여러 개씩 보이기 */}
           <div className="hidden sm:block">
-            <div className="relative overflow-hidden rounded-[20px]" style={{ 
-              height: window.innerWidth >= 1024 ? '345px' : window.innerWidth >= 768 ? '300px' : '285px' 
+            <div className="relative overflow-hidden rounded-[20px]" style={{
+              height: window.innerWidth >= 1024 ? '345px' : window.innerWidth >= 768 ? '300px' : '285px'
             }}>
-              <div 
+              <div
                 className="flex transition-transform duration-500 ease-in-out h-full gap-4"
                 style={{
                   transform: `translateX(-${currentSlide * 100}%)`
@@ -192,10 +208,10 @@ const BeyondLaundry = () => {
               >
                 {/* 첫 번째 아이템을 마지막에 복제 */}
                 {gridItems.map((item, index) => (
-                  <div 
-                    key={index} 
+                  <div
+                    key={index}
                     className="flex-shrink-0 h-full"
-                    style={{ 
+                    style={{
                       width: 'calc(50% - 8px)', // sm: 2개씩, md: 2개씩, lg: 2개씩
                       minWidth: 'calc(50% - 8px)'
                     }}
@@ -204,9 +220,9 @@ const BeyondLaundry = () => {
                   </div>
                 ))}
                 {/* 마지막 슬라이드에서 첫 번째 아이템을 보여주기 위해 첫 번째 아이템 추가 */}
-                <div 
+                <div
                   className="flex-shrink-0 h-full"
-                  style={{ 
+                  style={{
                     width: 'calc(50% - 8px)',
                     minWidth: 'calc(50% - 8px)'
                   }}
@@ -225,22 +241,20 @@ const BeyondLaundry = () => {
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
-                  className={`w-3 h-3 rounded-full transition-colors duration-300 mx-1 ${
-                    index === currentSlide ? 'bg-[#102254]' : 'bg-gray-300'
-                  }`}
+                  className={`w-3 h-3 rounded-full transition-colors duration-300 mx-1 ${index === currentSlide ? 'bg-[#102254]' : 'bg-gray-300'
+                    }`}
                 />
               ))}
             </div>
-            
+
             {/* sm 이상: 2개씩 보이므로 5개 닷 (마지막 슬라이드는 1개만) */}
             <div className="hidden sm:block flex">
               {Array.from({ length: 5 }, (_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
-                  className={`w-3 h-3 rounded-full transition-colors duration-300 mx-1 ${
-                    index === currentSlide ? 'bg-[#102254]' : 'bg-gray-300'
-                  }`}
+                  className={`w-3 h-3 rounded-full transition-colors duration-300 mx-1 ${index === currentSlide ? 'bg-[#102254]' : 'bg-gray-300'
+                    }`}
                 />
               ))}
             </div>

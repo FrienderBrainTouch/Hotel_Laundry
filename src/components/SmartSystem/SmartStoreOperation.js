@@ -57,11 +57,11 @@ const SmartStoreOperation = () => {
 
           {/* 제목 */}
           <div className="text-center mb-10">
-            <h1 
+            <h1
               className="text-[22px] sm:text-[24px] md:text-[28px] lg:text-[32px] xl:text-[36px] 2xl:text-[40px] font-bold leading-normal mb-4"
               style={{
                 color: '#1C262B',
-                fontFamily: 'KoPubWorldDotum, sans-serif',
+                fontFamily: 'KoPubWorldDotum',
                 fontWeight: 700,
                 lineHeight: 'normal'
               }}
@@ -72,11 +72,11 @@ const SmartStoreOperation = () => {
 
 
             {/* 부제목 */}
-            <p 
+            <p
               className="text-center mx-auto text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[28px] 2xl:text-[32px] mb-16"
               style={{
                 color: '#1C262B',
-                fontFamily: 'KoPubWorldDotum, sans-serif',
+                fontFamily: 'KoPubWorldDotum',
                 fontWeight: 500,
                 lineHeight: 'normal',
                 letterSpacing: '-0.48px'
@@ -97,18 +97,18 @@ const SmartStoreOperation = () => {
                   onMouseEnter={() => setHoveredIndex(index)}
                   onMouseLeave={() => setHoveredIndex(null)}
                 >
-                  <div 
+                  <div
                     className="flex flex-col justify-end items-start rounded-lg transition-all duration-300"
                     style={{
                       width: '453px',
                       height: '300px',
                       padding: '30px 40px',
                       flexShrink: 0,
-                      backgroundImage: hoveredIndex === index 
+                      backgroundImage: hoveredIndex === index
                         ? `linear-gradient(0deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.55) 100%), url(${card.backgroundImage})`
                         : 'none',
-                      backgroundColor: hoveredIndex === index 
-                        ? 'transparent' 
+                      backgroundColor: hoveredIndex === index
+                        ? 'transparent'
                         : 'rgba(16, 34, 84, 0.10)',
                       backgroundSize: hoveredIndex === index ? 'cover' : 'auto',
                       backgroundPosition: 'center'
@@ -116,7 +116,7 @@ const SmartStoreOperation = () => {
                   >
                     {hoveredIndex === index ? (
                       <>
-                        <h3 
+                        <h3
                           style={{
                             color: '#FFF',
                             fontFamily: 'KoPubWorldDotum',
@@ -131,7 +131,7 @@ const SmartStoreOperation = () => {
                         </h3>
                         <ul className="space-y-2">
                           {card.content.map((item, itemIndex) => (
-                            <li 
+                            <li
                               key={itemIndex}
                               style={{
                                 color: '#FFF',
@@ -149,7 +149,7 @@ const SmartStoreOperation = () => {
                       </>
                     ) : (
                       <>
-                        <h3 
+                        <h3
                           style={{
                             color: '#1C262B',
                             fontFamily: 'KoPubWorldDotum',
@@ -164,7 +164,7 @@ const SmartStoreOperation = () => {
                         </h3>
                         <ul className="space-y-2">
                           {card.content.map((item, itemIndex) => (
-                            <li 
+                            <li
                               key={itemIndex}
                               style={{
                                 color: '#1C262B',
@@ -195,18 +195,18 @@ const SmartStoreOperation = () => {
                   onMouseEnter={() => setHoveredIndex(index + 3)}
                   onMouseLeave={() => setHoveredIndex(null)}
                 >
-                  <div 
+                  <div
                     className="flex flex-col justify-end items-start rounded-lg transition-all duration-300"
                     style={{
                       width: '690px',
                       height: '300px',
                       padding: '40px',
                       flexShrink: 0,
-                      backgroundImage: hoveredIndex === index + 3 
+                      backgroundImage: hoveredIndex === index + 3
                         ? `linear-gradient(0deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.55) 100%), url(${card.backgroundImage})`
                         : 'none',
-                      backgroundColor: hoveredIndex === index + 3 
-                        ? 'transparent' 
+                      backgroundColor: hoveredIndex === index + 3
+                        ? 'transparent'
                         : 'rgba(16, 34, 84, 0.10)',
                       backgroundSize: hoveredIndex === index + 3 ? 'cover' : 'auto',
                       backgroundPosition: 'center'
@@ -214,7 +214,7 @@ const SmartStoreOperation = () => {
                   >
                     {hoveredIndex === index + 3 ? (
                       <>
-                        <h3 
+                        <h3
                           style={{
                             color: '#FFF',
                             fontFamily: 'KoPubWorldDotum',
@@ -229,7 +229,7 @@ const SmartStoreOperation = () => {
                         </h3>
                         <ul className="space-y-2">
                           {card.content.map((item, itemIndex) => (
-                            <li 
+                            <li
                               key={itemIndex}
                               style={{
                                 color: '#FFF',
@@ -247,7 +247,7 @@ const SmartStoreOperation = () => {
                       </>
                     ) : (
                       <>
-                        <h3 
+                        <h3
                           style={{
                             color: '#1C262B',
                             fontFamily: 'KoPubWorldDotum',
@@ -262,7 +262,7 @@ const SmartStoreOperation = () => {
                         </h3>
                         <ul className="space-y-2">
                           {card.content.map((item, itemIndex) => (
-                            <li 
+                            <li
                               key={itemIndex}
                               style={{
                                 color: '#1C262B',

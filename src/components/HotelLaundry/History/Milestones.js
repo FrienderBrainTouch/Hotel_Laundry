@@ -53,15 +53,13 @@ const Section2 = () => {
               {/* sm, xs 화면용 레이아웃 */}
               <div className="block md:hidden">
                 {/* 년도 */}
-                <div 
+                <div
                   className="text-left mb-6"
                   style={{
-                    color: '#1C262B',
-                    fontFamily: 'KoPubWorldDotum, sans-serif',
-                    fontSize: '32px',
-                    fontWeight: 700,
-                    lineHeight: 'normal',
-                    letterSpacing: '-0.64px'
+                    fontFamily: 'KoPubWorldDotum',
+                    fontWeight: '700',
+                    fontSize: '24px',
+                    color: '#1C262B'
                   }}
                 >
                   {yearData.year}
@@ -72,34 +70,30 @@ const Section2 = () => {
                   {yearData.events.map((event, eventIndex) => (
                     <div key={eventIndex} className="flex items-start gap-4">
                       {/* 월 */}
-                      <div 
+                      <div
                         className="text-left min-w-[40px]"
                         style={{
-                          color: '#1C262B',
-                          fontFamily: 'KoPubWorldDotum, sans-serif',
+                          fontFamily: 'KoPubWorldDotum',
+                          fontWeight: '700',
                           fontSize: '20px',
-                          fontWeight: 700,
-                          lineHeight: 'normal',
-                          letterSpacing: '-0.4px'
+                          color: '#1C262B'
                         }}
                       >
                         {String(event.month).padStart(2, '0')}
                       </div>
-                      
+
                       {/* 연혁 내용 */}
                       <div className="flex-1">
                         <div className="space-y-1">
                           {event.content.map((item, itemIndex) => (
-                            <div 
+                            <div
                               key={itemIndex}
                               className="text-left"
                               style={{
-                                color: '#1C262B',
-                                fontFamily: 'KoPubWorldDotum, sans-serif',
+                                fontFamily: 'KoPubWorldDotum',
+                                fontWeight: '500',
                                 fontSize: '16px',
-                                fontWeight: 500,
-                                lineHeight: 'normal',
-                                letterSpacing: '-0.32px'
+                                color: '#1C262B'
                               }}
                             >
                               {item}
@@ -116,15 +110,13 @@ const Section2 = () => {
               <div className="hidden md:block">
                 <div className="flex items-start gap-24">
                   {/* 년도 */}
-                  <div 
+                  <div
                     className="text-left min-w-[120px]"
                     style={{
-                      color: '#1C262B',
-                      fontFamily: 'KoPubWorldDotum, sans-serif',
-                      fontSize: '40px',
-                      fontWeight: 700,
-                      lineHeight: 'normal',
-                      letterSpacing: '-0.8px'
+                      fontFamily: 'KoPubWorldDotum',
+                      fontWeight: '700',
+                      fontSize: '24px',
+                      color: '#1C262B'
                     }}
                   >
                     {yearData.year}
@@ -136,34 +128,30 @@ const Section2 = () => {
                       {yearData.events.map((event, eventIndex) => (
                         <div key={eventIndex} className="flex items-start gap-32">
                           {/* 월 */}
-                          <div 
+                          <div
                             className="text-left min-w-[60px]"
                             style={{
-                              color: '#1C262B',
-                              fontFamily: 'KoPubWorldDotum, sans-serif',
+                              fontFamily: 'KoPubWorldDotum',
+                              fontWeight: '700',
                               fontSize: '24px',
-                              fontWeight: 700,
-                              lineHeight: 'normal',
-                              letterSpacing: '-0.48px'
+                              color: '#1C262B'
                             }}
                           >
                             {String(event.month).padStart(2, '0')}
                           </div>
-                          
+
                           {/* 연혁 내용 */}
                           <div className="flex-1">
                             <div className="space-y-2">
                               {event.content.map((item, itemIndex) => (
-                                <div 
+                                <div
                                   key={itemIndex}
                                   className="text-left"
                                   style={{
-                                    color: '#1C262B',
-                                    fontFamily: 'KoPubWorldDotum, sans-serif',
+                                    fontFamily: 'KoPubWorldDotum',
+                                    fontWeight: '500',
                                     fontSize: '20px',
-                                    fontWeight: 500,
-                                    lineHeight: 'normal',
-                                    letterSpacing: '-0.4px'
+                                    color: '#1C262B'
                                   }}
                                 >
                                   {item}
@@ -180,7 +168,7 @@ const Section2 = () => {
 
               {/* 구분선 (마지막 년도 제외) */}
               {yearIndex < timelineData.length - 1 && (
-                <div 
+                <div
                   className="mx-auto mt-8"
                   style={{
                     width: '1400px',

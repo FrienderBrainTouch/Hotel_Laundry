@@ -7,11 +7,11 @@ const AutomationSolutions = () => {
         <div className="max-w-8xl mx-auto px-4">
           {/* 제목 */}
           <div className="text-center mb-16">
-            <h1 
+            <h1
               className="text-[22px] sm:text-[24px] md:text-[28px] lg:text-[32px] xl:text-[36px] 2xl:text-[40px] mb-3"
               style={{
                 color: '#1C262B',
-                fontFamily: 'KoPubWorldDotum, sans-serif',
+                fontFamily: 'KoPubWorldDotum',
                 fontWeight: 700,
                 lineHeight: 'normal'
               }}
@@ -20,11 +20,11 @@ const AutomationSolutions = () => {
             </h1>
 
             {/* 부제목 */}
-            <p 
+            <p
               className="text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[28px] 2xl:text-[32px]"
               style={{
                 color: '#1C262B',
-                fontFamily: 'KoPubWorldDotum, sans-serif',
+                fontFamily: 'KoPubWorldDotum',
                 fontWeight: 500,
                 lineHeight: 'normal'
               }}
@@ -35,7 +35,7 @@ const AutomationSolutions = () => {
 
           {/* 컨텐츠 영역 - 3행 2열 */}
           <div className="max-w-[1400px] mx-auto">
-            <div 
+            <div
               className="grid grid-rows-3 gap-8"
               style={{
                 gridTemplateColumns: '600px 1fr'
@@ -43,7 +43,7 @@ const AutomationSolutions = () => {
             >
               {/* 첫 번째 칸 (1행 1열) - 이미지 */}
               <div className="flex justify-start items-center">
-                <div 
+                <div
                   className="flex-shrink-0"
                   style={{
                     width: '600px',
@@ -52,8 +52,8 @@ const AutomationSolutions = () => {
                     background: '#D9D9D9'
                   }}
                 >
-                  <img 
-                    src="/images/SmartSystem/smart-3-1.png" 
+                  <img
+                    src="/images/SmartSystem/smart-3-1.png"
                     alt="운영 자동화 솔루션"
                     className="w-full h-full object-cover rounded-[50px]"
                   />
@@ -62,11 +62,11 @@ const AutomationSolutions = () => {
 
               {/* 두 번째 칸 (1행 2열) - 텍스트 */}
               <div className="flex flex-col justify-center">
-                <h3 
+                <h3
                   className="mb-5"
                   style={{
                     color: '#1C262B',
-                    fontFamily: 'KoPubWorldDotum, sans-serif',
+                    fontFamily: 'KoPubWorldDotum',
                     fontSize: '28px',
                     fontWeight: 700,
                     lineHeight: 'normal'
@@ -74,10 +74,10 @@ const AutomationSolutions = () => {
                 >
                   24시간 중앙관제 시스템
                 </h3>
-                <div 
+                <div
                   style={{
                     color: '#1C262B',
-                    fontFamily: 'KoPubWorldDotum, sans-serif',
+                    fontFamily: 'KoPubWorldDotum',
                     fontSize: '20px',
                     fontWeight: 500,
                     lineHeight: 'normal'
@@ -91,11 +91,11 @@ const AutomationSolutions = () => {
 
               {/* 세 번째 칸 (2행 1열) - 텍스트 */}
               <div className="flex flex-col justify-center">
-                <h3 
+                <h3
                   className="mb-5"
                   style={{
                     color: '#1C262B',
-                    fontFamily: 'KoPubWorldDotum, sans-serif',
+                    fontFamily: 'KoPubWorldDotum',
                     fontSize: '28px',
                     fontWeight: 700,
                     lineHeight: 'normal'
@@ -103,10 +103,10 @@ const AutomationSolutions = () => {
                 >
                   무인 운영 최적화
                 </h3>
-                <div 
+                <div
                   style={{
                     color: '#1C262B',
-                    fontFamily: 'KoPubWorldDotum, sans-serif',
+                    fontFamily: 'KoPubWorldDotum',
                     fontSize: '20px',
                     fontWeight: 500,
                     lineHeight: 'normal'
@@ -121,7 +121,7 @@ const AutomationSolutions = () => {
 
               {/* 네 번째 칸 (2행 2열) - 이미지 */}
               <div className="flex justify-end items-center">
-                <div 
+                <div
                   className="flex-shrink-0"
                   style={{
                     width: '600px',
@@ -130,8 +130,8 @@ const AutomationSolutions = () => {
                     background: '#D9D9D9'
                   }}
                 >
-                  <img 
-                    src="/images/SmartSystem/smart-3-1.png" 
+                  <img
+                    src="/images/SmartSystem/smart-3-1.png"
                     alt="무인 운영 최적화"
                     className="w-full h-full object-cover rounded-[50px]"
                   />
@@ -140,7 +140,7 @@ const AutomationSolutions = () => {
 
               {/* 다섯 번째 칸 (3행 1열) - 이미지 */}
               <div className="flex justify-start items-center">
-                <div 
+                <div
                   className="flex-shrink-0"
                   style={{
                     width: '600px',
@@ -149,8 +149,8 @@ const AutomationSolutions = () => {
                     background: '#D9D9D9'
                   }}
                 >
-                  <img 
-                    src="/images/SmartSystem/smart-3-1.png" 
+                  <img
+                    src="/images/SmartSystem/smart-3-1.png"
                     alt="예약 시스템"
                     className="w-full h-full object-cover rounded-[50px]"
                   />
@@ -159,11 +159,11 @@ const AutomationSolutions = () => {
 
               {/* 여섯 번째 칸 (3행 2열) - 텍스트 */}
               <div className="flex flex-col justify-center">
-                <h3 
+                <h3
                   className="mb-5"
                   style={{
                     color: '#1C262B',
-                    fontFamily: 'KoPubWorldDotum, sans-serif',
+                    fontFamily: 'KoPubWorldDotum',
                     fontSize: '28px',
                     fontWeight: 700,
                     lineHeight: 'normal'
@@ -171,10 +171,10 @@ const AutomationSolutions = () => {
                 >
                   예약 시스템 기반 장비 가동률 향상
                 </h3>
-                <div 
+                <div
                   style={{
                     color: '#1C262B',
-                    fontFamily: 'KoPubWorldDotum, sans-serif',
+                    fontFamily: 'KoPubWorldDotum',
                     fontSize: '20px',
                     fontWeight: 500,
                     lineHeight: 'normal'
