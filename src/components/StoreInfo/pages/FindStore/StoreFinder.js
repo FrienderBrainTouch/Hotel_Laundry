@@ -64,7 +64,19 @@ const StoreFinder = ({ onPageChange }) => {
     return store.name.toLowerCase().includes(keyword) || store.address.toLowerCase().includes(keyword);
   });
 
-  const storesPerPage = 5; // 오른쪽 패널에 보여줄 매장 수
+  // 반응형으로 페이지당 아이템 수 조정
+  const getStoresPerPage = () => {
+    // 모바일 (xs, sm): 3개씩, 데스크톱 (md 이상): 5개씩
+    if (typeof window !== 'undefined') {
+      const width = window.innerWidth;
+      if (width < 768) { // md 브레이크포인트 미만
+        return 3;
+      }
+    }
+    return 5;
+  };
+
+  const storesPerPage = getStoresPerPage();
   const indexOfLastStore = currentPage * storesPerPage;
   const indexOfFirstStore = indexOfLastStore - storesPerPage;
   const currentStores = filteredStores.slice(indexOfFirstStore, indexOfLastStore);

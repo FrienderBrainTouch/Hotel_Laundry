@@ -24,14 +24,14 @@ const startupOptionsData = [
 const Section4 = () => {
   return (
     // 전체 너비 배경 적용
-    <div className="w-[100vw] relative left-[50%] right-[50%] ml-[-50vw] mr-[-50vw] bg-blue-50 py-10 sm:py-16 md:py-24 px-4 font-pretendard">
-      <div className="max-w-7xl mx-auto text-center">
+    <div className="w-[100vw] relative left-[50%] right-[50%] ml-[-50vw] mr-[-50vw] bg-blue-50 py-16 font-pretendard">
+      <div className="w-full xs:max-w-[355px] sm:max-w-[535px] md:max-w-[728px] lg:max-w-[924px] xl:max-w-[1200px] 2xl:max-w-[1400px] mx-auto text-center">
         {/* 섹션 제목 */}
-        <h2 className="section-title font-bold text-gray-800 mb-3 sm:mb-4">
+        <h2 className="text-[22px] sm:text-[24px] md:text-[28px] lg:text-[32px] xl:text-[36px] 2xl:text-[40px] font-bold text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.44px] sm:tracking-[-0.48px] md:tracking-[-0.56px] lg:tracking-[-0.64px] xl:tracking-[-0.72px] 2xl:tracking-normal mb-[5px] sm:mb-[5px] md:mb-[10px] lg:mb-[12px] xl:mb-[8px] 2xl:mb-[12px] text-center">
           나에게 맞는 창업 방식은?
         </h2>
         {/* 섹션 부제목 */}
-        <p className="section-subtitle text-gray-600 mb-8 sm:mb-12 max-w-3xl mx-auto">
+        <p className="text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[28px] 2xl:text-[32px] font-medium text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.36px] sm:tracking-[-0.4px] md:tracking-[-0.44px] lg:tracking-[-0.48px] xl:tracking-[-0.64px] 2xl:tracking-[-0.64px] mb-[20px] sm:mb-[30px] md:mb-[20px] lg:mb-[30px] xl:mb-[30px] 2xl:mb-[30px] max-w-3xl mx-auto">
           전업, 투잡, 소자본까지 내 상황에 맞는 맞춤 창업 플랜 제안
         </p>
         
@@ -48,10 +48,10 @@ const Section4 = () => {
                 />
               </div>
               {/* 카드 제목 */}
-              <h3 className="text-28 md:section-title font-bold text-gray-800 mb-3 sm:mb-4">{option.title}</h3>
+              <h3 className="text-[20px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[26px] 2xl:text-[28px] font-bold text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.4px] sm:tracking-[-0.4px] md:tracking-[-0.44px] lg:tracking-[-0.48px] xl:tracking-[-0.48px] 2xl:tracking-[-0.48px] mb-[5px] sm:mb-[5px] md:mb-[10px] lg:mb-[12px] xl:mb-[8px] 2xl:mb-[12px]">{option.title}</h3>
               
               {/* 텍스트는 왼쪽, 블록은 중앙 정렬 */}
-              <ul className="space-y-2 text-gray-700 text-24 inline-block mx-auto text-left">
+              <ul className="space-y-2 text-[#1C262B] text-[16px] sm:text-[16px] md:text-[16px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] font-medium font-KoPubWorldDotum leading-normal tracking-[-0.32px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px] inline-block mx-auto text-left">
                 {option.features.map((feature, fIndex) => (
                   <li key={fIndex} className="flex items-start">
                     <span className="mr-2 mt-1 text-gray-500">•</span>
