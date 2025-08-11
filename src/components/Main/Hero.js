@@ -1,6 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const Hero = () => {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const whyHotelLaundrySection = document.getElementById('why-hotel-laundry');
+      if (whyHotelLaundrySection) {
+        whyHotelLaundrySection.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="relative w-full h-[700px] sm:h-[550px] md:h-[600px] lg:h-[600px] xl:h-[700px] 2xl:h-[700px] overflow-hidden">
       {/* 비디오 배경 */}
