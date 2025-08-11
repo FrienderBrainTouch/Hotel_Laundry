@@ -4,7 +4,7 @@ import ListPanel from './ListPanel';
 
 const Section2 = ({ filteredStores, currentStores, totalPages, currentPage, handlePageChange }) => {
   return (
-    <section className="py-8 sm:py-12 md:py-20 pb-4 sm:pb-8 md:pb-20 bg-gray-100">
+    <section className="py-8 sm:py-12 md:py-16 lg:py-20 pb-2 sm:pb-4 md:pb-8 lg:pb-16 bg-gray-100">
       <div className="w-[100vw] relative left-[50%] right-[50%] ml-[-50vw] mr-[-50vw] bg-gray-100">
         <div className="max-w-[1920px] mx-auto flex flex-col lg:flex-row justify-center gap-4 sm:gap-6 p-4 sm:p-6">
           {/* 왼쪽: 지도 */}
