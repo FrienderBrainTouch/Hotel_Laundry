@@ -4,32 +4,32 @@
 
 /* KoPubWorldBatang 폰트 정의 */
 @font-face {
-  font-family: 'KoPubWorldBatang';
-  src: local('KoPubWorldBatang Light'), local('KoPubWorldBatang-Light');
+  font-family: "KoPubWorldBatang";
+  src: local("KoPubWorldBatang Light"), local("KoPubWorldBatang-Light");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'KoPubWorldBatang';
-  src: local('KoPubWorldBatang Regular'), local('KoPubWorldBatang-Regular');
+  font-family: "KoPubWorldBatang";
+  src: local("KoPubWorldBatang Regular"), local("KoPubWorldBatang-Regular");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'KoPubWorldBatang';
-  src: local('KoPubWorldBatang Medium'), local('KoPubWorldBatang-Medium');
+  font-family: "KoPubWorldBatang";
+  src: local("KoPubWorldBatang Medium"), local("KoPubWorldBatang-Medium");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'KoPubWorldBatang';
-  src: local('KoPubWorldBatang Bold'), local('KoPubWorldBatang-Bold');
+  font-family: "KoPubWorldBatang";
+  src: local("KoPubWorldBatang Bold"), local("KoPubWorldBatang-Bold");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -37,32 +37,32 @@
 
 /* KoPubWorldDotum 폰트 정의 */
 @font-face {
-  font-family: 'KoPubWorldDotum';
-  src: local('KoPubWorldDotum Light'), local('KoPubWorldDotum-Light');
+  font-family: "KoPubWorldDotum";
+  src: local("KoPubWorldDotum Light"), local("KoPubWorldDotum-Light");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'KoPubWorldDotum';
-  src: local('KoPubWorldDotum Regular'), local('KoPubWorldDotum-Regular');
+  font-family: "KoPubWorldDotum";
+  src: local("KoPubWorldDotum Regular"), local("KoPubWorldDotum-Regular");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'KoPubWorldDotum';
-  src: local('KoPubWorldDotum Medium'), local('KoPubWorldDotum-Medium');
+  font-family: "KoPubWorldDotum";
+  src: local("KoPubWorldDotum Medium"), local("KoPubWorldDotum-Medium");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'KoPubWorldDotum';
-  src: local('KoPubWorldDotum Bold'), local('KoPubWorldDotum-Bold');
+  font-family: "KoPubWorldDotum";
+  src: local("KoPubWorldDotum Bold"), local("KoPubWorldDotum-Bold");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -71,9 +71,87 @@
 /* 프로젝트 컬러 변수 */
 :root {
   --color-primary: #102254;
-  --color-dark: #1C262B;
-  --color-white: #FFFFFF;
-  --color-light-blue: #E3F2FD;
+  --color-dark: #1c262b;
+  --color-white: #ffffff;
+  --color-light-blue: #e3f2fd;
+
+  /* Contact 컴포넌트 반응형 letter-spacing */
+  --letter-spacing: -0.44px; /* 기본값 (xs) */
+
+  /* Contact 컴포넌트 subtitle 반응형 letter-spacing */
+  --subtitle-letter-spacing: -0.36px; /* 기본값 (xs) */
+}
+
+/* Contact 컴포넌트 반응형 letter-spacing */
+@media (min-width: 640px) {
+  /* sm */
+  :root {
+    --letter-spacing: -0.48px;
+  }
+}
+
+@media (min-width: 768px) {
+  /* md */
+  :root {
+    --letter-spacing: -0.56px;
+  }
+}
+
+@media (min-width: 1024px) {
+  /* lg */
+  :root {
+    --letter-spacing: -0.64px;
+  }
+}
+
+@media (min-width: 1280px) {
+  /* xl */
+  :root {
+    --letter-spacing: -0.72px;
+  }
+}
+
+@media (min-width: 1536px) {
+  /* 2xl */
+  :root {
+    --letter-spacing: 0px;
+  }
+}
+
+/* Contact 컴포넌트 subtitle 반응형 letter-spacing */
+@media (min-width: 640px) {
+  /* sm */
+  :root {
+    --subtitle-letter-spacing: -0.4px;
+  }
+}
+
+@media (min-width: 768px) {
+  /* md */
+  :root {
+    --subtitle-letter-spacing: -0.44px;
+  }
+}
+
+@media (min-width: 1024px) {
+  /* lg */
+  :root {
+    --subtitle-letter-spacing: -0.48px;
+  }
+}
+
+@media (min-width: 1280px) {
+  /* xl */
+  :root {
+    --subtitle-letter-spacing: -0.56px;
+  }
+}
+
+@media (min-width: 1536px) {
+  /* 2xl */
+  :root {
+    --subtitle-letter-spacing: -0.64px;
+  }
 }
 
 /* 기존 스타일 유지 */
@@ -83,22 +161,23 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   width: 100%;
   margin: 0;
   padding: 0;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -106,109 +185,197 @@ code {
 
 /* 히어로 타이틀 반응형 */
 /* 모바일 기본 (≤575px) */
-.hero-title { font-size: 1.5rem; }     /* 24px */
-.hero-subtitle { font-size: 1.125rem; } /* 18px */
+.hero-title {
+  font-size: 1.5rem;
+} /* 24px */
+.hero-subtitle {
+  font-size: 1.125rem;
+} /* 18px */
 
 /* sm (576px~) */
 @media (min-width: 576px) {
-  .hero-title { font-size: 2rem; }       /* 32px */
-  .hero-subtitle { font-size: 1.5rem; }  /* 24px */
+  .hero-title {
+    font-size: 2rem;
+  } /* 32px */
+  .hero-subtitle {
+    font-size: 1.5rem;
+  } /* 24px */
 }
 
 /* md (768px~) */
 @media (min-width: 768px) {
-  .hero-title { font-size: clamp(1rem, calc(1.5rem + 1.2vw), 3rem); }
-  .hero-subtitle { font-size: clamp(1rem, calc(1.25rem + 1vw), 2.5rem); }
- }
- 
- /* lg (1024px~) */
- @media (min-width: 1024px) {
-  .hero-title { font-size: clamp(1rem, calc(1.75rem + 1.5vw), 4rem); }
-  .hero-subtitle { font-size: clamp(1rem, calc(1.5rem + 1vw), 3rem); }
- }
- 
- /* xl (1440px~) */
- @media (min-width: 1440px) {
-  .hero-title { font-size: clamp(1rem, calc(2rem + 2vw), 5rem); }
-  .hero-subtitle { font-size: clamp(1rem, calc(1.75rem + 1.25vw), 3.5rem); }
- }
- 
- /* 2xl (1920px~) */
- @media (min-width: 1920px) {
-  .hero-title { font-size: clamp(1rem, calc(2.5rem + 2vw), 6rem); }
-  .hero-subtitle { font-size: clamp(1rem, calc(2rem + 1.5vw), 4rem); }
- }
-
-/* 기본 텍스트 반응형 */
-/* 모바일 기본 (≤575px) */
-.text-28 { font-size: 1.25rem; }  /* 20px */
-.text-24 { font-size: 1rem; }     /* 16px */
-.text-22 { font-size: 0.9375rem; }/* 15px */
-.text-20 { font-size: 0.875rem; } /* 14px */
-
-/* sm (576px~) */
-@media (min-width: 576px) {
-  .text-28 { font-size: 1.375rem; } /* 22px */
-  .text-24 { font-size: 1.125rem; } /* 18px */
-  .text-22 { font-size: 1rem; }     /* 16px */
-  .text-20 { font-size: 0.9375rem; }/* 15px */
-}
-
-/* md (768px~) */
-@media (min-width: 768px) {
-  .text-28 { font-size: 1.5rem; }   /* 24px */
-  .text-24 { font-size: 1.25rem; }  /* 20px */
-  .text-22 { font-size: 1.125rem; } /* 18px */
-  .text-20 { font-size: 1rem; }     /* 16px */
+  .hero-title {
+    font-size: clamp(1rem, calc(1.5rem + 1.2vw), 3rem);
+  }
+  .hero-subtitle {
+    font-size: clamp(1rem, calc(1.25rem + 1vw), 2.5rem);
+  }
 }
 
 /* lg (1024px~) */
 @media (min-width: 1024px) {
-  .text-28 { font-size: 1.625rem; }  /* 26px */
-  .text-24 { font-size: 1.375rem; }  /* 22px */
-  .text-22 { font-size: 1.25rem; }   /* 20px */
-  .text-20 { font-size: 1.125rem; }  /* 18px */
+  .hero-title {
+    font-size: clamp(1rem, calc(1.75rem + 1.5vw), 4rem);
+  }
+  .hero-subtitle {
+    font-size: clamp(1rem, calc(1.5rem + 1vw), 3rem);
+  }
 }
 
 /* xl (1440px~) */
 @media (min-width: 1440px) {
-  .text-28 { font-size: 1.75rem; } /* 28px */
-  .text-24 { font-size: 1.5rem; }  /* 24px */
-  .text-22 { font-size: 1.375rem; }/* 22px */
-  .text-20 { font-size: 1.25rem; } /* 20px */
-}
-
-/* 섹션 타이틀 반응형 */
-/* 모바일 기본 (≤575px) */
-.section-title { font-size: 1.25rem; }    /* 20px */
-.section-subtitle { font-size: 1rem; }    /* 16px */
-
-/* sm (576px~) */
-@media (min-width: 576px) {
-  .section-title { font-size: 1.375rem; }   /* 22px */
-  .section-subtitle { font-size: 1.125rem; }/* 18px */
-}
-
-/* md (768px~) */
-@media (min-width: 768px) {
-  .section-title { font-size: 1.5rem; }     /* 24px */
-  .section-subtitle { font-size: 1.25rem; } /* 20px */
-}
-
-/* lg (1024px~) */
-@media (min-width: 1024px) {
-  .section-title { font-size: 1.75rem; }    /* 28px */
-  .section-subtitle { font-size: 1.5rem; }  /* 24px */
-}
-
-/* xl (1440px~) */
-@media (min-width: 1440px) {
-  .section-title { font-size: 2rem; }       /* 32px */
-  .section-subtitle { font-size: 1.75rem; } /* 28px */
+  .hero-title {
+    font-size: clamp(1rem, calc(2rem + 2vw), 5rem);
+  }
+  .hero-subtitle {
+    font-size: clamp(1rem, calc(1.75rem + 1.25vw), 3.5rem);
+  }
 }
 
 /* 2xl (1920px~) */
 @media (min-width: 1920px) {
-  .section-title { font-size: 2.5rem; }     /* 40px */
-  .section-subtitle { font-size: 2rem; }    /* 32px */
+  .hero-title {
+    font-size: clamp(1rem, calc(2.5rem + 2vw), 6rem);
+  }
+  .hero-subtitle {
+    font-size: clamp(1rem, calc(2rem + 1.5vw), 4rem);
+  }
+}
+
+/* 기본 텍스트 반응형 */
+/* 모바일 기본 (≤575px) */
+.text-28 {
+  font-size: 1.25rem;
+} /* 20px */
+.text-24 {
+  font-size: 1rem;
+} /* 16px */
+.text-22 {
+  font-size: 0.9375rem;
+} /* 15px */
+.text-20 {
+  font-size: 0.875rem;
+} /* 14px */
+
+/* sm (576px~) */
+@media (min-width: 576px) {
+  .text-28 {
+    font-size: 1.375rem;
+  } /* 22px */
+  .text-24 {
+    font-size: 1.125rem;
+  } /* 18px */
+  .text-22 {
+    font-size: 1rem;
+  } /* 16px */
+  .text-20 {
+    font-size: 0.9375rem;
+  } /* 15px */
+}
+
+/* md (768px~) */
+@media (min-width: 768px) {
+  .text-28 {
+    font-size: 1.5rem;
+  } /* 24px */
+  .text-24 {
+    font-size: 1.25rem;
+  } /* 20px */
+  .text-22 {
+    font-size: 1.125rem;
+  } /* 18px */
+  .text-20 {
+    font-size: 1rem;
+  } /* 16px */
+}
+
+/* lg (1024px~) */
+@media (min-width: 1024px) {
+  .text-28 {
+    font-size: 1.625rem;
+  } /* 26px */
+  .text-24 {
+    font-size: 1.375rem;
+  } /* 22px */
+  .text-22 {
+    font-size: 1.25rem;
+  } /* 20px */
+  .text-20 {
+    font-size: 1.125rem;
+  } /* 18px */
+}
+
+/* xl (1440px~) */
+@media (min-width: 1440px) {
+  .text-28 {
+    font-size: 1.75rem;
+  } /* 28px */
+  .text-24 {
+    font-size: 1.5rem;
+  } /* 24px */
+  .text-22 {
+    font-size: 1.375rem;
+  } /* 22px */
+  .text-20 {
+    font-size: 1.25rem;
+  } /* 20px */
+}
+
+/* 섹션 타이틀 반응형 */
+/* 모바일 기본 (≤575px) */
+.section-title {
+  font-size: 1.25rem;
+} /* 20px */
+.section-subtitle {
+  font-size: 1rem;
+} /* 16px */
+
+/* sm (576px~) */
+@media (min-width: 576px) {
+  .section-title {
+    font-size: 1.375rem;
+  } /* 22px */
+  .section-subtitle {
+    font-size: 1.125rem;
+  } /* 18px */
+}
+
+/* md (768px~) */
+@media (min-width: 768px) {
+  .section-title {
+    font-size: 1.5rem;
+  } /* 24px */
+  .section-subtitle {
+    font-size: 1.25rem;
+  } /* 20px */
+}
+
+/* lg (1024px~) */
+@media (min-width: 1024px) {
+  .section-title {
+    font-size: 1.75rem;
+  } /* 28px */
+  .section-subtitle {
+    font-size: 1.5rem;
+  } /* 24px */
+}
+
+/* xl (1440px~) */
+@media (min-width: 1440px) {
+  .section-title {
+    font-size: 2rem;
+  } /* 32px */
+  .section-subtitle {
+    font-size: 1.75rem;
+  } /* 28px */
+}
+
+/* 2xl (1920px~) */
+@media (min-width: 1920px) {
+  .section-title {
+    font-size: 2.5rem;
+  } /* 40px */
+  .section-subtitle {
+    font-size: 2rem;
+  } /* 32px */
 }

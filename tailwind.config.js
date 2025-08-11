@@ -31,9 +31,9 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        'pretendard': ['Pretendard', 'sans-serif'],
-        'KoPubWorldBatang': ['KoPubWorldBatang', 'serif'],
-        'KoPubWorldDotum': ['KoPubWorldDotum', 'sans-serif'],
+        'pretendard': ['Pretendard'],
+        'KoPubWorldBatang': ['KoPubWorldBatang'],
+        'KoPubWorldDotum': ['KoPubWorldDotum'],
       },
       colors: {
         // 프로젝트 컬러 팔레트
@@ -59,7 +59,7 @@ module.exports = {
   },
   plugins: [
     // 반응형 폰트 사이즈 플러그인
-    function({ addUtilities, theme }) {
+    function ({ addUtilities, theme }) {
       const newUtilities = {
         // 히어로 타이틀 반응형
         '.hero-title': {
