@@ -16,6 +16,7 @@ const Section1 = () => {
             </div>
           </div>
 
+
           {/* 메인 이미지 */}
           <div className="mb-8 sm:mb-10">
             <img
