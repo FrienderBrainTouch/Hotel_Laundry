@@ -15,6 +15,7 @@ import StartupGuide from './components/StartupGuide/StartupGuide';
 import StoreInfo from './components/StoreInfo';
 import ContactPage from './components/Contact';
 import Footer from './components/Footer';
+import FloatingMenu from './components/FloatingMenu';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -58,6 +59,7 @@ function App() {
         {renderPage()}
       </main>
       <Footer />
+      <FloatingMenu onPageChange={setCurrentPage} currentPage={currentPage} />
     </div>  
   );
 }
