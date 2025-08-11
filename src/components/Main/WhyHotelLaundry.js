@@ -2,7 +2,7 @@ import React from 'react';
 
 const WhyHotelLaundry = () => {
   return (
-    <section className="w-full py-20 bg-white">
+    <section id="why-hotel-laundry" className="w-full py-20 bg-white">
       {/* 상단 제목 섹션 */}
       <div className="mb-[20px]">
         <div className="container mx-auto px-4 text-center">
