@@ -20,13 +20,13 @@ const processStepsData = [
 
 const Section5 = () => {
   return (
-    <div className="bg-white py-10 sm:py-16 md:py-24 px-4 font-pretendard">
-      <div className="max-w-5xl mx-auto text-center mb-10 sm:mb-16">
-        <h2 className="section-title font-bold text-gray-800 mb-3 sm:mb-4">창업 진행 단계</h2>
-        <p className="section-subtitle text-gray-600">처음 시작하는 분도 안심할 수 있도록 단계별로 체계적인 창업 과정을 제공합니다.</p>
+    <div className="bg-white py-16 font-pretendard">
+      <div className="w-full xs:max-w-[355px] sm:max-w-[535px] md:max-w-[728px] lg:max-w-[924px] xl:max-w-[1200px] 2xl:max-w-[1400px] mx-auto text-center mb-[20px] sm:mb-[30px] md:mb-[20px] lg:mb-[30px] xl:mb-[30px] 2xl:mb-[30px]">
+        <h2 className="text-[22px] sm:text-[24px] md:text-[28px] lg:text-[32px] xl:text-[36px] 2xl:text-[40px] font-bold text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.44px] sm:tracking-[-0.48px] md:tracking-[-0.56px] lg:tracking-[-0.64px] xl:tracking-[-0.72px] 2xl:tracking-normal mb-[5px] sm:mb-[5px] md:mb-[10px] lg:mb-[12px] xl:mb-[8px] 2xl:mb-[12px] text-center">창업 진행 단계</h2>
+        <p className="text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[28px] 2xl:text-[32px] font-medium text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.36px] sm:tracking-[-0.4px] md:tracking-[-0.44px] lg:tracking-[-0.48px] xl:tracking-[-0.64px] 2xl:tracking-[-0.64px]">처음 시작하는 분도 안심할 수 있도록 단계별로 체계적인 창업 과정을 제공합니다.</p>
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 sm:mt-12">
+      <div className="relative w-full xs:max-w-[355px] sm:max-w-[535px] md:max-w-[728px] lg:max-w-[924px] xl:max-w-[1200px] 2xl:max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 mt-8 sm:mt-12">
       {/* 중앙 세로선 */}
         <div className="absolute left-1/2 top-0 h-full w-0.5 bg-gray-200 -translate-x-1/2 hidden md:block" aria-hidden="true" />
 
@@ -53,8 +53,8 @@ const Section5 = () => {
 
                     {/* 텍스트: 항상 가운데(2) */}
                     <div className="flex-grow text-left md:order-2">
-                      <h3 className="text-28 md:text-xl lg:text-2xl font-bold text-gray-800 mb-2">{item.title}</h3>
-                      <ul className="space-y-1 text-gray-600 text-20 sm:text-sm md:text-base">
+                      <h3 className="text-[20px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[26px] 2xl:text-[28px] font-bold text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.4px] sm:tracking-[-0.4px] md:tracking-[-0.44px] lg:tracking-[-0.48px] xl:tracking-[-0.48px] 2xl:tracking-[-0.48px] mb-[5px] sm:mb-[5px] md:mb-[10px] lg:mb-[12px] xl:mb-[8px] 2xl:mb-[12px]">{item.title}</h3>
+                      <ul className="space-y-1 text-[#1C262B] text-[15px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] font-medium font-KoPubWorldDotum leading-normal tracking-[-0.3px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px] list-disc list-inside">
                         {item.details.map((detail, i) => (
                           <li key={i} className="list-disc list-inside">{detail}</li>
                         ))}

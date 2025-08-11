@@ -51,7 +51,7 @@ const Chart = ({ data }) => {
   // 기존 배열 데이터인 경우 기존 차트 표시
   if (Array.isArray(data)) {
     if (data.length === 0) {
-      return <div className="flex items-center justify-center h-48 bg-gray-50 p-4 rounded-lg text-gray-500 text-24">차트 데이터가 없습니다.</div>;
+      return <div className="flex items-center justify-center h-48 bg-gray-50 p-4 rounded-lg text-gray-500 text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px]">차트 데이터가 없습니다.</div>;
     }
     const maxVal = Math.max(...data, 1);
     return (
@@ -62,14 +62,14 @@ const Chart = ({ data }) => {
               className="w-full bg-blue-500 rounded-t-sm"
               style={{ height: `${(value / maxVal) * 90}%` }}
             ></div>
-            <span className="text-20 text-gray-500 mt-1">{`0${index+2}`}</span>
+            <span className="text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] text-gray-500 mt-1">{`0${index+2}`}</span>
           </div>
         ))}
       </div>
     );
   }
   
-  return <div className="flex items-center justify-center h-48 bg-gray-50 p-4 rounded-lg text-gray-500 text-24">차트 데이터가 없습니다.</div>;
+  return <div className="flex items-center justify-center h-48 bg-gray-50 p-4 rounded-lg text-gray-500 text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px]">차트 데이터가 없습니다.</div>;
 };
 
 
@@ -129,7 +129,7 @@ const StoreModal = ({ store, onClose }) => {
 
         <div className="inline-block align-bottom bg-white rounded-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl w-full p-6 sm:p-8">
           
-          <h2 className="font-KoPubWorldDotum text-section-title font-bold text-center mb-6 text-gray-800">매장 상세 정보</h2>
+          <h2 className="text-[22px] sm:text-[24px] md:text-[28px] lg:text-[32px] xl:text-[36px] 2xl:text-[40px] font-bold text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.48px] sm:tracking-[-0.48px] md:tracking-[-0.56px] lg:tracking-[-0.64px] xl:tracking-[-0.72px] 2xl:tracking-normal mb-[20px] sm:mb-[30px] md:mb-[20px] lg:mb-[30px] xl:mb-[30px] 2xl:mb-[30px] text-center">매장 상세 정보</h2>
           
           <button onClick={onClose} className="absolute right-6 top-6 text-gray-400 hover:text-gray-600">
             <CloseIcon className="w-6 h-6" />
@@ -172,12 +172,12 @@ const StoreModal = ({ store, onClose }) => {
                     <LocationPinIcon className="w-6 h-6" />
                   </div>
                   <div>
-                    <h3 className="font-KoPubWorldDotum text-section-title font-bold text-gray-800">{currentStore.name}</h3>
-                    <p className="mt-2 text-24 text-gray-600">{currentStore.address}</p>
-                    <p className="mt-1 text-24 text-gray-500">{currentStore.phone}</p>
+                    <h3 className="text-[20px] sm:text-[22px] md:text-[24px] lg:text-[26px] xl:text-[28px] 2xl:text-[30px] font-bold text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.4px] sm:tracking-[-0.44px] md:tracking-[-0.48px] lg:tracking-[-0.52px] xl:tracking-[-0.56px] 2xl:tracking-[-0.6px]">{currentStore.name}</h3>
+                    <p className="mt-2 text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.32px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px]">{currentStore.address}</p>
+                    <p className="mt-1 text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.32px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px]">{currentStore.phone}</p>
                     <div className="mt-3 flex flex-wrap gap-2">
                       {tags.map(tag => (
-                        <span key={tag} className="px-3 py-1 text-20 font-semibold text-gray-700 bg-gray-200 rounded-full">{tag}</span>
+                        <span key={tag} className="px-3 py-1 text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] font-semibold text-[#1C262B] bg-gray-200 rounded-full">{tag}</span>
                       ))}
                     </div>
                   </div>
@@ -188,13 +188,13 @@ const StoreModal = ({ store, onClose }) => {
                   {machineTypes.map(type => {
                     const IconComponent = type.icon;
                     return (
-                      <div key={type.name} className="flex items-center justify-between text-24">
-                        <div className="flex items-center gap-3 text-gray-700">
+                      <div key={type.name} className="flex items-center justify-between text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px]">
+                        <div className="flex items-center gap-3 text-[#1C262B]">
                           <IconComponent className="w-6 h-6" />
                           <span>{type.name}</span>
                         </div>
                         <div className="flex-grow border-b border-dashed mx-4"></div>
-                        <span className="font-semibold text-gray-800">{type.count}대</span>
+                        <span className="font-semibold text-[#1C262B]">{type.count}대</span>
                       </div>
                     );
                   })}
@@ -205,8 +205,8 @@ const StoreModal = ({ store, onClose }) => {
             {/* 실시간 세탁기 사용 현황 */}
             <div>
               <div className="flex justify-between items-center mb-4">
-                <h4 className="font-KoPubWorldDotum text-section-title font-bold text-gray-800">실시간 세탁기 사용 현황</h4>
-                <select className="text-24 border border-gray-300 rounded-md px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-500">
+                <h4 className="text-[20px] sm:text-[22px] md:text-[24px] lg:text-[26px] xl:text-[28px] 2xl:text-[30px] font-bold text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.4px] sm:tracking-[-0.44px] md:tracking-[-0.48px] lg:tracking-[-0.52px] xl:tracking-[-0.56px] 2xl:tracking-[-0.6px]">실시간 세탁기 사용 현황</h4>
+                <select className="text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] border border-gray-300 rounded-md px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-500">
                   <option>세탁기 종류</option>
                   <option>전체</option>
                 </select>
@@ -215,10 +215,10 @@ const StoreModal = ({ store, onClose }) => {
                 {machines.map(machine => (
                   <div key={machine.id} className="border border-gray-200 rounded-lg p-3 flex flex-col items-center justify-center text-center space-y-2">
                     <WasherIcon className="w-10 h-10 text-gray-500" />
-                    <p className="text-20 font-medium text-gray-700">{machine.name}</p>
+                    <p className="text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] font-medium text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.32px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px] whitespace-nowrap">{machine.name}</p>
                     <div className="flex items-center gap-1.5">
                       {machine.isAvailable ? <AvailableIcon /> : <InUseIcon />}
-                      <p className={`text-20 font-semibold whitespace-nowrap ${machine.isAvailable ? 'text-green-600' : 'text-red-600'}`}>
+                      <p className={`text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] font-semibold whitespace-nowrap font-KoPubWorldDotum leading-normal tracking-[-0.32px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px] ${machine.isAvailable ? 'text-green-600' : 'text-red-600'}`}>
                         {machine.isAvailable ? '사용가능' : '사용중'}
                       </p>
                     </div>
@@ -229,12 +229,12 @@ const StoreModal = ({ store, onClose }) => {
 
             {/* 전월 대비 수익 상승률 */}
             <div>
-              <h4 className="font-KoPubWorldDotum text-section-title font-bold text-gray-800 mb-4">전월 대비 수익 상승률</h4>
+              <h4 className="text-[20px] sm:text-[22px] md:text-[24px] lg:text-[26px] xl:text-[28px] 2xl:text-[30px] font-bold text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.4px] sm:tracking-[-0.44px] md:tracking-[-0.48px] lg:tracking-[-0.52px] xl:tracking-[-0.56px] 2xl:tracking-[-0.6px] mb-4">전월 대비 수익 상승률</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center"> {/* md:grid-cols-3에서 md:grid-cols-2로 변경 */}
                 <div className="md:col-span-1"> {/* 차트 영역 */}
                   <Chart data={chartData} />
                 </div>
-                <div className="md:col-span-1 text-24 text-gray-600"> {/* 설명 영역 */}
+                <div className="md:col-span-1 text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.32px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px]"> {/* 설명 영역 */}
                   <p>{currentStore.chartDescription}</p>
                 </div>
               </div>
@@ -244,7 +244,7 @@ const StoreModal = ({ store, onClose }) => {
           {/* 하단 닫기 버튼 */}
           <div className="mt-8 pt-6 border-t text-center">
             <button type="button" onClick={onClose}
-              className="w-full sm:w-auto inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-10 py-2 bg-white text-24 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="w-full sm:w-auto inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-10 py-2 bg-white text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] font-medium text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.32px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px] hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
               닫기
             </button>

@@ -87,64 +87,66 @@ const Section3 = () => {
   };
 
   return (
-    <section className="py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="font-KoPubWorldDotum text-hero-title font-bold text-center mb-6">전국 매장 현황</h2>
+    <section className="py-16 bg-white">
+      <div className="container mx-auto">
+        <div className="w-full xs:max-w-[355px] sm:max-w-[535px] md:max-w-[728px] lg:max-w-[924px] xl:max-w-[1200px] 2xl:max-w-[1400px] mx-auto">
+          <h2 className="text-[22px] sm:text-[24px] md:text-[28px] lg:text-[32px] xl:text-[36px] 2xl:text-[40px] font-bold text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.44px] sm:tracking-[-0.48px] md:tracking-[-0.56px] lg:tracking-[-0.64px] xl:tracking-[-0.72px] 2xl:tracking-normal mb-[20px] sm:mb-[30px] md:mb-[20px] lg:mb-[30px] xl:mb-[30px] 2xl:mb-[30px] text-center">전국 매장 현황</h2>
 
-        {/* 필터 버튼 */}
-        <div className="flex justify-center flex-wrap gap-4 mb-12">
-          <button onClick={() => handleFilterChange('전국')} className={`px-6 py-2 rounded-full font-semibold text-24 ${activeFilter === '전국' ? 'bg-gray-800 text-white' : 'bg-white text-gray-800 border'}`}>전국</button>
-          <button onClick={() => handleFilterChange('서울')} className={`px-6 py-2 rounded-full font-semibold text-24 ${activeFilter === '서울' ? 'bg-gray-800 text-white' : 'bg-white text-gray-800 border'}`}>서울</button>
-          <button onClick={() => handleFilterChange('경기')} className={`px-6 py-2 rounded-full font-semibold text-24 ${activeFilter === '경기' ? 'bg-gray-800 text-white' : 'bg-white text-gray-800 border'}`}>경기</button>
-          <button onClick={() => handleFilterChange('인천')} className={`px-6 py-2 rounded-full font-semibold text-24 ${activeFilter === '인천' ? 'bg-gray-800 text-white' : 'bg-white text-gray-800 border'}`}>인천</button>              
-          <button onClick={() => handleFilterChange('그 외')} className={`px-6 py-2 rounded-full font-semibold text-24 ${activeFilter === '그 외' ? 'bg-gray-800 text-white' : 'bg-white text-gray-800 border'}`}>그 외</button>              
-        </div>
+          {/* 필터 버튼 */}
+          <div className="flex justify-center flex-wrap gap-4 mb-[20px] sm:mb-[30px] md:mb-[20px] lg:mb-[30px] xl:mb-[30px] 2xl:mb-[30px]">
+            <button onClick={() => handleFilterChange('전국')} className={`px-6 py-2 rounded-full font-semibold text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] ${activeFilter === '전국' ? 'bg-gray-800 text-white' : 'bg-white text-gray-800 border'}`}>전국</button>
+            <button onClick={() => handleFilterChange('서울')} className={`px-6 py-2 rounded-full font-semibold text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] ${activeFilter === '서울' ? 'bg-gray-800 text-white' : 'bg-white text-gray-800 border'}`}>서울</button>
+            <button onClick={() => handleFilterChange('경기')} className={`px-6 py-2 rounded-full font-semibold text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] ${activeFilter === '경기' ? 'bg-gray-800 text-white' : 'bg-white text-gray-800 border'}`}>경기</button>
+            <button onClick={() => handleFilterChange('인천')} className={`px-6 py-2 rounded-full font-semibold text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] ${activeFilter === '인천' ? 'bg-gray-800 text-white' : 'bg-white text-gray-800 border'}`}>인천</button>              
+            <button onClick={() => handleFilterChange('그 외')} className={`px-6 py-2 rounded-full font-semibold text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] ${activeFilter === '그 외' ? 'bg-gray-800 text-white' : 'bg-white text-gray-800 border'}`}>그 외</button>              
+          </div>
 
-        {/* 매장 카드 그리드 - 모바일에서만 슬라이드, 태블릿/데스크톱에서는 그리드 */}
-        {/* 모바일 슬라이드 컨테이너 */}
-        <div className="md:hidden overflow-x-auto pb-4">
-          <div className="flex space-x-4" style={{ width: `${filteredStores.length * 280}px` }}>
-            {filteredStores.map(store => (
-              <div key={store.id} className="flex-shrink-0 w-70">
-                <StoreCard store={store} />
-              </div>
+          {/* 매장 카드 그리드 - 모바일에서만 슬라이드, 태블릿/데스크톱에서는 그리드 */}
+          {/* 모바일 슬라이드 컨테이너 */}
+          <div className="md:hidden overflow-x-auto pb-4">
+            <div className="flex space-x-4" style={{ width: `${filteredStores.length * 280}px` }}>
+              {filteredStores.map(store => (
+                <div key={store.id} className="flex-shrink-0 w-70">
+                  <StoreCard store={store} />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* 태블릿/데스크톱 그리드 */}
+          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-8">
+            {currentStores.map(store => (
+              <StoreCard key={store.id} store={store} />
             ))}
           </div>
-        </div>
 
-        {/* 태블릿/데스크톱 그리드 */}
-        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-8">
-          {currentStores.map(store => (
-            <StoreCard key={store.id} store={store} />
-          ))}
-        </div>
-
-        {/* 페이지네이션 - 태블릿/데스크톱에서만 표시 */}
-        <nav className="hidden md:flex justify-center items-center mt-16 space-x-2">
-          <button onClick={() => handlePageChange(1)} disabled={currentPage === 1} className="p-2 text-gray-500 hover:text-gray-800 disabled:opacity-50">
-            <img src={ToNext} alt="마지막 이전 페이지" className="h-5 w-5 rotate-180" />
-          </button>
-          <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} className="p-2 text-gray-500 hover:text-gray-800 disabled:opacity-50">
-            <img src={Next} alt="이전 페이지" className="h-5 w-5 rotate-180" />
-          </button>
-          
-          {Array.from({ length: totalPages }, (_, index) => (
-            <button
-              key={index + 1}
-              onClick={() => handlePageChange(index + 1)}
-              className={`w-8 h-8 rounded text-24 ${currentPage === index + 1 ? 'text-white bg-gray-800' : 'text-gray-700 hover:bg-gray-200'}`}
-            >
-              {index + 1}
+          {/* 페이지네이션 - 태블릿/데스크톱에서만 표시 */}
+          <nav className="hidden md:flex justify-center items-center mt-16 space-x-2">
+            <button onClick={() => handlePageChange(1)} disabled={currentPage === 1} className="p-2 text-gray-500 hover:text-gray-800 disabled:opacity-50">
+              <img src={ToNext} alt="마지막 이전 페이지" className="h-5 w-5 rotate-180" />
             </button>
-          ))}
+            <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} className="p-2 text-gray-500 hover:text-gray-800 disabled:opacity-50">
+              <img src={Next} alt="이전 페이지" className="h-5 w-5 rotate-180" />
+            </button>
+            
+            {Array.from({ length: totalPages }, (_, index) => (
+              <button
+                key={index + 1}
+                onClick={() => handlePageChange(index + 1)}
+                className={`w-8 h-8 rounded text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] ${currentPage === index + 1 ? 'text-white bg-gray-800' : 'text-gray-700 hover:bg-gray-200'}`}
+              >
+                {index + 1}
+              </button>
+            ))}
 
-          <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages} className="p-2 text-gray-500 hover:text-gray-800 disabled:opacity-50">
-            <img src={Next} alt="다음 페이지" className="h-5 w-5" />
-          </button>
-          <button onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages} className="p-2 text-gray-500 hover:text-gray-800 disabled:opacity-50">
-            <img src={ToNext} alt="마지막 페이지" className="h-5 w-5" />
-          </button>
-        </nav>
+            <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages} className="p-2 text-gray-500 hover:text-gray-800 disabled:opacity-50">
+              <img src={Next} alt="다음 페이지" className="h-5 w-5" />
+            </button>
+            <button onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages} className="p-2 text-gray-500 hover:text-gray-800 disabled:opacity-50">
+              <img src={ToNext} alt="마지막 페이지" className="h-5 w-5" />
+            </button>
+          </nav>
+        </div>
       </div>
     </section>
   );

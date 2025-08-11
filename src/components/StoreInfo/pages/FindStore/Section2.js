@@ -14,7 +14,7 @@ const Section2 = ({ filteredStores, currentStores, totalPages, currentPage, hand
           />
           
           {/* 오른쪽: 목록 패널 */}
-          <div className="w-full lg:w-[580px] bg-white rounded-lg shadow-md">
+          <div className="w-full lg:w-[580px] bg-white rounded-lg shadow-md h-[300px] sm:h-[400px] md:h-[500px] lg:h-[680px]">
             <ListPanel 
               stores={currentStores}
               totalPages={totalPages}
