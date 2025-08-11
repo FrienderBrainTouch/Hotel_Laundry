@@ -1,70 +1,71 @@
 import React, { useState } from 'react';
+import emailjs from '@emailjs/browser';
 
 // 시/도별 시/군/구 데이터
 const regionData = {
-  seoul: [
+  '서울': [
     '강남구', '강동구', '강북구', '강서구', '관악구', '광진구', '구로구', '금천구',
     '노원구', '도봉구', '동대문구', '동작구', '마포구', '서대문구', '서초구', '성동구',
     '성북구', '송파구', '양천구', '영등포구', '용산구', '은평구', '종로구', '중구', '중랑구'
   ],
-  busan: [
+  '부산': [
     '강서구', '금정구', '남구', '동구', '동래구', '부산진구', '북구', '사상구',
     '사하구', '서구', '수영구', '연제구', '영도구', '중구', '해운대구', '기장군'
   ],
-  daegu: [
+  '대구': [
     '남구', '달서구', '달성군', '동구', '북구', '서구', '수성구', '중구'
   ],
-  incheon: [
+  '인천': [
     '계양구', '남구', '남동구', '동구', '부평구', '서구', '연수구', '중구', '강화군', '옹진군'
   ],
-  gwangju: [
+  '광주': [
     '광산구', '남구', '동구', '북구', '서구'
   ],
-  daejeon: [
+  '대전': [
     '대덕구', '동구', '서구', '유성구', '중구'
   ],
-  ulsan: [
+  '울산': [
     '남구', '동구', '북구', '울주군', '중구'
   ],
-  sejong: [
+  '세종': [
     '세종특별자치시'
   ],
-  gyeonggi: [
+  '경기': [
     '수원시', '성남시', '의정부시', '안양시', '부천시', '광명시', '평택시', '동두천시',
     '안산시', '고양시', '과천시', '구리시', '남양주시', '오산시', '시흥시', '군포시',
     '의왕시', '하남시', '용인시', '파주시', '이천시', '안성시', '김포시', '화성시',
     '광주시', '여주시', '양평군', '고양군', '연천군', '포천군', '가평군'
   ],
-  gangwon: [
+  '강원': [
     '춘천시', '원주시', '강릉시', '동해시', '태백시', '속초시', '삼척시',
     '홍천군', '횡성군', '영월군', '평창군', '정선군', '철원군', '화천군', '양구군', '인제군', '고성군', '양양군'
   ],
-  chungbuk: [
+  '충북': [
     '청주시', '충주시', '제천시', '보은군', '옥천군', '영동군', '증평군', '진천군', '괴산군', '음성군', '단양군'
   ],
-  chungnam: [
+  '충남': [
     '천안시', '공주시', '보령시', '아산시', '서산시', '논산시', '계룡시', '당진시',
     '금산군', '부여군', '서천군', '청양군', '홍성군', '예산군', '태안군'
   ],
-  jeonbuk: [
+  '전북': [
     '전주시', '군산시', '익산시', '정읍시', '남원시', '김제시',
     '완주군', '진안군', '무주군', '장수군', '임실군', '순창군', '고창군', '부안군'
   ],
-  jeonnam: [
+  '전남': [
     '목포시', '여수시', '순천시', '나주시', '광양시', '담양군', '곡성군', '구례군',
     '고흥군', '보성군', '화순군', '장흥군', '강진군', '해남군', '영암군', '무안군', '함평군', '영광군', '장성군', '완도군', '진도군', '신안군'
   ],
-  gyeongbuk: [
+  '경북': [
     '포항시', '경주시', '김천시', '안동시', '구미시', '영주시', '영천시', '상주시',
     '문경시', '경산시', '군위군', '의성군', '청송군', '영양군', '영덕군', '청도군',
     '고령군', '성주군', '칠곡군', '예천군', '봉화군', '울진군', '울릉군'
   ],
-  gyeongnam: [
+  '경남': [
     '창원시', '진주시', '통영시', '사천시', '김해시', '밀양시', '거제시', '양산시',
     '의령군', '함안군', '창녕군', '고성군', '남해군', '하동군', '산청군', '함양군',
     '거창군', '합천군'
   ],
-  jeju: [
+  '제주': [
     '제주시', '서귀포시'
   ]
 };
@@ -103,6 +104,8 @@ const Contact = () => {
   });
 
   const [agree, setAgree] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState('');
 
   // 입력 변경 핸들러
   const handleChange = (e) => {
@@ -112,6 +115,87 @@ const Contact = () => {
     // 시/도가 변경되면 상세지역 초기화
     if (name === 'region') {
       setFormData(prev => ({ ...prev, detailRegion: '' }));
+    }
+  };
+
+  // 폼 제출 핸들러
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (!agree) {
+      alert('개인정보 수집 및 이용에 동의해주세요.');
+      return;
+    }
+
+    // 필수 필드 검증
+    const requiredFields = ['name', 'age', 'gender', 'phone2', 'phone3', 'emailId', 'emailDomain', 'region', 'detailRegion', 'openingTime', 'investment', 'hasExperience', 'buildingType'];
+    const missingFields = requiredFields.filter(field => !formData[field]);
+    
+    if (missingFields.length > 0) {
+      alert('필수 항목을 모두 입력해주세요.');
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitStatus('');
+
+    try {
+      // EmailJS를 사용하여 이메일 전송
+      const result = await emailjs.send(
+        process.env.REACT_APP_EMAILJS_SERVICE_ID,
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+        {
+          to_name: '담당자',
+          from_name: formData.name,
+          from_age: formData.age,
+          from_gender: formData.gender === 'male' ? '남' : '여',
+          from_phone: `010-${formData.phone2}-${formData.phone3}`,
+          from_email: `${formData.emailId}@${formData.emailDomain}`,
+          from_region: formData.region,
+          from_detail_region: formData.detailRegion,
+          from_opening_time: formData.openingTime,
+          from_investment: formData.investment,
+          from_experience: formData.hasExperience === 'yes' ? '예' : '아니오',
+          from_building_type: formData.buildingType === 'own' ? '건물소유' : '건물임대',
+          from_know_path: formData.knowPath,
+          from_etc: formData.etc,
+          message: `
+            창업 문의가 접수되었습니다.
+            
+            이름: ${formData.name}
+            연령: ${formData.age}
+            성별: ${formData.gender === 'male' ? '남' : '여'}
+            연락처: 010-${formData.phone2}-${formData.phone3}
+            이메일: ${formData.emailId}@${formData.emailDomain}
+            개설희망지역: ${formData.region} ${formData.detailRegion}
+            개설희망시기: ${formData.openingTime}
+            투자가능비용: ${formData.investment}
+            빨래방 이용경험: ${formData.hasExperience === 'yes' ? '예' : '아니오'}
+            건물소유/임대: ${formData.buildingType === 'own' ? '건물소유' : '건물임대'}
+            알게된 경로: ${formData.knowPath}
+            기타 문의사항: ${formData.etc}
+          `
+        },
+        process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+      );
+
+      setSubmitStatus('success');
+      alert('문의가 성공적으로 접수되었습니다.');
+      
+      // 폼 초기화
+      setFormData({
+        name: '', age: '', gender: '', phone1: '', phone2: '', phone3: '',
+        emailId: '', emailDomain: '', region: '', detailRegion: '', openingTime: '',
+        investment: '', hasExperience: '', buildingType: '', knowPath: '', etc: ''
+      });
+      setAgree(false);
+      
+    } catch (error) {
+      console.error('이메일 전송 실패:', error);
+      setSubmitStatus('error');
+      alert('문의 접수에 실패했습니다. 다시 시도해주세요.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -152,8 +236,8 @@ const Contact = () => {
           <p className="font-semibold text-24">365일 24시간 <span className="font-bold text-hero-subtitle">1588-5942</span>, 콜센터에서도 지금 상담 가능합니다.</p>
         </div>
 
-        {/* 입력 폼 */}
-        <div className="space-y-4">
+        {/* 입력 폼을 form 태그로 감싸기 */}
+        <form onSubmit={handleSubmit} className="space-y-4">
           {/* 이름 - 연령 한 줄 */}
           <div className="grid grid-cols-1 md:grid-cols-2 py-4 border-b border-gray-200 items-center gap-x-8 gap-y-4">
             
@@ -175,11 +259,11 @@ const Contact = () => {
               <div className="col-span-3">
                 <select id="age" name="age" value={formData.age} onChange={handleChange} className="border border-gray-300 p-2 rounded-sm w-full text-24">
                   <option value="">선택하세요</option>
-                  <option value="20s">20대</option>
-                  <option value="30s">30대</option>
-                  <option value="40s">40대</option>
-                  <option value="50s">50대</option>
-                  <option value="60s">60대 이상</option>
+                  <option value="20대">20대</option>
+                  <option value="30대">30대</option>
+                  <option value="40대">40대</option>
+                  <option value="50대">50대</option>
+                  <option value="60대 이상">60대 이상</option>
                 </select>
               </div>
             </div>
@@ -226,23 +310,23 @@ const Contact = () => {
               </label>
               <select name="region" value={formData.region} onChange={handleChange} className="border border-gray-300 p-2 rounded-sm w-full text-24">
                 <option value="">시/도 선택</option>
-                <option value="seoul">서울특별시</option>
-                <option value="busan">부산광역시</option>
-                <option value="daegu">대구광역시</option>
-                <option value="incheon">인천광역시</option>
-                <option value="gwangju">광주광역시</option>
-                <option value="daejeon">대전광역시</option>
-                <option value="ulsan">울산광역시</option>
-                <option value="sejong">세종특별자치시</option>
-                <option value="gyeonggi">경기도</option>
-                <option value="gangwon">강원도</option>
-                <option value="chungbuk">충청북도</option>
-                <option value="chungnam">충청남도</option>
-                <option value="jeonbuk">전라북도</option>
-                <option value="jeonnam">전라남도</option>
-                <option value="gyeongbuk">경상북도</option>
-                <option value="gyeongnam">경상남도</option>
-                <option value="jeju">제주특별자치도</option>
+                <option value="서울">서울특별시</option>
+                <option value="부산">부산광역시</option>
+                <option value="대구">대구광역시</option>
+                <option value="인천">인천광역시</option>
+                <option value="광주">광주광역시</option>
+                <option value="대전">대전광역시</option>
+                <option value="울산">울산광역시</option>
+                <option value="세종">세종특별자치시</option>
+                <option value="경기">경기도</option>
+                <option value="강원">강원도</option>
+                <option value="충북">충청북도</option>
+                <option value="충남">충청남도</option>
+                <option value="전북">전라북도</option>
+                <option value="전남">전라남도</option>
+                <option value="경북">경상북도</option>
+                <option value="경남">경상남도</option>
+                <option value="제주">제주특별자치도</option>
               </select>
             </div>
 
@@ -266,23 +350,23 @@ const Contact = () => {
               </label>
               <select name="openingTime" value={formData.openingTime} onChange={handleChange} className="border border-gray-300 p-2 rounded-sm w-full text-24">
                 <option value="">선택하세요</option>
-                <option value="immediate">즉시</option>
-                <option value="1month">1개월 이내</option>
-                <option value="3months">3개월 이내</option>
-                <option value="6months">6개월 이내</option>
-                <option value="1year">1년 이내</option>
-                <option value="over1year">1년 이상</option>
+                <option value="즉시">즉시</option>
+                <option value="1개월 이내">1개월 이내</option>
+                <option value="3개월 이내">3개월 이내</option>
+                <option value="6개월 이내">6개월 이내</option>
+                <option value="1년 이내">1년 이내</option>
+                <option value="1년 이상">1년 이상</option>
               </select>
             </div>
           </div>
 
           <FormRow label="투자가능비용" required>
             <div className="flex items-center gap-4 text-24 flex-wrap">
-              <label><input type="radio" name="investment" value="5k-7k" checked={formData.investment === '5k-7k'} onChange={handleChange} className="mr-1"/> 5천~7천만원</label>
-              <label><input type="radio" name="investment" value="7k-1b" checked={formData.investment === '7k-1b'} onChange={handleChange} className="mr-1"/> 7천~1억</label>
-              <label><input type="radio" name="investment" value="1b-1.5b" checked={formData.investment === '1b-1.5b'} onChange={handleChange} className="mr-1"/> 1억~1억5천</label>
-              <label><input type="radio" name="investment" value="1.5b-2b" checked={formData.investment === '1.5b-2b'} onChange={handleChange} className="mr-1"/> 1억5천~2억</label>
-              <label><input type="radio" name="investment" value="over2b" checked={formData.investment === 'over2b'} onChange={handleChange} className="mr-1"/> 2억 이상</label>
+              <label><input type="radio" name="investment" value="5천~7천만원" checked={formData.investment === '5천~7천만원'} onChange={handleChange} className="mr-1"/> 5천~7천만원</label>
+              <label><input type="radio" name="investment" value="7천~1억" checked={formData.investment === '7천~1억'} onChange={handleChange} className="mr-1"/> 7천~1억</label>
+              <label><input type="radio" name="investment" value="1억~1억5천" checked={formData.investment === '1억~1억5천'} onChange={handleChange} className="mr-1"/> 1억~1억5천</label>
+              <label><input type="radio" name="investment" value="1억5천~2억" checked={formData.investment === '1억5천~2억'} onChange={handleChange} className="mr-1"/> 1억5천~2억</label>
+              <label><input type="radio" name="investment" value="2억 이상" checked={formData.investment === '2억 이상'} onChange={handleChange} className="mr-1"/> 2억 이상</label>
             </div>
           </FormRow>
 
@@ -303,26 +387,42 @@ const Contact = () => {
           <FormRow label={<>호텔 런드리를 알게된<wbr /> 경로</>}>
             <select name="knowPath" value={formData.knowPath} onChange={handleChange} className="border border-gray-300 p-2 rounded-sm text-24">
               <option value="">선택하세요</option>
-              <option value="internet">인터넷 검색</option>
-              <option value="sns">SNS</option>
-              <option value="advertisement">광고</option>
-              <option value="recommendation">지인 추천</option>
-              <option value="exhibition">전시회/박람회</option>
-              <option value="other">기타</option>
+              <option value="인터넷 검색">인터넷 검색</option>
+              <option value="SNS 활동">SNS</option>
+              <option value="광고">광고</option>
+              <option value="지인 추천">지인 추천</option>
+              <option value="전시회/박람회">전시회/박람회</option>
+              <option value="기타">기타</option>
             </select>
           </FormRow>
           
           <FormRow label="기타 문의사항">
             <textarea name="etc" value={formData.etc} onChange={handleChange} rows="5" className="border border-gray-300 p-2 w-full rounded-sm text-24"></textarea>
           </FormRow>
-        </div>
+        </form>
       </div>
 
-      {/* 하단 버튼 */}
+      {/* 하단 버튼 수정 */}
       <div className="text-right mt-8 pt-8 border-t">
-        <button className="bg-gray-800 text-white font-bold py-3 px-12 rounded hover:bg-gray-700 text-24">
-          작성완료
+        <button 
+          type="submit" 
+          disabled={isSubmitting}
+          onClick={handleSubmit}
+          className={`font-bold py-3 px-12 rounded text-24 ${
+            isSubmitting 
+              ? 'bg-gray-400 cursor-not-allowed' 
+              : 'bg-gray-800 hover:bg-gray-700'
+          } text-white`}
+        >
+          {isSubmitting ? '전송 중...' : '작성완료'}
         </button>
+        
+        {submitStatus === 'success' && (
+          <p className="text-green-600 text-center mt-4">문의가 성공적으로 접수되었습니다!</p>
+        )}
+        {submitStatus === 'error' && (
+          <p className="text-red-600 text-center mt-4">문의 접수에 실패했습니다. 다시 시도해주세요.</p>
+        )}
       </div>
     </div>
   );
