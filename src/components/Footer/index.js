@@ -51,6 +51,11 @@ const Footer = () => {
                   Download Catalog
                 </button>
               </div>
+              {/* xl, 2xl: 개인정보와 이메일무단만 표시 (다운로드는 오른쪽에 별도 배치) */}
+              <div className="hidden xl:flex 2xl:flex gap-4">
+                <p className="cursor-pointer hover:opacity-80 transition-opacity">개인정보처리방침</p>
+                <p className="cursor-pointer hover:opacity-80 transition-opacity">이메일무단수집거부</p>
+              </div>
             </div>
 
             {/* Download Catalog (xs에서만 별도 줄로 표시) */}
