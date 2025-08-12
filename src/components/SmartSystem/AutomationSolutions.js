@@ -22,7 +22,7 @@ const AutomationSolutions = () => {
           </div>
 
           {/* 컨텐츠 영역 */}
-          <div className="w-full">
+          <div className="w-full flex justify-center">
             {/* 1024px 이상 (lg, xl, 2xl) - 이미지-텍스트 배치 */}
             <div className="hidden xl:block">
               <div className="grid grid-rows-3 gap-8 lg:gap-10 xl:gap-12 2xl:gap-16" style={{ gridTemplateColumns: '600px 1fr' }}>

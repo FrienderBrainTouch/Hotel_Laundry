@@ -1,6 +1,30 @@
 import React from 'react';
 
 const Footer = () => {
+  // 카탈로그 다운로드 함수
+  const handleCatalogDownload = () => {
+    // PDF 파일 다운로드 (public/documents 폴더에 파일이 있다고 가정)
+    const link = document.createElement('a');
+    link.href = '/documents/hotel-laundry-catalog.pdf';
+    link.download = 'hotel-laundry-catalog.pdf';
+    link.target = '_blank';
+    
+    // 파일 존재 여부 확인 후 다운로드
+    fetch('/documents/hotel-laundry-catalog.pdf')
+      .then(response => {
+        if (response.ok) {
+          link.click();
+        } else {
+          // 파일이 없을 경우 사용자에게 알림
+          alert('카탈로그 파일을 준비 중입니다. 잠시 후 다시 시도해주세요.');
+        }
+      })
+      .catch(error => {
+        console.error('카탈로그 다운로드 오류:', error);
+        alert('카탈로그 다운로드 중 오류가 발생했습니다.');
+      });
+  };
+
   return (
     <footer className="w-full">
       {/* 상단 섹션 - 반응형 높이, #082567 배경 */}
@@ -26,11 +50,8 @@ const Footer = () => {
                 <p className="cursor-pointer hover:opacity-80 transition-opacity">개인정보처리방침</p>
                 <p className="cursor-pointer hover:opacity-80 transition-opacity">이메일무단수집거부</p>
                 <button
-                  className="text-white font-KoPubWorldDotum text-[16px] sm:text-[16px] md:text-[16px] lg:text-[18px] xl:text-[24px] 2xl:text-[24px] font-bold leading-normal underline decoration-solid underline-offset-8 underline-position-from-font cursor-pointer hover:opacity-80 transition-opacity flex items-center gap-2"
-                  onClick={() => {
-                    // TODO: 실제 카탈로그 다운로드 기능 구현
-                    console.log('Download Catalog clicked');
-                  }}
+                  className="text-white font-KoPubWorldDotum text-[16px] sm:text-[16px] md:text-[16px] lg:text-[18px] xl:text-[24px] 2xl:text-[24px] font-bold leading-normal underline decoration-solid underline-offset-8 cursor-pointer hover:opacity-80 transition-opacity flex items-center gap-2"
+                  onClick={handleCatalogDownload}
                 >
                   ⬇
                   Download Catalog
@@ -41,11 +62,8 @@ const Footer = () => {
                 <p className="cursor-pointer hover:opacity-80 transition-opacity">개인정보처리방침</p>
                 <p className="cursor-pointer hover:opacity-80 transition-opacity">이메일무단수집거부</p>
                 <button
-                  className="text-white font-KoPubWorldDotum text-[16px] sm:text-[16px] md:text-[16px] lg:text-[18px] xl:text-[24px] 2xl:text-[24px] font-bold leading-normal underline decoration-solid underline-offset-8 underline-position-from-font cursor-pointer hover:opacity-80 transition-opacity flex items-center gap-2"
-                  onClick={() => {
-                    // TODO: 실제 카탈로그 다운로드 기능 구현
-                    console.log('Download Catalog clicked');
-                  }}
+                  className="text-white font-KoPubWorldDotum text-[16px] sm:text-[16px] md:text-[16px] lg:text-[18px] xl:text-[24px] 2xl:text-[24px] font-bold leading-normal underline decoration-solid underline-offset-8 cursor-pointer hover:opacity-80 transition-opacity flex items-center gap-2"
+                  onClick={handleCatalogDownload}
                 >
                   ⬇
                   Download Catalog
@@ -61,18 +79,13 @@ const Footer = () => {
             {/* Download Catalog (xs에서만 별도 줄로 표시) */}
             <div className="block sm:hidden md:hidden lg:hidden xl:hidden mb-4">
               <button
-                className="text-white font-KoPubWorldDotum text-[16px] sm:text-[16px] md:text-[16px] lg:text-[18px] xl:text-[24px] 2xl:text-[24px] font-bold leading-normal underline decoration-solid underline-offset-8 underline-position-from-font cursor-pointer hover:opacity-80 transition-opacity flex items-center gap-2"
-                onClick={() => {
-                  // TODO: 실제 카탈로그 다운로드 기능 구현
-                  console.log('Download Catalog clicked');
-                }}
+                className="text-white font-KoPubWorldDotum text-[16px] sm:text-[16px] md:text-[16px] lg:text-[18px] xl:text-[24px] 2xl:text-[24px] font-bold leading-normal underline decoration-solid underline-offset-8 cursor-pointer hover:opacity-80 transition-opacity flex items-center gap-2"
+                onClick={handleCatalogDownload}
               >
                 ⬇
                 Download Catalog
               </button>
             </div>
-
-
 
             {/* 연락처 정보 */}
             <div className="text-white font-KoPubWorldDotum text-[15px] sm:text-[15px] md:text-[16px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px] font-medium leading-normal">
@@ -93,18 +106,13 @@ const Footer = () => {
                 <p><span className="font-bold">제휴문의</span> hotellaundry@naver.com&nbsp;&nbsp;&nbsp;&nbsp;<span className="font-bold">대표번호</span> 02-1577-2657&nbsp;&nbsp;&nbsp;&nbsp;<span className="font-bold">팩스번호</span> 02-6455-6425</p>
               </div>
             </div>
-
-
           </div>
 
           {/* 오른쪽 영역 - Download Catalog (xl, 2xl에서만 표시) */}
           <div className="hidden xl:flex 2xl:flex items-end">
             <button
-              className="text-white font-KoPubWorldDotum text-[16px] sm:text-[16px] md:text-[16px] lg:text-[18px] xl:text-[24px] 2xl:text-[24px] font-bold leading-normal underline decoration-solid underline-offset-8 underline-position-from-font cursor-pointer hover:opacity-80 transition-opacity flex items-center gap-2"
-              onClick={() => {
-                // TODO: 실제 카탈로그 다운로드 기능 구현
-                console.log('Download Catalog clicked');
-              }}
+              className="text-white font-KoPubWorldDotum text-[16px] sm:text-[16px] md:text-[16px] lg:text-[18px] xl:text-[24px] 2xl:text-[24px] font-bold leading-normal underline decoration-solid underline-offset-8 cursor-pointer hover:opacity-80 transition-opacity flex items-center gap-2"
+              onClick={handleCatalogDownload}
             >
               ⬇
               Download Catalog

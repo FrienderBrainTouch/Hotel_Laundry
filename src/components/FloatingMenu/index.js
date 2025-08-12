@@ -6,6 +6,30 @@ import floatingCatalog from './icons/floating_catalog.svg';
 const FloatingMenu = ({ onPageChange, currentPage }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
+  // 카탈로그 다운로드 함수
+  const handleCatalogDownload = () => {
+    // PDF 파일 다운로드 (public/documents 폴더에 파일이 있다고 가정)
+    const link = document.createElement('a');
+    link.href = '/documents/hotel-laundry-catalog.pdf';
+    link.download = 'hotel-laundry-catalog.pdf';
+    link.target = '_blank';
+    
+    // 파일 존재 여부 확인 후 다운로드
+    fetch('/documents/hotel-laundry-catalog.pdf')
+      .then(response => {
+        if (response.ok) {
+          link.click();
+        } else {
+          // 파일이 없을 경우 사용자에게 알림
+          alert('카탈로그 파일을 준비 중입니다. 잠시 후 다시 시도해주세요.');
+        }
+      })
+      .catch(error => {
+        console.error('카탈로그 다운로드 오류:', error);
+        alert('카탈로그 다운로드 중 오류가 발생했습니다.');
+      });
+  };
+
   // Contact 페이지에서는 플로팅 메뉴를 표시하지 않음
   if (currentPage === 'contact') {
     return null;
@@ -29,10 +53,7 @@ const FloatingMenu = ({ onPageChange, currentPage }) => {
           {/* 카탈로그 다운받기 */}
           <button 
             className="flex items-center justify-center text-white hover:bg-[#2d5a8b] transition-colors w-full h-1/3"
-            onClick={() => {
-              // 카탈로그 다운로드 로직
-              console.log('카탈로그 다운로드');
-            }}
+            onClick={handleCatalogDownload}
           >
             <img src={floatingCatalog} alt="카탈로그 다운받기" className="w-12 h-12" />
           </button>
@@ -71,7 +92,7 @@ const FloatingMenu = ({ onPageChange, currentPage }) => {
             <button 
               className="flex items-center justify-center text-white hover:bg-[#082567] transition-colors w-full h-8 text-xs font-medium px-2"
               onClick={() => {
-                console.log('카탈로그 다운로드');
+                handleCatalogDownload();
                 setIsExpanded(false);
               }}
             >

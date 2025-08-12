@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Main/Hero';
 import WhyHotelLaundry from './components/Main/WhyHotelLaundry';
@@ -19,6 +19,38 @@ import FloatingMenu from './components/FloatingMenu';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
+
+  // 페이지 변경 시 스크롤을 맨 위로 초기화
+  useEffect(() => {
+    // 페이지 렌더링 후 스크롤 초기화
+    const timer = setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'instant'
+      });
+      // 추가로 body와 html 스크롤도 초기화
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [currentPage]);
+
+  // 새로고침 시에도 스크롤 위치 초기화
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'instant'
+      });
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const renderPage = () => {
     switch (currentPage) {
@@ -46,14 +78,14 @@ function App() {
             <BeyondLaundry />
             <StepByStep />
             <OurStores />
-            <Contact />
+            <Contact onPageChange={setCurrentPage} />
           </>
         );
     }
   };
 
   return (
-    <div className="w-full min-h-screen m-0 p-0 overflow-hidden">
+    <div className="w-full min-h-screen m-0 p-0">
       <Header onPageChange={setCurrentPage} currentPage={currentPage} />
       <main className="bg-white min-h-screen">
         {renderPage()}
