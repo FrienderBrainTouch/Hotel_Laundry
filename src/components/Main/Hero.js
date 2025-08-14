@@ -10,13 +10,13 @@ const Hero = () => {
           block: 'start'
         });
       }
-    }, 2000);
+    }, 9000);
 
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <div className="relative w-full h-[700px] sm:h-[550px] md:h-[600px] lg:h-[600px] xl:h-[700px] 2xl:h-[700px] overflow-hidden">
+    <div className="relative w-full h-screen overflow-hidden">
       {/* 비디오 배경 */}
       <video
         className="absolute top-0 left-0 w-full h-full object-cover"
