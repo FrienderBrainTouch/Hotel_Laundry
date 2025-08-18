@@ -19,14 +19,14 @@ const WhyHotelLaundry = () => {
       <div className="mb-[50px]">
         <div className="flex items-center justify-center">
           <picture className="w-full 2xl:h-[430px] object-cover opacity-15">
-            <source media="(min-width: 1536px)" srcSet="/images/main-Images/main-second-1920.png" />
-            <source media="(min-width: 1280px)" srcSet="/images/main-Images/main-second-1440.png" />
-            <source media="(min-width: 1024px)" srcSet="/images/main-Images/main-second-1024.png" />
-            <source media="(min-width: 768px)" srcSet="/images/main-Images/main-second-768.png" />
-            <source media="(min-width: 640px)" srcSet="/images/main-Images/main-second-575.png" />
-            <source media="(min-width: 375px)" srcSet="/images/main-Images/main-second-375.png" />
+            <source media="(min-width: 1536px)" srcSet="/images/main-Images/main-second-1920.gif" />
+            <source media="(min-width: 1280px)" srcSet="/images/main-Images/main-second-1440.gif" />
+            <source media="(min-width: 1024px)" srcSet="/images/main-Images/main-second-1024.gif" />
+            <source media="(min-width: 768px)" srcSet="/images/main-Images/main-second-768.gif" />
+            <source media="(min-width: 640px)" srcSet="/images/main-Images/main-second-575.gif" />
+            <source media="(min-width: 375px)" srcSet="/images/main-Images/main-second-375.gif" />
             <img 
-              src="/images/main-Images/main-second-375.png" 
+              src="/images/main-Images/main-second-375.gif" 
               alt="Main Second Background" 
               className="w-full 2xl:h-[430px] object-cover opacity-15"
             />
