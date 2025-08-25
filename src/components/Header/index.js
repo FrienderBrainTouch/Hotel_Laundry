@@ -67,7 +67,7 @@ const Header = ({ onPageChange, currentPage }) => {
   
     return (
       <header 
-        className="bg-[#102254] w-screen h-[100px] relative z-50"
+        className="bg-[#102254] w-full h-[100px] relative z-50"
         onMouseLeave={() => setHoveredMenu(null)}
       >
         <div className="w-full px-4 h-full flex items-center justify-between">
