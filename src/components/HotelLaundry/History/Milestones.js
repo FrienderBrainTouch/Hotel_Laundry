@@ -7,6 +7,7 @@ const Section2 = () => {
       events: [
         { month: 8, content: ["호텔런드리 셀프드라이클리닝 런칭", "호텔런드리 어플 그랜드오픈"] },
         { month: 7, content: ["추가 12개점 오픈 / 평촌아이에스비즈점, 신림서원점, 신림서림점, 곡반정점, 금정점, 신림역점, 포천이동교점, 신림본점, 항동점, 서울대점, 수진역점, 마장점"] },
+        { month: 6, content: ["신용보증기금의 ‘리틀펭귄’ 선정"] },
         { month: 3, content: ["프렌차이즈 혁신기업 부문 '2025 혁신한국인 & POWER KOREA' 대상 수상"] }
       ]
     },
@@ -31,7 +32,7 @@ const Section2 = () => {
       events: [
         { month: 12, content: ["호텔런드리 시스템 고도화 착수", "추가 4개점 오픈 / 탄현점, 미사역점, 헤븐시티점, 성내점"] },
         { month: 11, content: ["무선제어장치 특허 (제10-1564141호)"] },
-        { month: 10, content: ["세탁관리 플랫폼 특허 (제 10-2424447호)"] }
+        { month: 10, content: ["세탁관리 플랫폼 특허 (제 10-2424447호)", "시니어벤처협회 주관 청(靑)-노(老) 동반창업 IR DAY 우수상 수상"]}
       ]
     },
     {
@@ -133,7 +134,7 @@ const Section2 = () => {
 
                              {/* 구분선 (마지막 년도 제외) */}
                {yearIndex < timelineData.length - 1 && (
-                 <div className="mx-auto mt-8 w-[1400px] h-[1px] bg-[#E9E9E9]"></div>
+                 <div className="mx-auto mt-8 w-full h-[1px] bg-[#E9E9E9]"></div>
                )}
             </div>
           ))}
