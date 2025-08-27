@@ -12,20 +12,20 @@ const SmartTech = () => {
     { 
       id: 1, 
       image: mainSmart1,
-      title: "IoT 기반 스마트 매장 운영",
-      subtitle: "전 매장을 본사에서 원격 제어하고, 장비 상태와\n고객 이용 현황을 실시간으로 관리하는 스마트 시스템"
+      title: "셀프 드라이클리닝 서비스",
+      subtitle: "세계 최초 도입! 누구나 버튼 몇 번으로 간편하게\n사용하는 자동화 셀프 드라이클리닝 서비스"
     },
     { 
       id: 2, 
       image: mainSmart2,
-      title: "버블코인 제휴 포인트 서비스",
-      subtitle: "세탁 이용 시 주변 상점과의 제휴로 버블코인을\n지급받고, 이를 포인트처럼 활용 가능"
+      title: "IoT 기반 스마트 매장 운영",
+      subtitle: "점주노동력 0%\n전 매장을 본사에서 원격 제어하고, 장비 상태와\n고객 이용 현황을 실시간으로 관리하는 스마트 시스템"
     },
     { 
       id: 3, 
       image: mainSmart3,
-      title: "셀프형 드라이클리닝 시스템",
-      subtitle: "세계 최초 도입! 누구나 버튼 몇 번으로 간편하게\n사용하는 자동화 셀프 드라이클리닝 서비스"
+      title: "지역 플랫폼 제공",
+      subtitle: "호텔런드리를 중심으로 인근 상가 커뮤니티,\nB2C 제공"
     }
   ];
 
@@ -70,7 +70,7 @@ const SmartTech = () => {
             className="text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[28px] 2xl:text-[32px] font-['KoPubWorldDotum'] text-[#1C262B] max-w-4xl mx-auto leading-normal xl:leading-[30px] 2xl:leading-[30px] tracking-[-0.36px] sm:tracking-[-0.4px] md:tracking-[-0.44px] lg:tracking-[-0.48px] xl:tracking-[-0.56px] 2xl:tracking-[-0.64px]"
             style={{ fontWeight: 500 }}
           >
-            <span className="hidden sm:inline">단순한 빨래방이 아닌 </span>기술 기반의 프랜차이즈 경쟁력을 제공합니다.
+            <span className="hidden sm:inline">단순한 빨래방이 아닌 </span>혁신 기술 기반의 독보적인 경쟁력을 제공합니다.
           </p>
         </div>
 
@@ -136,7 +136,7 @@ const SmartTech = () => {
                         className="text-[#1C262B] font-['KoPubWorldDotum'] text-[15px] font-[500] tracking-[-0.3px] whitespace-pre-line"
                         style={{ fontWeight: 500 }}
                       >
-                          {slide.subtitle}
+                          {slide.id === 3 ? slide.subtitle : slide.subtitle}
                         </p>
                       </div>
                     </div>
@@ -207,7 +207,7 @@ const SmartTech = () => {
                         className="text-[#1C262B] font-['KoPubWorldDotum'] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] 2xl:font-[500] xl:font-[500] lg:font-[500] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px] whitespace-pre-line"
                         style={{ fontWeight: 500 }}
                       >
-                        {slide.subtitle}
+                        {slide.id === 3 ? slide.subtitle.replace('\n', ' ') : slide.subtitle}
                       </p>
                     </div>
                   </div>
@@ -225,7 +225,7 @@ const SmartTech = () => {
                     
                     {/* Text Overlay - Bottom Half */}
                     <div 
-                      className="absolute bottom-[10px] left-0 right-0 z-20 p-10 bg-white w-[480px] h-[150px] sm:w-[480px] sm:h-[150px] md:w-[620px] md:h-[200px] shadow-[3px_6px_10px_-5px_rgba(16,34,84,0.15)]"
+                      className="absolute bottom-[10px] left-0 right-0 z-20 p-10 bg-white w-[480px] h-[150px] sm:w-[480px] sm:h-[170px] md:w-[620px] md:h-[200px] shadow-[3px_6px_10px_-5px_rgba(16,34,84,0.15)]"
                       style={{
                         borderBottomLeftRadius: '20px',
                         borderBottomRightRadius: '20px',
@@ -242,7 +242,7 @@ const SmartTech = () => {
                         className="text-[#1C262B] font-['KoPubWorldDotum'] sm:text-[16px] md:text-[18px] font-[500] sm:tracking-[-0.32px] md:tracking-[-0.36px] whitespace-pre-line"
                         style={{ fontWeight: 500 }}
                       >
-                        {slide.subtitle}
+                        {slide.id === 3 ? slide.subtitle.replace('\n', ' ') : slide.subtitle}
                       </p>
                     </div>
                   </div>
