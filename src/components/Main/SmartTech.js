@@ -96,7 +96,7 @@ const SmartTech = () => {
           {/* Navigation Buttons - Mobile (xs only) */}
           <div className="sm:hidden flex flex-col items-center">
             {/* Slide Container for xs */}
-            <div className="relative overflow-hidden w-[355px] h-[330px]">
+            <div className="relative overflow-hidden w-full h-[330px] sm:w-[355px] sm:h-[330px]">
               <div 
                 className="flex transition-transform duration-500 ease-in-out"
                 style={{ transform: `translateX(-${currentSlide * 100}%)` }}
@@ -107,9 +107,9 @@ const SmartTech = () => {
                     className="w-full flex-shrink-0 relative"
                   >
                     {/* Mobile Layout (xs only) */}
-                    <div className="relative w-[355px] h-[330px]">
+                    <div className="relative w-full h-[330px] sm:w-[355px] sm:h-[330px]">
                       {/* Background Image */}
-                      <div className="absolute inset-0 w-[355px] h-[230px] rounded-[15px] overflow-hidden">
+                      <div className="absolute inset-0 w-full h-[230px] sm:w-[355px] sm:h-[230px] rounded-[15px] overflow-hidden">
                         <img 
                           src={slide.image} 
                           alt={`Smart Tech Slide ${slide.id}`}
@@ -119,7 +119,7 @@ const SmartTech = () => {
                       
                       {/* Text Overlay - Bottom Half */}
                       <div 
-                        className="absolute bottom-[10px] left-0 right-0 z-20 p-6 bg-white w-[355px] h-[140px] shadow-[3px_6px_10px_-5px_rgba(16,34,84,0.15)]"
+                        className="absolute bottom-[10px] left-0 right-0 z-20 p-6 bg-white w-full sm:w-[355px] h-[140px] shadow-[3px_6px_10px_-5px_rgba(16,34,84,0.15)]"
                         style={{
                           borderBottomLeftRadius: '20px',
                           borderBottomRightRadius: '20px',
@@ -133,7 +133,7 @@ const SmartTech = () => {
                           {slide.title}
                         </h3>
                       <p 
-                        className="text-[#1C262B] font-['KoPubWorldDotum'] text-[15px] font-[500] tracking-[-0.3px] whitespace-pre-line"
+                        className="text-[#1C262B] font-['KoPubWorldDotum'] text-[13px] xs:text-[15px] font-[500] tracking-[-0.3px] whitespace-pre-line"
                         style={{ fontWeight: 500 }}
                       >
                           {slide.id === 3 ? slide.subtitle : slide.subtitle}
