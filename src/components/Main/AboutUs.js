@@ -5,24 +5,107 @@ const AboutUs = () => {
     {
       icon: 'main-service-1.svg',
       title: '셀프 드라이클리닝',
-      subtitle: '빨래방과 드라이클리닝을 하나로<br />오직 호텔런드리에서만 만나 보실 수 있습니다'
+      subtitle: {
+        xs: '빨래방과 드라이클리닝을 하나로\n오직 호텔런드리에서만\n만나 보실 수 있습니다',
+        sm: '빨래방과 드라이클리닝을 하나로\n오직 호텔런드리에서만 만나 보실 수 있습니다',
+        md: '빨래방과 드라이클리닝을 하나로\n오직 호텔런드리에서만 만나 보실 수 있습니다',
+        lg: '빨래방과 드라이클리닝을 하나로 오직\n호텔런드리에서만 만나 보실 수 있습니다',
+        xl: '빨래방과 드라이클리닝을 하나로\n오직 호텔런드리에서만\n만나 보실 수 있습니다',
+        '2xl': '빨래방과 드라이클리닝을 하나로\n오직 호텔런드리에서만\n만나 보실 수 있습니다'
+      }
     },
     {
       icon: 'main-service-2.svg',
       title: '첨단 기술',
-      subtitle: 'IoT 무인제어와 원격운영이<br />가능한 첨단 시스템'
+      subtitle: {
+        xs: 'IoT 무인제어와 원격운영이 가능한\n첨단 시스템',
+        sm: 'IoT 무인제어와 원격운영이 가능한\n첨단 시스템',
+        md: 'IoT 무인제어와 원격운영이 가능한\n첨단 시스템',
+        lg: 'IoT 무인제어와 원격운영이 가능한\n첨단 시스템',
+        xl: 'IoT 무인제어와 원격운영이\n가능한 첨단 시스템',
+        '2xl': 'IoT 무인제어와 원격운영이\n가능한 첨단 시스템'
+      }
     },
     {
       icon: 'main-service-3.svg',
       title: '청결 메커니즘',
-      subtitle: '락스 살균력의 80배인 친환경 <br className="hidden sm:block md:hidden lg:hidden xl:hidden 2xl:hidden" />`차아산염소산수`로<br />세탁조 세척 자동화'
+      subtitle: {
+        xs: '락스 살균력의 80배인 친환경\n`차아산염소산수`로 세탁조\n세척 자동화',
+        sm: '락스 살균력의 80배인 친환경\n`차아산염소산수`로\n세탁조 세척 자동화',
+        md: '락스 살균력의 80배인 친환경 `차아산염소산수`로\n세탁조 세척 자동화',
+        lg: '락스 살균력의 80배인 친환경\n`차아산염소산수`로\n세탁조 세척 자동화',
+        xl: '락스 살균력의 80배인 친환경\n`차아산염소산수`로\n세탁조 세척 자동화',
+        '2xl': '락스 살균력의 80배인 친환경\n`차아산염소산수`로\n세탁조 세척 자동화'
+      }
     },
     {
       icon: 'main-service-4.svg',
       title: '지역 플랫폼',
-      subtitle: '호텔런드리 각 매장을 중심으로 인근<br />상가 커뮤니티 제공'
+      subtitle: {
+        xs: '호텔런드리 각 매장을 중심으로\n인근 상가 커뮤니티 제공',
+        sm: '호텔런드리 각 매장을 중심으로\n인근 상가 커뮤니티 제공',
+        md: '호텔런드리 각 매장을 중심으로\n인근 상가 커뮤니티 제공',
+        lg: '호텔런드리 각 매장을 중심으로\n인근 상가 커뮤니티 제공',
+        xl: '호텔런드리 각 매장을 중심으로\n인근 상가 커뮤니티 제공',
+        '2xl': '호텔런드리 각 매장을 중심으로\n인근 상가 커뮤니티 제공'
+      }
     }
   ];
+
+  const renderSubtitle = (subtitle) => {
+    return (
+      <>
+        <span className="block sm:hidden md:hidden lg:hidden xl:hidden 2xl:hidden">
+          {subtitle.xs.split('\n').map((line, index) => (
+            <React.Fragment key={index}>
+              {line}
+              {index < subtitle.xs.split('\n').length - 1 && <br />}
+            </React.Fragment>
+          ))}
+        </span>
+        <span className="hidden sm:block md:hidden lg:hidden xl:hidden 2xl:hidden">
+          {subtitle.sm.split('\n').map((line, index) => (
+            <React.Fragment key={index}>
+              {line}
+              {index < subtitle.sm.split('\n').length - 1 && <br />}
+            </React.Fragment>
+          ))}
+        </span>
+        <span className="hidden md:block lg:hidden xl:hidden 2xl:hidden">
+          {subtitle.md.split('\n').map((line, index) => (
+            <React.Fragment key={index}>
+              {line}
+              {index < subtitle.md.split('\n').length - 1 && <br />}
+            </React.Fragment>
+          ))}
+        </span>
+        <span className="hidden lg:block xl:hidden 2xl:hidden">
+          {subtitle.lg.split('\n').map((line, index) => (
+            <React.Fragment key={index}>
+              {line}
+              {index < subtitle.lg.split('\n').length - 1 && <br />}
+            </React.Fragment>
+          ))}
+        </span>
+        <span className="hidden xl:block 2xl:hidden">
+          {subtitle.xl.split('\n').map((line, index) => (
+            <React.Fragment key={index}>
+              {line}
+              {index < subtitle.xl.split('\n').length - 1 && <br />}
+            </React.Fragment>
+          ))}
+        </span>
+        <span className="hidden 2xl:block">
+          {subtitle['2xl'].split('\n').map((line, index) => (
+            <React.Fragment key={index}>
+              {line}
+              {index < subtitle['2xl'].split('\n').length - 1 && <br />}
+            </React.Fragment>
+          ))}
+        </span>
+      </>
+    );
+  };
 
   return (
     <section className="py-16 bg-white">
@@ -45,8 +128,8 @@ const AboutUs = () => {
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-0 w-full relative">
               {features.map((feature, index) => (
-                <div key={index} className="relative w-[350px] h-[180px] sm:w-[278px] sm:h-[180px] md:w-[364px] md:h-[230px] lg:w-[400px] lg:h-[300px] xl:w-auto xl:h-auto 2xl:w-auto 2xl:h-auto mx-auto flex items-center justify-center">
-                  <div className="text-center px-8">
+                <div key={index} className="relative w-full h-[180px] sm:w-[278px] sm:h-[180px] md:w-[364px] md:h-[230px] lg:w-[400px] lg:h-[300px] xl:w-auto xl:h-auto 2xl:w-auto 2xl:h-auto mx-auto flex items-center justify-center">
+                  <div className="text-center px-8 sm:px-4 md:px-8">
                     <div className=" flex justify-center">
                       <img 
                         src={`/images/main-Images/${feature.icon}`} 
@@ -57,7 +140,8 @@ const AboutUs = () => {
                     <h3 className="text-[20px] sm:text-[22px] md:text-[22px] lg:text-[24px] xl:text-[26px] 2xl:text-[28px] font-bold text-[#1C262B] leading-[normal] tracking-[-0.4px] sm:tracking-[-0.44px] md:tracking-[-0.44px] lg:tracking-[-0.48px] xl:tracking-[-0.52px] 2xl:tracking-[-0.56px] mb-[10px] sm:mb-[10px] md:mb-[10px] lg:mb-[10px] xl:mb-[12px] 2xl:mb-[12px]" style={{ fontFamily: 'KoPubWorldDotum' }}>
                       {feature.title}
                     </h3>
-                    <p className="text-[15px] sm:text-[18px] md:text-[15px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] font-medium text-[#1C262B] text-center leading-[normal] tracking-[-0.3px] sm:tracking-[-0.36px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px]" style={{ fontFamily: 'KoPubWorldDotum' }} dangerouslySetInnerHTML={{ __html: feature.subtitle }}>
+                    <p className="text-[15px] sm:text-[14px] md:text-[15px] lg:text-[20px] xl:text-[20px] 2xl:text-[24px] font-medium text-[#1C262B] text-center leading-[normal] tracking-[-0.3px] sm:tracking-[-0.36px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px]" style={{ fontFamily: 'KoPubWorldDotum' }}>
+                      {renderSubtitle(feature.subtitle)}
                     </p>
                   </div>
                 </div>
