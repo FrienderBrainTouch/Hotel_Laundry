@@ -1,79 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 
 const Hero = () => {
-  const [isAutoScrollEnabled, setIsAutoScrollEnabled] = useState(true);
-  const videoRef = useRef(null);
-  const timerRef = useRef(null);
-  const lastScrollTop = useRef(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      
-      // 스크롤이 아래로 내려가면 자동 스크롤 비활성화
-      if (currentScrollTop > lastScrollTop.current && currentScrollTop > 100) {
-        if (isAutoScrollEnabled) {
-          setIsAutoScrollEnabled(false);
-          if (timerRef.current) {
-            clearTimeout(timerRef.current);
-          }
-        }
-      }
-      
-      // 맨 위로 스크롤되면 자동 스크롤 재활성화 및 비디오 재시작
-      if (currentScrollTop <= 50) {
-        if (!isAutoScrollEnabled) {
-          setIsAutoScrollEnabled(true);
-          if (videoRef.current) {
-            videoRef.current.currentTime = 0;
-            videoRef.current.play();
-          }
-          startAutoScrollTimer();
-        }
-      }
-      
-      lastScrollTop.current = currentScrollTop;
-    };
-
-    const startAutoScrollTimer = () => {
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
-      }
-      
-      timerRef.current = setTimeout(() => {
-        if (isAutoScrollEnabled) {
-          const whyHotelLaundrySection = document.getElementById('why-hotel-laundry');
-          if (whyHotelLaundrySection) {
-            whyHotelLaundrySection.scrollIntoView({
-              behavior: 'smooth',
-              block: 'start'
-            });
-          }
-        }
-      }, 9000);
-    };
-
-    // 초기 타이머 시작
-    if (isAutoScrollEnabled) {
-      startAutoScrollTimer();
-    }
-
-    // 스크롤 이벤트 리스너 추가
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
-      }
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [isAutoScrollEnabled]);
-
   return (
     <div className="relative w-full h-screen overflow-hidden">
       {/* 비디오 배경 */}
       <video
-        ref={videoRef}
         className="absolute top-0 left-0 w-full h-full object-cover"
         autoPlay
         loop
