@@ -362,7 +362,7 @@ const Contact = () => {
 
           <FormRow label="투자가능비용" required>
             <div className="flex items-center gap-4 text-24 flex-wrap">
-              <label><input type="radio" name="investment" value="0~3천만원" checked={formData.investment === '0~3천만원'} onChange={handleChange} className="mr-1"/> 0 ~ 3천만원</label>
+              <label><input type="radio" name="investment" value="0~3천만원" checked={formData.investment === '0~3천만원'} onChange={handleChange} className="mr-1"/> 0~3천만원</label>
               <label><input type="radio" name="investment" value="5천~7천만원" checked={formData.investment === '5천~7천만원'} onChange={handleChange} className="mr-1"/> 5천~7천만원</label>
               <label><input type="radio" name="investment" value="7천~1억" checked={formData.investment === '7천~1억'} onChange={handleChange} className="mr-1"/> 7천~1억</label>
               <label><input type="radio" name="investment" value="1억~1억5천" checked={formData.investment === '1억~1억5천'} onChange={handleChange} className="mr-1"/> 1억~1억5천</label>
