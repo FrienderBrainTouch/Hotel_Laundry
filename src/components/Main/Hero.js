@@ -1,12 +1,29 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 
 const Hero = () => {
+  // 1. video 태그를 직접 가리키기 위해 ref를 생성합니다.
+  const videoRef = useRef(null);
+
+  // 2. 컴포넌트가 화면에 그려진 직후에 이 코드를 실행합니다.
+  useEffect(() => {
+    // 3. ref를 통해 비디오 요소가 실제로 존재할 때만 실행합니다.
+    if (videoRef.current) {
+      // 4. '재생하라'는 명령을 직접 내립니다.
+      //    브라우저 정책에 따라 이 명령이 실패할 수도 있으므로 .catch()로 에러를 처리합니다.
+      videoRef.current.play().catch(error => {
+        console.error("비디오 자동 재생이 차단되었습니다:", error);
+      });
+    }
+  }, []); // []를 넣어 처음 한 번만 실행되도록 합니다.
+
   return (
     <div className="relative w-full h-screen overflow-hidden">
       {/* 비디오 배경 */}
       <video
+        // 5. ref를 video 태그에 연결합니다.
+        ref={videoRef}
         className="absolute top-0 left-0 w-full h-full object-cover"
-        autoPlay
+        // 6. autoPlay는 이제 JavaScript가 처리하므로 제거해도 됩니다.
         loop
         muted
         playsInline
@@ -34,4 +51,4 @@ const Hero = () => {
   );
 };
 
-export default Hero; 
+export default Hero;
