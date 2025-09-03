@@ -31,7 +31,7 @@ const Hero = () => {
         controlsList="nodownload nofullscreen noremoteplayback"
         onContextMenu={(e) => e.preventDefault()}
       >
-        <source src="/Videos/MainBanner.mp4" type="video/mp4" />
+        <source src="/Videos/MainBanner_h264_silent.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
       
