@@ -5,43 +5,34 @@ const BeyondLaundry = () => {
 
   const gridItems = [
     {
-      title: "세탁기 모바일 예약 서비스",
-      subtitle: "스마트폰 앱을 통해 원하는 시간에 세탁기를\n미리 예약할 수 있어 대기 없이 이용 가능"
+      title: "모바일 세탁 예약 서비스",
+      subtitle: "• 스마트폰 앱을 통해 원하는 시간에\n세탁기를 미리 예약\n\n• 실시간 장비 현황 확인으로 대기 없이\n편리하게 이용 가능",
+      image: "/images/main-Images/main-Beyond-1.png"
     },
     {
-      title: "실시간 세탁기 사용 현황 제공",
-      subtitle: "현재 사용 가능한 기기의 상태를 실시간으로\n확인하고 선택할 수 있어 편리한 매장 이용 가능"
+      title: "쉽고 편리한 키오스크 & 앱 결제",
+      subtitle: "• 시간대별 차등가격 쿠폰 제공과\n포인트 적립\n\n• 카드, 모바일, 포인트 결제까지 다양한\n방식으로 자유롭게 결제 가능한 무인 시스템",
+      image: "/images/main-Images/main-Beyond-2.png"
     },
     {
-      title: "키오스크·앱 자유로운 결제",
-      subtitle: "카드, 모바일, 포인트 결제까지 다양한\n방식으로 자유롭게 결제 가능한 무인 시스템",
-      subtitle2xl: "카드, 모바일, 포인트 결제까지 다양한 방식으로\n자유롭게 결제 가능한 무인 시스템"
+      title: "세계 최초 셀프 드라이클리닝",
+      subtitle: "• 유해물질, 발암물질이 없는 친환경\n드라이클리닝 방식\n\n• 고객이 직접 쉽고 간단하게 이용할 수 있는\n셀프 서비스",
+      image: "/images/main-Images/main-Beyond-3.png"
     },
     {
-      title: "세계 최초 셀프형 드라이클리닝",
-      subtitle: "복잡했던 드라이클리닝을 누구나 쉽게\n이용할 수 있는 셀프 방식으로 구현"
+      title: "빠르고 우수한 세탁서비스 제공",
+      subtitle: "• 전 코스 프리미엄 살균수로 항균세탁이\n기본 제공\n\n• 고사양 장비로 짧은 시간에도\n우수한 세탁 품질 보장",
+      image: "/images/main-Images/main-Beyond-4.png"
     },
     {
-      title: "모든 코스 프리미엄 살균수 제공",
-      subtitle: "세탁 전과 후에 프리미엄 살균수를\n자동 투입하여 의류 위생 수준 향상"
-    },
-    {
-      title: "고품질 세탁, 빠른 회전율 제공",
-      subtitle: "장비 성능과 운영 설계 최적화로\n짧은 시간에도 우수한 세탁 품질 제공"
+      title: "전 매장 24시간 통합 고객센터 운영",
+      subtitle: "• 고객 문의, 장비 점검 요청 등\n모든 문제 신속 대응\n\n• 24시간 운영으로 언제든지\n고객 지원 서비스 이용 가능",
+      image: "/images/main-Images/main-Beyond-5.png"
     },
     {
       title: "IoT 기반 실시간 제어·모니터링",
-      subtitle: "본사에서 전국 매장을 원격 제어하며\n운영 안정성과 긴급 대응력 확보"
-    },
-    {
-      title: "시간대별 할인 쿠폰 제공 및 적립",
-      subtitle: "이용 시간에 따라 자동 적용되는\n할인 혜택과 마일리지 적립 시스템",
-      subtitle2xl: "이용 시간에 따라 자동 적용되는 할인 혜택과\n마일리지 적립 시스템"
-    },
-    {
-      title: "전 매장 24시간 통합 콜센터 운영",
-      subtitle: "고객 문의, 장비 점검 요청 등\n모든 문제를 통합 창구에서 신속 대응",
-      subtitle2xl: "고객 문의, 장비 점검 요청 등 모든 문제를\n통합 창구에서 신속 대응"
+      subtitle: "• 본사에서 전국 매장을 원격 제어하며\n운영 안정성 확보\n\n• 실시간 모니터링으로 긴급 상황 발생 시\n즉시 대응",
+      image: "/images/main-Images/main-Beyond-6.png"
     }
   ];
 
@@ -49,10 +40,17 @@ const BeyondLaundry = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => {
-        if (prev >= 4) { // sm 이상에서는 5개 슬라이드 (0-4)
-          return 0; // 마지막에서 첫 번째로
+        if (window.innerWidth < 576) { // sm 576px 미만 (xs)
+          if (prev >= 5) { // 6개 아이템 (0-5)
+            return 0;
+          }
+          return prev + 1;
+        } else { // sm 576px 이상
+          if (prev >= 2) { // 3개 슬라이드 (0-2)
+            return 0;
+          }
+          return prev + 1;
         }
-        return prev + 1;
       });
     }, 3000);
     return () => clearInterval(interval);
@@ -64,13 +62,13 @@ const BeyondLaundry = () => {
       <div
         className="w-full h-full bg-cover bg-center"
         style={{
-          backgroundImage: 'url(/images/main-Images/main-Beyond.png)'
+          backgroundImage: `url(${item.image})`
         }}
       />
 
       {/* Content Box */}
       <div
-        className="absolute bottom-0 left-0 right-0 py-6 px-2"
+        className="absolute bottom-0 left-0 right-0 p-6"
         style={{
           borderRadius: '0 0 20px 20px',
           background: '#102254'
@@ -129,21 +127,21 @@ const BeyondLaundry = () => {
           기술과 경헙이 결합된 호텔런드리만의 프리미엄 세탁 시스템을 소개합니다.
         </p>
 
-        {/* xl 이상: 기존 9개 그리드 */}
+        {/* xl 이상: 기존 6개 그리드 */}
         <div className="hidden xl:grid xl:grid-cols-3 2xl:grid-cols-3 gap-6 xl:max-w-[1400px] 2xl:max-w-[1880px] mx-auto">
           {gridItems.map((item, index) => (
-            <div key={index} className="relative overflow-hidden rounded-[20px] h-[365px] 2xl:h-[400px]">
+            <div key={index} className="relative overflow-hidden rounded-[20px] h-[470px] 2xl:h-[470px]">
               {/* Background Image */}
               <div
                 className="w-full h-full bg-cover bg-center"
                 style={{
-                  backgroundImage: 'url(/images/main-Images/main-Beyond.png)'
+                  backgroundImage: `url(${item.image})`
                 }}
               />
 
               {/* Content Box */}
               <div
-                className="absolute bottom-0 left-0 right-0 py-6 px-2 2xl:p-10"
+                className="absolute bottom-0 left-0 right-0 p-6 2xl:p-10"
                 style={{
                   borderRadius: '0 0 20px 20px',
                   background: '#102254'
@@ -165,7 +163,7 @@ const BeyondLaundry = () => {
                     lineHeight: '30px'
                   }}
                 >
-                  {item.subtitle2xl ? item.subtitle2xl : item.subtitle}
+                  {item.subtitle}
                 </p>
               </div>
             </div>
@@ -174,9 +172,9 @@ const BeyondLaundry = () => {
 
         {/* lg 이하: 슬라이드 */}
         <div className="xl:hidden">
-          {/* xs: 1개씩 보이기 */}
-          <div className="block sm:hidden">
-            <div className="relative overflow-hidden rounded-[20px]" style={{ height: '280px' }}>
+          {/* sm까지: 1개씩 보이기 */}
+          <div className="block md:hidden">
+            <div className="relative overflow-hidden rounded-[20px]" style={{ height: '400px' }}>
               <div
                 className="flex transition-transform duration-500 ease-in-out h-full"
                 style={{
@@ -195,10 +193,10 @@ const BeyondLaundry = () => {
             </div>
           </div>
 
-          {/* sm 이상: 여러 개씩 보이기 */}
-          <div className="hidden sm:block">
+          {/* md부터: 2개씩 보이기 */}
+          <div className="hidden md:block">
             <div className="relative overflow-hidden rounded-[20px]" style={{
-              height: window.innerWidth >= 1024 ? '345px' : window.innerWidth >= 768 ? '300px' : '285px'
+              height: '470px'
             }}>
               <div
                 className="flex transition-transform duration-500 ease-in-out h-full gap-4"
@@ -206,28 +204,35 @@ const BeyondLaundry = () => {
                   transform: `translateX(-${currentSlide * 100}%)`
                 }}
               >
-                {/* 첫 번째 아이템을 마지막에 복제 */}
-                {gridItems.map((item, index) => (
-                  <div
-                    key={index}
-                    className="flex-shrink-0 h-full"
-                    style={{
-                      width: 'calc(50% - 8px)', // sm: 2개씩, md: 2개씩, lg: 2개씩
-                      minWidth: 'calc(50% - 8px)'
-                    }}
-                  >
-                    {renderGridItem(item, index)}
+                {/* 6개 아이템을 2개씩 3개 슬라이드로 구성 */}
+                {/* 슬라이드 1: 아이템 0, 1 */}
+                <div className="flex gap-4 w-full flex-shrink-0">
+                  <div className="w-1/2">
+                    {renderGridItem(gridItems[0], 0)}
                   </div>
-                ))}
-                {/* 마지막 슬라이드에서 첫 번째 아이템을 보여주기 위해 첫 번째 아이템 추가 */}
-                <div
-                  className="flex-shrink-0 h-full"
-                  style={{
-                    width: 'calc(50% - 8px)',
-                    minWidth: 'calc(50% - 8px)'
-                  }}
-                >
-                  {renderGridItem(gridItems[0], 0)}
+                  <div className="w-1/2">
+                    {renderGridItem(gridItems[1], 1)}
+                  </div>
+                </div>
+                
+                {/* 슬라이드 2: 아이템 2, 3 */}
+                <div className="flex gap-4 w-full flex-shrink-0">
+                  <div className="w-1/2">
+                    {renderGridItem(gridItems[2], 2)}
+                  </div>
+                  <div className="w-1/2">
+                    {renderGridItem(gridItems[3], 3)}
+                  </div>
+                </div>
+                
+                {/* 슬라이드 3: 아이템 4, 5 */}
+                <div className="flex gap-4 w-full flex-shrink-0">
+                  <div className="w-1/2">
+                    {renderGridItem(gridItems[4], 4)}
+                  </div>
+                  <div className="w-1/2">
+                    {renderGridItem(gridItems[5], 5)}
+                  </div>
                 </div>
               </div>
             </div>
@@ -235,9 +240,9 @@ const BeyondLaundry = () => {
 
           {/* 네비게이션 닷 */}
           <div className="flex justify-center mt-4">
-            {/* xs: 1개씩 보이므로 9개 닷 */}
-            <div className="block sm:hidden flex">
-              {gridItems.map((_, index) => (
+            {/* sm까지: 1개씩 보이므로 6개 닷 */}
+            <div className="block md:hidden flex">
+              {Array.from({ length: 6 }, (_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
@@ -247,9 +252,9 @@ const BeyondLaundry = () => {
               ))}
             </div>
 
-            {/* sm 이상: 2개씩 보이므로 5개 닷 (마지막 슬라이드는 1개만) */}
-            <div className="hidden sm:block flex">
-              {Array.from({ length: 5 }, (_, index) => (
+            {/* md부터: 2개씩 보이므로 3개 닷 */}
+            <div className="hidden md:block flex">
+              {Array.from({ length: 3 }, (_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
