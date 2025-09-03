@@ -23,9 +23,9 @@ const Hero = () => {
         // 5. ref를 video 태그에 연결합니다.
         ref={videoRef}
         className="absolute top-0 left-0 w-full h-full object-cover"
-        // 6. autoPlay는 이제 JavaScript가 처리하므로 제거해도 됩니다.
         loop
         muted
+        autoPlay
         playsInline
         disablePictureInPicture
         controlsList="nodownload nofullscreen noremoteplayback"
