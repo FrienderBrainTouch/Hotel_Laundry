@@ -4,10 +4,10 @@ import BusinessModel from './BusinessModel';
 import CoreValues from './CoreValues';
 import Vision from './Vision';
 
-const CompanyIntro = ({ onPageChange }) => {
+const CompanyIntro = () => {
   return (
     <div className="company-intro">
-      <CompanyOverview onPageChange={onPageChange} />
+      <CompanyOverview />
       <BusinessModel />
       <CoreValues />
       <Vision />

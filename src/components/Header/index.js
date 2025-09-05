@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
-const Header = ({ onPageChange, currentPage }) => {
+const Header = () => {
+    const location = useLocation();
+    const currentPage = location.pathname;
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
     const [hoveredMenu, setHoveredMenu] = useState(null);
@@ -15,8 +18,7 @@ const Header = ({ onPageChange, currentPage }) => {
       return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    const handleNavClick = (page) => {
-      onPageChange(page);
+    const handleMenuClose = () => {
       setIsMenuOpen(false);
       setExpandedSubmenu(null);
       setHoveredMenu(null);
@@ -73,8 +75,8 @@ const Header = ({ onPageChange, currentPage }) => {
         <div className="w-full px-4 h-full flex items-center justify-between">
           {/* 로고 */}
           <div className="flex items-center py-4">
-            <button 
-              onClick={() => handleNavClick('home')}
+            <Link 
+              to="/"
               className="block"
             >
                              <picture>
@@ -86,7 +88,7 @@ const Header = ({ onPageChange, currentPage }) => {
                    className="w-auto h-auto object-contain" 
                  />
                </picture>
-            </button>
+            </Link>
           </div>
 
           {/* 중앙 네비게이션 - 데스크톱에서만 표시 */}
@@ -99,12 +101,12 @@ const Header = ({ onPageChange, currentPage }) => {
                       onMouseEnter={() => setHoveredMenu(item.id)}
                       className="relative"
                     >
-                      <button 
-                        onClick={() => item.id === 'hotel-laundry' ? handleNavClick('company-intro') : handleNavClick(item.id)}
+                      <Link 
+                        to={item.id === 'hotel-laundry' ? '/company-intro' : `/${item.id}`}
                         className={`text-white font-pretendard text-[18px] lg:text-[18px] xl:text-[20px] 2xl:text-[24px] font-medium leading-normal transition-all duration-200 ${hoveredMenu === item.id ? 'font-bold opacity-100' : 'opacity-80'}`}
                       >
                         {item.label}
-                      </button>
+                      </Link>
                       {item.hasSubmenu && hoveredMenu === item.id && (
                         <>
                           {/* 투명한 연결 영역 */}
@@ -116,13 +118,13 @@ const Header = ({ onPageChange, currentPage }) => {
                             className="absolute top-[calc(100%+32px)] -left-6 bg-[#102254] shadow-lg z-[9999] min-w-[150px] border border-white border-t-1 rounded-b-lg"
                           >
                             {item.submenu.map((subItem) => (
-                              <button
+                              <Link
                                 key={subItem.id}
-                                onClick={() => handleNavClick(subItem.id)}
-                                className={`block w-full text-start px-4 py-3 text-white transition-all duration-200 ${currentPage === subItem.id ? 'underline decoration-underline underline-offset-[5px] font-bold' : 'hover:underline decoration-underline underline-offset-[5px] hover:font-bold'}`}
+                                to={`/${subItem.id}`}
+                                className={`block w-full text-start px-4 py-3 text-white transition-all duration-200 ${currentPage === `/${subItem.id}` ? 'underline decoration-underline underline-offset-[5px] font-bold' : 'hover:underline decoration-underline underline-offset-[5px] hover:font-bold'}`}
                               >
                                 {subItem.label}
-                              </button>
+                              </Link>
                             ))}
                           </div>
                         </>
@@ -142,37 +144,38 @@ const Header = ({ onPageChange, currentPage }) => {
                   {menuItems.map((item) => (
                     <li key={item.id} className="py-2 relative w-full">
                       <div className="w-full">
-                        <button 
-                          onClick={() => {
-                            if (item.hasSubmenu) {
-                              handleSubmenuClick(item.id);
-                            } else if (item.id === 'hotel-laundry') {
-                              handleNavClick('company-intro');
-                            } else {
-                              handleNavClick(item.id);
-                            }
-                          }}
-                          className={`text-white font-pretendard text-[18px] lg:text-[18px] xl:text-[20px] 2xl:text-[24px] transition-all duration-200 flex items-center justify-between w-full ${currentPage === item.id ? 'opacity-100' : 'opacity-80'}`}
-                        >
-                          <span>{item.label}</span>
-                          {item.hasSubmenu && (
+                        {item.hasSubmenu ? (
+                          <button 
+                            onClick={() => handleSubmenuClick(item.id)}
+                            className={`text-white font-pretendard text-[18px] lg:text-[18px] xl:text-[20px] 2xl:text-[24px] transition-all duration-200 flex items-center justify-between w-full ${currentPage === `/${item.id}` ? 'opacity-100' : 'opacity-80'}`}
+                          >
+                            <span>{item.label}</span>
                             <img 
                               src={expandedSubmenu === item.id ? "/images/chevron-up.svg" : "/images/chevron-down.svg"}
                               alt="화살표"
                               className="w-3 h-2"
                             />
-                          )}
-                        </button>
+                          </button>
+                        ) : (
+                          <Link 
+                            to={item.id === 'hotel-laundry' ? '/company-intro' : `/${item.id}`}
+                            onClick={handleMenuClose}
+                            className={`text-white font-pretendard text-[18px] lg:text-[18px] xl:text-[20px] 2xl:text-[24px] transition-all duration-200 flex items-center justify-between w-full ${currentPage === `/${item.id}` ? 'opacity-100' : 'opacity-80'}`}
+                          >
+                            <span>{item.label}</span>
+                          </Link>
+                        )}
                         {item.hasSubmenu && expandedSubmenu === item.id && (
                           <div className="bg-white mt-6 p-4 rounded-lg w-full">
                             {item.submenu.map((subItem) => (
                               <div key={subItem.id} className="mb-2 last:mb-0">
-                                <button
-                                  onClick={() => handleNavClick(subItem.id)}
-                                  className={`text-left w-full py-2 px-2 ${currentPage === subItem.id ? 'text-[#102254] underline decoration-underline underline-offset-[5px] font-bold' : 'text-black hover:underline decoration-underline underline-offset-[5px] hover:font-bold'}`}
+                                <Link
+                                  to={`/${subItem.id}`}
+                                  onClick={handleMenuClose}
+                                  className={`text-left w-full py-2 px-2 ${currentPage === `/${subItem.id}` ? 'text-[#102254] underline decoration-underline underline-offset-[5px] font-bold' : 'text-black hover:underline decoration-underline underline-offset-[5px] hover:font-bold'}`}
                                 >
                                   {subItem.label}
-                                </button>
+                                </Link>
                               </div>
                             ))}
                           </div>
@@ -185,8 +188,8 @@ const Header = ({ onPageChange, currentPage }) => {
             )}
 
             {/* 문의하기 버튼 */}
-            <button 
-              onClick={() => handleNavClick('contact')}
+            <Link 
+              to="/contact"
               className="
                 flex items-center justify-center 
                 w-[86px] h-[35px] sm:w-[100px] sm:h-[40px] md:w-[120px] md:h-[40px] lg:w-[130px] lg:h-[45px] xl:w-[140px] xl:h-[50px] 2xl:w-[170px] 2xl:h-[60px]
@@ -201,7 +204,7 @@ const Header = ({ onPageChange, currentPage }) => {
               "
             >
               문의하기
-            </button>
+            </Link>
 
             {/* 햄버거 메뉴/X 버튼 - 모바일에서만 표시 */}
             {isMobile && (

@@ -1,10 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const Contact = ({ onPageChange }) => {
-  // Contact 버튼 클릭 시 문의하기 페이지로 이동
-  const handleContactClick = () => {
-    onPageChange('contact');
-  };
+const Contact = () => {
 
   return (
     <div className="relative w-full overflow-hidden">
@@ -36,12 +33,12 @@ const Contact = ({ onPageChange }) => {
           </p>
 
           {/* Contact 버튼 */}
-          <button
+          <Link
+            to="/contact"
             className="inline-flex justify-center items-center gap-2.5 w-[142px] h-[39px] sm:w-[150px] sm:h-[40px] md:w-[170px] md:h-[49px] lg:w-[200px] lg:h-[54px] xl:w-[223px] xl:h-[60px] 2xl:w-[300px] 2xl:h-[80px] px-[42px] sm:px-[19px] md:px-[24px] lg:px-[30px] xl:px-[30px] 2xl:px-[30px] py-[7px] sm:py-[6px] md:py-[9px] lg:py-[10px] xl:py-[10px] 2xl:py-[10px] bg-[#FFF] text-[#102254] text-center font-['KoPubWorldBatang'] text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[26px] 2xl:text-[30px] font-[700] leading-normal border-[0.5px] md:border-[0.5px] lg:border border-[#102254] hover:bg-[#102254] hover:text-white transition-colors duration-300 flex-shrink-0 tracking-[-0.32px] sm:tracking-[-0.36px] md:tracking-[-0.4px] lg:tracking-[-0.44px] xl:tracking-[-0.52px] 2xl:tracking-[-0.6px] rounded-[8px]"
-            onClick={handleContactClick}
           >
             Contact
-          </button>
+          </Link>
         </div>
       </div>
     </div>

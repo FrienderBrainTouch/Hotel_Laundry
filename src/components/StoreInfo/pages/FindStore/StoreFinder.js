@@ -55,7 +55,7 @@ const dummyStores = [
   { id: 48, name: '광주용봉점', address: '광주광역시 북구 설죽로214번길 75 1층', region: '전라', latitude: 35.1780682751955, longitude: 126.901867581921 },
 ];
 
-const StoreFinder = ({ onPageChange }) => {
+const StoreFinder = () => {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -95,7 +95,6 @@ const StoreFinder = ({ onPageChange }) => {
   return (
     <div className="store-finder">
       <Section1 
-        onPageChange={onPageChange}
         searchKeyword={searchKeyword}
         setSearchKeyword={setSearchKeyword}
         handleSearch={handleSearch}

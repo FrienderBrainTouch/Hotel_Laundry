@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import homeIcon from '../../StoreInfo/common/home.svg';
 
-const Section1 = ({ onPageChange }) => {
+const Section1 = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
@@ -18,10 +19,7 @@ const Section1 = ({ onPageChange }) => {
     };
   }, []);
 
-  const handleMenuClick = (page) => {
-    if (onPageChange) {
-      onPageChange(page);
-    }
+  const handleMenuClose = () => {
     setIsMenuOpen(false);
   };
 
@@ -32,7 +30,9 @@ const Section1 = ({ onPageChange }) => {
           {/* 브레드크럼 */}
           <div className="mb-8 md:mb-12 w-full xs:w-[355px] sm:w-[535px] md:w-[728px] lg:w-[924px] xl:w-[1200px] 2xl:w-[1400px] mx-auto">
             <div className="flex items-center  gap-2 sm:gap-4 font-pretendard">
-              <img src={homeIcon} alt="홈" />
+              <Link to="/">
+                <img src={homeIcon} alt="홈" />
+              </Link>
               <span className="text-brand-dark text-20">/</span>
               <span className="text-brand-dark text-20">호텔런드리</span>
               <span className="text-brand-dark text-20">/</span>
@@ -48,18 +48,20 @@ const Section1 = ({ onPageChange }) => {
                 </button>
                 {isMenuOpen && (
                   <div className="absolute top-full left-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-[9998] min-w-[120px]">
-                    <button
-                      onClick={() => handleMenuClick('company-intro')}
+                    <Link
+                      to="/company-intro"
+                      onClick={handleMenuClose}
                       className="block w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-50 transition-colors"
                     >
                       회사소개
-                    </button>
-                    <button
-                      onClick={() => handleMenuClick('history')}
+                    </Link>
+                    <Link
+                      to="/history"
+                      onClick={handleMenuClose}
                       className="block w-full text-left px-4 py-2 text-[#102254] font-medium hover:bg-gray-50 transition-colors "
                     >
                       연혁
-                    </button>
+                    </Link>
                   </div>
                 )}
               </div>

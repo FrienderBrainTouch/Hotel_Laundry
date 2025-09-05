@@ -1,5 +1,6 @@
 import './App.css';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Hero from './components/Main/Hero';
 import WhyHotelLaundry from './components/Main/WhyHotelLaundry';
@@ -9,7 +10,8 @@ import BeyondLaundry from './components/Main/BeyondLaundry';
 import StepByStep from './components/Main/StepByStep';
 import OurStores from './components/Main/OurStores';
 import Contact from './components/Main/Contact';
-import HotelLaundry from './components/HotelLaundry';
+import CompanyIntro from './components/HotelLaundry/CompanyIntro';
+import History from './components/HotelLaundry/History';
 import SmartSystem from './components/SmartSystem';
 import StartupGuide from './components/StartupGuide/StartupGuide';
 import StoreInfo from './components/StoreInfo';
@@ -17,27 +19,10 @@ import ContactPage from './components/Contact';
 import Footer from './components/Footer';
 import FloatingMenu from './components/FloatingMenu';
 
-function App() {
-  const [currentPage, setCurrentPage] = useState('home');
+// 스크롤 초기화 컴포넌트
+function ScrollToTop() {
+  const { pathname } = useLocation();
 
-  // 페이지 변경 시 스크롤을 맨 위로 초기화
-  useEffect(() => {
-    // 페이지 렌더링 후 스크롤 초기화
-    const timer = setTimeout(() => {
-      window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: 'instant'
-      });
-      // 추가로 body와 html 스크롤도 초기화
-      document.body.scrollTop = 0;
-      document.documentElement.scrollTop = 0;
-    }, 100);
-
-    return () => clearTimeout(timer);
-  }, [currentPage]);
-
-  // 새로고침 시에도 스크롤 위치 초기화
   useEffect(() => {
     const timer = setTimeout(() => {
       window.scrollTo({
@@ -50,49 +35,60 @@ function App() {
     }, 100);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [pathname]);
 
-  const renderPage = () => {
-    switch (currentPage) {
-      case 'company-intro':
-      case 'history':
-        return <HotelLaundry onPageChange={setCurrentPage} currentPage={currentPage} />;
-      case 'smart-system':
-        return <SmartSystem />;
-      case 'startup-guide':
-        return <StartupGuide onPageChange={setCurrentPage} />;
-      case 'store-info':
-      case 'store-status':
-        return <StoreInfo mode="list" onPageChange={setCurrentPage} />;
-      case 'find-store':
-        return <StoreInfo mode="finder" onPageChange={setCurrentPage} />;
-      case 'contact':
-        return <ContactPage />;
-      default:
-        return (
-          <>
-            <Hero />
-            <WhyHotelLaundry />
-            <SmartTech />
-            <AboutUs />
-            <BeyondLaundry />
-            <StepByStep />
-            <OurStores />
-            <Contact onPageChange={setCurrentPage} />
-          </>
-        );
-    }
-  };
+  return null;
+}
+
+// 메인 페이지 컴포넌트
+function MainPage() {
+  return (
+    <>
+      <Hero />
+      <WhyHotelLaundry />
+      <SmartTech />
+      <AboutUs />
+      <BeyondLaundry />
+      <StepByStep />
+      <OurStores />
+      <Contact />
+    </>
+  );
+}
+
+// 레이아웃 컴포넌트
+function Layout() {
+  const location = useLocation();
+  const currentPage = location.pathname;
 
   return (
     <div className="w-full min-h-screen m-0 p-0">
-      <Header onPageChange={setCurrentPage} currentPage={currentPage} />
+      <Header currentPage={currentPage} />
       <main className="bg-white min-h-screen">
-        {renderPage()}
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/company-intro" element={<CompanyIntro />} />
+          <Route path="/history" element={<History />} />
+          <Route path="/smart-system" element={<SmartSystem />} />
+          <Route path="/startup-guide" element={<StartupGuide />} />
+          <Route path="/store-info" element={<StoreInfo mode="list" />} />
+          <Route path="/store-status" element={<StoreInfo mode="list" />} />
+          <Route path="/find-store" element={<StoreInfo mode="finder" />} />
+          <Route path="/contact" element={<ContactPage />} />
+        </Routes>
       </main>
       <Footer />
-      <FloatingMenu onPageChange={setCurrentPage} currentPage={currentPage} />
-    </div>  
+      <FloatingMenu currentPage={currentPage} />
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <ScrollToTop />
+      <Layout />
+    </Router>
   );
 }
 
