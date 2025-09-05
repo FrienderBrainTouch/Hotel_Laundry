@@ -47,7 +47,7 @@ const Section3 = () => {
               <div className="w-full md:w-3/5 order-2 md:order-2 bg-white">
                 <div className="h-full flex flex-col justify-center p-5 sm:p-6 md:p-8">
                   <h3 className="text-[20px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[26px] 2xl:text-[28px] font-bold text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.4px] sm:tracking-[-0.4px] md:tracking-[-0.44px] lg:tracking-[-0.48px] xl:tracking-[-0.48px] 2xl:tracking-[-0.48px] mb-[5px] sm:mb-[5px] md:mb-[10px] lg:mb-[12px] xl:mb-[8px] 2xl:mb-[12px]">무인세탁 시장의 폭발적 성장</h3>
-                  <ul className="space-y-2 text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.32px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px] list-disc list-inside">
+                  <ul className="space-y-2 text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.32px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px] list-disc list-outside pl-4">
                     <li>무인세탁소는 2020년 4,252개 → 2021년 약 6,800개로 증가</li>
                     <li>1인 가구-비대면 소비 확산에 따라 연평균 22.7% 빠른 성장</li>
                     <li>지금이 바로 스마트 세탁 창업의 최적기입니다.</li>
@@ -62,7 +62,7 @@ const Section3 = () => {
               <div className="w-full md:w-3/5 order-2 md:order-1 bg-white">
                 <div className="h-full flex flex-col justify-center p-5 sm:p-6 md:p-8">
                   <h3 className="text-[20px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[26px] 2xl:text-[28px] font-bold text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.4px] sm:tracking-[-0.4px] md:tracking-[-0.44px] lg:tracking-[-0.48px] xl:tracking-[-0.48px] 2xl:tracking-[-0.48px] mb-[5px] sm:mb-[5px] md:mb-[10px] lg:mb-[12px] xl:mb-[8px] 2xl:mb-[12px]">고객이 느끼는 불편과 한계</h3>
-                  <ul className="space-y-2 text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.32px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px] list-disc list-inside">
+                  <ul className="space-y-2 text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.32px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px] list-disc list-outside pl-4">
                     <li>이용자 절반 이상이 '점유 불만'을 가장 큰 문제로 인식</li>
                     <li>위생 관리, 대기 시간, 심야 이용률 등 기존 빨래방 한계 명확</li>
                     <li>호텔런드리는 이런 문제에 기술로 화답합니다.</li>
@@ -96,7 +96,7 @@ const Section3 = () => {
               <div className="w-full md:w-3/5 bg-white">
                 <div className="h-full flex flex-col justify-center p-5 sm:p-6 md:p-8">
                   <h3 className="text-[20px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[26px] 2xl:text-[28px] font-bold text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.4px] sm:tracking-[-0.4px] md:tracking-[-0.44px] lg:tracking-[-0.48px] xl:tracking-[-0.48px] 2xl:tracking-[-0.48px] mb-[5px] sm:mb-[5px] md:mb-[10px] lg:mb-[12px] xl:mb-[8px] 2xl:mb-[12px]">운영 효율 향상 시뮬레이션 결과</h3>
-                  <ul className="space-y-2 text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.32px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px] list-disc list-inside">
+                  <ul className="space-y-2 text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.32px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px] list-disc list-outside pl-4">
                     <li>시간대별 할인 시스템 도입 시 가동률과 수익률 동기 확인</li>
                     <li>고객 패턴 기반 운영으로 수익과 효율 모두 상승합니다.</li>
                   </ul>
