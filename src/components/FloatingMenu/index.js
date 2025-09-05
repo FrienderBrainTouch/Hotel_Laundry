@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import floatingSearch from './icons/floating_search.svg';
 import floatingContact from './icons/floating_contact.svg';
 import floatingCatalog from './icons/floating_catalog.svg';
+import floatingMobile from './icons/floating_mobile.svg';
 
 const FloatingMenu = () => {
   const location = useLocation();
@@ -115,13 +116,11 @@ const FloatingMenu = () => {
 
         {/* 메인 동그란 버튼 */}
         <button 
-          className="w-14 h-14 bg-[#082567] rounded-full shadow-lg border border-[#082567] flex items-center justify-center text-white hover:bg-[#082567] transition-colors"
+          className="w-14 h-14 bg-[#082567] rounded-full shadow-lg border border-[#082567] flex flex-col items-center justify-center text-white hover:bg-[#082567] transition-colors relative"
           onClick={() => setIsExpanded(!isExpanded)}
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
+          <img src={floatingMobile} alt="창업 문의" className="w-6 h-6 mb-1" />
+          <span className="text-[10px] font-medium">창업 문의</span>        </button>
       </div>
     </>
   );
