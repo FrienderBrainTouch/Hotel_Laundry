@@ -54,9 +54,9 @@ const Section5 = () => {
                     {/* 텍스트: 항상 가운데(2) */}
                     <div className="flex-grow text-left md:order-2">
                       <h3 className="text-[20px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[26px] 2xl:text-[28px] font-bold text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.4px] sm:tracking-[-0.4px] md:tracking-[-0.44px] lg:tracking-[-0.48px] xl:tracking-[-0.48px] 2xl:tracking-[-0.48px] mb-[5px] sm:mb-[5px] md:mb-[10px] lg:mb-[12px] xl:mb-[8px] 2xl:mb-[12px]">{item.title}</h3>
-                      <ul className="space-y-1 text-[#1C262B] text-[15px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] font-medium font-KoPubWorldDotum leading-normal tracking-[-0.3px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px] list-disc list-inside">
+                      <ul className="space-y-1 text-[#1C262B] text-[15px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] font-medium font-KoPubWorldDotum leading-normal tracking-[-0.3px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px] list-disc list-outside pl-4">
                         {item.details.map((detail, i) => (
-                          <li key={i} className="list-disc list-inside">{detail}</li>
+                          <li key={i}>{detail}</li>
                         ))}
                       </ul>
                     </div>
