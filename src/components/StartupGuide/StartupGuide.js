@@ -7,14 +7,14 @@ import Section6 from './Section6';
 
 
 
-const StartupGuide = ({ onPageChange }) => {
+const StartupGuide = () => {
   return (
     <div className="startup-guide">
       <Section1 />
       <Section3 />
       <Section4 />
       <Section5 />
-      <Section6 onPageChange={onPageChange} />
+      <Section6 />
     </div>
   );
 };

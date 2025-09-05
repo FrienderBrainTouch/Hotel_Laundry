@@ -1,9 +1,12 @@
 // components/StoreInfo/common/Breadcrumb.js
 import { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import homeIcon from './home.svg';
 import downIcon from './down.svg';
 
-const Breadcrumb = ({ currentPage, onPageChange }) => {
+const Breadcrumb = () => {
+    const location = useLocation();
+    const currentPage = location.pathname === '/store-status' ? '전국 매장 현황' : '매장 찾기';
     const [isOpen, setIsOpen] = useState(false);
     const menuItems = [
         { id: 1, title: '전국 매장 현황', pageKey: 'store-status' },
@@ -12,7 +15,9 @@ const Breadcrumb = ({ currentPage, onPageChange }) => {
   
     return (
         <div className="flex items-center gap-2 sm:gap-4 font-pretendard">
-            <img src={homeIcon} alt="홈" />
+            <Link to="/">
+                <img src={homeIcon} alt="홈" />
+            </Link>
             <span className="text-brand-dark text-20">/</span>
             <span className="text-brand-dark text-20">매장 안내</span>
             <span className="text-brand-dark text-20">/</span>
@@ -36,16 +41,14 @@ const Breadcrumb = ({ currentPage, onPageChange }) => {
                 {isOpen && (
                     <div className="absolute top-full left-0 mt-2 w-fit bg-white rounded-lg shadow-lg overflow-hidden z-10">
                         {menuItems.map((item) => (
-                            <button
+                            <Link
                                 key={item.id}
-                                onClick={() => {
-                                    onPageChange(item.pageKey);
-                                    setIsOpen(false); // 메뉴를 닫아줍니다.
-                                }}
-                                className="w-full px-4 py-3 text-left text-brand-dark text-20 hover:bg-gray-50 transition-colors whitespace-nowrap"
+                                to={`/${item.pageKey}`}
+                                onClick={() => setIsOpen(false)}
+                                className="w-full px-4 py-3 text-left text-brand-dark text-20 hover:bg-gray-50 transition-colors whitespace-nowrap block"
                             >
                                 <span>{item.title}</span>
-                            </button>
+                            </Link>
                         ))}
                     </div>
                 )}

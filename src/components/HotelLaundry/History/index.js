@@ -2,10 +2,10 @@ import React from 'react';
 import Foundation from './Foundation';
 import Milestones from './Milestones';
 
-const History = ({ onPageChange }) => {
+const History = () => {
   return (
     <div className="history">
-      <Foundation onPageChange={onPageChange} />
+      <Foundation />
       <Milestones />
     </div>
   );
