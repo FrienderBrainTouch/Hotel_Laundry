@@ -1,12 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import homeIcon from '../../StoreInfo/common/home.svg';
-import HeroSection from './HeroSection';
-import TechCards from './TechCards';
-import LaundryTech from './LaundryTech';
-import TechBenefits from './TechBenefits';
 
-const AdvancedTech = () => {
+const StoreOwnerInterview = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
@@ -38,14 +34,14 @@ const AdvancedTech = () => {
                 <img src={homeIcon} alt="홈" />
               </Link>
               <span className="text-brand-dark text-20">/</span>
-              <span className="text-brand-dark text-20">스마트 시스템</span>
+              <span className="text-brand-dark text-20">창업 안내</span>
               <span className="text-brand-dark text-20">/</span>
               <div className="relative" ref={menuRef}>
                 <button
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
                   className="flex items-center gap-1 text-brand-dark text-20 hover:text-[#102254] transition-colors"
                 >
-                  첨단기술
+                  점주 인터뷰
                   <span className={`transition-transform duration-200 ${isMenuOpen ? 'rotate-180' : ''}`}>
                     ▾
                   </span>
@@ -53,25 +49,39 @@ const AdvancedTech = () => {
                 {isMenuOpen && (
                   <div className="absolute top-full left-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-[9998] min-w-[140px]">
                     <Link
-                      to="/smart-system"
+                      to="/startup-guide"
                       onClick={handleMenuClose}
                       className="block w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-50 transition-colors"
                     >
-                      스마트 시스템
+                      창업안내
                     </Link>
                     <Link
-                      to="/advanced-technology"
+                      to="/store-owner-interview"
                       onClick={handleMenuClose}
                       className="block w-full text-left px-4 py-2 text-[#102254] font-medium hover:bg-gray-50 transition-colors"
                     >
-                      첨단기술
+                      점주 인터뷰
                     </Link>
                     <Link
-                      to="/status-management"
+                      to="/solo-startup"
                       onClick={handleMenuClose}
                       className="block w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-50 transition-colors"
                     >
-                      위생관리
+                      단독 창업
+                    </Link>
+                    <Link
+                      to="/business-seminar"
+                      onClick={handleMenuClose}
+                      className="block w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-50 transition-colors"
+                    >
+                      사업 설명회
+                    </Link>
+                    <Link
+                      to="/catalog"
+                      onClick={handleMenuClose}
+                      className="block w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-50 transition-colors"
+                    >
+                      카탈로그
                     </Link>
                   </div>
                 )}
@@ -80,11 +90,20 @@ const AdvancedTech = () => {
           </div>
 
           {/* 메인 콘텐츠 */}
-          <div>
-            <HeroSection />
-            <TechCards />
-            <LaundryTech />
-            <TechBenefits />
+          <div className="text-center">
+            <h1 className="text-3xl md:text-4xl font-bold text-brand-dark mb-8">
+              점주 인터뷰
+            </h1>
+            <p className="text-lg text-gray-600 mb-12">
+              실제 호텔세탁소 점주들의 생생한 경험담을 들어보세요
+            </p>
+            
+            {/* 인터뷰 콘텐츠 영역 */}
+            <div className="bg-gray-50 p-8 rounded-lg">
+              <p className="text-gray-500">
+                점주 인터뷰 콘텐츠가 여기에 표시됩니다.
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -92,4 +111,4 @@ const AdvancedTech = () => {
   );
 };
 
-export default AdvancedTech;
+export default StoreOwnerInterview;

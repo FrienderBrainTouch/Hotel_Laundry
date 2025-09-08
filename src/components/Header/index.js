@@ -45,7 +45,7 @@ const Header = () => {
         hasSubmenu: true,
         submenu: [
           { id: 'advanced-technology', label: '첨단 기술' },
-          { id: 'status-management', label: '위상 관리' }
+          { id: 'status-management', label: '위생 관리' }
         ]
       },
       {
@@ -53,10 +53,11 @@ const Header = () => {
         label: '창업 안내',
         hasSubmenu: true,
         submenu: [
-          { id: 'owner-interview', label: '점주 인터뷰' },
+          { id: 'startup-guide-main', label: '창업안내' },
+          { id: 'store-owner-interview', label: '점주 인터뷰' },
           { id: 'solo-startup', label: '단독 창업' },
           { id: 'business-seminar', label: '사업 설명회' },
-          { id: 'catalog', label: '카다로그' }
+          { id: 'catalog', label: '카탈로그' }
         ]
       },
       {

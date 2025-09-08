@@ -1,14 +1,14 @@
 import React from 'react';
-import step1 from './StartupGuideImage/step1.svg';
-import step2 from './StartupGuideImage/step2.svg';
-import step3 from './StartupGuideImage/step3.svg';
-import step4 from './StartupGuideImage/step4.svg';
-import step5 from './StartupGuideImage/step5.svg';      
-import num01 from './StartupGuideImage/num01.svg';
-import num02 from './StartupGuideImage/num02.svg';
-import num03 from './StartupGuideImage/num03.svg';
-import num04 from './StartupGuideImage/num04.svg';
-import num05 from './StartupGuideImage/num05.svg';
+import step1 from './image/step1.svg';
+import step2 from './image/step2.svg';
+import step3 from './image/step3.svg';
+import step4 from './image/step4.svg';
+import step5 from './image/step5.svg';      
+import num01 from './image/num01.svg';
+import num02 from './image/num02.svg';
+import num03 from './image/num03.svg';
+import num04 from './image/num04.svg';
+import num05 from './image/num05.svg';
 
 const processStepsData = [
   { step: num01, icon: step1, title: '상담 신청', details: ['창업 문의 접수 및 기본 창업 정보 제공', '창업 희망 지역, 예산, 규모 등 1차 조건 확인'] },

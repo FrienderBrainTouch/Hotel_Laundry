@@ -66,7 +66,7 @@ const IoTOverview = () => {
                     onClick={handleMenuClose}
                     className="block w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-50 transition-colors"
                   >
-                    위상관리
+                    위생관리
                   </Link>
                 </div>
               )}

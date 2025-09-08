@@ -10,10 +10,10 @@ const PhaseHeroSection = () => {
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center text-white">
               <h1 className="hero-title md:text-4xl lg:text-5xl font-bold font-KoPubWorldBatang mb-4">
-                위상관리
+                위생관리
               </h1>
               <p className="hero-subtitle md:text-24 lg:text-28 font-light">
-                Intelligent Phase Management
+                Intelligent Hygiene Management
               </p>
             </div>
           </div>

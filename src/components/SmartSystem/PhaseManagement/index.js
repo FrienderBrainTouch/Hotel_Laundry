@@ -45,7 +45,7 @@ const PhaseManagement = () => {
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
                   className="flex items-center gap-1 text-brand-dark text-20 hover:text-[#102254] transition-colors"
                 >
-                  위상관리
+                  위생관리
                   <span className={`transition-transform duration-200 ${isMenuOpen ? 'rotate-180' : ''}`}>
                     ▾
                   </span>
@@ -71,7 +71,7 @@ const PhaseManagement = () => {
                       onClick={handleMenuClose}
                       className="block w-full text-left px-4 py-2 text-[#102254] font-medium hover:bg-gray-50 transition-colors"
                     >
-                      위상관리
+                      위생관리
                     </Link>
                   </div>
                 )}
