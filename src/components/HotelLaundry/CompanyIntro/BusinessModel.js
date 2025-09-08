@@ -5,25 +5,25 @@ const Section2 = () => {
 
   const businessAreas = [
     {
-      title: "TECHNOLOGY",
-      subtitle: "IoT 기반 세탁 기기 제어 시스템 개발 및 운영",
-      image: "/images/CompanyInfo/Company-2-1.png"
+      title: 'TECHNOLOGY',
+      subtitle: 'IoT 기반 세탁 기기 제어 시스템 개발 및 운영',
+      image: '/images/CompanyInfo/Company-2-1.png',
     },
     {
-      title: "DEVELOPMENT",
-      subtitle: "스마트 세탁장비 및 자동화 솔루션 연구 개발",
-      image: "/images/CompanyInfo/Company-2-1.png"
+      title: 'DEVELOPMENT',
+      subtitle: '스마트 세탁장비 및 자동화 솔루션 연구 개발',
+      image: '/images/CompanyInfo/Company-2-1.png',
     },
     {
-      title: "AUTOMATION",
-      subtitle: "세탁공정의 전 과정 자동화 및 무인화 설계",
-      image: "/images/CompanyInfo/Company-2-1.png"
+      title: 'AUTOMATION',
+      subtitle: '세탁공정의 전 과정 자동화 및 무인화 설계',
+      image: '/images/CompanyInfo/Company-2-1.png',
     },
     {
-      title: "CLEANING",
-      subtitle: "호텔급 침구 전문 클리닝 및 살균 세탁 서비스",
-      image: "/images/CompanyInfo/Company-2-1.png"
-    }
+      title: 'CLEANING',
+      subtitle: '호텔급 침구 전문 클리닝 및 살균 세탁 서비스',
+      image: '/images/CompanyInfo/Company-2-1.png',
+    },
   ];
 
   return (
@@ -52,19 +52,16 @@ const Section2 = () => {
                 <div
                   className="w-full xl:w-[590px] 2xl:w-[690px] h-[200px] xs:h-[200px] sm:h-[200px] md:h-[230px] lg:h-[250px] xl:h-[280px] 2xl:h-[300px] p-[20px] xs:p-[20px] sm:p-[30px] md:p-[30px] lg:p-[30px] xl:p-[40px] 2xl:p-[40px] flex flex-col justify-end items-start rounded-[10px] transition-all duration-300 gap-[5px] xs:gap-[5px] sm:gap-[5px] md:gap-[10px] lg:gap-[10px] xl:gap-[5px] 2xl:gap-[5px]"
                   style={{
-                    backgroundImage: hoveredIndex === index
-                      ? `url(${area.image})`
-                      : 'none',
-                    backgroundColor: hoveredIndex === index
-                      ? 'transparent'
-                      : 'rgba(16, 34, 84, 0.15)',
+                    backgroundImage: hoveredIndex === index ? `url(${area.image})` : 'none',
+                    backgroundColor:
+                      hoveredIndex === index ? 'transparent' : 'rgba(16, 34, 84, 0.15)',
                     backgroundSize: hoveredIndex === index ? 'cover' : 'auto',
-                    backgroundPosition: 'center'
+                    backgroundPosition: 'center',
                   }}
                 >
                   {hoveredIndex === index ? (
                     <>
-                      <h3 className="text-white text-[20px] xs:text-[20px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[26px] 2xl:text-[28px] font-bold font-['KoPubWorldDotum'] mb-[5px] font-['KoPubWorldDotum'] leading-normal tracking-[-0.4px] xs:tracking-[-0.4px] sm:tracking-[-0.4px] md:tracking-[-0.44px] lg:tracking-[-0.48px] xl:tracking-[-0.52px] 2xl:tracking-normal">
+                      <h3 className="text-white text-[20px] xs:text-[20px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[26px] 2xl:text-[28px] font-bold font-['KoPubWorldDotum'] mb-[5px] leading-normal tracking-[-0.4px] xs:tracking-[-0.4px] sm:tracking-[-0.4px] md:tracking-[-0.44px] lg:tracking-[-0.48px] xl:tracking-[-0.52px] 2xl:tracking-normal">
                         {area.title}
                       </h3>
                       <p className="text-white text-[15px] xs:text-[15px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] font-medium font-['KoPubWorldDotum'] leading-normal tracking-[-0.3px] xs:tracking-[-0.3px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-normal">
@@ -73,7 +70,7 @@ const Section2 = () => {
                     </>
                   ) : (
                     <>
-                      <h3 className="text-[#1C262B] text-[20px] xs:text-[20px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[26px] 2xl:text-[28px] font-bold font-['KoPubWorldDotum'] mb-[5px] font-['KoPubWorldDotum'] leading-normal tracking-[-0.4px] xs:tracking-[-0.4px] sm:tracking-[-0.4px] md:tracking-[-0.44px] lg:tracking-[-0.48px] xl:tracking-[-0.52px] 2xl:tracking-normal">
+                      <h3 className="text-[#1C262B] text-[20px] xs:text-[20px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[26px] 2xl:text-[28px] font-bold font-['KoPubWorldDotum'] mb-[5px] leading-normal tracking-[-0.4px] xs:tracking-[-0.4px] sm:tracking-[-0.4px] md:tracking-[-0.44px] lg:tracking-[-0.48px] xl:tracking-[-0.52px] 2xl:tracking-normal">
                         {area.title}
                       </h3>
                       <p className="text-[#1C262B] text-[15px] xs:text-[15px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] font-medium font-['KoPubWorldDotum'] leading-normal tracking-[-0.3px] xs:tracking-[-0.3px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-normal">
