@@ -95,8 +95,8 @@ const Header = () => {
       label: '관리지원',
       hasSubmenu: true,
       submenu: [
-        { id: '24hour-callcenter', label: '24시간 콜센터' },
-        { id: 'central-monitoring', label: '중앙 관제' },
+        { id: 'management-support', label: '24시간 콜센터' },
+        { id: 'central-control', label: '중앙 관제' },
         { id: 'store-management', label: '매장관리 대행' },
       ],
     },
@@ -146,6 +146,8 @@ const Header = () => {
                           ? '/company-intro'
                           : item.id === 'hotel-laundry-app'
                           ? '/app-intro'
+                          : item.id === 'management-support'
+                          ? '/management-support'
                           : `/${item.id}`
                       }
                       className={`whitespace-nowrap text-white font-pretendard text-[18px] lg:text-[18px] xl:text-[20px] 2xl:text-[24px] font-medium leading-normal transition-all duration-200 ${
@@ -216,6 +218,8 @@ const Header = () => {
                               ? '/company-intro'
                               : item.id === 'hotel-laundry-app'
                               ? '/app-intro'
+                              : item.id === 'management-support'
+                              ? '/management-support'
                               : `/${item.id}`
                           }
                           onClick={handleMenuClose}
