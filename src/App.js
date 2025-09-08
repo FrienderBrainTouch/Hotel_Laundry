@@ -12,7 +12,10 @@ import OurStores from './components/Main/OurStores';
 import Contact from './components/Main/Contact';
 import CompanyIntro from './components/HotelLaundry/CompanyIntro';
 import History from './components/HotelLaundry/History';
+import BrandStory from './components/HotelLaundry/BrandStory';
 import SmartSystem from './components/SmartSystem';
+import AdvancedTech from './components/SmartSystem/AdvancedTech';
+import PhaseManagement from './components/SmartSystem/PhaseManagement';
 import StartupGuide from './components/StartupGuide/StartupGuide';
 import StoreInfo from './components/StoreInfo';
 import ContactPage from './components/Contact';
@@ -69,7 +72,10 @@ function Layout() {
           <Route path="/" element={<MainPage />} />
           <Route path="/company-intro" element={<CompanyIntro />} />
           <Route path="/history" element={<History />} />
+          <Route path="/brand-story" element={<BrandStory />} />
           <Route path="/smart-system" element={<SmartSystem />} />
+          <Route path="/advanced-technology" element={<AdvancedTech />} />
+          <Route path="/status-management" element={<PhaseManagement />} />
           <Route path="/startup-guide" element={<StartupGuide />} />
           <Route path="/store-info" element={<StoreInfo mode="list" />} />
           <Route path="/store-status" element={<StoreInfo mode="list" />} />
