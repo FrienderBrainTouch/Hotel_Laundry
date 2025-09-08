@@ -25,6 +25,11 @@ import StoreInfo from './components/StoreInfo';
 import ContactPage from './components/Contact';
 import Footer from './components/Footer';
 import FloatingMenu from './components/FloatingMenu';
+// App Guide 컴포넌트들
+import AppIntro from './components/AppGuide/AppIntro';
+import LocalPlatform from './components/AppGuide/LocalPlatform';
+import SameDayPickup from './components/AppGuide/SameDayPickup';
+import AppDownload from './components/AppGuide/AppDownload';
 
 // 스크롤 초기화 컴포넌트
 function ScrollToTop() {
@@ -35,7 +40,7 @@ function ScrollToTop() {
       window.scrollTo({
         top: 0,
         left: 0,
-        behavior: 'instant'
+        behavior: 'instant',
       });
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
@@ -90,6 +95,11 @@ function Layout() {
           <Route path="/store-status" element={<StoreInfo mode="list" />} />
           <Route path="/find-store" element={<StoreInfo mode="finder" />} />
           <Route path="/contact" element={<ContactPage />} />
+          {/* App Guide 라우트들 */}
+          <Route path="/app-intro" element={<AppIntro />} />
+          <Route path="/local-platform" element={<LocalPlatform />} />
+          <Route path="/same-day-pickup" element={<SameDayPickup />} />
+          <Route path="/app-download" element={<AppDownload />} />
         </Routes>
       </main>
       <Footer />
