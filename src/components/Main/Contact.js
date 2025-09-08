@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Contact = () => {
-
   return (
     <div className="relative w-full overflow-hidden">
       <div className="w-full h-[180px] sm:h-[230px] md:h-[250px] lg:h-[280px] xl:h-[350px] 2xl:h-[500px]">
@@ -11,7 +10,7 @@ const Contact = () => {
           className="absolute top-0 left-0 w-full h-full bg-cover bg-center"
           style={{
             backgroundImage: 'url(/images/main-Images/main-contact.png)',
-            filter: 'blur(10px)'
+            filter: 'blur(10px)',
           }}
         ></div>
 
@@ -20,15 +19,13 @@ const Contact = () => {
 
         {/* 텍스트 콘텐츠 */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4">
-          <h2
-            className="mb-6 text-center font-['KoPubWorldBatang'] text-[22px] sm:text-[24px] md:text-[28px] lg:text-[32px] xl:text-[36px] 2xl:text-[40px] font-normal font-[500] text-[#FFF] leading-normal"
-          >
+          <h2 className="mb-6 text-center font-['KoPubWorldBatang'] text-[22px] sm:text-[24px] md:text-[28px] lg:text-[32px] xl:text-[36px] 2xl:text-[40px] font-[500] text-[#FFF] leading-normal">
             Ready to Start?
           </h2>
-          <p
-            className="mb-8 text-center font-['KoPubWorldDotum'] text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[28px] 2xl:text-[32px] font-normal font-[500] leading-normal"
-          >
-            <span className="hidden sm:inline">호텔런드리 창업이 궁금하시다면, 지금 바로 상담을 신청해보세요.</span>
+          <p className="mb-8 text-center font-['KoPubWorldDotum'] text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[28px] 2xl:text-[32px] font-[500] leading-normal">
+            <span className="hidden sm:inline">
+              호텔런드리 창업이 궁금하시다면, 지금 바로 상담을 신청해보세요.
+            </span>
             <span className="inline sm:hidden">지금 바로 상담을 신청해보세요.</span>
           </p>
 
@@ -45,4 +42,4 @@ const Contact = () => {
   );
 };
 
-export default Contact; 
+export default Contact;
