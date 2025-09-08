@@ -1,18 +1,12 @@
 import React from 'react';
-import IoTOverview from './IoTOverview';
-import SmartStoreOperation from './SmartStoreOperation';
-import AutomationSolutions from './AutomationSolutions';
-import SmartRevenue from './SmartRevenue';
+import SmartSystem from './SmartSystem';
 
-const SmartSystem = () => {
+const SmartSystemMain = () => {
   return (
-    <div>
-      <IoTOverview />
-      <SmartStoreOperation />
-      <AutomationSolutions />
-      <SmartRevenue />
+    <div className="smart-system-main">
+      <SmartSystem />
     </div>
   );
 };
 
-export default SmartSystem; 
+export default SmartSystemMain;

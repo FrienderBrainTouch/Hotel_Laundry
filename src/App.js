@@ -12,8 +12,15 @@ import OurStores from './components/Main/OurStores';
 import Contact from './components/Main/Contact';
 import CompanyIntro from './components/HotelLaundry/CompanyIntro';
 import History from './components/HotelLaundry/History';
+import BrandStory from './components/HotelLaundry/BrandStory';
 import SmartSystem from './components/SmartSystem';
-import StartupGuide from './components/StartupGuide/StartupGuide';
+import AdvancedTech from './components/SmartSystem/AdvancedTech';
+import PhaseManagement from './components/SmartSystem/PhaseManagement';
+import StartupGuide from './components/StartupGuide/StartupMain/StartupGuide';
+import StoreOwnerInterview from './components/StartupGuide/StoreOwnerInterview';
+import SoloStartup from './components/StartupGuide/SoloStartup';
+import BusinessSeminar from './components/StartupGuide/BusinessSeminar';
+import Catalog from './components/StartupGuide/Catalog';
 import StoreInfo from './components/StoreInfo';
 import ContactPage from './components/Contact';
 import Footer from './components/Footer';
@@ -69,8 +76,16 @@ function Layout() {
           <Route path="/" element={<MainPage />} />
           <Route path="/company-intro" element={<CompanyIntro />} />
           <Route path="/history" element={<History />} />
+          <Route path="/brand-story" element={<BrandStory />} />
           <Route path="/smart-system" element={<SmartSystem />} />
+          <Route path="/advanced-technology" element={<AdvancedTech />} />
+          <Route path="/status-management" element={<PhaseManagement />} />
           <Route path="/startup-guide" element={<StartupGuide />} />
+          <Route path="/startup-guide-main" element={<StartupGuide />} />
+          <Route path="/store-owner-interview" element={<StoreOwnerInterview />} />
+          <Route path="/solo-startup" element={<SoloStartup />} />
+          <Route path="/business-seminar" element={<BusinessSeminar />} />
+          <Route path="/catalog" element={<Catalog />} />
           <Route path="/store-info" element={<StoreInfo mode="list" />} />
           <Route path="/store-status" element={<StoreInfo mode="list" />} />
           <Route path="/find-store" element={<StoreInfo mode="finder" />} />

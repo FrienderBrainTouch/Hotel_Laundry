@@ -62,6 +62,13 @@ const Section1 = () => {
                     >
                       연혁
                     </Link>
+                    <Link
+                      to="/brand-story"
+                      onClick={handleMenuClose}
+                      className="block w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-50 transition-colors"
+                    >
+                      브랜드 스토리
+                    </Link>
                   </div>
                 )}
               </div>

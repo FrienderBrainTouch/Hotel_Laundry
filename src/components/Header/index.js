@@ -35,18 +35,51 @@ const Header = () => {
         hasSubmenu: true,
         submenu: [
           { id: 'company-intro', label: '회사 소개' },
+          { id: 'brand-story', label: '브랜드 스토리' },
           { id: 'history', label: '연혁' }
         ]
       },
       {
         id: 'smart-system',
         label: '스마트 시스템',
-        hasSubmenu: false
+        hasSubmenu: true,
+        submenu: [
+          { id: 'advanced-technology', label: '첨단 기술' },
+          { id: 'status-management', label: '위생 관리' }
+        ]
       },
       {
         id: 'startup-guide',
         label: '창업 안내',
-        hasSubmenu: false
+        hasSubmenu: true,
+        submenu: [
+          { id: 'startup-guide-main', label: '창업안내' },
+          { id: 'store-owner-interview', label: '점주 인터뷰' },
+          { id: 'solo-startup', label: '단독 창업' },
+          { id: 'business-seminar', label: '사업 설명회' },
+          { id: 'catalog', label: '카탈로그' }
+        ]
+      },
+      {
+        id: 'equipment-intro',
+        label: '장비소개',
+        hasSubmenu: true,
+        submenu: [
+          { id: 'washing-machine', label: '세탁기' },
+          { id: 'dryer', label: '건조기' },
+          { id: 'self-dry-cleaning', label: '셀프 드라이클리닝' }
+        ]
+      },
+      {
+        id: 'hotel-laundry-app',
+        label: '앱 가이드',
+        hasSubmenu: true,
+        submenu: [
+          { id: 'app-intro', label: '앱 소개' },
+          { id: 'local-platform', label: '지역 플랫폼' },
+          { id: 'same-day-pickup', label: '당일수거 배달서비스' },
+          { id: 'app-download', label: '앱 다운로드' }
+        ]
       },
       {
         id: 'store-info',
@@ -55,6 +88,16 @@ const Header = () => {
         submenu: [
           { id: 'store-status', label: '전국 매장 현황' },
           { id: 'find-store', label: '매장 찾기' }
+        ]
+      },
+      {
+        id: 'management-support',
+        label: '관리지원',
+        hasSubmenu: true,
+        submenu: [
+          { id: '24hour-callcenter', label: '24시간 콜센터' },
+          { id: 'central-monitoring', label: '중앙 관제' },
+          { id: 'store-management', label: '매장관리 대행' }
         ]
       }
     ];
@@ -79,7 +122,7 @@ const Header = () => {
               to="/"
               className="block"
             >
-                             <picture>
+                <picture>
                  <source media="(min-width: 1024px)" srcSet="/images/Header/lg-xl-2xl-logo.png" />
                  <source media="(min-width: 768px)" srcSet="/images/Header/md-logo.png" />
                  <img 
@@ -94,16 +137,16 @@ const Header = () => {
           {/* 중앙 네비게이션 - 데스크톱에서만 표시 */}
           {!isMobile && (
             <nav className="flex items-center absolute left-1/2 transform -translate-x-1/2">
-              <ul className="flex list-none gap-[60px] lg:gap-[60px] xl:gap-[100px] 2xl:gap-[80px]">
+              <ul className="flex flex-nowrap list-none gap-[clamp(20px,3vw,60px)] lg:gap-[clamp(30px,4vw,80px)] xl:gap-[clamp(40px,5vw,100px)] 2xl:gap-[clamp(50px,6vw,120px)]">
                 {menuItems.map((item) => (
-                  <li key={item.id} className="py-2 relative">
-                    <div
+                  <li key={item.id} className="py-2 relative shrink-0">
+                  <div
                       onMouseEnter={() => setHoveredMenu(item.id)}
                       className="relative"
                     >
-                      <Link 
+                      <Link
                         to={item.id === 'hotel-laundry' ? '/company-intro' : `/${item.id}`}
-                        className={`text-white font-pretendard text-[18px] lg:text-[18px] xl:text-[20px] 2xl:text-[24px] font-medium leading-normal transition-all duration-200 ${hoveredMenu === item.id ? 'font-bold opacity-100' : 'opacity-80'}`}
+                        className={`whitespace-nowrap text-white font-pretendard text-[18px] lg:text-[18px] xl:text-[20px] 2xl:text-[24px] font-medium leading-normal transition-all duration-200 ${hoveredMenu === item.id ? 'font-bold opacity-100' : 'opacity-80'}`}
                       >
                         {item.label}
                       </Link>
