@@ -2,9 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import homeIcon from '../../StoreInfo/common/home.svg';
 import DownloadHero from './DownloadHero';
+import DownloadButtons from './DownloadButtons';
 import AppFeatures from './AppFeatures';
-import DownloadLinks from './DownloadLinks';
-import UserGuide from './UserGuide';
 
 const AppDownload = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -93,9 +92,8 @@ const AppDownload = () => {
           {/* 메인 콘텐츠 */}
           <div>
             <DownloadHero />
+            <DownloadButtons />
             <AppFeatures />
-            <DownloadLinks />
-            <UserGuide />
           </div>
         </div>
       </div>

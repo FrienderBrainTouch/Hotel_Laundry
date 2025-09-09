@@ -2,8 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import homeIcon from '../../StoreInfo/common/home.svg';
 import AppFeatures from './AppFeatures';
-import CustomerInterview from './CustomerInterview';
-import PromotionalVideo from './PromotionalVideo';
 
 const AppIntro = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -92,8 +90,6 @@ const AppIntro = () => {
           {/* 메인 콘텐츠 */}
           <div>
             <AppFeatures />
-            <CustomerInterview />
-            <PromotionalVideo />
           </div>
         </div>
       </div>
