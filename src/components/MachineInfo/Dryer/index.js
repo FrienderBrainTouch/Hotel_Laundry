@@ -110,16 +110,6 @@ const Dryer = () => {
               <span className="hidden 2xl:block">스마트 건조기</span>
             </h1>
 
-            {/* 구분선 */}
-            <div
-              className="mx-auto mb-[50px]"
-              style={{
-                width: '50px',
-                height: '5px',
-                background: '#102254'
-              }}
-            ></div>
-
             {/* 부제목 */}
             <div
               className="text-center mx-auto text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] font-light leading-normal text-[#1C262B] font-KoPubWorldDotum tracking-[-0.32px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px]"

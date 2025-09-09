@@ -108,18 +108,8 @@ const WashingMachine = () => {
               className="text-[22px] sm:text-[24px] md:text-[28px] lg:text-[32px] xl:text-[36px] 2xl:text-[40px] font-bold leading-normal text-[#1C262B] font-KoPubWorldDotum tracking-[-0.48px] sm:tracking-[-0.48px] md:tracking-[-0.56px] lg:tracking-[-0.64px] xl:tracking-[-0.72px] 2xl:tracking-normal mb-[20px] sm:mb-[30px] md:mb-[20px] lg:mb-[30px] xl:mb-[30px] 2xl:mb-[30px]"
             >
               <span className="block 2xl:hidden">스마트 세탁기</span>
-              <span className="hidden 2xl:block">스마트 세탁기 33kg & 23kg - 최신 기술로 구현된 고성능 세탁기</span>
+              <span className="hidden 2xl:block">스마트 세탁기</span>
             </h1>
-
-            {/* 구분선 */}
-            <div
-              className="mx-auto mb-[50px]"
-              style={{
-                width: '50px',
-                height: '5px',
-                background: '#102254'
-              }}
-            ></div>
 
             {/* 부제목 */}
             <div
