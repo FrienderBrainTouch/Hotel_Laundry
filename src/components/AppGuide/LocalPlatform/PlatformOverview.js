@@ -111,7 +111,7 @@ const PlatformOverview = () => {
               className="bg-white bg-opacity-10 rounded-2xl p-8 text-center backdrop-blur-sm hover:bg-opacity-20 transition-all duration-300"
             >
               <div className="text-6xl mb-6">{benefit.icon}</div>
-              <h3 className="text-24 font-['KoPubWorldBatang'] font-bold mb-4">{benefit.title}</h3>
+              <h3 className="text-20 font-['KoPubWorldBatang'] font-bold mb-4">{benefit.title}</h3>
               <p className="text-18 font-['KoPubWorldDotum'] opacity-90 leading-relaxed">
                 {benefit.description}
               </p>
