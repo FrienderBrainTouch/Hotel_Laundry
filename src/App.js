@@ -12,12 +12,28 @@ import OurStores from './components/Main/OurStores';
 import Contact from './components/Main/Contact';
 import CompanyIntro from './components/HotelLaundry/CompanyIntro';
 import History from './components/HotelLaundry/History';
+import BrandStory from './components/HotelLaundry/BrandStory';
+import ManagementSupport from './components/HotelLaundry/ManagementSupport';
 import SmartSystem from './components/SmartSystem';
-import StartupGuide from './components/StartupGuide/StartupGuide';
+import AdvancedTech from './components/SmartSystem/AdvancedTech';
+import HygieneManagement from './components/SmartSystem/HygieneManagement';
+import StartupGuide from './components/StartupGuide/StartupMain/StartupGuide';
+import StoreOwnerInterview from './components/StartupGuide/StoreOwnerInterview';
+import SoloStartup from './components/StartupGuide/SoloStartup';
+import BusinessSeminar from './components/StartupGuide/BusinessSeminar';
+import Catalog from './components/StartupGuide/Catalog';
 import StoreInfo from './components/StoreInfo';
 import ContactPage from './components/Contact';
 import Footer from './components/Footer';
 import FloatingMenu from './components/FloatingMenu';
+// App Guide 컴포넌트들
+import LocalPlatform from './components/AppGuide/LocalPlatform';
+import SameDayPickup from './components/AppGuide/SameDayPickup';
+import AppDownload from './components/AppGuide/AppDownload';
+// Machine Info 컴포넌트들
+import WashingMachine from './components/MachineInfo/WashingMachine';
+import Dryer from './components/MachineInfo/Dryer';
+import SelfDryCleaning from './components/MachineInfo/SelfDryCleaning';
 
 // 스크롤 초기화 컴포넌트
 function ScrollToTop() {
@@ -28,7 +44,7 @@ function ScrollToTop() {
       window.scrollTo({
         top: 0,
         left: 0,
-        behavior: 'instant'
+        behavior: 'instant',
       });
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
@@ -69,12 +85,30 @@ function Layout() {
           <Route path="/" element={<MainPage />} />
           <Route path="/company-intro" element={<CompanyIntro />} />
           <Route path="/history" element={<History />} />
+          <Route path="/brand-story" element={<BrandStory />} />
+          <Route path="/management-support" element={<ManagementSupport />} />
+          <Route path="/central-control" element={<ManagementSupport />} />
+          <Route path="/store-management" element={<ManagementSupport />} />
           <Route path="/smart-system" element={<SmartSystem />} />
+          <Route path="/advanced-technology" element={<AdvancedTech />} />
+          <Route path="/status-management" element={<HygieneManagement />} />
           <Route path="/startup-guide" element={<StartupGuide />} />
+          <Route path="/startup-guide-main" element={<StartupGuide />} />
+          <Route path="/store-owner-interview" element={<StoreOwnerInterview />} />
+          <Route path="/solo-startup" element={<SoloStartup />} />
+          <Route path="/business-seminar" element={<BusinessSeminar />} />
+          <Route path="/catalog" element={<Catalog />} />
           <Route path="/store-info" element={<StoreInfo mode="list" />} />
           <Route path="/store-status" element={<StoreInfo mode="list" />} />
           <Route path="/find-store" element={<StoreInfo mode="finder" />} />
+          <Route path="/washing-machine" element={<WashingMachine />} />
+          <Route path="/dryer" element={<Dryer />} />
+          <Route path="/self-dry-cleaning" element={<SelfDryCleaning />} />
           <Route path="/contact" element={<ContactPage />} />
+          {/* App Guide 라우트들 */}
+          <Route path="/local-platform" element={<LocalPlatform />} />
+          <Route path="/same-day-pickup" element={<SameDayPickup />} />
+          <Route path="/app-download" element={<AppDownload />} />
         </Routes>
       </main>
       <Footer />

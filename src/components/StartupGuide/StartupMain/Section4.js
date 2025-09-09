@@ -1,7 +1,7 @@
 import React from 'react';
-import onejob from './StartupGuideImage/onejob.svg';
-import twojob from './StartupGuideImage/twojob.svg';
-import cash from './StartupGuideImage/cash-coin.svg';
+import onejob from './image/onejob.svg';
+import twojob from './image/twojob.svg';
+import cash from './image/cash-coin.svg';
 
 const startupOptionsData = [
   {

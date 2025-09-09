@@ -16,7 +16,8 @@ const OurStores = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => {
-        if (prev >= 3) { // 4개씩 보이므로 4개 슬라이드 (0-3)
+        if (prev >= 3) {
+          // 4개씩 보이므로 4개 슬라이드 (0-3)
           return 0;
         }
         return prev + 1;
@@ -38,8 +39,9 @@ const OurStores = () => {
       />
       {/* 호버/클릭 오버레이 */}
       <div
-        className={`absolute top-0 left-0 w-full h-full bg-black bg-opacity-60 flex flex-col justify-end items-start pb-8 pl-4 transition-opacity duration-300 ${selectedStore === index || 'group-hover:opacity-100 opacity-0'
-          }`}
+        className={`absolute top-0 left-0 w-full h-full bg-black bg-opacity-60 flex flex-col justify-end items-start pb-8 pl-4 transition-opacity duration-300 ${
+          selectedStore === index || 'group-hover:opacity-100 opacity-0'
+        }`}
         onClick={(e) => {
           e.stopPropagation();
           handleStoreClick(index);
@@ -51,7 +53,7 @@ const OurStores = () => {
             style={{
               fontFamily: 'KoPubWorldDotum',
               fontWeight: '700',
-              letterSpacing: 'clamp(-0.4px, -0.4px + 0.02vw, -0.56px)'
+              letterSpacing: 'clamp(-0.4px, -0.4px + 0.02vw, -0.56px)',
             }}
           >
             호텔런드리 신길점
@@ -61,7 +63,7 @@ const OurStores = () => {
             style={{
               fontFamily: 'KoPubWorldDotum',
               fontWeight: '500',
-              letterSpacing: 'clamp(-0.3px, -0.3px + 0.02vw, -0.48px)'
+              letterSpacing: 'clamp(-0.3px, -0.3px + 0.02vw, -0.48px)',
             }}
           >
             서울 영등포구 신길동 115-8
@@ -79,7 +81,7 @@ const OurStores = () => {
           className="text-[22px] sm:text-[24px] md:text-[28px] lg:text-[32px] xl:text-[36px] 2xl:text-[40px] font-[500] text-[#1C262B] mb-4 text-center"
           style={{
             fontFamily: 'KoPubWorldBatang',
-            letterSpacing: 'clamp(-0.44px, -0.44px + 0.04vw, -0.8px)'
+            letterSpacing: 'clamp(-0.44px, -0.44px + 0.04vw, -0.8px)',
           }}
         >
           Our Stores
@@ -90,7 +92,7 @@ const OurStores = () => {
           className="text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[28px] 2xl:text-[32px] font-[500] text-[#1C262B] mb-12 text-center"
           style={{
             fontFamily: 'KoPubWorldDotum',
-            letterSpacing: 'clamp(-0.36px, -0.36px + 0.04vw, -0.64px)'
+            letterSpacing: 'clamp(-0.36px, -0.36px + 0.04vw, -0.64px)',
           }}
         >
           전국 곳곳의 호텔런드리 매장을 직접 확인해보세요.
@@ -98,10 +100,13 @@ const OurStores = () => {
 
         {/* lg 이상: 기존 8개 그리드 */}
         <div className="hidden lg:flex justify-center mb-12">
-          <div className="grid grid-cols-4 gap-4" style={{
-            width: 'fit-content',
-            maxWidth: '100%'
-          }}>
+          <div
+            className="grid grid-cols-4 gap-4"
+            style={{
+              width: 'fit-content',
+              maxWidth: '100%',
+            }}
+          >
             {[...Array(8)].map((_, index) => (
               <div key={index} className="relative cursor-pointer group w-full h-full">
                 <img
@@ -115,8 +120,9 @@ const OurStores = () => {
                 />
                 {/* 호버/클릭 오버레이 */}
                 <div
-                  className={`absolute top-0 left-0 w-full h-full bg-black bg-opacity-60 flex flex-col justify-end items-start pb-8 pl-4 transition-opacity duration-300 ${selectedStore === index || 'group-hover:opacity-100 opacity-0'
-                    }`}
+                  className={`absolute top-0 left-0 w-full h-full bg-black bg-opacity-60 flex flex-col justify-end items-start pb-8 pl-4 transition-opacity duration-300 ${
+                    selectedStore === index || 'group-hover:opacity-100 opacity-0'
+                  }`}
                   onClick={(e) => {
                     e.stopPropagation();
                     handleStoreClick(index);
@@ -128,7 +134,7 @@ const OurStores = () => {
                       style={{
                         fontFamily: 'KoPubWorldDotum',
                         fontWeight: '700',
-                        letterSpacing: 'clamp(-0.48px, -0.48px + 0.02vw, -0.56px)'
+                        letterSpacing: 'clamp(-0.48px, -0.48px + 0.02vw, -0.56px)',
                       }}
                     >
                       호텔런드리 신길점
@@ -138,7 +144,7 @@ const OurStores = () => {
                       style={{
                         fontFamily: 'KoPubWorldDotum',
                         fontWeight: '500',
-                        letterSpacing: 'clamp(-0.4px, -0.4px + 0.02vw, -0.48px)'
+                        letterSpacing: 'clamp(-0.4px, -0.4px + 0.02vw, -0.48px)',
                       }}
                     >
                       서울 영등포구 신길동 115-8
@@ -158,14 +164,11 @@ const OurStores = () => {
               <div
                 className="flex transition-transform duration-500 ease-in-out h-full"
                 style={{
-                  transform: `translateX(-${currentSlide * 100}%)`
+                  transform: `translateX(-${currentSlide * 100}%)`,
                 }}
               >
                 {[...Array(8)].map((_, index) => (
-                  <div
-                    key={index}
-                    className="w-full flex-shrink-0 h-full"
-                  >
+                  <div key={index} className="w-full flex-shrink-0 h-full">
                     {renderStoreItem(index)}
                   </div>
                 ))}
@@ -179,7 +182,7 @@ const OurStores = () => {
               <div
                 className="flex transition-transform duration-500 ease-in-out h-full gap-4"
                 style={{
-                  transform: `translateX(-${currentSlide * 100}%)`
+                  transform: `translateX(-${currentSlide * 100}%)`,
                 }}
               >
                 {[...Array(8)].map((_, index) => (
@@ -188,7 +191,7 @@ const OurStores = () => {
                     className="flex-shrink-0 h-full"
                     style={{
                       width: 'calc(50% - 8px)',
-                      minWidth: 'calc(50% - 8px)'
+                      minWidth: 'calc(50% - 8px)',
                     }}
                   >
                     {renderStoreItem(index)}
@@ -199,7 +202,7 @@ const OurStores = () => {
                   className="flex-shrink-0 h-full"
                   style={{
                     width: 'calc(50% - 8px)',
-                    minWidth: 'calc(50% - 8px)'
+                    minWidth: 'calc(50% - 8px)',
                   }}
                 >
                   {renderStoreItem(0)}
@@ -211,25 +214,27 @@ const OurStores = () => {
           {/* 네비게이션 닷 */}
           <div className="flex justify-center mt-4">
             {/* xs: 1개씩 보이므로 8개 닷 */}
-            <div className="block sm:hidden flex">
+            <div className="flex sm:hidden">
               {[...Array(8)].map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
-                  className={`w-3 h-3 rounded-full transition-colors duration-300 mx-1 ${index === currentSlide ? 'bg-[#102254]' : 'bg-gray-300'
-                    }`}
+                  className={`w-3 h-3 rounded-full transition-colors duration-300 mx-1 ${
+                    index === currentSlide ? 'bg-[#102254]' : 'bg-gray-300'
+                  }`}
                 />
               ))}
             </div>
 
             {/* sm, md: 2개씩 보이므로 4개 닷 */}
-            <div className="hidden sm:block flex">
+            <div className="hidden sm:flex">
               {Array.from({ length: 4 }, (_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
-                  className={`w-3 h-3 rounded-full transition-colors duration-300 mx-1 ${index === currentSlide ? 'bg-[#102254]' : 'bg-gray-300'
-                    }`}
+                  className={`w-3 h-3 rounded-full transition-colors duration-300 mx-1 ${
+                    index === currentSlide ? 'bg-[#102254]' : 'bg-gray-300'
+                  }`}
                 />
               ))}
             </div>
@@ -246,13 +251,13 @@ const OurStores = () => {
               borderRadius: '8px',
               background: 'linear-gradient(90deg, #345D9D -2.08%, #102254 100%)',
               padding: 'clamp(7px 20px, 7px 20px + 0.5vw, 10px 30px)',
-              gap: '10px'
+              gap: '10px',
             }}
           >
             <span
               className="text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[26px] 2xl:text-[30px]"
               style={{
-                letterSpacing: 'clamp(-0.32px, -0.32px + 0.04vw, -0.6px)'
+                letterSpacing: 'clamp(-0.32px, -0.32px + 0.04vw, -0.6px)',
               }}
             >
               More Store &nbsp;&nbsp;&nbsp;-
@@ -264,4 +269,4 @@ const OurStores = () => {
   );
 };
 
-export default OurStores; 
+export default OurStores;

@@ -1,7 +1,7 @@
 import React from 'react';
-import barChart from './StartupGuideImage/bar2.svg';
-import circleChart from './StartupGuideImage/circle2.svg';
-import lineChart from './StartupGuideImage/line_chart2.svg';
+import barChart from './image/bar2.svg';
+import circleChart from './image/circle2.svg';
+import lineChart from './image/line_chart2.svg';
 
 const Section3 = () => {
   return (

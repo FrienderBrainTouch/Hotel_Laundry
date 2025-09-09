@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import contactButton from './StartupGuideImage/contact_button.svg';
+import contactButton from './image/contact_button.svg';
 
 const Section6 = () => {
   return (
