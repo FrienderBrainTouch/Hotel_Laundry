@@ -56,13 +56,6 @@ const LocalPlatform = () => {
                 {isMenuOpen && (
                   <div className="absolute top-full left-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-[9998] min-w-[140px]">
                     <Link
-                      to="/app-intro"
-                      onClick={handleMenuClose}
-                      className="block w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-50 transition-colors"
-                    >
-                      앱 소개
-                    </Link>
-                    <Link
                       to="/local-platform"
                       onClick={handleMenuClose}
                       className="block w-full text-left px-4 py-2 text-[#102254] font-medium hover:bg-gray-50 transition-colors"

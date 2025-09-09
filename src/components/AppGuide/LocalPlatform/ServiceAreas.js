@@ -9,32 +9,32 @@ const ServiceAreas = () => {
       name: '서울',
       districts: ['강남구', '서초구', '송파구', '강동구', '마포구', '용산구'],
       features: ['24시간 운영', '프리미엄 서비스', '빠른 배송'],
-      storeCount: 45
+      storeCount: 45,
     },
     {
       id: 'gyeonggi',
       name: '경기도',
       districts: ['성남시', '수원시', '고양시', '용인시', '부천시', '화성시'],
       features: ['주거지 특화', '가족 할인', '대용량 세탁'],
-      storeCount: 32
+      storeCount: 32,
     },
     {
       id: 'busan',
       name: '부산',
       districts: ['해운대구', '부산진구', '동래구', '남구', '북구', '사상구'],
       features: ['관광지 특화', '해변 세탁', '빠른 서비스'],
-      storeCount: 18
+      storeCount: 18,
     },
     {
       id: 'incheon',
       name: '인천',
       districts: ['연수구', '남동구', '부평구', '계양구', '서구', '중구'],
       features: ['공항 근처', '24시간 서비스', '국제 서비스'],
-      storeCount: 12
-    }
+      storeCount: 12,
+    },
   ];
 
-  const selectedAreaData = areas.find(area => area.id === selectedArea);
+  const selectedAreaData = areas.find((area) => area.id === selectedArea);
 
   return (
     <section className="py-16 lg:py-24 bg-white">
@@ -44,7 +44,7 @@ const ServiceAreas = () => {
           <h2 className="section-title font-['KoPubWorldBatang'] font-bold text-[#102254] mb-4">
             전국 서비스 지역
           </h2>
-          <p className="text-24 font-['KoPubWorldDotum'] text-[#1C262B] max-w-3xl mx-auto">
+          <p className="text-20 font-['KoPubWorldDotum'] text-[#1C262B] max-w-3xl mx-auto">
             전국 주요 도시에서 호텔런드리의 지역 맞춤 서비스를 경험하세요
           </p>
         </div>
@@ -53,7 +53,7 @@ const ServiceAreas = () => {
           {/* 지역 선택 탭 */}
           <div className="lg:col-span-1">
             <div className="bg-[#E3F2FD] rounded-2xl p-6">
-              <h3 className="text-24 font-['KoPubWorldBatang'] font-bold text-[#102254] mb-6">
+              <h3 className="text-20 font-['KoPubWorldBatang'] font-bold text-[#102254] mb-6">
                 서비스 지역 선택
               </h3>
               <div className="space-y-3">
@@ -71,9 +71,11 @@ const ServiceAreas = () => {
                       <span className="text-20 font-['KoPubWorldDotum'] font-bold">
                         {area.name}
                       </span>
-                      <span className={`text-16 ${
-                        selectedArea === area.id ? 'text-white opacity-80' : 'text-gray-500'
-                      }`}>
+                      <span
+                        className={`text-16 ${
+                          selectedArea === area.id ? 'text-white opacity-80' : 'text-gray-500'
+                        }`}
+                      >
                         {area.storeCount}개 매장
                       </span>
                     </div>
@@ -99,18 +101,14 @@ const ServiceAreas = () => {
 
               {/* 구/군 정보 */}
               <div className="mb-8">
-                <h4 className="text-22 font-['KoPubWorldBatang'] font-bold mb-4">
-                  서비스 구역
-                </h4>
+                <h4 className="text-22 font-['KoPubWorldBatang'] font-bold mb-4">서비스 구역</h4>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                   {selectedAreaData?.districts.map((district, index) => (
-                    <div 
+                    <div
                       key={index}
                       className="bg-white bg-opacity-10 rounded-lg px-4 py-2 text-center"
                     >
-                      <span className="text-18 font-['KoPubWorldDotum']">
-                        {district}
-                      </span>
+                      <span className="text-18 font-['KoPubWorldDotum']">{district}</span>
                     </div>
                   ))}
                 </div>
@@ -127,9 +125,7 @@ const ServiceAreas = () => {
                       <div className="w-6 h-6 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
                         <div className="w-2 h-2 bg-white rounded-full"></div>
                       </div>
-                      <span className="text-20 font-['KoPubWorldDotum']">
-                        {feature}
-                      </span>
+                      <span className="text-20 font-['KoPubWorldDotum']">{feature}</span>
                     </div>
                   ))}
                 </div>
@@ -142,25 +138,19 @@ const ServiceAreas = () => {
                 <div className="text-32 font-['KoPubWorldBatang'] font-bold text-[#102254] mb-2">
                   {selectedAreaData?.storeCount}+
                 </div>
-                <div className="text-18 font-['KoPubWorldDotum'] text-[#1C262B]">
-                  운영 매장
-                </div>
+                <div className="text-18 font-['KoPubWorldDotum'] text-[#1C262B]">운영 매장</div>
               </div>
               <div className="bg-[#E3F2FD] rounded-xl p-6 text-center">
                 <div className="text-32 font-['KoPubWorldBatang'] font-bold text-[#102254] mb-2">
                   24시간
                 </div>
-                <div className="text-18 font-['KoPubWorldDotum'] text-[#1C262B]">
-                  무인 운영
-                </div>
+                <div className="text-18 font-['KoPubWorldDotum'] text-[#1C262B]">무인 운영</div>
               </div>
               <div className="bg-[#E3F2FD] rounded-xl p-6 text-center">
                 <div className="text-32 font-['KoPubWorldBatang'] font-bold text-[#102254] mb-2">
                   30분
                 </div>
-                <div className="text-18 font-['KoPubWorldDotum'] text-[#1C262B]">
-                  평균 대기시간
-                </div>
+                <div className="text-18 font-['KoPubWorldDotum'] text-[#1C262B]">평균 대기시간</div>
               </div>
             </div>
           </div>

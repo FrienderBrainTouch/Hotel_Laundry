@@ -76,7 +76,6 @@ const Header = () => {
       label: '앱 가이드',
       hasSubmenu: true,
       submenu: [
-        { id: 'app-intro', label: '앱 소개' },
         { id: 'local-platform', label: '지역 플랫폼' },
         { id: 'same-day-pickup', label: '당일수거 배달서비스' },
         { id: 'app-download', label: '앱 다운로드' },
@@ -146,7 +145,7 @@ const Header = () => {
                         item.id === 'hotel-laundry'
                           ? '/company-intro'
                           : item.id === 'hotel-laundry-app'
-                          ? '/app-intro'
+                          ? '/app-download'
                           : item.id === 'smart-system'
                           ? '/smart-system'
                           : item.id === 'management-support'
@@ -220,7 +219,7 @@ const Header = () => {
                             item.id === 'hotel-laundry'
                               ? '/company-intro'
                               : item.id === 'hotel-laundry-app'
-                              ? '/app-intro'
+                              ? '/app-download'
                               : item.id === 'management-support'
                               ? '/management-support'
                               : `/${item.id}`

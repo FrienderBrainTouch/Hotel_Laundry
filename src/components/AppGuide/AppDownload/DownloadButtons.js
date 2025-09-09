@@ -7,14 +7,14 @@ const DownloadButtons = () => {
         <div className="flex flex-col sm:flex-row gap-6 justify-center">
           <a
             href="#"
-            className="flex-1 inline-flex items-center justify-center px-12 py-6 bg-white text-[#102254] rounded-xl font-bold text-24 hover:bg-gray-100 transition-colors min-h-[60px]"
+            className="flex-1 inline-flex items-center justify-center px-12 py-6 bg-white text-[#102254] rounded-xl font-bold text-20 hover:bg-gray-100 transition-colors min-h-[60px]"
           >
             <span className="mr-4 text-28">📱</span>
             App Store에서 다운로드
           </a>
           <a
             href="#"
-            className="flex-1 inline-flex items-center justify-center px-12 py-6 bg-white text-[#102254] rounded-xl font-bold text-24 hover:bg-gray-100 transition-colors min-h-[60px]"
+            className="flex-1 inline-flex items-center justify-center px-12 py-6 bg-white text-[#102254] rounded-xl font-bold text-20 hover:bg-gray-100 transition-colors min-h-[60px]"
           >
             <span className="mr-4 text-28">🤖</span>
             Google Play에서 다운로드
