@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import homeIcon from '../../StoreInfo/common/home.svg';
 import HygieneHeroSection from './HygieneHeroSection';
 import HygieneOptimization from './HygieneOptimization';
-import HygieneProcess from './HygieneProcess';
 
 const HygieneManagement = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -82,7 +81,6 @@ const HygieneManagement = () => {
           <div>
             <HygieneHeroSection />
             <HygieneOptimization />
-            <HygieneProcess />
           </div>
         </div>
       </div>

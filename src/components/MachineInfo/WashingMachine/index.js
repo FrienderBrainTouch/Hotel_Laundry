@@ -77,11 +77,28 @@ const WashingMachine = () => {
 
           {/* 메인 이미지 */}
           <div className="mb-[30px] sm:mb-[30px] md:mb-[30px] lg:mb-[40px] xl:mb-[50px] 2xl:mb-[50px]">
-            <img
-              src="/images/CompanyInfo/Company-1.png"
-              alt="호텔런드리 세탁기"
-              className="mx-auto object-cover rounded-[30px] sm:rounded-[40px] md:rounded-[40px] lg:rounded-[50px] xl:rounded-[50px] 2xl:rounded-[50px] w-full h-auto xs:w-[355px] xs:h-[180px] sm:w-[535px] sm:h-[200px] md:w-[728px] md:h-[300px] lg:w-[924px] lg:h-[300px] xl:w-[1200px] xl:h-[350px] 2xl:w-[1400px] 2xl:h-[400px]"
-            />
+            <div className="relative">
+              <img
+                src="/images/CompanyInfo/Company-1.png"
+                alt="호텔런드리 스마트 세탁기"
+                className="mx-auto object-cover rounded-[30px] sm:rounded-[40px] md:rounded-[40px] lg:rounded-[50px] xl:rounded-[50px] 2xl:rounded-[50px] w-full h-auto xs:w-[355px] xs:h-[180px] sm:w-[535px] sm:h-[200px] md:w-[728px] md:h-[300px] lg:w-[924px] lg:h-[300px] xl:w-[1200px] xl:h-[350px] 2xl:w-[1400px] 2xl:h-[400px]"
+              />
+              {/* HOTEL LAUNDRY 브랜딩 오버레이 */}
+              <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg p-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 bg-[#102254] rounded-full flex items-center justify-center">
+                    <div className="w-4 h-4 border-2 border-white rounded-full relative">
+                      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-white rounded-full"></div>
+                      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-white rounded-full"></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-[#102254] font-bold text-sm">HOTEL</div>
+                    <div className="text-[#102254] font-bold text-lg">LAUNDRY</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* 제목 */}
@@ -89,8 +106,8 @@ const WashingMachine = () => {
             <h1
               className="text-[22px] sm:text-[24px] md:text-[28px] lg:text-[32px] xl:text-[36px] 2xl:text-[40px] font-bold leading-normal text-[#1C262B] font-KoPubWorldDotum tracking-[-0.48px] sm:tracking-[-0.48px] md:tracking-[-0.56px] lg:tracking-[-0.64px] xl:tracking-[-0.72px] 2xl:tracking-normal mb-[20px] sm:mb-[30px] md:mb-[20px] lg:mb-[30px] xl:mb-[30px] 2xl:mb-[30px]"
             >
-              <span className="block 2xl:hidden">최신 기술로 구현된 고성능 세탁기</span>
-              <span className="hidden 2xl:block">최신 기술로 구현된 고성능 세탁기로 완벽한 세탁 서비스를 제공합니다.</span>
+              <span className="block 2xl:hidden">스마트 세탁기</span>
+              <span className="hidden 2xl:block">스마트 세탁기 33kg & 23kg - 최신 기술로 구현된 고성능 세탁기</span>
             </h1>
 
             {/* 구분선 */}
@@ -108,89 +125,153 @@ const WashingMachine = () => {
               className="text-center mx-auto text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] font-light leading-normal text-[#1C262B] font-KoPubWorldDotum tracking-[-0.32px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px]"
             >
               <div className="block sm:hidden">
-                <p className="mb-8">호텔런드리의 세탁기는 최신 기술과 스마트 자동화 시스템을 통해 완벽한 세탁 서비스를 제공합니다.</p>
-                <p>대용량 처리와 에너지 효율성을 극대화하여 고객의 만족도를 높입니다.</p>
+                <p className="mb-8">스테인리스 스틸로 제작된 상업용 세탁기로 6가지 세탁 모드와 스마트 제어 시스템을 제공합니다.</p>
+                <p>키오스크 전용, 원격제어, 모바일 예약, 살균수 공급장치 등 다양한 옵션을 지원합니다.</p>
               </div>
               <div className="hidden sm:block lg:hidden">
-                <p>호텔런드리의 세탁기는 최신 기술과 스마트 자동화 시스템을 통해 완벽한 세탁 서비스를 제공합니다.</p>
-                <p>대용량 처리와 에너지 효율성을 극대화하여 <br />고객의 만족도를 높입니다.</p>
+                <p>스테인리스 스틸로 제작된 상업용 세탁기로 6가지 세탁 모드와 스마트 제어 시스템을 제공합니다.</p>
+                <p>키오스크 전용, 원격제어, 모바일 예약, 살균수 공급장치 등 <br />다양한 옵션을 지원합니다.</p>
               </div>
               <div className="hidden lg:block xl:hidden">
-                <p>호텔런드리의 세탁기는 최신 기술과 스마트 자동화 시스템을 통해 완벽한 세탁 서비스를 제공합니다.</p>
-                <p>대용량 처리와 에너지 효율성을 극대화하여 고객의 만족도를 높입니다.</p>
+                <p>스테인리스 스틸로 제작된 상업용 세탁기로 6가지 세탁 모드와 스마트 제어 시스템을 제공합니다.</p>
+                <p>키오스크 전용, 원격제어, 모바일 예약, 살균수 공급장치 등 다양한 옵션을 지원합니다.</p>
               </div>
               <div className="hidden xl:block">
-                <p>호텔런드리의 세탁기는 최신 기술과 스마트 자동화 시스템을 통해 완벽한 세탁 서비스를 제공합니다.</p>
-                <p>대용량 처리와 에너지 효율성을 극대화하여 고객의 만족도를 높입니다.</p>
+                <p>스테인리스 스틸로 제작된 상업용 세탁기로 6가지 세탁 모드와 스마트 제어 시스템을 제공합니다.</p>
+                <p>키오스크 전용, 원격제어, 모바일 예약, 살균수 공급장치 등 다양한 옵션을 지원합니다.</p>
               </div>
             </div>
           </div>
 
-          {/* 세탁기 정보 섹션 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <h2 className="text-2xl font-bold text-[#102254] mb-4">주요 특징</h2>
-              <ul className="space-y-2 text-gray-700">
-                <li>• 대용량 세탁 가능</li>
-                <li>• 에너지 효율성 극대화</li>
-                <li>• 다양한 세탁 프로그램</li>
-                <li>• 자동 세제 투입 시스템</li>
-                <li>• 위생 관리 시스템</li>
-              </ul>
+          {/* 세탁기 모델별 사양 섹션 */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            {/* 스마트 세탁기 33kg */}
+            <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg">
+              <h2 className="text-2xl font-bold text-[#102254] mb-6 text-center">스마트 세탁기 33kg</h2>
+              <div className="space-y-3">
+                <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                  <span className="font-semibold text-gray-700">세탁용량</span>
+                  <span className="text-[#102254] font-bold">33kg</span>
+                </div>
+                <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                  <span className="font-semibold text-gray-700">전기사양</span>
+                  <span className="text-[#102254] font-bold">AC 200V 2P / 380V 3P</span>
+                </div>
+                <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                  <span className="font-semibold text-gray-700">탈수속도</span>
+                  <span className="text-[#102254] font-bold">600~700RPM</span>
+                </div>
+                <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                  <span className="font-semibold text-gray-700">세탁코스</span>
+                  <span className="text-[#102254] font-bold">6모드</span>
+                </div>
+                <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                  <span className="font-semibold text-gray-700">크기(W/D/H)</span>
+                  <span className="text-[#102254] font-bold">1100/1300/1720mm</span>
+                </div>
+                <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                  <span className="font-semibold text-gray-700">중량</span>
+                  <span className="text-[#102254] font-bold">810kg</span>
+                </div>
+                <div className="pt-3">
+                  <span className="font-semibold text-gray-700 block mb-2">옵션</span>
+                  <div className="text-sm text-[#102254] space-y-1">
+                    <div>• 키오스크전용, 원격제어시스템</div>
+                    <div>• 모바일예약, 살균수 공급장치</div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <h2 className="text-2xl font-bold text-[#102254] mb-4">기술 사양</h2>
-              <ul className="space-y-2 text-gray-700">
-                <li>• 용량: 25kg ~ 50kg</li>
-                <li>• 소비전력: A+++ 등급</li>
-                <li>• 세탁 시간: 30~60분</li>
-                <li>• 물 사용량: 최적화</li>
-                <li>• 소음 수준: 45dB 이하</li>
-              </ul>
+
+            {/* 스마트 세탁기 23kg */}
+            <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg">
+              <h2 className="text-2xl font-bold text-[#102254] mb-6 text-center">스마트 세탁기 23kg</h2>
+              <div className="space-y-3">
+                <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                  <span className="font-semibold text-gray-700">세탁용량</span>
+                  <span className="text-[#102254] font-bold">23kg</span>
+                </div>
+                <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                  <span className="font-semibold text-gray-700">전기사양</span>
+                  <span className="text-[#102254] font-bold">AC 200V 2P</span>
+                </div>
+                <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                  <span className="font-semibold text-gray-700">탈수속도</span>
+                  <span className="text-[#102254] font-bold">600~700RPM</span>
+                </div>
+                <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                  <span className="font-semibold text-gray-700">세탁코스</span>
+                  <span className="text-[#102254] font-bold">6모드</span>
+                </div>
+                <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                  <span className="font-semibold text-gray-700">크기(W/D/H)</span>
+                  <span className="text-[#102254] font-bold">880/1000/1540mm</span>
+                </div>
+                <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                  <span className="font-semibold text-gray-700">중량</span>
+                  <span className="text-[#102254] font-bold">470kg</span>
+                </div>
+                <div className="pt-3">
+                  <span className="font-semibold text-gray-700 block mb-2">옵션</span>
+                  <div className="text-sm text-[#102254] space-y-1">
+                    <div>• 키오스크전용, 원격제어시스템</div>
+                    <div>• 모바일예약, 살균수 공급장치</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* 세탁 프로그램 섹션 */}
+          {/* 주요 특징 섹션 */}
           <div className="mb-12">
-            <h2 className="text-3xl font-bold text-[#102254] mb-8 text-center">세탁 프로그램</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-white border border-gray-200 p-6 rounded-lg shadow-sm">
-                <h3 className="text-xl font-bold text-[#102254] mb-3">일반 세탁</h3>
-                <p className="text-gray-600 mb-4">일상적인 의류 세탁에 최적화된 프로그램</p>
-                <ul className="text-sm text-gray-700 space-y-1">
-                  <li>• 세탁 시간: 45분</li>
-                  <li>• 온도: 30°C</li>
-                  <li>• 세제량: 자동</li>
-                </ul>
+            <h2 className="text-3xl font-bold text-[#102254] mb-8 text-center">주요 특징</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg text-center">
+                <div className="w-16 h-16 bg-[#102254] rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="w-8 h-8 border-2 border-white rounded-full relative">
+                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-white rounded-full"></div>
+                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-white rounded-full"></div>
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold text-[#102254] mb-3">스테인리스 스틸</h3>
+                <p className="text-gray-600">내구성과 위생성을 극대화한 스테인리스 스틸 소재로 제작</p>
               </div>
-              <div className="bg-white border border-gray-200 p-6 rounded-lg shadow-sm">
-                <h3 className="text-xl font-bold text-[#102254] mb-3">강력 세탁</h3>
-                <p className="text-gray-600 mb-4">오염이 심한 의류를 위한 강력한 세탁</p>
-                <ul className="text-sm text-gray-700 space-y-1">
-                  <li>• 세탁 시간: 60분</li>
-                  <li>• 온도: 60°C</li>
-                  <li>• 세제량: 자동</li>
-                </ul>
+              <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg text-center">
+                <div className="w-16 h-16 bg-[#102254] rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="text-white text-2xl font-bold">6</div>
+                </div>
+                <h3 className="text-xl font-bold text-[#102254] mb-3">6가지 세탁 모드</h3>
+                <p className="text-gray-600">다양한 세탁 요구사항에 맞춘 6가지 전문 세탁 프로그램</p>
               </div>
-              <div className="bg-white border border-gray-200 p-6 rounded-lg shadow-sm">
-                <h3 className="text-xl font-bold text-[#102254] mb-3">부드러운 세탁</h3>
-                <p className="text-gray-600 mb-4">섬세한 소재를 위한 부드러운 세탁</p>
-                <ul className="text-sm text-gray-700 space-y-1">
-                  <li>• 세탁 시간: 30분</li>
-                  <li>• 온도: 20°C</li>
-                  <li>• 세제량: 자동</li>
-                </ul>
+              <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg text-center">
+                <div className="w-16 h-16 bg-[#102254] rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="text-white text-xl">📱</div>
+                </div>
+                <h3 className="text-xl font-bold text-[#102254] mb-3">스마트 제어</h3>
+                <p className="text-gray-600">키오스크, 원격제어, 모바일 예약 등 다양한 스마트 제어 옵션</p>
+              </div>
+              <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg text-center">
+                <div className="w-16 h-16 bg-[#102254] rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="text-white text-xl">💧</div>
+                </div>
+                <h3 className="text-xl font-bold text-[#102254] mb-3">살균수 공급</h3>
+                <p className="text-gray-600">위생적인 세탁을 위한 살균수 공급장치 옵션 제공</p>
+              </div>
+              <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg text-center">
+                <div className="w-16 h-16 bg-[#102254] rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="text-white text-xl">⚡</div>
+                </div>
+                <h3 className="text-xl font-bold text-[#102254] mb-3">고속 탈수</h3>
+                <p className="text-gray-600">600~700RPM의 고속 탈수로 빠른 건조와 에너지 효율성</p>
+              </div>
+              <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg text-center">
+                <div className="w-16 h-16 bg-[#102254] rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="text-white text-xl">🏢</div>
+                </div>
+                <h3 className="text-xl font-bold text-[#102254] mb-3">상업용 설계</h3>
+                <p className="text-gray-600">호텔, 리조트 등 상업 시설에 최적화된 대용량 설계</p>
               </div>
             </div>
-          </div>
-
-          {/* 문의 섹션 */}
-          <div className="bg-[#102254] text-white p-8 rounded-lg text-center">
-            <h2 className="text-2xl font-bold mb-4">세탁기 문의하기</h2>
-            <p className="text-lg mb-6">세탁기에 대한 자세한 정보나 견적 문의가 필요하시면 언제든 연락주세요.</p>
-            <button className="bg-white text-[#102254] px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors">
-              문의하기
-            </button>
           </div>
         </div>
       </div>

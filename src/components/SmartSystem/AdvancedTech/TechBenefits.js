@@ -74,41 +74,6 @@ const TechBenefits = () => {
           </div>
         </div>
       </div>
-
-      {/* 추가 혜택 섹션 */}
-      <div className="mt-16 text-center">
-        <div className="bg-white rounded-2xl p-8 md:p-12 shadow-lg">
-          <h3 className="text-24 md:text-28 font-bold text-brand-blue font-KoPubWorldBatang mb-6">
-            더 많은 혜택
-          </h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="text-center">
-              <div className="w-12 h-12 bg-brand-light-blue rounded-full flex items-center justify-center mx-auto mb-3">
-                <span className="text-brand-blue text-xl">⚡</span>
-              </div>
-              <p className="text-20 font-medium text-brand-dark">빠른 처리</p>
-            </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-brand-light-blue rounded-full flex items-center justify-center mx-auto mb-3">
-                <span className="text-brand-blue text-xl">🔒</span>
-              </div>
-              <p className="text-20 font-medium text-brand-dark">안전한 관리</p>
-            </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-brand-light-blue rounded-full flex items-center justify-center mx-auto mb-3">
-                <span className="text-brand-blue text-xl">🌱</span>
-              </div>
-              <p className="text-20 font-medium text-brand-dark">친환경</p>
-            </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-brand-light-blue rounded-full flex items-center justify-center mx-auto mb-3">
-                <span className="text-brand-blue text-xl">📊</span>
-              </div>
-              <p className="text-20 font-medium text-brand-dark">데이터 분석</p>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };

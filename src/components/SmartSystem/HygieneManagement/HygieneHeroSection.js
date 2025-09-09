@@ -19,17 +19,6 @@ const HygieneHeroSection = () => {
           </div>
         </div>
       </div>
-
-      {/* 서브 타이틀 섹션 */}
-      <div className="text-center mb-16">
-        <h2 className="section-title md:text-3xl lg:text-4xl font-bold text-brand-blue font-KoPubWorldBatang mb-6">
-          세탁방 설계 최적화
-        </h2>
-        <p className="section-subtitle md:text-24 text-brand-dark leading-relaxed max-w-4xl mx-auto">
-          호텔런드리는 고객의 편의성과 운영 효율성을 극대화하기 위해<br />
-          세탁방 공간을 과학적으로 분석하고 설계를 최적화했습니다.
-        </p>
-      </div>
     </div>
   );
 };

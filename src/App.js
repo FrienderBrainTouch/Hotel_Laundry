@@ -16,7 +16,7 @@ import BrandStory from './components/HotelLaundry/BrandStory';
 import ManagementSupport from './components/HotelLaundry/ManagementSupport';
 import SmartSystem from './components/SmartSystem';
 import AdvancedTech from './components/SmartSystem/AdvancedTech';
-import PhaseManagement from './components/SmartSystem/PhaseManagement';
+import HygieneManagement from './components/SmartSystem/HygieneManagement';
 import StartupGuide from './components/StartupGuide/StartupMain/StartupGuide';
 import StoreOwnerInterview from './components/StartupGuide/StoreOwnerInterview';
 import SoloStartup from './components/StartupGuide/SoloStartup';
@@ -92,7 +92,7 @@ function Layout() {
           <Route path="/store-management" element={<ManagementSupport />} />
           <Route path="/smart-system" element={<SmartSystem />} />
           <Route path="/advanced-technology" element={<AdvancedTech />} />
-          <Route path="/status-management" element={<PhaseManagement />} />
+          <Route path="/status-management" element={<HygieneManagement />} />
           <Route path="/startup-guide" element={<StartupGuide />} />
           <Route path="/startup-guide-main" element={<StartupGuide />} />
           <Route path="/store-owner-interview" element={<StoreOwnerInterview />} />

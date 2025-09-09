@@ -9,11 +9,8 @@ const HygieneOptimization = () => {
           'HOCl' 깨끗함에 반하다!
         </h2>
         <p className="section-subtitle md:text-24 text-brand-dark leading-relaxed max-w-4xl mx-auto mb-4">
-          친환경 살균수로 빨래하는 名品빨래방
+          친환경 살균수로 빨래하는 빨래방
         </p>
-        <div className="text-32 md:text-40 font-bold text-brand-light-blue mb-6">
-          HOCl<span className="text-green-500">🌿</span>
-        </div>
         <p className="section-subtitle md:text-20 text-brand-dark leading-relaxed max-w-4xl mx-auto">
           세탁은 물론 세탁조까지 살균되어 언제나 깨끗한 빨래를 할 수 있습니다!
         </p>

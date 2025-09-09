@@ -77,11 +77,28 @@ const Dryer = () => {
 
           {/* 메인 이미지 */}
           <div className="mb-[30px] sm:mb-[30px] md:mb-[30px] lg:mb-[40px] xl:mb-[50px] 2xl:mb-[50px]">
-            <img
-              src="/images/CompanyInfo/Company-1.png"
-              alt="호텔런드리 건조기"
-              className="mx-auto object-cover rounded-[30px] sm:rounded-[40px] md:rounded-[40px] lg:rounded-[50px] xl:rounded-[50px] 2xl:rounded-[50px] w-full h-auto xs:w-[355px] xs:h-[180px] sm:w-[535px] sm:h-[200px] md:w-[728px] md:h-[300px] lg:w-[924px] lg:h-[300px] xl:w-[1200px] xl:h-[350px] 2xl:w-[1400px] 2xl:h-[400px]"
-            />
+            <div className="relative">
+              <img
+                src="/images/CompanyInfo/Company-1.png"
+                alt="호텔런드리 스마트 건조기"
+                className="mx-auto object-cover rounded-[30px] sm:rounded-[40px] md:rounded-[40px] lg:rounded-[50px] xl:rounded-[50px] 2xl:rounded-[50px] w-full h-auto xs:w-[355px] xs:h-[180px] sm:w-[535px] sm:h-[200px] md:w-[728px] md:h-[300px] lg:w-[924px] lg:h-[300px] xl:w-[1200px] xl:h-[350px] 2xl:w-[1400px] 2xl:h-[400px]"
+              />
+              {/* HOTEL LAUNDRY 브랜딩 오버레이 */}
+              <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg p-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 bg-[#102254] rounded-full flex items-center justify-center">
+                    <div className="w-4 h-4 border-2 border-white rounded-full relative">
+                      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-white rounded-full"></div>
+                      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-white rounded-full"></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-[#102254] font-bold text-sm">HOTEL</div>
+                    <div className="text-[#102254] font-bold text-lg">LAUNDRY</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* 제목 */}
@@ -89,8 +106,8 @@ const Dryer = () => {
             <h1
               className="text-[22px] sm:text-[24px] md:text-[28px] lg:text-[32px] xl:text-[36px] 2xl:text-[40px] font-bold leading-normal text-[#1C262B] font-KoPubWorldDotum tracking-[-0.48px] sm:tracking-[-0.48px] md:tracking-[-0.56px] lg:tracking-[-0.64px] xl:tracking-[-0.72px] 2xl:tracking-normal mb-[20px] sm:mb-[30px] md:mb-[20px] lg:mb-[30px] xl:mb-[30px] 2xl:mb-[30px]"
             >
-              <span className="block 2xl:hidden">빠르고 효율적인 건조 시스템</span>
-              <span className="hidden 2xl:block">빠르고 효율적인 건조 시스템으로 완벽한 의류 관리를 제공합니다.</span>
+              <span className="block 2xl:hidden">스마트 건조기</span>
+              <span className="hidden 2xl:block">스마트 건조기 30kg - 빠르고 효율적인 건조 시스템</span>
             </h1>
 
             {/* 구분선 */}
@@ -108,78 +125,113 @@ const Dryer = () => {
               className="text-center mx-auto text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] font-light leading-normal text-[#1C262B] font-KoPubWorldDotum tracking-[-0.32px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px]"
             >
               <div className="block sm:hidden">
-                <p className="mb-8">호텔런드리의 건조기는 스마트 센서 기술과 섬유 보호 시스템을 통해 완벽한 건조 서비스를 제공합니다.</p>
-                <p>다양한 소재에 맞는 최적의 건조 프로그램으로 의류의 수명을 연장합니다.</p>
+                <p className="mb-8">스테인리스 스틸로 제작된 상업용 건조기로 고온/중온/저온 등 다양한 건조 코스를 제공합니다.</p>
+                <p>키오스크 전용, 원격제어, 개방시 자동멈춤, 냉풍기능 등 스마트 옵션을 지원합니다.</p>
               </div>
               <div className="hidden sm:block lg:hidden">
-                <p>호텔런드리의 건조기는 스마트 센서 기술과 섬유 보호 시스템을 통해 완벽한 건조 서비스를 제공합니다.</p>
-                <p>다양한 소재에 맞는 최적의 건조 프로그램으로 <br />의류의 수명을 연장합니다.</p>
+                <p>스테인리스 스틸로 제작된 상업용 건조기로 고온/중온/저온 등 다양한 건조 코스를 제공합니다.</p>
+                <p>키오스크 전용, 원격제어, 개방시 자동멈춤, 냉풍기능 등 <br />스마트 옵션을 지원합니다.</p>
               </div>
               <div className="hidden lg:block xl:hidden">
-                <p>호텔런드리의 건조기는 스마트 센서 기술과 섬유 보호 시스템을 통해 완벽한 건조 서비스를 제공합니다.</p>
-                <p>다양한 소재에 맞는 최적의 건조 프로그램으로 의류의 수명을 연장합니다.</p>
+                <p>스테인리스 스틸로 제작된 상업용 건조기로 고온/중온/저온 등 다양한 건조 코스를 제공합니다.</p>
+                <p>키오스크 전용, 원격제어, 개방시 자동멈춤, 냉풍기능 등 스마트 옵션을 지원합니다.</p>
               </div>
               <div className="hidden xl:block">
-                <p>호텔런드리의 건조기는 스마트 센서 기술과 섬유 보호 시스템을 통해 완벽한 건조 서비스를 제공합니다.</p>
-                <p>다양한 소재에 맞는 최적의 건조 프로그램으로 의류의 수명을 연장합니다.</p>
+                <p>스테인리스 스틸로 제작된 상업용 건조기로 고온/중온/저온 등 다양한 건조 코스를 제공합니다.</p>
+                <p>키오스크 전용, 원격제어, 개방시 자동멈춤, 냉풍기능 등 스마트 옵션을 지원합니다.</p>
               </div>
             </div>
           </div>
 
-          {/* 건조기 정보 섹션 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <h2 className="text-2xl font-bold text-[#102254] mb-4">주요 특징</h2>
-              <ul className="space-y-2 text-gray-700">
-                <li>• 대용량 건조 가능</li>
-                <li>• 에너지 효율성 극대화</li>
-                <li>• 다양한 건조 프로그램</li>
-                <li>• 자동 온도 조절</li>
-                <li>• 섬유 보호 기술</li>
-              </ul>
-            </div>
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <h2 className="text-2xl font-bold text-[#102254] mb-4">기술 사양</h2>
-              <ul className="space-y-2 text-gray-700">
-                <li>• 용량: 25kg ~ 50kg</li>
-                <li>• 소비전력: A+++ 등급</li>
-                <li>• 건조 시간: 40~80분</li>
-                <li>• 온도 범위: 40°C ~ 80°C</li>
-                <li>• 소음 수준: 50dB 이하</li>
-              </ul>
-            </div>
-          </div>
-
-          {/* 건조 프로그램 섹션 */}
+          {/* 스마트 건조기 30kg 사양 섹션 */}
           <div className="mb-12">
-            <h2 className="text-3xl font-bold text-[#102254] mb-8 text-center">건조 프로그램</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-white border border-gray-200 p-6 rounded-lg shadow-sm">
-                <h3 className="text-xl font-bold text-[#102254] mb-3">일반 건조</h3>
-                <p className="text-gray-600 mb-4">일상적인 의류 건조에 최적화된 프로그램</p>
-                <ul className="text-sm text-gray-700 space-y-1">
-                  <li>• 건조 시간: 60분</li>
-                  <li>• 온도: 60°C</li>
-                  <li>• 습도: 자동 조절</li>
-                </ul>
+            <div className="bg-white border-2 border-[#102254] p-8 rounded-lg shadow-lg max-w-4xl mx-auto">
+              <h2 className="text-3xl font-bold text-[#102254] mb-8 text-center">스마트 건조기 30kg</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center py-3 border-b border-gray-200">
+                    <span className="font-semibold text-gray-700">건조용량</span>
+                    <span className="text-[#102254] font-bold text-lg">30kg</span>
+                  </div>
+                  <div className="flex justify-between items-center py-3 border-b border-gray-200">
+                    <span className="font-semibold text-gray-700">소비전력</span>
+                    <span className="text-[#102254] font-bold text-lg">0.8kw</span>
+                  </div>
+                  <div className="flex justify-between items-center py-3 border-b border-gray-200">
+                    <span className="font-semibold text-gray-700">가스소비량</span>
+                    <span className="text-[#102254] font-bold text-sm">LNG 31.4kw<br/>LPG 28.7kw</span>
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center py-3 border-b border-gray-200">
+                    <span className="font-semibold text-gray-700">크기(W/D/H)</span>
+                    <span className="text-[#102254] font-bold text-lg">993/1135/1832mm</span>
+                  </div>
+                  <div className="flex justify-between items-center py-3 border-b border-gray-200">
+                    <span className="font-semibold text-gray-700">중량</span>
+                    <span className="text-[#102254] font-bold text-lg">370kg</span>
+                  </div>
+                  <div className="pt-3">
+                    <span className="font-semibold text-gray-700 block mb-3">건조코스</span>
+                    <div className="text-[#102254] font-bold">고온/중온/저온 등</div>
+                  </div>
+                </div>
               </div>
-              <div className="bg-white border border-gray-200 p-6 rounded-lg shadow-sm">
-                <h3 className="text-xl font-bold text-[#102254] mb-3">강력 건조</h3>
-                <p className="text-gray-600 mb-4">두꺼운 의류나 이불을 위한 강력한 건조</p>
-                <ul className="text-sm text-gray-700 space-y-1">
-                  <li>• 건조 시간: 80분</li>
-                  <li>• 온도: 80°C</li>
-                  <li>• 습도: 자동 조절</li>
-                </ul>
+              <div className="mt-6 pt-6 border-t border-gray-200">
+                <span className="font-semibold text-gray-700 block mb-3">옵션</span>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-[#102254]">
+                  <div>• 키오스크전용, 원격제어시스템</div>
+                  <div>• 개방시 자동멈춤기능, 냉풍기능</div>
+                </div>
               </div>
-              <div className="bg-white border border-gray-200 p-6 rounded-lg shadow-sm">
-                <h3 className="text-xl font-bold text-[#102254] mb-3">부드러운 건조</h3>
-                <p className="text-gray-600 mb-4">섬세한 소재를 위한 부드러운 건조</p>
-                <ul className="text-sm text-gray-700 space-y-1">
-                  <li>• 건조 시간: 40분</li>
-                  <li>• 온도: 40°C</li>
-                  <li>• 습도: 자동 조절</li>
-                </ul>
+            </div>
+          </div>
+
+          {/* 주요 특징 섹션 */}
+          <div className="mb-12">
+            <h2 className="text-3xl font-bold text-[#102254] mb-8 text-center">주요 특징</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg text-center">
+                <div className="w-16 h-16 bg-[#102254] rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="text-white text-xl">🔥</div>
+                </div>
+                <h3 className="text-xl font-bold text-[#102254] mb-3">다양한 건조 코스</h3>
+                <p className="text-gray-600">고온/중온/저온 등 다양한 온도 옵션으로 소재별 최적 건조</p>
+              </div>
+              <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg text-center">
+                <div className="w-16 h-16 bg-[#102254] rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="text-white text-xl">⚡</div>
+                </div>
+                <h3 className="text-xl font-bold text-[#102254] mb-3">가스 히팅 시스템</h3>
+                <p className="text-gray-600">LNG/LPG 가스 히팅으로 빠르고 효율적인 건조 성능</p>
+              </div>
+              <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg text-center">
+                <div className="w-16 h-16 bg-[#102254] rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="text-white text-xl">🛡️</div>
+                </div>
+                <h3 className="text-xl font-bold text-[#102254] mb-3">개방시 자동멈춤</h3>
+                <p className="text-gray-600">문이 열리면 자동으로 작동을 멈춰 안전성 확보</p>
+              </div>
+              <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg text-center">
+                <div className="w-16 h-16 bg-[#102254] rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="text-white text-xl">❄️</div>
+                </div>
+                <h3 className="text-xl font-bold text-[#102254] mb-3">냉풍 기능</h3>
+                <p className="text-gray-600">건조 완료 후 냉풍으로 의류를 식혀주는 기능</p>
+              </div>
+              <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg text-center">
+                <div className="w-16 h-16 bg-[#102254] rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="text-white text-xl">📱</div>
+                </div>
+                <h3 className="text-xl font-bold text-[#102254] mb-3">스마트 제어</h3>
+                <p className="text-gray-600">키오스크 전용, 원격제어 시스템으로 편리한 운영</p>
+              </div>
+              <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg text-center">
+                <div className="w-16 h-16 bg-[#102254] rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="text-white text-xl">🏢</div>
+                </div>
+                <h3 className="text-xl font-bold text-[#102254] mb-3">상업용 설계</h3>
+                <p className="text-gray-600">30kg 대용량으로 호텔, 리조트 등 상업 시설에 최적화</p>
               </div>
             </div>
           </div>
@@ -188,26 +240,26 @@ const Dryer = () => {
           <div className="mb-12">
             <h2 className="text-3xl font-bold text-[#102254] mb-8 text-center">건조 기술</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-white border border-gray-200 p-6 rounded-lg shadow-sm">
-                <h3 className="text-xl font-bold text-[#102254] mb-4">스마트 센서 기술</h3>
+              <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg">
+                <h3 className="text-xl font-bold text-[#102254] mb-4">가스 히팅 시스템</h3>
                 <p className="text-gray-600 mb-4">
-                  의류의 습도를 실시간으로 감지하여 최적의 건조 시간을 자동으로 조절합니다.
+                  LNG 31.4kw, LPG 28.7kw의 가스 히팅으로 빠르고 효율적인 건조 성능을 제공합니다.
                 </p>
                 <ul className="text-sm text-gray-700 space-y-1">
-                  <li>• 습도 센서</li>
-                  <li>• 온도 센서</li>
-                  <li>• 자동 타이머</li>
+                  <li>• LNG/LPG 이중 가스 시스템</li>
+                  <li>• 고효율 히팅 엔진</li>
+                  <li>• 에너지 절약 설계</li>
                 </ul>
               </div>
-              <div className="bg-white border border-gray-200 p-6 rounded-lg shadow-sm">
-                <h3 className="text-xl font-bold text-[#102254] mb-4">섬유 보호 기술</h3>
+              <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg">
+                <h3 className="text-xl font-bold text-[#102254] mb-4">스마트 안전 시스템</h3>
                 <p className="text-gray-600 mb-4">
-                  다양한 섬유의 특성을 고려한 건조 기술로 의류의 수명을 연장합니다.
+                  개방시 자동멈춤과 냉풍 기능으로 안전하고 편리한 건조 환경을 제공합니다.
                 </p>
                 <ul className="text-sm text-gray-700 space-y-1">
-                  <li>• 섬유별 최적 온도</li>
-                  <li>• 주름 방지 기능</li>
-                  <li>• 색상 보호</li>
+                  <li>• 문 개방 감지 센서</li>
+                  <li>• 자동 정지 기능</li>
+                  <li>• 냉풍 쿨링 시스템</li>
                 </ul>
               </div>
             </div>
@@ -215,11 +267,16 @@ const Dryer = () => {
 
           {/* 문의 섹션 */}
           <div className="bg-[#102254] text-white p-8 rounded-lg text-center">
-            <h2 className="text-2xl font-bold mb-4">건조기 문의하기</h2>
-            <p className="text-lg mb-6">건조기에 대한 자세한 정보나 견적 문의가 필요하시면 언제든 연락주세요.</p>
-            <button className="bg-white text-[#102254] px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors">
-              문의하기
-            </button>
+            <h2 className="text-2xl font-bold mb-4">스마트 건조기 문의하기</h2>
+            <p className="text-lg mb-6">30kg 모델에 대한 자세한 정보나 견적 문의가 필요하시면 언제든 연락주세요.</p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button className="bg-white text-[#102254] px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors">
+                견적 문의
+              </button>
+              <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-bold hover:bg-white hover:text-[#102254] transition-colors">
+                상담 예약
+              </button>
+            </div>
           </div>
         </div>
       </div>
