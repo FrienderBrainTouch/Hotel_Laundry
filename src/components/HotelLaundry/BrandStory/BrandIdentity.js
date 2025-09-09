@@ -15,26 +15,45 @@ const BrandIdentity = () => {
               <h3 className="text-brand-blue font-KoPubWorldBatang text-22 md:text-2xl mb-8">
                 브랜드 컬러
               </h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div className="mb-8">
+                <p className="text-brand-dark text-20 mb-4">
+                  컬러는 우리의 브랜드 이미지를 효과적으로 표현할 수 있는 디자인 요소입니다.
+                </p>
+                <p className="text-brand-dark text-20">
+                  투명한 에메랄드 컬러와 선샤인 엘로우 컬러를 직관적으로 보여줌으로써 빨래하기 좋은 날의 기분과 상황을 생동감있게 전달합니다.
+                </p>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
                 <div className="text-center">
-                  <div className="w-full h-24 md:h-32 bg-brand-blue rounded-lg mb-4"></div>
-                  <p className="text-brand-dark text-20 font-medium">Primary Blue</p>
-                  <p className="text-gray-600 text-20">#102254</p>
+                  <div className="w-full h-24 md:h-32 rounded-full mb-4" style={{backgroundColor: '#4ECDC4'}}></div>
+                  <p className="text-brand-dark text-20 font-medium">TRANSPARENT EMERALD</p>
+                  <p className="text-gray-600 text-20">#4ECDC4</p>
                 </div>
                 <div className="text-center">
-                  <div className="w-full h-24 md:h-32 bg-brand-dark rounded-lg mb-4"></div>
-                  <p className="text-brand-dark text-20 font-medium">Dark</p>
+                  <div className="w-full h-24 md:h-32 rounded-full mb-4" style={{backgroundColor: '#FFD93D'}}></div>
+                  <p className="text-brand-dark text-20 font-medium">SUNSHINE YELLOW</p>
+                  <p className="text-gray-600 text-20">#FFD93D</p>
+                </div>
+                <div className="text-center">
+                  <div className="w-full h-24 md:h-32 rounded-full mb-4 bg-white border-2 border-gray-200"></div>
+                  <p className="text-brand-dark text-20 font-medium">FLUFFY WHITE</p>
+                  <p className="text-gray-600 text-20">#FFFFFF</p>
+                </div>
+                <div className="text-center">
+                  <div className="w-full h-24 md:h-32 rounded-full mb-4" style={{backgroundColor: '#1C262B'}}></div>
+                  <p className="text-brand-dark text-20 font-medium">TIDY NAVY</p>
                   <p className="text-gray-600 text-20">#1C262B</p>
                 </div>
+              </div>
+              {/* 주요 컬러 강조 */}
+              <div className="flex justify-center gap-12">
                 <div className="text-center">
-                  <div className="w-full h-24 md:h-32 bg-brand-light-blue rounded-lg mb-4"></div>
-                  <p className="text-brand-dark text-20 font-medium">Light Blue</p>
-                  <p className="text-gray-600 text-20">#E3F2FD</p>
+                  <div className="w-32 h-32 rounded-full mb-4" style={{backgroundColor: '#4ECDC4'}}></div>
+                  <p className="text-brand-dark text-20 font-medium">TRANSPARENT EMERALD</p>
                 </div>
                 <div className="text-center">
-                  <div className="w-full h-24 md:h-32 bg-brand-white border-2 border-gray-200 rounded-lg mb-4"></div>
-                  <p className="text-brand-dark text-20 font-medium">White</p>
-                  <p className="text-gray-600 text-20">#FFFFFF</p>
+                  <div className="w-32 h-32 rounded-full mb-4" style={{backgroundColor: '#FFD93D'}}></div>
+                  <p className="text-brand-dark text-20 font-medium">SUNSHINE YELLOW</p>
                 </div>
               </div>
             </div>
@@ -56,29 +75,6 @@ const BrandIdentity = () => {
                     <span className="text-white text-20 md:text-2xl font-bold">HL</span>
                   </div>
                   <p className="text-brand-dark text-20">심볼 로고</p>
-                </div>
-              </div>
-            </div>
-
-            {/* 브랜드 타이포그래피 */}
-            <div className="mb-16">
-              <h3 className="text-brand-blue font-KoPubWorldBatang text-22 md:text-2xl mb-8">
-                브랜드 타이포그래피
-              </h3>
-              <div className="bg-white rounded-xl p-8 shadow-sm">
-                <div className="space-y-6">
-                  <div>
-                    <p className="text-brand-dark text-20 mb-2">한글 폰트</p>
-                    <p className="font-KoPubWorldBatang text-24 md:text-3xl text-brand-blue">
-                      KoPubWorldBatang
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-brand-dark text-20 mb-2">영문 폰트</p>
-                    <p className="font-pretendard text-24 md:text-3xl text-brand-blue">
-                      Pretendard
-                    </p>
-                  </div>
                 </div>
               </div>
             </div>

@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import homeIcon from '../../StoreInfo/common/home.svg';
-import PhaseHeroSection from './PhaseHeroSection';
-import PhaseOptimization from './PhaseOptimization';
-import PhaseProcess from './PhaseProcess';
-import PhaseBenefits from './PhaseBenefits';
+import HygieneHeroSection from './HygieneHeroSection';
+import HygieneOptimization from './HygieneOptimization';
 
-const PhaseManagement = () => {
+const HygieneManagement = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
@@ -81,10 +79,8 @@ const PhaseManagement = () => {
 
           {/* 메인 콘텐츠 */}
           <div>
-            <PhaseHeroSection />
-            <PhaseOptimization />
-            <PhaseProcess />
-            <PhaseBenefits />
+            <HygieneHeroSection />
+            <HygieneOptimization />
           </div>
         </div>
       </div>
@@ -92,4 +88,4 @@ const PhaseManagement = () => {
   );
 };
 
-export default PhaseManagement;
+export default HygieneManagement;

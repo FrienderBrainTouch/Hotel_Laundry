@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import homeIcon from '../../StoreInfo/common/home.svg';
+import InterviewVideo from './InterviewVideo';
+import RevenueComparison from './RevenueComparison';
+import SuccessStories from './SuccessStories';
 
 const StoreOwnerInterview = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -91,18 +94,20 @@ const StoreOwnerInterview = () => {
 
           {/* 메인 콘텐츠 */}
           <div className="text-center">
-            <h1 className="text-3xl md:text-4xl font-bold text-brand-dark mb-8">
+            <h1
+              className="text-[22px] sm:text-[24px] md:text-[28px] lg:text-[32px] xl:text-[36px] 2xl:text-[40px] font-bold leading-normal text-[#1C262B] font-KoPubWorldDotum tracking-[-0.48px] sm:tracking-[-0.48px] md:tracking-[-0.56px] lg:tracking-[-0.64px] xl:tracking-[-0.72px] 2xl:tracking-normal mb-[20px] sm:mb-[30px] md:mb-[20px] lg:mb-[30px] xl:mb-[30px] 2xl:mb-[30px]"
+            >
               점주 인터뷰
             </h1>
-            <p className="text-lg text-gray-600 mb-12">
+            <p className="text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] 2xl:text-[26px] text-gray-600 mb-12 font-KoPubWorldDotum">
               실제 호텔세탁소 점주들의 생생한 경험담을 들어보세요
             </p>
             
             {/* 인터뷰 콘텐츠 영역 */}
-            <div className="bg-gray-50 p-8 rounded-lg">
-              <p className="text-gray-500">
-                점주 인터뷰 콘텐츠가 여기에 표시됩니다.
-              </p>
+            <div className="space-y-0">
+              <InterviewVideo />
+              <RevenueComparison />
+              <SuccessStories />
             </div>
           </div>
         </div>

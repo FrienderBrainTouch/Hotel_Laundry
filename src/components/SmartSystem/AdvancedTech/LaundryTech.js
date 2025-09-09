@@ -66,57 +66,6 @@ const LaundryTech = () => {
             </p>
           </div>
         </div>
-
-        {/* 스마트 건조기 */}
-        <div className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100">
-          <div className="text-center">
-            <div className="w-20 h-20 bg-gradient-to-br from-brand-dark to-brand-blue rounded-full flex items-center justify-center mx-auto mb-6">
-              <span className="text-white text-2xl">🌪️</span>
-            </div>
-            <h3 className="text-24 md:text-28 font-bold text-brand-blue font-KoPubWorldBatang mb-4">
-              센서 기반 건조
-            </h3>
-            <div className="w-12 h-1 bg-gradient-to-r from-brand-dark to-brand-blue mx-auto mb-4"></div>
-            <p className="text-20 text-brand-dark leading-relaxed">
-              습도 센서로 완전 건조를 감지하여<br />
-              과도한 건조를 방지합니다.
-            </p>
-          </div>
-        </div>
-
-        {/* 자동 세제 투입 */}
-        <div className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100">
-          <div className="text-center">
-            <div className="w-20 h-20 bg-gradient-to-br from-brand-blue to-brand-light-blue rounded-full flex items-center justify-center mx-auto mb-6">
-              <span className="text-white text-2xl">🧴</span>
-            </div>
-            <h3 className="text-24 md:text-28 font-bold text-brand-blue font-KoPubWorldBatang mb-4">
-              정밀 투입 시스템
-            </h3>
-            <div className="w-12 h-1 bg-gradient-to-r from-brand-blue to-brand-light-blue mx-auto mb-4"></div>
-            <p className="text-20 text-brand-dark leading-relaxed">
-              세탁물 양에 따라 자동으로<br />
-              적정량의 세제를 투입합니다.
-            </p>
-          </div>
-        </div>
-
-        {/* 에너지 절약 */}
-        <div className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100">
-          <div className="text-center">
-            <div className="w-20 h-20 bg-gradient-to-br from-brand-light-blue to-brand-dark rounded-full flex items-center justify-center mx-auto mb-6">
-              <span className="text-white text-2xl">⚡</span>
-            </div>
-            <h3 className="text-24 md:text-28 font-bold text-brand-blue font-KoPubWorldBatang mb-4">
-              친환경 기술
-            </h3>
-            <div className="w-12 h-1 bg-gradient-to-r from-brand-light-blue to-brand-dark mx-auto mb-4"></div>
-            <p className="text-20 text-brand-dark leading-relaxed">
-              스마트 전력 관리로<br />
-              최대 30% 에너지 절약이 가능합니다.
-            </p>
-          </div>
-        </div>
       </div>
     </div>
   );
