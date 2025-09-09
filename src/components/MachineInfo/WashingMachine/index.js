@@ -416,6 +416,17 @@ const WashingMachine = () => {
             </div>
           </div>
           )}
+                    <div className="bg-[#102254] text-white p-8 rounded-lg text-center">
+            <h2 className="section-title sm:text-xl md:text-2xl font-bold mb-4">세계 최초 무인 셀프 드라이클리닝으로 시간과 비용을 절약하세요.</h2>
+            <div className="flex flex-col sm:flex-row gap-4 mt-10 justify-center">
+              <Link 
+                to="/contact"
+                className="bg-yellow-400 text-[#102254] px-8 py-3 rounded-lg font-bold hover:bg-yellow-300 transition-colors inline-block text-center"
+              >
+                창업 문의하기
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </section>
