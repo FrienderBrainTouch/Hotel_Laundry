@@ -4,15 +4,15 @@ const BrandIdentity = () => {
   return (
     <section className="py-20 bg-gray-50">
       <div className="flex justify-center">
-        <div className="w-full xs:max-w-[355px] sm:max-w-[535px] md:max-w-[728px] lg:max-w-[924px] xl:max-w-[1200px] 2xl:max-w-[1400px] mx-auto">
+        <div className="w-full xs:w-[355px] sm:w-[535px] md:w-[728px] lg:w-[924px] xl:w-[1200px] 2xl:w-[1400px] mx-auto">
           <div className="text-center">
-            <h2 className="text-brand-blue font-KoPubWorldBatang text-24 md:text-3xl lg:text-4xl mb-12">
+            <h2 className="text-brand-blue font-KoPubWorldBatang section-title md:text-3xl lg:text-4xl mb-12">
               브랜드 아이덴티티
             </h2>
 
             {/* 브랜드 컬러 */}
             <div className="mb-16">
-              <h3 className="text-brand-blue font-KoPubWorldBatang text-22 md:text-2xl mb-8">
+              <h3 className="text-brand-blue font-KoPubWorldBatang section-subtitle md:text-2xl mb-8">
                 브랜드 컬러
               </h3>
               <div className="mb-8">
@@ -60,7 +60,7 @@ const BrandIdentity = () => {
 
             {/* 브랜드 로고 */}
             <div className="mb-16">
-              <h3 className="text-brand-blue font-KoPubWorldBatang text-22 md:text-2xl mb-8">
+              <h3 className="text-brand-blue font-KoPubWorldBatang section-subtitle md:text-2xl mb-8">
                 브랜드 로고
               </h3>
               <div className="grid md:grid-cols-2 gap-8">
@@ -81,7 +81,7 @@ const BrandIdentity = () => {
 
             {/* 브랜드 가치 */}
             <div>
-              <h3 className="text-brand-blue font-KoPubWorldBatang text-22 md:text-2xl mb-8">
+              <h3 className="text-brand-blue font-KoPubWorldBatang section-subtitle md:text-2xl mb-8">
                 브랜드 가치
               </h3>
               <div className="grid md:grid-cols-3 gap-6">
@@ -89,7 +89,7 @@ const BrandIdentity = () => {
                   <div className="w-16 h-16 bg-brand-blue rounded-full mx-auto mb-4 flex items-center justify-center">
                     <span className="text-white text-20 font-bold">신뢰</span>
                   </div>
-                  <h4 className="text-brand-blue font-KoPubWorldBatang text-22 mb-2">Trust</h4>
+                  <h4 className="text-brand-blue font-KoPubWorldBatang section-subtitle mb-2">Trust</h4>
                   <p className="text-brand-dark text-20">
                     고객과의 신뢰 관계를<br />
                     최우선으로 생각합니다.
@@ -99,7 +99,7 @@ const BrandIdentity = () => {
                   <div className="w-16 h-16 bg-brand-blue rounded-full mx-auto mb-4 flex items-center justify-center">
                     <span className="text-white text-20 font-bold">혁신</span>
                   </div>
-                  <h4 className="text-brand-blue font-KoPubWorldBatang text-22 mb-2">Innovation</h4>
+                  <h4 className="text-brand-blue font-KoPubWorldBatang section-subtitle mb-2">Innovation</h4>
                   <p className="text-brand-dark text-20">
                     지속적인 기술 혁신으로<br />
                     더 나은 서비스를 제공합니다.
@@ -109,7 +109,7 @@ const BrandIdentity = () => {
                   <div className="w-16 h-16 bg-brand-blue rounded-full mx-auto mb-4 flex items-center justify-center">
                     <span className="text-white text-20 font-bold">품질</span>
                   </div>
-                  <h4 className="text-brand-blue font-KoPubWorldBatang text-22 mb-2">Quality</h4>
+                  <h4 className="text-brand-blue font-KoPubWorldBatang section-subtitle mb-2">Quality</h4>
                   <p className="text-brand-dark text-20">
                     최고의 품질로<br />
                     고객 만족을 실현합니다.

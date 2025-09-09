@@ -4,6 +4,7 @@ import homeIcon from '../../StoreInfo/common/home.svg';
 
 const WashingMachine = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState('domestic');
   const menuRef = useRef(null);
 
   useEffect(() => {
@@ -143,8 +144,37 @@ const WashingMachine = () => {
             </div>
           </div>
 
-          {/* 세탁기 모델별 사양 섹션 */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+          {/* 탭 네비게이션 */}
+          <div className="mb-8">
+            <div className="flex justify-center">
+              <div className="bg-gray-100 rounded-lg p-1 inline-flex">
+                <button
+                  onClick={() => setActiveTab('domestic')}
+                  className={`px-6 py-3 rounded-md font-semibold transition-all duration-200 ${
+                    activeTab === 'domestic'
+                      ? 'bg-[#102254] text-white shadow-lg'
+                      : 'text-gray-600 hover:text-[#102254]'
+                  }`}
+                >
+                  국내산 세탁기
+                </button>
+                <button
+                  onClick={() => setActiveTab('imported')}
+                  className={`px-6 py-3 rounded-md font-semibold transition-all duration-200 ${
+                    activeTab === 'imported'
+                      ? 'bg-[#102254] text-white shadow-lg'
+                      : 'text-gray-600 hover:text-[#102254]'
+                  }`}
+                >
+                  수입 세탁기 (IPSO)
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* 국내산 세탁기 탭 내용 */}
+          {activeTab === 'domestic' && (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
             {/* 스마트 세탁기 33kg */}
             <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg">
               <h2 className="text-2xl font-bold text-[#102254] mb-6 text-center">스마트 세탁기 33kg</h2>
@@ -221,8 +251,130 @@ const WashingMachine = () => {
               </div>
             </div>
           </div>
+          )}
 
-          {/* 주요 특징 섹션 */}
+          {/* 수입 세탁기 (IPSO) 탭 내용 */}
+          {activeTab === 'imported' && (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+              {/* IA 시리즈 */}
+              <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg">
+                <h2 className="text-2xl font-bold text-[#102254] mb-6 text-center">IA 시리즈 - 상업용 대형 세탁기</h2>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span className="font-semibold text-gray-700">모델명</span>
+                    <span className="text-[#102254] font-bold">IA180, IA240, IA280, IA332</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span className="font-semibold text-gray-700">세탁용량</span>
+                    <span className="text-[#102254] font-bold">20kg, 27kg, 31kg, 39kg</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span className="font-semibold text-gray-700">탈수속도</span>
+                    <span className="text-[#102254] font-bold">490~540RPM</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span className="font-semibold text-gray-700">세탁코스</span>
+                    <span className="text-[#102254] font-bold">쾌속/표준/청정/불림 외 다양한 세탁코스</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span className="font-semibold text-gray-700">규격 (W×H×D)</span>
+                    <span className="text-[#102254] font-bold text-sm">890×1410×915~1060×1500×1030</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span className="font-semibold text-gray-700">제어방식</span>
+                    <span className="text-[#102254] font-bold">Aries 조작부</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span className="font-semibold text-gray-700">표시창</span>
+                    <span className="text-[#102254] font-bold">대형 한글 LCD</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span className="font-semibold text-gray-700">운영방식</span>
+                    <span className="text-[#102254] font-bold">코인식/논코인식</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* IY 시리즈 */}
+              <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg">
+                <h2 className="text-2xl font-bold text-[#102254] mb-6 text-center">IY 시리즈 - 상업용 최고급 하이스핀 세탁기</h2>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span className="font-semibold text-gray-700">모델명</span>
+                    <span className="text-[#102254] font-bold">IY180, IY240, IY280</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span className="font-semibold text-gray-700">세탁용량</span>
+                    <span className="text-[#102254] font-bold">20kg, 27kg, 31kg</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span className="font-semibold text-gray-700">탈수속도</span>
+                    <span className="text-[#102254] font-bold">915RPM</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span className="font-semibold text-gray-700">세탁코스</span>
+                    <span className="text-[#102254] font-bold">15가지 다양한 세탁코스</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span className="font-semibold text-gray-700">규격 (W×H×D)</span>
+                    <span className="text-[#102254] font-bold text-sm">970×1410×970~1185</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span className="font-semibold text-gray-700">특징</span>
+                    <span className="text-[#102254] font-bold">최고급 하이스핀</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span className="font-semibold text-gray-700">표시창</span>
+                    <span className="text-[#102254] font-bold">대형 한글 LCD</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span className="font-semibold text-gray-700">운영방식</span>
+                    <span className="text-[#102254] font-bold">코인식/논코인식</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* 수입 세탁기 주요 특징 섹션 */}
+          {activeTab === 'imported' && (
+            <div className="mb-12">
+              <h2 className="text-3xl font-bold text-[#102254] mb-8 text-center">주요 특징</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg text-center">
+                  <div className="w-16 h-16 bg-[#102254] rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div className="text-white text-xl">⚡</div>
+                  </div>
+                  <h3 className="text-lg font-bold text-[#102254] mb-3">최고급 전자식 인버터</h3>
+                  <p className="text-gray-600 text-sm">모터 속도 자동 조절로 진동, 소음, 전력소비 감소</p>
+                </div>
+                <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg text-center">
+                  <div className="w-16 h-16 bg-[#102254] rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div className="text-white text-xl">🎛️</div>
+                  </div>
+                  <h3 className="text-lg font-bold text-[#102254] mb-3">Aries 조작부</h3>
+                  <p className="text-gray-600 text-sm">세탁시간, 헹굼횟수, 탈수시간 조절 가능</p>
+                </div>
+                <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg text-center">
+                  <div className="w-16 h-16 bg-[#102254] rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div className="text-white text-xl">🔄</div>
+                  </div>
+                  <h3 className="text-lg font-bold text-[#102254] mb-3">다양한 세탁코스</h3>
+                  <p className="text-gray-600 text-sm">쾌속/표준/청정/불림 등 다양한 세탁 프로그램</p>
+                </div>
+                <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg text-center">
+                  <div className="w-16 h-16 bg-[#102254] rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div className="text-white text-xl">📺</div>
+                  </div>
+                  <h3 className="text-lg font-bold text-[#102254] mb-3">대형 한글 LCD</h3>
+                  <p className="text-gray-600 text-sm">세탁진행상황, 사용요금, 남은시간 표시</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* 주요 특징 섹션 (국내산 세탁기용) */}
+          {activeTab === 'domestic' && (
           <div className="mb-12">
             <h2 className="text-3xl font-bold text-[#102254] mb-8 text-center">주요 특징</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -273,6 +425,7 @@ const WashingMachine = () => {
               </div>
             </div>
           </div>
+          )}
         </div>
       </div>
     </section>

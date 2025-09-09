@@ -47,7 +47,7 @@ const Section1 = () => {
                   </span>
                 </button>
                 {isMenuOpen && (
-                  <div className="absolute top-full left-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-[9998] min-w-[120px]">
+                  <div className="absolute top-full left-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-[9998] min-w-[140px]">
                     <Link
                       to="/company-intro"
                       onClick={handleMenuClose}
