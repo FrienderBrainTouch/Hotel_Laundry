@@ -44,6 +44,7 @@ const Header = () => {
       label: '스마트 시스템',
       hasSubmenu: true,
       submenu: [
+        { id: 'smart-system', label: '스마트 시스템' },
         { id: 'advanced-technology', label: '첨단 기술' },
         { id: 'status-management', label: '위생 관리' },
       ],
@@ -114,7 +115,7 @@ const Header = () => {
 
   return (
     <header
-      className="bg-[#102254] w-full h-[100px] relative z-50"
+      className="bg-[#102254] w-full h-[100px] md:h-[110px] lg:h-[120px] xl:h-[100px] 2xl:h-[100px] relative z-50"
       onMouseLeave={() => setHoveredMenu(null)}
     >
       <div className="w-full px-4 h-full flex items-center justify-between">
@@ -135,8 +136,8 @@ const Header = () => {
 
         {/* 중앙 네비게이션 - 데스크톱에서만 표시 */}
         {!isMobile && (
-          <nav className="flex items-center absolute left-1/2 transform -translate-x-1/2">
-            <ul className="flex flex-nowrap list-none gap-[clamp(20px,3vw,60px)] lg:gap-[clamp(30px,4vw,80px)] xl:gap-[clamp(40px,5vw,100px)] 2xl:gap-[clamp(50px,6vw,120px)]">
+          <nav className="flex items-center flex-1 justify-center max-w-[70%] md:max-w-[65%] lg:max-w-[60%] xl:max-w-none 2xl:max-w-none">
+            <ul className="flex flex-nowrap list-none gap-[clamp(8px,1.5vw,25px)] md:gap-[clamp(10px,1.8vw,30px)] lg:gap-[clamp(15px,2vw,35px)] xl:gap-[clamp(20px,2.5vw,45px)] 2xl:gap-[clamp(25px,3vw,55px)]">
               {menuItems.map((item) => (
                 <li key={item.id} className="py-2 relative shrink-0">
                   <div onMouseEnter={() => setHoveredMenu(item.id)} className="relative">
@@ -146,11 +147,13 @@ const Header = () => {
                           ? '/company-intro'
                           : item.id === 'hotel-laundry-app'
                           ? '/app-intro'
+                          : item.id === 'smart-system'
+                          ? '/smart-system'
                           : item.id === 'management-support'
                           ? '/management-support'
                           : `/${item.id}`
                       }
-                      className={`whitespace-nowrap text-white font-pretendard text-[18px] lg:text-[18px] xl:text-[20px] 2xl:text-[24px] font-medium leading-normal transition-all duration-200 ${
+                      className={`whitespace-nowrap text-white font-pretendard text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] 2xl:text-[24px] font-medium leading-normal transition-all duration-200 ${
                         hoveredMenu === item.id ? 'font-bold opacity-100' : 'opacity-80'
                       }`}
                     >
@@ -261,10 +264,10 @@ const Header = () => {
             to="/contact"
             className="
                 flex items-center justify-center 
-                w-[86px] h-[35px] sm:w-[100px] sm:h-[40px] md:w-[120px] md:h-[40px] lg:w-[130px] lg:h-[45px] xl:w-[140px] xl:h-[50px] 2xl:w-[170px] 2xl:h-[60px]
+                w-[86px] h-[35px] sm:w-[90px] sm:h-[38px] md:w-[95px] md:h-[38px] lg:w-[100px] lg:h-[40px] xl:w-[120px] xl:h-[42px] 2xl:w-[140px] 2xl:h-[50px]
                 bg-white rounded-[5px] sm:rounded-[7px] md:rounded-[7px] lg:rounded-[7px] xl:rounded-[7px] 2xl:rounded-[7px]
                 text-[#102254] font-pretendard 
-                text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] 2xl:text-[28px]
+                text-[16px] sm:text-[18px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[26px]
                 font-bold leading-normal
                 whitespace-nowrap 
                 transition-all duration-200 
