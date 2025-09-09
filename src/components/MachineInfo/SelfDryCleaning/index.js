@@ -248,7 +248,7 @@ const SelfDryCleaning = () => {
 
           {/* 문의 섹션 */}
           <div className="bg-[#102254] text-white p-8 rounded-lg text-center">
-            <h2 className="text-2xl font-bold mb-4">셀프 드라이클리닝 문의하기</h2>
+            <h2 className="text-2xl font-bold mb-4">창업 문의하기</h2>
             <p className="text-lg mb-6">드라이클리닝에 대한 자세한 정보나 견적 문의가 필요하시면 언제든 연락주세요.</p>
             <button className="bg-white text-[#102254] px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors">
               문의하기

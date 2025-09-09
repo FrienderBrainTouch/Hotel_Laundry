@@ -26,7 +26,7 @@ const BrandSlogan = () => {
   return (
     <section className="py-20 bg-white">
       <div className="flex justify-center">
-        <div className="w-full xs:max-w-[355px] sm:max-w-[535px] md:max-w-[728px] lg:max-w-[924px] xl:max-w-[1200px] 2xl:max-w-[1400px] mx-auto">
+        <div className="w-full xs:w-[355px] sm:w-[535px] md:w-[728px] lg:w-[924px] xl:w-[1200px] 2xl:w-[1400px] mx-auto">
           {/* 브레드크럼 */}
           <div className="mb-8 md:mb-12 w-full xs:w-[355px] sm:w-[535px] md:w-[728px] lg:w-[924px] xl:w-[1200px] 2xl:w-[1400px] mx-auto">
             <div className="flex items-center gap-2 sm:gap-4 font-pretendard">
@@ -77,14 +77,14 @@ const BrandSlogan = () => {
 
           {/* 메인 콘텐츠 */}
           <div className="text-center">
-            <h1 className="text-brand-blue font-KoPubWorldBatang text-28 md:text-4xl lg:text-5xl mb-6 md:mb-8">
+            <h1 className="text-brand-blue font-KoPubWorldBatang hero-title md:text-4xl lg:text-5xl mb-6 md:mb-8">
               브랜드 슬로건
             </h1>
             
             {/* 슬로건 섹션 */}
             <div className="bg-brand-light-blue rounded-2xl p-8 md:p-12 mb-12">
               <div className="max-w-4xl mx-auto">
-                <h2 className="text-brand-blue font-KoPubWorldBatang text-24 md:text-3xl lg:text-4xl mb-6">
+                <h2 className="text-brand-blue font-KoPubWorldBatang section-title md:text-3xl lg:text-4xl mb-6">
                   "Clean Innovation, Trusted Service"
                 </h2>
                 <p className="text-brand-dark text-20 md:text-xl leading-relaxed">
@@ -100,7 +100,7 @@ const BrandSlogan = () => {
                 <div className="w-full h-48 md:h-64 bg-gradient-to-br from-brand-blue to-brand-light-blue rounded-lg mb-6 flex items-center justify-center">
                   <span className="text-white text-20 md:text-2xl font-medium">브랜드 이미지 1</span>
                 </div>
-                <h3 className="text-brand-blue font-KoPubWorldBatang text-22 md:text-2xl mb-4">
+                <h3 className="text-brand-blue font-KoPubWorldBatang section-subtitle md:text-2xl mb-4">
                   혁신적인 기술
                 </h3>
                 <p className="text-brand-dark text-20 leading-relaxed">
@@ -113,7 +113,7 @@ const BrandSlogan = () => {
                 <div className="w-full h-48 md:h-64 bg-gradient-to-br from-brand-light-blue to-brand-blue rounded-lg mb-6 flex items-center justify-center">
                   <span className="text-white text-20 md:text-2xl font-medium">브랜드 이미지 2</span>
                 </div>
-                <h3 className="text-brand-blue font-KoPubWorldBatang text-22 md:text-2xl mb-4">
+                <h3 className="text-brand-blue font-KoPubWorldBatang section-subtitle md:text-2xl mb-4">
                   신뢰할 수 있는 서비스
                 </h3>
                 <p className="text-brand-dark text-20 leading-relaxed">
