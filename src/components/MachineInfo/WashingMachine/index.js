@@ -108,18 +108,8 @@ const WashingMachine = () => {
               className="text-[22px] sm:text-[24px] md:text-[28px] lg:text-[32px] xl:text-[36px] 2xl:text-[40px] font-bold leading-normal text-[#1C262B] font-KoPubWorldDotum tracking-[-0.48px] sm:tracking-[-0.48px] md:tracking-[-0.56px] lg:tracking-[-0.64px] xl:tracking-[-0.72px] 2xl:tracking-normal mb-[20px] sm:mb-[30px] md:mb-[20px] lg:mb-[30px] xl:mb-[30px] 2xl:mb-[30px]"
             >
               <span className="block 2xl:hidden">스마트 세탁기</span>
-              <span className="hidden 2xl:block">스마트 세탁기 33kg & 23kg - 최신 기술로 구현된 고성능 세탁기</span>
+              <span className="hidden 2xl:block">스마트 세탁기</span>
             </h1>
-
-            {/* 구분선 */}
-            <div
-              className="mx-auto mb-[50px]"
-              style={{
-                width: '50px',
-                height: '5px',
-                background: '#102254'
-              }}
-            ></div>
 
             {/* 부제목 */}
             <div
@@ -426,6 +416,17 @@ const WashingMachine = () => {
             </div>
           </div>
           )}
+                    <div className="bg-[#102254] text-white p-8 rounded-lg text-center">
+            <h2 className="section-title sm:text-xl md:text-2xl font-bold mb-4">세계 최초 무인 셀프 드라이클리닝으로 시간과 비용을 절약하세요.</h2>
+            <div className="flex flex-col sm:flex-row gap-4 mt-10 justify-center">
+              <Link 
+                to="/contact"
+                className="bg-yellow-400 text-[#102254] px-8 py-3 rounded-lg font-bold hover:bg-yellow-300 transition-colors inline-block text-center"
+              >
+                창업 문의하기
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </section>
