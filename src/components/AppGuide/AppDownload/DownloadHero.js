@@ -2,10 +2,10 @@ import React from 'react';
 
 const DownloadHero = () => {
   const stats = [
-    { number: "50만+", label: "다운로드" },
-    { number: "4.8★", label: "앱스토어 평점" },
-    { number: "98%", label: "고객 만족도" },
-    { number: "24시간", label: "서비스 운영" }
+    { number: '50만+', label: '다운로드' },
+    { number: '4.8★', label: '앱스토어 평점' },
+    { number: '98%', label: '고객 만족도' },
+    { number: '24시간', label: '서비스 운영' },
   ];
 
   return (
@@ -19,62 +19,37 @@ const DownloadHero = () => {
               지금 다운로드하세요
             </h1>
             <p className="hero-subtitle font-['KoPubWorldDotum'] mb-8 opacity-90">
-              스마트한 무인세탁 서비스를 언제 어디서나<br />
+              스마트한 무인세탁 서비스를 언제 어디서나
+              <br />
               편리하게 이용하세요
             </p>
-            
+
             {/* 주요 기능 */}
             <div className="space-y-4 mb-8">
               <div className="flex items-center space-x-4">
                 <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center">
                   <div className="w-2 h-2 bg-[#102254] rounded-full"></div>
                 </div>
-                <span className="text-20 font-['KoPubWorldDotum']">
-                  실시간 예약 및 대기열 확인
-                </span>
+                <span className="text-20 font-['KoPubWorldDotum']">실시간 예약 및 대기열 확인</span>
               </div>
               <div className="flex items-center space-x-4">
                 <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center">
                   <div className="w-2 h-2 bg-[#102254] rounded-full"></div>
                 </div>
-                <span className="text-20 font-['KoPubWorldDotum']">
-                  간편한 결제 시스템
-                </span>
+                <span className="text-20 font-['KoPubWorldDotum']">간편한 결제 시스템</span>
               </div>
               <div className="flex items-center space-x-4">
                 <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center">
                   <div className="w-2 h-2 bg-[#102254] rounded-full"></div>
                 </div>
-                <span className="text-20 font-['KoPubWorldDotum']">
-                  당일수거 배달서비스
-                </span>
+                <span className="text-20 font-['KoPubWorldDotum']">당일수거 배달서비스</span>
               </div>
               <div className="flex items-center space-x-4">
                 <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center">
                   <div className="w-2 h-2 bg-[#102254] rounded-full"></div>
                 </div>
-                <span className="text-20 font-['KoPubWorldDotum']">
-                  실시간 알림 및 추적
-                </span>
+                <span className="text-20 font-['KoPubWorldDotum']">실시간 알림 및 추적</span>
               </div>
-            </div>
-
-            {/* 다운로드 버튼 */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <a 
-                href="#"
-                className="inline-flex items-center justify-center px-8 py-4 bg-white text-[#102254] rounded-xl font-bold text-20 hover:bg-gray-100 transition-colors"
-              >
-                <span className="mr-3">📱</span>
-                App Store에서 다운로드
-              </a>
-              <a 
-                href="#"
-                className="inline-flex items-center justify-center px-8 py-4 bg-white text-[#102254] rounded-xl font-bold text-20 hover:bg-gray-100 transition-colors"
-              >
-                <span className="mr-3">🤖</span>
-                Google Play에서 다운로드
-              </a>
             </div>
           </div>
 
@@ -104,12 +79,8 @@ const DownloadHero = () => {
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-16 font-bold text-[#102254] mb-2">
-                    지금 다운로드하세요
-                  </div>
-                  <div className="text-14 text-gray-600">
-                    iOS & Android 지원
-                  </div>
+                  <div className="text-16 font-bold text-[#102254] mb-2">지금 다운로드하세요</div>
+                  <div className="text-14 text-gray-600">iOS & Android 지원</div>
                 </div>
               </div>
             </div>
@@ -123,9 +94,7 @@ const DownloadHero = () => {
               <div className="text-32 lg:text-40 font-['KoPubWorldBatang'] font-bold mb-2">
                 {stat.number}
               </div>
-              <div className="text-18 font-['KoPubWorldDotum'] opacity-90">
-                {stat.label}
-              </div>
+              <div className="text-18 font-['KoPubWorldDotum'] opacity-90">{stat.label}</div>
             </div>
           ))}
         </div>

@@ -373,30 +373,6 @@ const StoreManagement = () => {
                 </div>
               </div>
             </div>
-
-            {/* 문의하기 버튼 */}
-            <div className="text-center">
-              <button
-                className="text-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 w-[200px] h-[50px] sm:w-[220px] sm:h-[55px] md:w-[250px] md:h-[60px] lg:w-[280px] lg:h-[65px] xl:w-[300px] xl:h-[70px] 2xl:w-[350px] 2xl:h-[80px] flex items-center justify-center mx-auto"
-                style={{
-                  fontFamily: 'KoPubWorldBatang',
-                  fontWeight: '700',
-                  borderRadius: '8px',
-                  background: 'linear-gradient(90deg, #345D9D -2.08%, #102254 100%)',
-                  padding: 'clamp(10px 25px, 10px 25px + 0.5vw, 15px 35px)',
-                  gap: '10px',
-                }}
-              >
-                <span
-                  className="text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[26px] 2xl:text-[30px]"
-                  style={{
-                    letterSpacing: 'clamp(-0.32px, -0.32px + 0.04vw, -0.6px)',
-                  }}
-                >
-                  매장관리 대행 문의하기
-                </span>
-              </button>
-            </div>
           </div>
         </div>
       </div>

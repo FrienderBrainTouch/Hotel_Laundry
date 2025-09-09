@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import homeIcon from '../../StoreInfo/common/home.svg';
 import ServiceOverview from './ServiceOverview';
 import HowItWorks from './HowItWorks';
-import ServiceBenefits from './ServiceBenefits';
-import Pricing from './Pricing';
 
 const SameDayPickup = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -94,8 +92,6 @@ const SameDayPickup = () => {
           <div>
             <ServiceOverview />
             <HowItWorks />
-            <ServiceBenefits />
-            <Pricing />
           </div>
         </div>
       </div>
