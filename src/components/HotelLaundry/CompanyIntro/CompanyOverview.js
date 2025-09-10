@@ -42,7 +42,11 @@ const Section1 = () => {
                   className="flex items-center gap-1 text-brand-dark text-20 hover:text-[#102254] transition-colors"
                 >
                   회사소개
-                  <span className={`transition-transform duration-200 ${isMenuOpen ? 'rotate-180' : ''}`}>
+                  <span
+                    className={`transition-transform duration-200 ${
+                      isMenuOpen ? 'rotate-180' : ''
+                    }`}
+                  >
                     ▾
                   </span>
                 </button>
@@ -69,6 +73,13 @@ const Section1 = () => {
                     >
                       브랜드 스토리
                     </Link>
+                    <Link
+                      to="/certifications"
+                      onClick={handleMenuClose}
+                      className="block w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-50 transition-colors"
+                    >
+                      인증/특허
+                    </Link>
                   </div>
                 )}
               </div>
@@ -86,9 +97,7 @@ const Section1 = () => {
 
           {/* 제목 */}
           <div className="text-center mb-[20px] sm:mb-[30px] md:mb-[20px] lg:mb-[30px] xl:mb-[30px] 2xl:mb-[30px] w-full xs:w-[355px] sm:w-[535px] md:w-[728px] lg:w-[924px] xl:w-[1200px] 2xl:w-[1400px] mx-auto">
-            <h1
-              className="text-[22px] sm:text-[24px] md:text-[28px] lg:text-[32px] xl:text-[36px] 2xl:text-[40px] font-bold leading-normal text-[#1C262B] font-KoPubWorldDotum tracking-[-0.48px] sm:tracking-[-0.48px] md:tracking-[-0.56px] lg:tracking-[-0.64px] xl:tracking-[-0.72px] 2xl:tracking-normal mb-[20px] sm:mb-[30px] md:mb-[20px] lg:mb-[30px] xl:mb-[30px] 2xl:mb-[30px]"
-            >
+            <h1 className="text-[22px] sm:text-[24px] md:text-[28px] lg:text-[32px] xl:text-[36px] 2xl:text-[40px] font-bold leading-normal text-[#1C262B] font-KoPubWorldDotum tracking-[-0.48px] sm:tracking-[-0.48px] md:tracking-[-0.56px] lg:tracking-[-0.64px] xl:tracking-[-0.72px] 2xl:tracking-normal mb-[20px] sm:mb-[30px] md:mb-[20px] lg:mb-[30px] xl:mb-[30px] 2xl:mb-[30px]">
               <span className="block 2xl:hidden">우리는 기술로 세탁의 기준을 만듭니다.</span>
               <span className="hidden 2xl:block">우리는 기술로 세탁의 새로운 기준을 만듭니다.</span>
             </h1>
@@ -99,32 +108,55 @@ const Section1 = () => {
               style={{
                 width: '50px',
                 height: '5px',
-                background: '#102254'
+                background: '#102254',
               }}
             ></div>
 
             {/* 부제목 */}
-            <div
-              className="text-center mx-auto text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] font-light leading-normal text-[#1C262B] font-KoPubWorldDotum tracking-[-0.32px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px]"
-            >
+            <div className="text-center mx-auto text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] font-light leading-normal text-[#1C262B] font-KoPubWorldDotum tracking-[-0.32px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px]">
               <div className="block sm:hidden">
-                <p className="mb-8">호텔런드리는 분야별 전문가들이 모여 설립한 프리미엄 세탁 브랜드입니다. 우리는 단순한 셀프 빨래방이 아닌, 고객의 일상에 새로운 라이프스타일을 제안하는 브랜드를 만들고자 합니다.</p>
-                <p>4차 산업혁명 시대에 맞는 IoT 기반 시스템과 스마트 자동화 기술을 바탕으로, 세탁 서비스의 미래를 선도하며 세계 시장을 향해 나아갑니다.</p>
+                <p className="mb-8">
+                  호텔런드리는 분야별 전문가들이 모여 설립한 프리미엄 세탁 브랜드입니다. 우리는
+                  단순한 셀프 빨래방이 아닌, 고객의 일상에 새로운 라이프스타일을 제안하는 브랜드를
+                  만들고자 합니다.
+                </p>
+                <p>
+                  4차 산업혁명 시대에 맞는 IoT 기반 시스템과 스마트 자동화 기술을 바탕으로, 세탁
+                  서비스의 미래를 선도하며 세계 시장을 향해 나아갑니다.
+                </p>
               </div>
               <div className="hidden sm:block lg:hidden">
                 <p>호텔런드리는 분야별 전문가들이 모여 설립한 프리미엄 세탁 브랜드입니다.</p>
-                <p>우리는 단순한 셀프 빨래방이 아닌, <br />고객의 일상에 새로운 라이프스타일을 제안하는 브랜드를 만들고자 합니다.</p>
-                <p>4차 산업혁명 시대에 맞는 IoT 기반 시스템과 스마트 자동화 기술을 바탕으로, 세탁 서비스의 미래를 선도하며 세계 시장을 향해 나아갑니다.</p>
+                <p>
+                  우리는 단순한 셀프 빨래방이 아닌, <br />
+                  고객의 일상에 새로운 라이프스타일을 제안하는 브랜드를 만들고자 합니다.
+                </p>
+                <p>
+                  4차 산업혁명 시대에 맞는 IoT 기반 시스템과 스마트 자동화 기술을 바탕으로, 세탁
+                  서비스의 미래를 선도하며 세계 시장을 향해 나아갑니다.
+                </p>
               </div>
               <div className="hidden lg:block xl:hidden">
                 <p>호텔런드리는 분야별 전문가들이 모여 설립한 프리미엄 세탁 브랜드입니다.</p>
-                <p>우리는 단순한 셀프 빨래방이 아닌, 고객의 일상에 새로운 라이프스타일을 제안하는 브랜드를 만들고자 합니다.</p>
-                <p>4차 산업혁명 시대에 맞는 IoT 기반 시스템과 스마트 자동화 기술을 바탕으로, <br />세탁 서비스의 미래를 선도하며 세계 시장을 향해 나아갑니다.</p>
+                <p>
+                  우리는 단순한 셀프 빨래방이 아닌, 고객의 일상에 새로운 라이프스타일을 제안하는
+                  브랜드를 만들고자 합니다.
+                </p>
+                <p>
+                  4차 산업혁명 시대에 맞는 IoT 기반 시스템과 스마트 자동화 기술을 바탕으로, <br />
+                  세탁 서비스의 미래를 선도하며 세계 시장을 향해 나아갑니다.
+                </p>
               </div>
               <div className="hidden xl:block">
                 <p>호텔런드리는 분야별 전문가들이 모여 설립한 프리미엄 세탁 브랜드입니다.</p>
-                <p>우리는 단순한 셀프 빨래방이 아닌, 고객의 일상에 새로운 라이프스타일을 제안하는 브랜드를 만들고자 합니다.</p>
-                <p>4차 산업혁명 시대에 맞는 IoT 기반 시스템과 스마트 자동화 기술을 바탕으로, 세탁 서비스의 미래를 선도하며 세계 시장을 향해 나아갑니다.</p>
+                <p>
+                  우리는 단순한 셀프 빨래방이 아닌, 고객의 일상에 새로운 라이프스타일을 제안하는
+                  브랜드를 만들고자 합니다.
+                </p>
+                <p>
+                  4차 산업혁명 시대에 맞는 IoT 기반 시스템과 스마트 자동화 기술을 바탕으로, 세탁
+                  서비스의 미래를 선도하며 세계 시장을 향해 나아갑니다.
+                </p>
               </div>
             </div>
           </div>
