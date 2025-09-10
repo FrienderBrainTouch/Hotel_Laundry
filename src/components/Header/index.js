@@ -37,6 +37,7 @@ const Header = () => {
         { id: 'company-intro', label: '회사 소개' },
         { id: 'brand-story', label: '브랜드 스토리' },
         { id: 'history', label: '연혁' },
+        { id: 'certifications', label: '인증/특허' },
       ],
     },
     {
