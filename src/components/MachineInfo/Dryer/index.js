@@ -110,16 +110,6 @@ const Dryer = () => {
               <span className="hidden 2xl:block">스마트 건조기</span>
             </h1>
 
-            {/* 구분선 */}
-            <div
-              className="mx-auto mb-[50px]"
-              style={{
-                width: '50px',
-                height: '5px',
-                background: '#102254'
-              }}
-            ></div>
-
             {/* 부제목 */}
             <div
               className="text-center mx-auto text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] font-light leading-normal text-[#1C262B] font-KoPubWorldDotum tracking-[-0.32px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px]"
@@ -267,11 +257,10 @@ const Dryer = () => {
 
           {/* 문의 섹션 */}
           <div className="bg-[#102254] text-white p-8 rounded-lg text-center">
-            <h2 className="text-2xl font-bold mb-4">창업 문의하기</h2>
-            <p className="text-lg mb-6"> 기기에 대한 자세한 정보나 견적 문의가 필요하시면 언제든 연락주세요.</p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-white text-[#102254] px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors">
-                견적 문의
+            <h2 className="section-title sm:text-xl md:text-2xl font-bold mb-4">스마트 세탁기와 시간과 비용을 절약하세요.</h2>
+            <div className="flex flex-col sm:flex-row gap-4 mt-10 justify-center">
+              <button className="bg-yellow-400 text-[#102254] px-8 py-3 rounded-lg font-bold hover:bg-yellow-300 transition-colors">
+                창업 문의하기
               </button>
             </div>
           </div>

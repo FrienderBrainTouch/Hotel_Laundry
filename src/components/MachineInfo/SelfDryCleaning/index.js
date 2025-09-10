@@ -75,118 +75,234 @@ const SelfDryCleaning = () => {
             </div>
           </div>
 
-          {/* 메인 이미지 */}
-          <div className="mb-[30px] sm:mb-[30px] md:mb-[30px] lg:mb-[40px] xl:mb-[50px] 2xl:mb-[50px]">
-            <img
-              src="/images/CompanyInfo/Company-1.png"
-              alt="호텔런드리 셀프 드라이클리닝"
-              className="mx-auto object-cover rounded-[30px] sm:rounded-[40px] md:rounded-[40px] lg:rounded-[50px] xl:rounded-[50px] 2xl:rounded-[50px] w-full h-auto xs:w-[355px] xs:h-[180px] sm:w-[535px] sm:h-[200px] md:w-[728px] md:h-[300px] lg:w-[924px] lg:h-[300px] xl:w-[1200px] xl:h-[350px] 2xl:w-[1400px] 2xl:h-[400px]"
-            />
-          </div>
-
           {/* 제목 */}
           <div className="text-center mb-[20px] sm:mb-[30px] md:mb-[20px] lg:mb-[30px] xl:mb-[30px] 2xl:mb-[30px] w-full xs:w-[355px] sm:w-[535px] md:w-[728px] lg:w-[924px] xl:w-[1200px] 2xl:w-[1400px] mx-auto">
             <h1
-              className="text-[22px] sm:text-[24px] md:text-[28px] lg:text-[32px] xl:text-[36px] 2xl:text-[40px] font-bold leading-normal text-[#1C262B] font-KoPubWorldDotum tracking-[-0.48px] sm:tracking-[-0.48px] md:tracking-[-0.56px] lg:tracking-[-0.64px] xl:tracking-[-0.72px] 2xl:tracking-normal mb-[20px] sm:mb-[30px] md:mb-[20px] lg:mb-[30px] xl:mb-[30px] 2xl:mb-[30px]"
+              className="hero-title sm:text-[24px] md:text-[28px] lg:text-[32px] xl:text-[36px] 2xl:text-[40px] font-bold leading-normal text-[#1C262B] font-KoPubWorldDotum tracking-[-0.48px] sm:tracking-[-0.48px] md:tracking-[-0.56px] lg:tracking-[-0.64px] xl:tracking-[-0.72px] 2xl:tracking-normal mb-[20px] sm:mb-[30px] md:mb-[20px] lg:mb-[30px] xl:mb-[30px] 2xl:mb-[30px]"
             >
-              <span className="block 2xl:hidden">전문적인 드라이클리닝 기술</span>
-              <span className="hidden 2xl:block">전문적인 드라이클리닝 기술로 섬세한 의류까지 완벽하게 관리합니다.</span>
+              <span className="block 2xl:hidden">물로하는 깨끗한 Self Dry Cleaning</span>
+              <span className="hidden 2xl:block">물로하는 깨끗한 Self Dry Cleaning - 드라이클리닝도 셀프시대</span>
             </h1>
-
-            {/* 구분선 */}
-            <div
-              className="mx-auto mb-[50px]"
-              style={{
-                width: '50px',
-                height: '5px',
-                background: '#102254'
-              }}
-            ></div>
 
             {/* 부제목 */}
             <div
-              className="text-center mx-auto text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] font-light leading-normal text-[#1C262B] font-KoPubWorldDotum tracking-[-0.32px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px]"
+              className="text-center mx-auto text-24 sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] font-light leading-normal text-[#1C262B] font-KoPubWorldDotum tracking-[-0.32px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px]"
             >
               <div className="block sm:hidden">
-                <p className="mb-8">호텔런드리의 셀프 드라이클리닝은 전문적인 기술과 최신 장비를 통해 섬세한 의류까지 완벽하게 관리합니다.</p>
-                <p>다양한 소재와 오염도에 맞는 맞춤형 처리를 제공하여 의류의 수명을 최대한 연장합니다.</p>
+                <p className="mb-8">미국과 유럽에서는 이미 물로 하는 드라이클리닝이 시장에서 대안이 되고 있습니다.</p>
+                <p>세계 최초로 호텔런드리의 무인 셀프 드라이클리닝은 시간과 비용이라는 두가지 혁신을 담아 국내 독보적인 차별화 모델을 만들었습니다.</p>
               </div>
               <div className="hidden sm:block lg:hidden">
-                <p>호텔런드리의 셀프 드라이클리닝은 전문적인 기술과 최신 장비를 통해 섬세한 의류까지 완벽하게 관리합니다.</p>
-                <p>다양한 소재와 오염도에 맞는 맞춤형 처리를 제공하여 <br />의류의 수명을 최대한 연장합니다.</p>
+                <p>미국과 유럽에서는 이미 물로 하는 드라이클리닝이 시장에서 대안이 되고 있습니다.</p>
+                <p>세계 최초로 호텔런드리의 무인 셀프 드라이클리닝은 시간과 비용이라는 <br />두가지 혁신을 담아 국내 독보적인 차별화 모델을 만들었습니다.</p>
               </div>
               <div className="hidden lg:block xl:hidden">
-                <p>호텔런드리의 셀프 드라이클리닝은 전문적인 기술과 최신 장비를 통해 섬세한 의류까지 완벽하게 관리합니다.</p>
-                <p>다양한 소재와 오염도에 맞는 맞춤형 처리를 제공하여 의류의 수명을 최대한 연장합니다.</p>
+                <p>미국과 유럽에서는 이미 물로 하는 드라이클리닝이 시장에서 대안이 되고 있습니다.</p>
+                <p>세계 최초로 호텔런드리의 무인 셀프 드라이클리닝은 시간과 비용이라는 두가지 혁신을 담아 국내 독보적인 차별화 모델을 만들었습니다.</p>
               </div>
               <div className="hidden xl:block">
-                <p>호텔런드리의 셀프 드라이클리닝은 전문적인 기술과 최신 장비를 통해 섬세한 의류까지 완벽하게 관리합니다.</p>
-                <p>다양한 소재와 오염도에 맞는 맞춤형 처리를 제공하여 의류의 수명을 최대한 연장합니다.</p>
+                <p>미국과 유럽에서는 이미 물로 하는 드라이클리닝이 시장에서 대안이 되고 있습니다.</p>
+                <p>세계 최초로 호텔런드리의 무인 셀프 드라이클리닝은 시간과 비용이라는 두가지 혁신을 담아 국내 독보적인 차별화 모델을 만들었습니다.</p>
               </div>
             </div>
           </div>
 
-          {/* 드라이클리닝 정보 섹션 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <h2 className="text-2xl font-bold text-[#102254] mb-4">주요 특징</h2>
-              <ul className="space-y-2 text-gray-700">
-                <li>• 전문 드라이클리닝 기술</li>
-                <li>• 섬세한 의류 보호</li>
-                <li>• 다양한 소재 대응</li>
-                <li>• 자동 화학약품 투입</li>
-                <li>• 위생 관리 시스템</li>
-              </ul>
-            </div>
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <h2 className="text-2xl font-bold text-[#102254] mb-4">기술 사양</h2>
-              <ul className="space-y-2 text-gray-700">
-                <li>• 용량: 15kg ~ 30kg</li>
-                <li>• 소비전력: A+++ 등급</li>
-                <li>• 처리 시간: 60~120분</li>
-                <li>• 온도 범위: 20°C ~ 40°C</li>
-                <li>• 소음 수준: 40dB 이하</li>
-              </ul>
+          {/* 비용 비교 섹션 */}
+          <div className="bg-gradient-to-r from-[#102254] to-[#1a3a5c] text-white p-8 rounded-lg mb-12">
+            <div className="text-center">
+              <h2 className="section-title sm:text-2xl md:text-3xl font-bold mb-6">1시간 20분 만에 완성!</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div className="bg-white/10 p-6 rounded-lg">
+                  <h3 className="text-2xl font-bold mb-4 text-red-300">기존 드라이클리닝</h3>
+                  <div className="text-4xl font-bold mb-2">100,000원</div>
+                  <p className="text-lg">옷 몇 벌에 10만원?</p>
+                  <ul className="mt-4 text-sm space-y-1">
+                    <li>• 3-5일 소요</li>
+                    <li>• 높은 비용</li>
+                    <li>• 불편한 방문</li>
+                  </ul>
+                </div>
+                <div className="bg-white/10 p-6 rounded-lg border-2 border-yellow-400">
+                  <h3 className="text-2xl font-bold mb-4 text-yellow-300">호텔런드리 셀프</h3>
+                  <div className="text-4xl font-bold mb-2">15,000원</div>
+                  <p className="text-lg">셀프로 만5천원</p>
+                  <ul className="mt-4 text-sm space-y-1">
+                    <li>• 1시간 20분 완성</li>
+                    <li>• 저렴한 비용</li>
+                    <li>• 편리한 셀프 서비스</li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* 드라이클리닝 프로그램 섹션 */}
+          {/* 국내 세탁시장 규모 섹션 */}
           <div className="mb-12">
-            <h2 className="text-3xl font-bold text-[#102254] mb-8 text-center">드라이클리닝 프로그램</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-white border border-gray-200 p-6 rounded-lg shadow-sm">
-                <h3 className="text-xl font-bold text-[#102254] mb-3">일반 드라이클리닝</h3>
-                <p className="text-gray-600 mb-4">일반적인 정장, 코트 등의 드라이클리닝</p>
-                <ul className="text-sm text-gray-700 space-y-1">
-                  <li>• 처리 시간: 90분</li>
-                  <li>• 온도: 30°C</li>
-                  <li>• 화학약품: 자동</li>
-                </ul>
+            <h2 className="section-title sm:text-2xl md:text-3xl font-bold text-[#102254] mb-8 text-center">국내 세탁시장 규모 및 전망</h2>
+            <div className="bg-white border-2 border-[#102254] p-8 rounded-lg">
+              <div className="text-center mb-6">
+                <p className="text-sm text-gray-600 mb-2">자료: 통계청·세탁업계</p>
+                <p className="text-sm text-gray-500">※2023년 이후는 전망치</p>
               </div>
-              <div className="bg-white border border-gray-200 p-6 rounded-lg shadow-sm">
-                <h3 className="text-xl font-bold text-[#102254] mb-3">섬세한 드라이클리닝</h3>
-                <p className="text-gray-600 mb-4">실크, 울 등 섬세한 소재의 드라이클리닝</p>
-                <ul className="text-sm text-gray-700 space-y-1">
-                  <li>• 처리 시간: 120분</li>
-                  <li>• 온도: 20°C</li>
-                  <li>• 화학약품: 자동</li>
-                </ul>
+              
+              {/* 시장 규모 차트 - 독립형 막대 그래프 */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+                {/* 2018년 */}
+                <div className="text-center">
+                  <div className="text-sm font-semibold mb-6">2018년</div>
+                  <div className="flex justify-center gap-3 h-48 items-end">
+                    {/* 물빨래 막대 */}
+                    <div className="flex flex-col items-center">
+                      <div 
+                        className="bg-[#102254] w-10 rounded-t-lg"
+                        style={{ height: '180px' }}
+                      ></div>
+                      <div className="text-xs mt-2 font-medium">4.3조</div>
+                    </div>
+                    {/* 드라이클리닝 막대 */}
+                    <div className="flex flex-col items-center">
+                      <div 
+                        className="bg-[#E3F2FD] w-10 rounded-t-lg border border-[#102254]"
+                        style={{ height: '10px' }}
+                      ></div>
+                      <div className="text-xs mt-2 font-medium">0.25조</div>
+                    </div>
+                  </div>
+                  <div className="text-lg font-bold text-[#102254] mt-3">총 4.55조원</div>
+                </div>
+
+                {/* 2020년 */}
+                <div className="text-center">
+                  <div className="text-sm font-semibold mb-6">2020년</div>
+                  <div className="flex justify-center gap-3 h-48 items-end">
+                    {/* 물빨래 막대 */}
+                    <div className="flex flex-col items-center">
+                      <div 
+                        className="bg-[#102254] w-10 rounded-t-lg"
+                        style={{ height: '180px' }}
+                      ></div>
+                      <div className="text-xs mt-2 font-medium">4.3조</div>
+                    </div>
+                    {/* 드라이클리닝 막대 */}
+                    <div className="flex flex-col items-center">
+                      <div 
+                        className="bg-[#E3F2FD] w-10 rounded-t-lg border border-[#102254]"
+                        style={{ height: '30px' }}
+                      ></div>
+                      <div className="text-xs mt-2 font-medium">0.7조</div>
+                    </div>
+                  </div>
+                  <div className="text-lg font-bold text-[#102254] mt-3">총 5.0조원</div>
+                </div>
+
+                {/* 2023년 */}
+                <div className="text-center">
+                  <div className="text-sm font-semibold mb-6">2023년</div>
+                  <div className="flex justify-center gap-3 h-48 items-end">
+                    {/* 물빨래 막대 */}
+                    <div className="flex flex-col items-center">
+                      <div 
+                        className="bg-[#102254] w-10 rounded-t-lg"
+                        style={{ height: '170px' }}
+                      ></div>
+                      <div className="text-xs mt-2 font-medium">4.2조</div>
+                    </div>
+                    {/* 드라이클리닝 막대 */}
+                    <div className="flex flex-col items-center">
+                      <div 
+                        className="bg-[#E3F2FD] w-10 rounded-t-lg border border-[#102254]"
+                        style={{ height: '60px' }}
+                      ></div>
+                      <div className="text-xs mt-2 font-medium">1.5조</div>
+                    </div>
+                  </div>
+                  <div className="text-lg font-bold text-[#102254] mt-3">총 5.7조원</div>
+                </div>
+
+                {/* 2028년 */}
+                <div className="text-center">
+                  <div className="text-sm font-semibold mb-6">2028년</div>
+                  <div className="flex justify-center gap-3 h-48 items-end">
+                    {/* 물빨래 막대 */}
+                    <div className="flex flex-col items-center">
+                      <div 
+                        className="bg-[#102254] w-10 rounded-t-lg"
+                        style={{ height: '170px' }}
+                      ></div>
+                      <div className="text-xs mt-2 font-medium">4.2조</div>
+                    </div>
+                    {/* 드라이클리닝 막대 */}
+                    <div className="flex flex-col items-center">
+                      <div 
+                        className="bg-[#E3F2FD] w-10 rounded-t-lg border border-[#102254]"
+                        style={{ height: '120px' }}
+                      ></div>
+                      <div className="text-xs mt-2 font-medium">3.0조</div>
+                    </div>
+                  </div>
+                  <div className="text-lg font-bold text-[#102254] mt-3">총 7.2조원</div>
+                </div>
               </div>
-              <div className="bg-white border border-gray-200 p-6 rounded-lg shadow-sm">
-                <h3 className="text-xl font-bold text-[#102254] mb-3">강력 드라이클리닝</h3>
-                <p className="text-gray-600 mb-4">오염이 심한 의류의 강력한 드라이클리닝</p>
-                <ul className="text-sm text-gray-700 space-y-1">
-                  <li>• 처리 시간: 60분</li>
-                  <li>• 온도: 40°C</li>
-                  <li>• 화학약품: 자동</li>
-                </ul>
+
+              {/* 범례 */}
+              <div className="flex justify-center gap-6 mb-6">
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 bg-[#102254] rounded"></div>
+                  <span className="text-sm text-gray-700">물빨래</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 bg-[#E3F2FD] rounded"></div>
+                  <span className="text-sm text-gray-700">드라이클리닝</span>
+                </div>
+              </div>
+
+              {/* 2028년 강조 */}
+              <div className="text-center bg-yellow-50 p-6 rounded-lg border-2 border-yellow-200">
+                <div className="text-4xl font-bold text-[#102254] mb-2">2028년 세탁 시장 전체 규모</div>
+                <div className="text-5xl font-bold text-red-600">7조 2천억원</div>
+                <p className="text-lg text-gray-700 mt-2">드라이클리닝 시장이 급성장하여 전체 시장의 42%를 차지할 전망</p>
+              </div>
+            </div>
+          </div>
+
+          {/* 물 기반 드라이클리닝 특징 섹션 */}
+          <div className="mb-12">
+            <h2 className="section-title sm:text-2xl md:text-3xl font-bold text-[#102254] mb-8 text-center">물 기반 드라이클리닝의 혁신</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg text-center">
+                <div className="w-16 h-16 bg-[#102254] rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="text-white text-xl">💧</div>
+                </div>
+                <h3 className="text-lg font-bold text-[#102254] mb-3">물 기반 세정</h3>
+                <p className="text-gray-600 text-sm">유해한 화학약품 대신 물을 이용한 안전한 세정</p>
+              </div>
+              <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg text-center">
+                <div className="w-16 h-16 bg-[#102254] rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="text-white text-xl">⚡</div>
+                </div>
+                <h3 className="text-lg font-bold text-[#102254] mb-3">빠른 처리</h3>
+                <p className="text-gray-600 text-sm">1시간 20분 만에 완성되는 고속 처리</p>
+              </div>
+              <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg text-center">
+                <div className="w-16 h-16 bg-[#102254] rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="text-white text-xl">💰</div>
+                </div>
+                <h3 className="text-lg font-bold text-[#102254] mb-3">비용 절약</h3>
+                <p className="text-gray-600 text-sm">기존 대비 85% 비용 절약 (10만원 → 1만5천원)</p>
+              </div>
+              <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg text-center">
+                <div className="w-16 h-16 bg-[#102254] rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="text-white text-xl">🌍</div>
+                </div>
+                <h3 className="text-lg font-bold text-[#102254] mb-3">환경 친화적</h3>
+                <p className="text-gray-600 text-sm">유해 화학물질 배출 없는 친환경 세정</p>
               </div>
             </div>
           </div>
 
           {/* 처리 가능 소재 섹션 */}
           <div className="mb-12">
-            <h2 className="text-3xl font-bold text-[#102254] mb-8 text-center">처리 가능 소재</h2>
+            <h2 className="section-title sm:text-2xl md:text-3xl font-bold text-[#102254] mb-8 text-center">처리 가능 소재</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="bg-white border border-gray-200 p-6 rounded-lg shadow-sm">
                 <h3 className="text-xl font-bold text-[#102254] mb-4">일반 소재</h3>
@@ -213,7 +329,7 @@ const SelfDryCleaning = () => {
 
           {/* 드라이클리닝 과정 섹션 */}
           <div className="mb-12">
-            <h2 className="text-3xl font-bold text-[#102254] mb-8 text-center">드라이클리닝 과정</h2>
+            <h2 className="section-title sm:text-2xl md:text-3xl font-bold text-[#102254] mb-8 text-center">드라이클리닝 과정</h2>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <div className="text-center">
                 <div className="bg-[#102254] text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
@@ -246,13 +362,14 @@ const SelfDryCleaning = () => {
             </div>
           </div>
 
-          {/* 문의 섹션 */}
+          {/* CTA 섹션 */}
           <div className="bg-[#102254] text-white p-8 rounded-lg text-center">
-            <h2 className="text-2xl font-bold mb-4">창업 문의하기</h2>
-            <p className="text-lg mb-6">드라이클리닝에 대한 자세한 정보나 견적 문의가 필요하시면 언제든 연락주세요.</p>
-            <button className="bg-white text-[#102254] px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors">
-              문의하기
-            </button>
+            <h2 className="section-title sm:text-xl md:text-2xl font-bold mb-4">스마트 건조기와 시간과 비용을 절약하세요.</h2>
+            <div className="flex flex-col sm:flex-row gap-4 mt-10 justify-center">
+              <button className="bg-yellow-400 text-[#102254] px-8 py-3 rounded-lg font-bold hover:bg-yellow-300 transition-colors">
+                창업 문의하기
+              </button>
+            </div>
           </div>
         </div>
       </div>
