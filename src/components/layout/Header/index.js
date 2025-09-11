@@ -152,7 +152,7 @@ const Header = () => {
                           : item.id === 'startup-guide'
                           ? '/startup-guide/startup-guide-main'
                           : item.id === 'equipment-intro'
-                          ? '/washing-machine'
+                          ? '/equipment/washing-machine'
                           : item.id === 'management-support'
                           ? '/management-support'
                           : `/${item.id}`
@@ -179,6 +179,8 @@ const Header = () => {
                                   ? `/smart-system/${subItem.id}`
                                   : item.id === 'startup-guide'
                                   ? `/startup-guide/${subItem.id}`
+                                  : item.id === 'equipment-intro'
+                                  ? `/equipment/${subItem.id}`
                                   : `/${subItem.id}`
                               }
                               className={`block w-full text-start px-4 py-3 text-white transition-all duration-200 ${
@@ -188,7 +190,9 @@ const Header = () => {
                                 (item.id === 'smart-system' &&
                                   currentPage === `/smart-system/${subItem.id}`) ||
                                 (item.id === 'startup-guide' &&
-                                  currentPage === `/startup-guide/${subItem.id}`)
+                                  currentPage === `/startup-guide/${subItem.id}`) ||
+                                (item.id === 'equipment-intro' &&
+                                  currentPage === `/equipment/${subItem.id}`)
                                   ? 'underline decoration-underline underline-offset-[5px] font-bold'
                                   : 'hover:underline decoration-underline underline-offset-[5px] hover:font-bold'
                               }`}
@@ -265,6 +269,8 @@ const Header = () => {
                                     ? `/smart-system/${subItem.id}`
                                     : item.id === 'startup-guide'
                                     ? `/startup-guide/${subItem.id}`
+                                    : item.id === 'equipment-intro'
+                                    ? `/equipment/${subItem.id}`
                                     : `/${subItem.id}`
                                 }
                                 onClick={handleMenuClose}
@@ -275,7 +281,9 @@ const Header = () => {
                                   (item.id === 'smart-system' &&
                                     currentPage === `/smart-system/${subItem.id}`) ||
                                   (item.id === 'startup-guide' &&
-                                    currentPage === `/startup-guide/${subItem.id}`)
+                                    currentPage === `/startup-guide/${subItem.id}`) ||
+                                  (item.id === 'equipment-intro' &&
+                                    currentPage === `/equipment/${subItem.id}`)
                                     ? 'text-[#102254] underline decoration-underline underline-offset-[5px] font-bold'
                                     : 'text-black hover:underline decoration-underline underline-offset-[5px] hover:font-bold'
                                 }`}

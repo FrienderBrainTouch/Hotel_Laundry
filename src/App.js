@@ -13,16 +13,12 @@ import FloatingMenu from './components/FloatingMenu';
 import LocalPlatform from './components/AppGuide/LocalPlatform';
 import SameDayPickup from './components/AppGuide/SameDayPickup';
 import AppDownload from './components/AppGuide/AppDownload';
-// Machine Info 컴포넌트들
-import WashingMachine from './components/MachineInfo/WashingMachine';
-import Dryer from './components/MachineInfo/Dryer';
-import SelfDryCleaning from './components/MachineInfo/SelfDryCleaning';
-
 // pages
 import MainPage from './pages/Main';
 import HotelLaundryPage from './pages/HotelLaundry';
 import SmartSystemPage from './pages/SmartSystem';
 import StartupGuidePage from './pages/StartupGuide';
+import EquipmentPage from './pages/Equipment';
 
 // 스크롤 초기화 컴포넌트
 function ScrollToTop() {
@@ -65,9 +61,7 @@ function Layout() {
           <Route path="/store-info" element={<StoreInfo mode="list" />} />
           <Route path="/store-status" element={<StoreInfo mode="list" />} />
           <Route path="/find-store" element={<StoreInfo mode="finder" />} />
-          <Route path="/washing-machine" element={<WashingMachine />} />
-          <Route path="/dryer" element={<Dryer />} />
-          <Route path="/self-dry-cleaning" element={<SelfDryCleaning />} />
+          <Route path="/equipment/*" element={<EquipmentPage />} />
           <Route path="/contact" element={<ContactPage />} />
           {/* App Guide 라우트들 */}
           <Route path="/local-platform" element={<LocalPlatform />} />
