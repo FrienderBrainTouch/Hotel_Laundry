@@ -4,9 +4,6 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 // layout
 import { Header, Footer, FloatingMenu } from './components/layout';
 
-// components
-import ContactPage from './components/Contact';
-
 // pages
 import MainPage from './pages/Main';
 import HotelLaundryPage from './pages/HotelLaundry';
@@ -16,6 +13,7 @@ import EquipmentPage from './pages/Equipment';
 import AppGuidePage from './pages/AppGuide';
 import StoreInfoPage from './pages/StoreInfo';
 import ManagementSupportPage from './pages/ManagementSupport';
+import ContactPage from './pages/Contact';
 
 // 스크롤 초기화 컴포넌트
 function ScrollToTop() {
@@ -56,7 +54,7 @@ function Layout() {
           <Route path="/equipment/*" element={<EquipmentPage />} />
           <Route path="/app-guide/*" element={<AppGuidePage />} />
           <Route path="/management-support/*" element={<ManagementSupportPage />} />
-          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/contact/*" element={<ContactPage />} />
         </Routes>
       </main>
       <Footer />
