@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import homeIcon from '../../StoreInfo/common/home.svg';
+import homeIcon from '../StoreInfo/common/home.svg';
 import CallCenter from './CallCenter';
 import CentralControl from './CentralControl';
 import StoreManagement from './StoreManagement';
