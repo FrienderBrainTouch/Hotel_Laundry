@@ -153,6 +153,8 @@ const Header = () => {
                           ? '/startup-guide/startup-guide-main'
                           : item.id === 'equipment-intro'
                           ? '/equipment/washing-machine'
+                          : item.id === 'store-info'
+                          ? '/store-info/store-status'
                           : item.id === 'management-support'
                           ? '/management-support'
                           : `/${item.id}`
@@ -183,6 +185,8 @@ const Header = () => {
                                   ? `/equipment/${subItem.id}`
                                   : item.id === 'hotel-laundry-app'
                                   ? `/app-guide/${subItem.id}`
+                                  : item.id === 'store-info'
+                                  ? `/store-info/${subItem.id}`
                                   : `/${subItem.id}`
                               }
                               className={`block w-full text-start px-4 py-3 text-white transition-all duration-200 ${
@@ -196,7 +200,9 @@ const Header = () => {
                                 (item.id === 'equipment-intro' &&
                                   currentPage === `/equipment/${subItem.id}`) ||
                                 (item.id === 'hotel-laundry-app' &&
-                                  currentPage === `/app-guide/${subItem.id}`)
+                                  currentPage === `/app-guide/${subItem.id}`) ||
+                                (item.id === 'store-info' &&
+                                  currentPage === `/store-info/${subItem.id}`)
                                   ? 'underline decoration-underline underline-offset-[5px] font-bold'
                                   : 'hover:underline decoration-underline underline-offset-[5px] hover:font-bold'
                               }`}
@@ -249,6 +255,8 @@ const Header = () => {
                               ? '/app-download'
                               : item.id === 'equipment-intro'
                               ? '/washing-machine'
+                              : item.id === 'store-info'
+                              ? '/store-info/store-status'
                               : item.id === 'management-support'
                               ? '/management-support'
                               : `/${item.id}`
@@ -277,6 +285,8 @@ const Header = () => {
                                     ? `/equipment/${subItem.id}`
                                     : item.id === 'hotel-laundry-app'
                                     ? `/app-guide/${subItem.id}`
+                                    : item.id === 'store-info'
+                                    ? `/store-info/${subItem.id}`
                                     : `/${subItem.id}`
                                 }
                                 onClick={handleMenuClose}
@@ -291,7 +301,9 @@ const Header = () => {
                                   (item.id === 'equipment-intro' &&
                                     currentPage === `/equipment/${subItem.id}`) ||
                                   (item.id === 'hotel-laundry-app' &&
-                                    currentPage === `/app-guide/${subItem.id}`)
+                                    currentPage === `/app-guide/${subItem.id}`) ||
+                                  (item.id === 'store-info' &&
+                                    currentPage === `/store-info/${subItem.id}`)
                                     ? 'text-[#102254] underline decoration-underline underline-offset-[5px] font-bold'
                                     : 'text-black hover:underline decoration-underline underline-offset-[5px] hover:font-bold'
                                 }`}
