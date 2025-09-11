@@ -1,31 +1,13 @@
-import './App.css';
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import Header from './components/Header';
-import Hero from './components/Main/Hero';
-import WhyHotelLaundry from './components/Main/WhyHotelLaundry';
-import SmartTech from './components/Main/SmartTech';
-import AboutUs from './components/Main/AboutUs';
-import BeyondLaundry from './components/Main/BeyondLaundry';
-import StepByStep from './components/Main/StepByStep';
-import OurStores from './components/Main/OurStores';
-import Contact from './components/Main/Contact';
-import CompanyIntro from './components/HotelLaundry/CompanyIntro';
-import History from './components/HotelLaundry/History';
-import BrandStory from './components/HotelLaundry/BrandStory';
-import ManagementSupport from './components/HotelLaundry/ManagementSupport';
-import CertificationsPage from './components/HotelLaundry/Certifications';
-import SmartSystem from './components/SmartSystem';
-import AdvancedTech from './components/SmartSystem/AdvancedTech';
-import HygieneManagement from './components/SmartSystem/HygieneManagement';
-import StartupGuide from './components/StartupGuide/StartupMain/StartupGuide';
-import StoreOwnerInterview from './components/StartupGuide/StoreOwnerInterview';
-import SoloStartup from './components/StartupGuide/SoloStartup';
-import BusinessSeminar from './components/StartupGuide/BusinessSeminar';
-import Catalog from './components/StartupGuide/Catalog';
+
+// layout
+import { Header, Footer } from './components/layout';
+
+// components
+import ManagementSupport from './components/ManagementSupport';
 import StoreInfo from './components/StoreInfo';
 import ContactPage from './components/Contact';
-import Footer from './components/Footer';
 import FloatingMenu from './components/FloatingMenu';
 // App Guide 컴포넌트들
 import LocalPlatform from './components/AppGuide/LocalPlatform';
@@ -35,6 +17,12 @@ import AppDownload from './components/AppGuide/AppDownload';
 import WashingMachine from './components/MachineInfo/WashingMachine';
 import Dryer from './components/MachineInfo/Dryer';
 import SelfDryCleaning from './components/MachineInfo/SelfDryCleaning';
+
+// pages
+import MainPage from './pages/Main';
+import HotelLaundryPage from './pages/HotelLaundry';
+import SmartSystemPage from './pages/SmartSystem';
+import StartupGuidePage from './pages/StartupGuide';
 
 // 스크롤 초기화 컴포넌트
 function ScrollToTop() {
@@ -57,22 +45,6 @@ function ScrollToTop() {
   return null;
 }
 
-// 메인 페이지 컴포넌트
-function MainPage() {
-  return (
-    <>
-      <Hero />
-      <WhyHotelLaundry />
-      <SmartTech />
-      <AboutUs />
-      <BeyondLaundry />
-      <StepByStep />
-      <OurStores />
-      <Contact />
-    </>
-  );
-}
-
 // 레이아웃 컴포넌트
 function Layout() {
   const location = useLocation();
@@ -84,22 +56,12 @@ function Layout() {
       <main className="bg-white min-h-screen">
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/company-intro" element={<CompanyIntro />} />
-          <Route path="/history" element={<History />} />
-          <Route path="/brand-story" element={<BrandStory />} />
-          <Route path="/certifications" element={<CertificationsPage />} />
+          <Route path="/hotel-laundry/*" element={<HotelLaundryPage />} />
+          <Route path="/smart-system/*" element={<SmartSystemPage />} />
+          <Route path="/startup-guide/*" element={<StartupGuidePage />} />
           <Route path="/management-support" element={<ManagementSupport />} />
           <Route path="/central-control" element={<ManagementSupport />} />
           <Route path="/store-management" element={<ManagementSupport />} />
-          <Route path="/smart-system" element={<SmartSystem />} />
-          <Route path="/advanced-technology" element={<AdvancedTech />} />
-          <Route path="/status-management" element={<HygieneManagement />} />
-          <Route path="/startup-guide" element={<StartupGuide />} />
-          <Route path="/startup-guide-main" element={<StartupGuide />} />
-          <Route path="/store-owner-interview" element={<StoreOwnerInterview />} />
-          <Route path="/solo-startup" element={<SoloStartup />} />
-          <Route path="/business-seminar" element={<BusinessSeminar />} />
-          <Route path="/catalog" element={<Catalog />} />
           <Route path="/store-info" element={<StoreInfo mode="list" />} />
           <Route path="/store-status" element={<StoreInfo mode="list" />} />
           <Route path="/find-store" element={<StoreInfo mode="finder" />} />

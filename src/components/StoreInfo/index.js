@@ -7,11 +7,7 @@ const StoreInfo = ({ mode = 'list' }) => {
   return (
     <div className="store-info">
       {/* 실제 페이지 콘텐츠 (StoreList 또는 StoreFinder) */}
-      {mode === 'list' || mode === 'store-status' ? (
-        <StoreList />
-      ) : (
-        <StoreFinder />
-      )}
+      {mode === 'list' || mode === 'store-status' ? <StoreList /> : <StoreFinder />}
     </div>
   );
 };
