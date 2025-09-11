@@ -1,108 +1,56 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import homeIcon from '../../StoreInfo/common/home.svg';
+import React from 'react';
 
 const SelfDryCleaning = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuRef = useRef(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setIsMenuOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
-  const handleMenuClose = () => {
-    setIsMenuOpen(false);
-  };
-
   return (
     <section className="py-20 bg-white">
       <div className="flex justify-center">
         <div className="w-full xs:max-w-[355px] sm:max-w-[535px] md:max-w-[728px] lg:max-w-[924px] xl:max-w-[1200px] 2xl:max-w-[1400px] mx-auto">
-          {/* 브레드크럼 */}
-          <div className="mb-8 md:mb-12 w-full xs:w-[355px] sm:w-[535px] md:w-[728px] lg:w-[924px] xl:w-[1200px] 2xl:w-[1400px] mx-auto">
-            <div className="flex items-center gap-2 sm:gap-4 font-pretendard">
-              <Link to="/">
-                <img src={homeIcon} alt="홈" />
-              </Link>
-              <span className="text-brand-dark text-20">/</span>
-              <span className="text-brand-dark text-20">호텔런드리</span>
-              <span className="text-brand-dark text-20">/</span>
-              <div className="relative" ref={menuRef}>
-                <button
-                  onClick={() => setIsMenuOpen(!isMenuOpen)}
-                  className="flex items-center gap-1 text-brand-dark text-20 hover:text-[#102254] transition-colors"
-                >
-                  셀프 드라이클리닝
-                  <span className={`transition-transform duration-200 ${isMenuOpen ? 'rotate-180' : ''}`}>
-                    ▾
-                  </span>
-                </button>
-                {isMenuOpen && (
-                  <div className="absolute top-full left-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-[9998] min-w-[120px]">
-                    <Link
-                      to="/washing-machine"
-                      onClick={handleMenuClose}
-                      className="block w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-50 transition-colors"
-                    >
-                      세탁기
-                    </Link>
-                    <Link
-                      to="/dryer"
-                      onClick={handleMenuClose}
-                      className="block w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-50 transition-colors"
-                    >
-                      건조기
-                    </Link>
-                    <Link
-                      to="/self-dry-cleaning"
-                      onClick={handleMenuClose}
-                      className="block w-full text-left px-4 py-2 text-[#102254] font-medium hover:bg-gray-50 transition-colors"
-                    >
-                      셀프 드라이클리닝
-                    </Link>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-
           {/* 제목 */}
           <div className="text-center mb-[20px] sm:mb-[30px] md:mb-[20px] lg:mb-[30px] xl:mb-[30px] 2xl:mb-[30px] w-full xs:w-[355px] sm:w-[535px] md:w-[728px] lg:w-[924px] xl:w-[1200px] 2xl:w-[1400px] mx-auto">
-            <h1
-              className="hero-title sm:text-[24px] md:text-[28px] lg:text-[32px] xl:text-[36px] 2xl:text-[40px] font-bold leading-normal text-[#1C262B] font-KoPubWorldDotum tracking-[-0.48px] sm:tracking-[-0.48px] md:tracking-[-0.56px] lg:tracking-[-0.64px] xl:tracking-[-0.72px] 2xl:tracking-normal mb-[20px] sm:mb-[30px] md:mb-[20px] lg:mb-[30px] xl:mb-[30px] 2xl:mb-[30px]"
-            >
+            <h1 className="hero-title sm:text-[24px] md:text-[28px] lg:text-[32px] xl:text-[36px] 2xl:text-[40px] font-bold leading-normal text-[#1C262B] font-KoPubWorldDotum tracking-[-0.48px] sm:tracking-[-0.48px] md:tracking-[-0.56px] lg:tracking-[-0.64px] xl:tracking-[-0.72px] 2xl:tracking-normal mb-[20px] sm:mb-[30px] md:mb-[20px] lg:mb-[30px] xl:mb-[30px] 2xl:mb-[30px]">
               <span className="block 2xl:hidden">물로하는 깨끗한 Self Dry Cleaning</span>
-              <span className="hidden 2xl:block">물로하는 깨끗한 Self Dry Cleaning - 드라이클리닝도 셀프시대</span>
+              <span className="hidden 2xl:block">
+                물로하는 깨끗한 Self Dry Cleaning - 드라이클리닝도 셀프시대
+              </span>
             </h1>
 
             {/* 부제목 */}
-            <div
-              className="text-center mx-auto text-24 sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] font-light leading-normal text-[#1C262B] font-KoPubWorldDotum tracking-[-0.32px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px]"
-            >
+            <div className="text-center mx-auto text-24 sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] font-light leading-normal text-[#1C262B] font-KoPubWorldDotum tracking-[-0.32px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px]">
               <div className="block sm:hidden">
-                <p className="mb-8">미국과 유럽에서는 이미 물로 하는 드라이클리닝이 시장에서 대안이 되고 있습니다.</p>
-                <p>세계 최초로 호텔런드리의 무인 셀프 드라이클리닝은 시간과 비용이라는 두가지 혁신을 담아 국내 독보적인 차별화 모델을 만들었습니다.</p>
+                <p className="mb-8">
+                  미국과 유럽에서는 이미 물로 하는 드라이클리닝이 시장에서 대안이 되고 있습니다.
+                </p>
+                <p>
+                  세계 최초로 호텔런드리의 무인 셀프 드라이클리닝은 시간과 비용이라는 두가지 혁신을
+                  담아 국내 독보적인 차별화 모델을 만들었습니다.
+                </p>
               </div>
               <div className="hidden sm:block lg:hidden">
-                <p>미국과 유럽에서는 이미 물로 하는 드라이클리닝이 시장에서 대안이 되고 있습니다.</p>
-                <p>세계 최초로 호텔런드리의 무인 셀프 드라이클리닝은 시간과 비용이라는 <br />두가지 혁신을 담아 국내 독보적인 차별화 모델을 만들었습니다.</p>
+                <p>
+                  미국과 유럽에서는 이미 물로 하는 드라이클리닝이 시장에서 대안이 되고 있습니다.
+                </p>
+                <p>
+                  세계 최초로 호텔런드리의 무인 셀프 드라이클리닝은 시간과 비용이라는 <br />
+                  두가지 혁신을 담아 국내 독보적인 차별화 모델을 만들었습니다.
+                </p>
               </div>
               <div className="hidden lg:block xl:hidden">
-                <p>미국과 유럽에서는 이미 물로 하는 드라이클리닝이 시장에서 대안이 되고 있습니다.</p>
-                <p>세계 최초로 호텔런드리의 무인 셀프 드라이클리닝은 시간과 비용이라는 두가지 혁신을 담아 국내 독보적인 차별화 모델을 만들었습니다.</p>
+                <p>
+                  미국과 유럽에서는 이미 물로 하는 드라이클리닝이 시장에서 대안이 되고 있습니다.
+                </p>
+                <p>
+                  세계 최초로 호텔런드리의 무인 셀프 드라이클리닝은 시간과 비용이라는 두가지 혁신을
+                  담아 국내 독보적인 차별화 모델을 만들었습니다.
+                </p>
               </div>
               <div className="hidden xl:block">
-                <p>미국과 유럽에서는 이미 물로 하는 드라이클리닝이 시장에서 대안이 되고 있습니다.</p>
-                <p>세계 최초로 호텔런드리의 무인 셀프 드라이클리닝은 시간과 비용이라는 두가지 혁신을 담아 국내 독보적인 차별화 모델을 만들었습니다.</p>
+                <p>
+                  미국과 유럽에서는 이미 물로 하는 드라이클리닝이 시장에서 대안이 되고 있습니다.
+                </p>
+                <p>
+                  세계 최초로 호텔런드리의 무인 셀프 드라이클리닝은 시간과 비용이라는 두가지 혁신을
+                  담아 국내 독보적인 차별화 모델을 만들었습니다.
+                </p>
               </div>
             </div>
           </div>
@@ -110,7 +58,9 @@ const SelfDryCleaning = () => {
           {/* 비용 비교 섹션 */}
           <div className="bg-gradient-to-r from-[#102254] to-[#1a3a5c] text-white p-8 rounded-lg mb-12">
             <div className="text-center">
-              <h2 className="section-title sm:text-2xl md:text-3xl font-bold mb-6">1시간 20분 만에 완성!</h2>
+              <h2 className="section-title sm:text-2xl md:text-3xl font-bold mb-6">
+                1시간 20분 만에 완성!
+              </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                 <div className="bg-white/10 p-6 rounded-lg">
                   <h3 className="text-2xl font-bold mb-4 text-red-300">기존 드라이클리닝</h3>
@@ -138,13 +88,15 @@ const SelfDryCleaning = () => {
 
           {/* 국내 세탁시장 규모 섹션 */}
           <div className="mb-12">
-            <h2 className="section-title sm:text-2xl md:text-3xl font-bold text-[#102254] mb-8 text-center">국내 세탁시장 규모 및 전망</h2>
+            <h2 className="section-title sm:text-2xl md:text-3xl font-bold text-[#102254] mb-8 text-center">
+              국내 세탁시장 규모 및 전망
+            </h2>
             <div className="bg-white border-2 border-[#102254] p-8 rounded-lg">
               <div className="text-center mb-6">
                 <p className="text-sm text-gray-600 mb-2">자료: 통계청·세탁업계</p>
                 <p className="text-sm text-gray-500">※2023년 이후는 전망치</p>
               </div>
-              
+
               {/* 시장 규모 차트 - 독립형 막대 그래프 */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
                 {/* 2018년 */}
@@ -153,7 +105,7 @@ const SelfDryCleaning = () => {
                   <div className="flex justify-center gap-3 h-48 items-end">
                     {/* 물빨래 막대 */}
                     <div className="flex flex-col items-center">
-                      <div 
+                      <div
                         className="bg-[#102254] w-10 rounded-t-lg"
                         style={{ height: '180px' }}
                       ></div>
@@ -161,7 +113,7 @@ const SelfDryCleaning = () => {
                     </div>
                     {/* 드라이클리닝 막대 */}
                     <div className="flex flex-col items-center">
-                      <div 
+                      <div
                         className="bg-[#E3F2FD] w-10 rounded-t-lg border border-[#102254]"
                         style={{ height: '10px' }}
                       ></div>
@@ -177,7 +129,7 @@ const SelfDryCleaning = () => {
                   <div className="flex justify-center gap-3 h-48 items-end">
                     {/* 물빨래 막대 */}
                     <div className="flex flex-col items-center">
-                      <div 
+                      <div
                         className="bg-[#102254] w-10 rounded-t-lg"
                         style={{ height: '180px' }}
                       ></div>
@@ -185,7 +137,7 @@ const SelfDryCleaning = () => {
                     </div>
                     {/* 드라이클리닝 막대 */}
                     <div className="flex flex-col items-center">
-                      <div 
+                      <div
                         className="bg-[#E3F2FD] w-10 rounded-t-lg border border-[#102254]"
                         style={{ height: '30px' }}
                       ></div>
@@ -201,7 +153,7 @@ const SelfDryCleaning = () => {
                   <div className="flex justify-center gap-3 h-48 items-end">
                     {/* 물빨래 막대 */}
                     <div className="flex flex-col items-center">
-                      <div 
+                      <div
                         className="bg-[#102254] w-10 rounded-t-lg"
                         style={{ height: '170px' }}
                       ></div>
@@ -209,7 +161,7 @@ const SelfDryCleaning = () => {
                     </div>
                     {/* 드라이클리닝 막대 */}
                     <div className="flex flex-col items-center">
-                      <div 
+                      <div
                         className="bg-[#E3F2FD] w-10 rounded-t-lg border border-[#102254]"
                         style={{ height: '60px' }}
                       ></div>
@@ -225,7 +177,7 @@ const SelfDryCleaning = () => {
                   <div className="flex justify-center gap-3 h-48 items-end">
                     {/* 물빨래 막대 */}
                     <div className="flex flex-col items-center">
-                      <div 
+                      <div
                         className="bg-[#102254] w-10 rounded-t-lg"
                         style={{ height: '170px' }}
                       ></div>
@@ -233,7 +185,7 @@ const SelfDryCleaning = () => {
                     </div>
                     {/* 드라이클리닝 막대 */}
                     <div className="flex flex-col items-center">
-                      <div 
+                      <div
                         className="bg-[#E3F2FD] w-10 rounded-t-lg border border-[#102254]"
                         style={{ height: '120px' }}
                       ></div>
@@ -258,23 +210,31 @@ const SelfDryCleaning = () => {
 
               {/* 2028년 강조 */}
               <div className="text-center bg-yellow-50 p-6 rounded-lg border-2 border-yellow-200">
-                <div className="text-4xl font-bold text-[#102254] mb-2">2028년 세탁 시장 전체 규모</div>
+                <div className="text-4xl font-bold text-[#102254] mb-2">
+                  2028년 세탁 시장 전체 규모
+                </div>
                 <div className="text-5xl font-bold text-red-600">7조 2천억원</div>
-                <p className="text-lg text-gray-700 mt-2">드라이클리닝 시장이 급성장하여 전체 시장의 42%를 차지할 전망</p>
+                <p className="text-lg text-gray-700 mt-2">
+                  드라이클리닝 시장이 급성장하여 전체 시장의 42%를 차지할 전망
+                </p>
               </div>
             </div>
           </div>
 
           {/* 물 기반 드라이클리닝 특징 섹션 */}
           <div className="mb-12">
-            <h2 className="section-title sm:text-2xl md:text-3xl font-bold text-[#102254] mb-8 text-center">물 기반 드라이클리닝의 혁신</h2>
+            <h2 className="section-title sm:text-2xl md:text-3xl font-bold text-[#102254] mb-8 text-center">
+              물 기반 드라이클리닝의 혁신
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg text-center">
                 <div className="w-16 h-16 bg-[#102254] rounded-full flex items-center justify-center mx-auto mb-4">
                   <div className="text-white text-xl">💧</div>
                 </div>
                 <h3 className="text-lg font-bold text-[#102254] mb-3">물 기반 세정</h3>
-                <p className="text-gray-600 text-sm">유해한 화학약품 대신 물을 이용한 안전한 세정</p>
+                <p className="text-gray-600 text-sm">
+                  유해한 화학약품 대신 물을 이용한 안전한 세정
+                </p>
               </div>
               <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg text-center">
                 <div className="w-16 h-16 bg-[#102254] rounded-full flex items-center justify-center mx-auto mb-4">
@@ -302,7 +262,9 @@ const SelfDryCleaning = () => {
 
           {/* 처리 가능 소재 섹션 */}
           <div className="mb-12">
-            <h2 className="section-title sm:text-2xl md:text-3xl font-bold text-[#102254] mb-8 text-center">처리 가능 소재</h2>
+            <h2 className="section-title sm:text-2xl md:text-3xl font-bold text-[#102254] mb-8 text-center">
+              처리 가능 소재
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="bg-white border border-gray-200 p-6 rounded-lg shadow-sm">
                 <h3 className="text-xl font-bold text-[#102254] mb-4">일반 소재</h3>
@@ -329,7 +291,9 @@ const SelfDryCleaning = () => {
 
           {/* 드라이클리닝 과정 섹션 */}
           <div className="mb-12">
-            <h2 className="section-title sm:text-2xl md:text-3xl font-bold text-[#102254] mb-8 text-center">드라이클리닝 과정</h2>
+            <h2 className="section-title sm:text-2xl md:text-3xl font-bold text-[#102254] mb-8 text-center">
+              드라이클리닝 과정
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <div className="text-center">
                 <div className="bg-[#102254] text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
@@ -364,7 +328,9 @@ const SelfDryCleaning = () => {
 
           {/* CTA 섹션 */}
           <div className="bg-[#102254] text-white p-8 rounded-lg text-center">
-            <h2 className="section-title sm:text-xl md:text-2xl font-bold mb-4">스마트 건조기와 시간과 비용을 절약하세요.</h2>
+            <h2 className="section-title sm:text-xl md:text-2xl font-bold mb-4">
+              스마트 건조기와 시간과 비용을 절약하세요.
+            </h2>
             <div className="flex flex-col sm:flex-row gap-4 mt-10 justify-center">
               <button className="bg-yellow-400 text-[#102254] px-8 py-3 rounded-lg font-bold hover:bg-yellow-300 transition-colors">
                 창업 문의하기

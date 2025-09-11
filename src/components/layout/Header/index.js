@@ -144,13 +144,15 @@ const Header = () => {
                     <Link
                       to={
                         item.id === 'hotel-laundry'
-                          ? '/company-intro'
+                          ? '/hotel-laundry/company-intro'
                           : item.id === 'hotel-laundry-app'
-                          ? '/app-download'
+                          ? '/app-guide/local-platform'
                           : item.id === 'smart-system'
-                          ? '/smart-system'
+                          ? '/smart-system/smart-system'
+                          : item.id === 'startup-guide'
+                          ? '/startup-guide/startup-guide-main'
                           : item.id === 'equipment-intro'
-                          ? '/washing-machine'
+                          ? '/equipment/washing-machine'
                           : item.id === 'management-support'
                           ? '/management-support'
                           : `/${item.id}`
@@ -170,9 +172,31 @@ const Header = () => {
                           {item.submenu.map((subItem) => (
                             <Link
                               key={subItem.id}
-                              to={`/${subItem.id}`}
+                              to={
+                                item.id === 'hotel-laundry'
+                                  ? `/hotel-laundry/${subItem.id}`
+                                  : item.id === 'smart-system'
+                                  ? `/smart-system/${subItem.id}`
+                                  : item.id === 'startup-guide'
+                                  ? `/startup-guide/${subItem.id}`
+                                  : item.id === 'equipment-intro'
+                                  ? `/equipment/${subItem.id}`
+                                  : item.id === 'hotel-laundry-app'
+                                  ? `/app-guide/${subItem.id}`
+                                  : `/${subItem.id}`
+                              }
                               className={`block w-full text-start px-4 py-3 text-white transition-all duration-200 ${
-                                currentPage === `/${subItem.id}`
+                                currentPage === `/${subItem.id}` ||
+                                (item.id === 'hotel-laundry' &&
+                                  currentPage === `/hotel-laundry/${subItem.id}`) ||
+                                (item.id === 'smart-system' &&
+                                  currentPage === `/smart-system/${subItem.id}`) ||
+                                (item.id === 'startup-guide' &&
+                                  currentPage === `/startup-guide/${subItem.id}`) ||
+                                (item.id === 'equipment-intro' &&
+                                  currentPage === `/equipment/${subItem.id}`) ||
+                                (item.id === 'hotel-laundry-app' &&
+                                  currentPage === `/app-guide/${subItem.id}`)
                                   ? 'underline decoration-underline underline-offset-[5px] font-bold'
                                   : 'hover:underline decoration-underline underline-offset-[5px] hover:font-bold'
                               }`}
@@ -242,10 +266,32 @@ const Header = () => {
                           {item.submenu.map((subItem) => (
                             <div key={subItem.id} className="mb-2 last:mb-0">
                               <Link
-                                to={`/${subItem.id}`}
+                                to={
+                                  item.id === 'hotel-laundry'
+                                    ? `/hotel-laundry/${subItem.id}`
+                                    : item.id === 'smart-system'
+                                    ? `/smart-system/${subItem.id}`
+                                    : item.id === 'startup-guide'
+                                    ? `/startup-guide/${subItem.id}`
+                                    : item.id === 'equipment-intro'
+                                    ? `/equipment/${subItem.id}`
+                                    : item.id === 'hotel-laundry-app'
+                                    ? `/app-guide/${subItem.id}`
+                                    : `/${subItem.id}`
+                                }
                                 onClick={handleMenuClose}
                                 className={`text-left w-full py-2 px-2 ${
-                                  currentPage === `/${subItem.id}`
+                                  currentPage === `/${subItem.id}` ||
+                                  (item.id === 'hotel-laundry' &&
+                                    currentPage === `/hotel-laundry/${subItem.id}`) ||
+                                  (item.id === 'smart-system' &&
+                                    currentPage === `/smart-system/${subItem.id}`) ||
+                                  (item.id === 'startup-guide' &&
+                                    currentPage === `/startup-guide/${subItem.id}`) ||
+                                  (item.id === 'equipment-intro' &&
+                                    currentPage === `/equipment/${subItem.id}`) ||
+                                  (item.id === 'hotel-laundry-app' &&
+                                    currentPage === `/app-guide/${subItem.id}`)
                                     ? 'text-[#102254] underline decoration-underline underline-offset-[5px] font-bold'
                                     : 'text-black hover:underline decoration-underline underline-offset-[5px] hover:font-bold'
                                 }`}
