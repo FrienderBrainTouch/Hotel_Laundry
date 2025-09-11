@@ -9,16 +9,13 @@ import ManagementSupport from './components/ManagementSupport';
 import StoreInfo from './components/StoreInfo';
 import ContactPage from './components/Contact';
 import FloatingMenu from './components/FloatingMenu';
-// App Guide 컴포넌트들
-import LocalPlatform from './components/AppGuide/LocalPlatform';
-import SameDayPickup from './components/AppGuide/SameDayPickup';
-import AppDownload from './components/AppGuide/AppDownload';
 // pages
 import MainPage from './pages/Main';
 import HotelLaundryPage from './pages/HotelLaundry';
 import SmartSystemPage from './pages/SmartSystem';
 import StartupGuidePage from './pages/StartupGuide';
 import EquipmentPage from './pages/Equipment';
+import AppGuidePage from './pages/AppGuide';
 
 // 스크롤 초기화 컴포넌트
 function ScrollToTop() {
@@ -62,11 +59,8 @@ function Layout() {
           <Route path="/store-status" element={<StoreInfo mode="list" />} />
           <Route path="/find-store" element={<StoreInfo mode="finder" />} />
           <Route path="/equipment/*" element={<EquipmentPage />} />
+          <Route path="/app-guide/*" element={<AppGuidePage />} />
           <Route path="/contact" element={<ContactPage />} />
-          {/* App Guide 라우트들 */}
-          <Route path="/local-platform" element={<LocalPlatform />} />
-          <Route path="/same-day-pickup" element={<SameDayPickup />} />
-          <Route path="/app-download" element={<AppDownload />} />
         </Routes>
       </main>
       <Footer />
