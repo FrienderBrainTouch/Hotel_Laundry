@@ -2,13 +2,8 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 
 // layout
-import { Header, Footer } from './components/layout';
+import { Header, Footer, FloatingMenu } from './components/layout';
 
-// components
-import ManagementSupport from './components/ManagementSupport';
-import StoreInfo from './components/StoreInfo';
-import ContactPage from './components/Contact';
-import FloatingMenu from './components/FloatingMenu';
 // pages
 import MainPage from './pages/Main';
 import HotelLaundryPage from './pages/HotelLaundry';
@@ -16,6 +11,9 @@ import SmartSystemPage from './pages/SmartSystem';
 import StartupGuidePage from './pages/StartupGuide';
 import EquipmentPage from './pages/Equipment';
 import AppGuidePage from './pages/AppGuide';
+import StoreInfoPage from './pages/StoreInfo';
+import ManagementSupportPage from './pages/ManagementSupport';
+import ContactPage from './pages/Contact';
 
 // 스크롤 초기화 컴포넌트
 function ScrollToTop() {
@@ -52,15 +50,11 @@ function Layout() {
           <Route path="/hotel-laundry/*" element={<HotelLaundryPage />} />
           <Route path="/smart-system/*" element={<SmartSystemPage />} />
           <Route path="/startup-guide/*" element={<StartupGuidePage />} />
-          <Route path="/management-support" element={<ManagementSupport />} />
-          <Route path="/central-control" element={<ManagementSupport />} />
-          <Route path="/store-management" element={<ManagementSupport />} />
-          <Route path="/store-info" element={<StoreInfo mode="list" />} />
-          <Route path="/store-status" element={<StoreInfo mode="list" />} />
-          <Route path="/find-store" element={<StoreInfo mode="finder" />} />
+          <Route path="/store-info/*" element={<StoreInfoPage />} />
           <Route path="/equipment/*" element={<EquipmentPage />} />
           <Route path="/app-guide/*" element={<AppGuidePage />} />
-          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/management-support/*" element={<ManagementSupportPage />} />
+          <Route path="/contact/*" element={<ContactPage />} />
         </Routes>
       </main>
       <Footer />

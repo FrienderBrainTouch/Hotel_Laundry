@@ -153,8 +153,10 @@ const Header = () => {
                           ? '/startup-guide/startup-guide-main'
                           : item.id === 'equipment-intro'
                           ? '/equipment/washing-machine'
+                          : item.id === 'store-info'
+                          ? '/store-info/store-status'
                           : item.id === 'management-support'
-                          ? '/management-support'
+                          ? '/management-support/management-support'
                           : `/${item.id}`
                       }
                       className={`whitespace-nowrap text-white font-pretendard text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] 2xl:text-[24px] font-medium leading-normal transition-all duration-200 ${
@@ -183,6 +185,10 @@ const Header = () => {
                                   ? `/equipment/${subItem.id}`
                                   : item.id === 'hotel-laundry-app'
                                   ? `/app-guide/${subItem.id}`
+                                  : item.id === 'store-info'
+                                  ? `/store-info/${subItem.id}`
+                                  : item.id === 'management-support'
+                                  ? `/management-support/${subItem.id}`
                                   : `/${subItem.id}`
                               }
                               className={`block w-full text-start px-4 py-3 text-white transition-all duration-200 ${
@@ -196,7 +202,11 @@ const Header = () => {
                                 (item.id === 'equipment-intro' &&
                                   currentPage === `/equipment/${subItem.id}`) ||
                                 (item.id === 'hotel-laundry-app' &&
-                                  currentPage === `/app-guide/${subItem.id}`)
+                                  currentPage === `/app-guide/${subItem.id}`) ||
+                                (item.id === 'store-info' &&
+                                  currentPage === `/store-info/${subItem.id}`) ||
+                                (item.id === 'management-support' &&
+                                  currentPage === `/management-support/${subItem.id}`)
                                   ? 'underline decoration-underline underline-offset-[5px] font-bold'
                                   : 'hover:underline decoration-underline underline-offset-[5px] hover:font-bold'
                               }`}
@@ -249,8 +259,10 @@ const Header = () => {
                               ? '/app-download'
                               : item.id === 'equipment-intro'
                               ? '/washing-machine'
+                              : item.id === 'store-info'
+                              ? '/store-info/store-status'
                               : item.id === 'management-support'
-                              ? '/management-support'
+                              ? '/management-support/management-support'
                               : `/${item.id}`
                           }
                           onClick={handleMenuClose}
@@ -277,6 +289,10 @@ const Header = () => {
                                     ? `/equipment/${subItem.id}`
                                     : item.id === 'hotel-laundry-app'
                                     ? `/app-guide/${subItem.id}`
+                                    : item.id === 'store-info'
+                                    ? `/store-info/${subItem.id}`
+                                    : item.id === 'management-support'
+                                    ? `/management-support/${subItem.id}`
                                     : `/${subItem.id}`
                                 }
                                 onClick={handleMenuClose}
@@ -291,7 +307,11 @@ const Header = () => {
                                   (item.id === 'equipment-intro' &&
                                     currentPage === `/equipment/${subItem.id}`) ||
                                   (item.id === 'hotel-laundry-app' &&
-                                    currentPage === `/app-guide/${subItem.id}`)
+                                    currentPage === `/app-guide/${subItem.id}`) ||
+                                  (item.id === 'store-info' &&
+                                    currentPage === `/store-info/${subItem.id}`) ||
+                                  (item.id === 'management-support' &&
+                                    currentPage === `/management-support/${subItem.id}`)
                                     ? 'text-[#102254] underline decoration-underline underline-offset-[5px] font-bold'
                                     : 'text-black hover:underline decoration-underline underline-offset-[5px] hover:font-bold'
                                 }`}

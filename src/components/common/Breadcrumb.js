@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import homeIcon from '../StoreInfo/common/home.svg';
+import homeIcon from '../common/home.svg';
 
 const Breadcrumb = ({
   items = [],
