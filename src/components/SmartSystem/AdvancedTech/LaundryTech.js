@@ -9,7 +9,8 @@ const LaundryTech = () => {
           세탁방 최신 기술
         </h2>
         <p className="section-subtitle md:text-24 text-brand-dark leading-relaxed max-w-4xl mx-auto">
-          호텔런드리는 세탁 산업의 혁신을 위해 최첨단 기술을 도입하여<br />
+          호텔런드리는 세탁 산업의 혁신을 위해 최첨단 기술을 도입하여
+          <br />
           고객에게 최고의 서비스를 제공합니다.
         </p>
       </div>
@@ -23,12 +24,17 @@ const LaundryTech = () => {
               <span className="text-white text-2xl">🧺</span>
             </div>
             <h3 className="text-24 md:text-28 font-bold text-brand-blue font-KoPubWorldBatang mb-4">
-              AI 세탁 최적화
+              셀프 드라이 클리닝과 물세탁이 하나로
             </h3>
             <div className="w-12 h-1 bg-gradient-to-r from-brand-blue to-brand-light-blue mx-auto mb-4"></div>
             <p className="text-20 text-brand-dark leading-relaxed">
-              섬유 종류와 오염도를 자동 감지하여<br />
-              최적의 세탁 프로그램을 선택합니다.
+              민감한 옷감도 손상 없이 세탁할 수 있는
+              <br />
+              강력한 에어 샤워 버블 기능과 최소한의 열만으로
+              <br />
+              강력한 공기 흐름을 만들어 옷감 변형 없이
+              <br />
+              건조시키는 첨단 장비입니다.
             </p>
           </div>
         </div>
@@ -44,7 +50,8 @@ const LaundryTech = () => {
             </h3>
             <div className="w-12 h-1 bg-gradient-to-r from-brand-light-blue to-brand-blue mx-auto mb-4"></div>
             <p className="text-20 text-brand-dark leading-relaxed">
-              QR코드, 카드, 모바일 결제를 통한<br />
+              QR코드, 카드, 모바일 결제를 통한
+              <br />
               완전 무인 운영이 가능합니다.
             </p>
           </div>
@@ -61,7 +68,8 @@ const LaundryTech = () => {
             </h3>
             <div className="w-12 h-1 bg-gradient-to-r from-brand-blue to-brand-dark mx-auto mb-4"></div>
             <p className="text-20 text-brand-dark leading-relaxed">
-              스마트폰으로 언제 어디서나<br />
+              스마트폰으로 언제 어디서나
+              <br />
               매장 상태를 실시간 확인할 수 있습니다.
             </p>
           </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import BannerImg from '../../../image/banner.jpg';
 
 const Dryer = () => {
   return (
@@ -9,7 +10,7 @@ const Dryer = () => {
           <div className="mb-[30px] sm:mb-[30px] md:mb-[30px] lg:mb-[40px] xl:mb-[50px] 2xl:mb-[50px]">
             <div className="relative">
               <img
-                src="/images/CompanyInfo/Company-1.png"
+                src={BannerImg}
                 alt="호텔런드리 스마트 건조기"
                 className="mx-auto object-cover rounded-[30px] sm:rounded-[40px] md:rounded-[40px] lg:rounded-[50px] xl:rounded-[50px] 2xl:rounded-[50px] w-full h-auto xs:w-[355px] xs:h-[180px] sm:w-[535px] sm:h-[200px] md:w-[728px] md:h-[300px] lg:w-[924px] lg:h-[300px] xl:w-[1200px] xl:h-[350px] 2xl:w-[1400px] 2xl:h-[400px]"
               />

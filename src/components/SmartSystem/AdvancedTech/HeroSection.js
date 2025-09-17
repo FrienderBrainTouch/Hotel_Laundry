@@ -26,8 +26,9 @@ const HeroSection = () => {
           호텔런드리의 혁신적인 첨단기술
         </h2>
         <p className="section-subtitle md:text-24 text-brand-dark leading-relaxed max-w-4xl mx-auto">
-          최신 IoT, AI, 자동화 기술을 활용하여 세탁 산업의 새로운 패러다임을 제시합니다.<br />
-          스마트한 세탁 솔루션으로 고객의 편의성과 운영 효율성을 극대화합니다.
+          최신 IoT, AI, 자동화 기술을 활용하여 세탁 산업의 새로운 패러다임을 제시합니다.
+          <br />
+          고객, 점주 모두가 만족하는 첨단기술을 소개합니다.
         </p>
       </div>
     </div>
