@@ -1,5 +1,4 @@
 import React from 'react';
-import IoTImg from '../../../image/iot_ai.png';
 import AIIoTImg from '../../../image/ai_iot.jpeg';
 
 const IoTOverview = () => {
