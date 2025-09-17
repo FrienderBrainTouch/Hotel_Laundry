@@ -1,4 +1,6 @@
 import React from 'react';
+import logoEn from '../../../image/logo.png';
+import logoKr from '../../../image/logo-kr.png';
 
 const BrandIdentity = () => {
   return (
@@ -17,103 +19,94 @@ const BrandIdentity = () => {
               </h3>
               <div className="mb-8">
                 <p className="text-brand-dark text-20 mb-4">
-                  컬러는 우리의 브랜드 이미지를 효과적으로 표현할 수 있는 디자인 요소입니다.
+                  컬러를 통해 호텔급 프리미엄과 세탁의 청량감을 동시에 전달합니다.
                 </p>
                 <p className="text-brand-dark text-20">
-                  투명한 에메랄드 컬러와 선샤인 엘로우 컬러를 직관적으로 보여줌으로써 빨래하기 좋은 날의 기분과 상황을 생동감있게 전달합니다.
+                  오감 브랜딩을 통해 시각, 촉각, 후각, 미각, 청각을 만족시키는 컬러/무드를
+                  연출합니다.
                 </p>
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-                <div className="text-center">
-                  <div className="w-full h-24 md:h-32 rounded-full mb-4" style={{backgroundColor: '#4ECDC4'}}></div>
-                  <p className="text-brand-dark text-20 font-medium">TRANSPARENT EMERALD</p>
-                  <p className="text-gray-600 text-20">#4ECDC4</p>
-                </div>
-                <div className="text-center">
-                  <div className="w-full h-24 md:h-32 rounded-full mb-4" style={{backgroundColor: '#FFD93D'}}></div>
-                  <p className="text-brand-dark text-20 font-medium">SUNSHINE YELLOW</p>
-                  <p className="text-gray-600 text-20">#FFD93D</p>
-                </div>
-                <div className="text-center">
-                  <div className="w-full h-24 md:h-32 rounded-full mb-4 bg-white border-2 border-gray-200"></div>
-                  <p className="text-brand-dark text-20 font-medium">FLUFFY WHITE</p>
-                  <p className="text-gray-600 text-20">#FFFFFF</p>
-                </div>
-                <div className="text-center">
-                  <div className="w-full h-24 md:h-32 rounded-full mb-4" style={{backgroundColor: '#1C262B'}}></div>
-                  <p className="text-brand-dark text-20 font-medium">TIDY NAVY</p>
-                  <p className="text-gray-600 text-20">#1C262B</p>
-                </div>
-              </div>
-              {/* 주요 컬러 강조 */}
-              <div className="flex justify-center gap-12">
-                <div className="text-center">
-                  <div className="w-32 h-32 rounded-full mb-4" style={{backgroundColor: '#4ECDC4'}}></div>
-                  <p className="text-brand-dark text-20 font-medium">TRANSPARENT EMERALD</p>
-                </div>
-                <div className="text-center">
-                  <div className="w-32 h-32 rounded-full mb-4" style={{backgroundColor: '#FFD93D'}}></div>
-                  <p className="text-brand-dark text-20 font-medium">SUNSHINE YELLOW</p>
+
+              {/* 브랜드 컬러 팔레트 */}
+              <div className="mb-8">
+                <div className="grid grid-cols-2 md:grid-cols-5 gap-6 mb-8">
+                  <div className="text-center">
+                    <div
+                      className="w-full h-24 md:h-32 rounded-full mb-4"
+                      style={{ backgroundColor: '#8B4513' }}
+                    ></div>
+                    <p className="text-brand-dark text-20 font-medium">HUGGABLE RED</p>
+                  </div>
+                  <div className="text-center">
+                    <div
+                      className="w-full h-24 md:h-32 rounded-full mb-4"
+                      style={{ backgroundColor: '#87CEEB' }}
+                    ></div>
+                    <p className="text-brand-dark text-20 font-medium">SOAPY BLUE</p>
+                  </div>
+                  <div className="text-center">
+                    <div
+                      className="w-full h-24 md:h-32 rounded-full mb-4"
+                      style={{ backgroundColor: '#696969' }}
+                    ></div>
+                    <p className="text-brand-dark text-20 font-medium">MOOD GRAY</p>
+                  </div>
+                  <div className="text-center">
+                    <div
+                      className="w-full h-24 md:h-32 rounded-full mb-4"
+                      style={{ backgroundColor: '#FFB6C1' }}
+                    ></div>
+                    <p className="text-brand-dark text-20 font-medium">SPARKLING PINK</p>
+                  </div>
+                  <div className="text-center">
+                    <div
+                      className="w-full h-24 md:h-32 rounded-full mb-4"
+                      style={{ backgroundColor: '#F5DEB3' }}
+                    ></div>
+                    <p className="text-brand-dark text-20 font-medium">LAZY BEIGE</p>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* 브랜드 로고 */}
+            {/* 브랜드 로고 시스템 */}
             <div className="mb-16">
               <h3 className="text-brand-blue font-KoPubWorldBatang section-subtitle md:text-2xl mb-8">
-                브랜드 로고
+                LOGO SYSTEM
               </h3>
-              <div className="grid md:grid-cols-2 gap-8">
-                <div className="bg-white rounded-xl p-8 shadow-sm">
-                  <div className="w-full h-32 md:h-40 bg-gradient-to-r from-brand-blue to-brand-light-blue rounded-lg mb-6 flex items-center justify-center">
-                    <span className="text-white text-20 md:text-2xl font-bold">호텔런드리</span>
-                  </div>
-                  <p className="text-brand-dark text-20">메인 로고</p>
-                </div>
-                <div className="bg-white rounded-xl p-8 shadow-sm">
-                  <div className="w-full h-32 md:h-40 bg-brand-blue rounded-lg mb-6 flex items-center justify-center">
-                    <span className="text-white text-20 md:text-2xl font-bold">HL</span>
-                  </div>
-                  <p className="text-brand-dark text-20">심볼 로고</p>
-                </div>
+              <div className="mb-8">
+                <p className="text-brand-dark text-20 mb-4">
+                  호텔런드리의 심볼은 호텔의 클래식한 무드에 패셔너블한 감성을 결합하여 트렌디하고
+                  직관적인 방식으로 브랜드 이미지를 전달합니다.
+                </p>
               </div>
-            </div>
 
-            {/* 브랜드 가치 */}
-            <div>
-              <h3 className="text-brand-blue font-KoPubWorldBatang section-subtitle md:text-2xl mb-8">
-                브랜드 가치
-              </h3>
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="bg-white rounded-xl p-6 shadow-sm text-center">
-                  <div className="w-16 h-16 bg-brand-blue rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <span className="text-white text-20 font-bold">신뢰</span>
+              {/* Primary Logo */}
+              <div>
+                <div className="grid md:grid-cols-2 gap-8">
+                  {/* 로고 1 - 영문 */}
+                  <div className="bg-white rounded-xl p-8 shadow-sm text-center">
+                    <div className="mb-6">
+                      <img
+                        src={logoEn}
+                        alt="HOTEL LAUNDRY Logo"
+                        className="w-full h-auto max-h-48 mx-auto"
+                      />
+                    </div>
+                    <p className="text-brand-dark text-20">영문 로고</p>
                   </div>
-                  <h4 className="text-brand-blue font-KoPubWorldBatang section-subtitle mb-2">Trust</h4>
-                  <p className="text-brand-dark text-20">
-                    고객과의 신뢰 관계를<br />
-                    최우선으로 생각합니다.
-                  </p>
-                </div>
-                <div className="bg-white rounded-xl p-6 shadow-sm text-center">
-                  <div className="w-16 h-16 bg-brand-blue rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <span className="text-white text-20 font-bold">혁신</span>
+
+                  {/* 로고 2 - 한국어 */}
+                  <div className="bg-white rounded-xl p-8 shadow-sm text-center">
+                    <div className="mb-6">
+                      <img
+                        src={logoKr}
+                        alt="호텔 런드리 로고"
+                        className="w-full h-auto max-h-48 mx-auto"
+                      />
+                    </div>
+                    <p className="text-brand-dark text-20">한국어 로고</p>
                   </div>
-                  <h4 className="text-brand-blue font-KoPubWorldBatang section-subtitle mb-2">Innovation</h4>
-                  <p className="text-brand-dark text-20">
-                    지속적인 기술 혁신으로<br />
-                    더 나은 서비스를 제공합니다.
-                  </p>
-                </div>
-                <div className="bg-white rounded-xl p-6 shadow-sm text-center">
-                  <div className="w-16 h-16 bg-brand-blue rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <span className="text-white text-20 font-bold">품질</span>
-                  </div>
-                  <h4 className="text-brand-blue font-KoPubWorldBatang section-subtitle mb-2">Quality</h4>
-                  <p className="text-brand-dark text-20">
-                    최고의 품질로<br />
-                    고객 만족을 실현합니다.
-                  </p>
                 </div>
               </div>
             </div>

@@ -8,48 +8,63 @@ const SelfDryCleaning = () => {
           {/* 제목 */}
           <div className="text-center mb-[20px] sm:mb-[30px] md:mb-[20px] lg:mb-[30px] xl:mb-[30px] 2xl:mb-[30px] w-full xs:w-[355px] sm:w-[535px] md:w-[728px] lg:w-[924px] xl:w-[1200px] 2xl:w-[1400px] mx-auto">
             <h1 className="hero-title sm:text-[24px] md:text-[28px] lg:text-[32px] xl:text-[36px] 2xl:text-[40px] font-bold leading-normal text-[#1C262B] font-KoPubWorldDotum tracking-[-0.48px] sm:tracking-[-0.48px] md:tracking-[-0.56px] lg:tracking-[-0.64px] xl:tracking-[-0.72px] 2xl:tracking-normal mb-[20px] sm:mb-[30px] md:mb-[20px] lg:mb-[30px] xl:mb-[30px] 2xl:mb-[30px]">
-              <span className="block 2xl:hidden">물로하는 깨끗한 Self Dry Cleaning</span>
-              <span className="hidden 2xl:block">
-                물로하는 깨끗한 Self Dry Cleaning - 드라이클리닝도 셀프시대
-              </span>
+              <span className="block 2xl:hidden">세계 최초 셀프 드라이클리닝</span>
+              <span className="hidden 2xl:block">세계 최초 셀프 드라이클리닝</span>
             </h1>
 
             {/* 부제목 */}
             <div className="text-center mx-auto text-24 sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] font-light leading-normal text-[#1C262B] font-KoPubWorldDotum tracking-[-0.32px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px]">
               <div className="block sm:hidden">
+                <p className="mb-8">빨래방과 드라이클리닝을 하나로 경제성을 극대화 하였습니다!</p>
                 <p className="mb-8">
-                  미국과 유럽에서는 이미 물로 하는 드라이클리닝이 시장에서 대안이 되고 있습니다.
+                  드라이클리닝 시장은 전체 세탁 시장의 70-80%를 차지하는 매우 큰 시장입니다. 연간
+                  수요 4조 3천억원이지만, 기존 드라이클리닝 업체들은 어려움과 고령화로 인해 어려움을
+                  겪고 쇠퇴하고 있습니다.
                 </p>
                 <p>
-                  세계 최초로 호텔런드리의 무인 셀프 드라이클리닝은 시간과 비용이라는 두가지 혁신을
-                  담아 국내 독보적인 차별화 모델을 만들었습니다.
+                  호텔런드리는 이러한 시장 트렌드를 파악하고 연구개발을 통해 마침내 세계 최초의 무인
+                  셀프 드라이클리닝을 출시했습니다. 전체 세탁 시장의 20-30%에 불과한 빨래방 시장을
+                  넘어 전체 세탁 시장을 아우르는 독보적인 차별화를 제공합니다.
                 </p>
               </div>
               <div className="hidden sm:block lg:hidden">
-                <p>
-                  미국과 유럽에서는 이미 물로 하는 드라이클리닝이 시장에서 대안이 되고 있습니다.
+                <p className="mb-8">빨래방과 드라이클리닝을 하나로 경제성을 극대화 하였습니다!</p>
+                <p className="mb-8">
+                  드라이클리닝 시장은 전체 세탁 시장의 70-80%를 차지하는 매우 큰 시장입니다. 연간
+                  수요 4조 3천억원이지만, 기존 드라이클리닝 업체들은 어려움과 고령화로 인해 어려움을
+                  겪고 쇠퇴하고 있습니다.
                 </p>
                 <p>
-                  세계 최초로 호텔런드리의 무인 셀프 드라이클리닝은 시간과 비용이라는 <br />
-                  두가지 혁신을 담아 국내 독보적인 차별화 모델을 만들었습니다.
+                  호텔런드리는 이러한 시장 트렌드를 파악하고 연구개발을 통해 마침내 세계 최초의 무인
+                  셀프 드라이클리닝을 출시했습니다. 전체 세탁 시장의 20-30%에 불과한 빨래방 시장을
+                  넘어 전체 세탁 시장을 아우르는 독보적인 차별화를 제공합니다.
                 </p>
               </div>
               <div className="hidden lg:block xl:hidden">
-                <p>
-                  미국과 유럽에서는 이미 물로 하는 드라이클리닝이 시장에서 대안이 되고 있습니다.
+                <p className="mb-8">빨래방과 드라이클리닝을 하나로 경제성을 극대화 하였습니다!</p>
+                <p className="mb-8">
+                  드라이클리닝 시장은 전체 세탁 시장의 70-80%를 차지하는 매우 큰 시장입니다. 연간
+                  수요 4조 3천억원이지만, 기존 드라이클리닝 업체들은 어려움과 고령화로 인해 어려움을
+                  겪고 쇠퇴하고 있습니다.
                 </p>
                 <p>
-                  세계 최초로 호텔런드리의 무인 셀프 드라이클리닝은 시간과 비용이라는 두가지 혁신을
-                  담아 국내 독보적인 차별화 모델을 만들었습니다.
+                  호텔런드리는 이러한 시장 트렌드를 파악하고 연구개발을 통해 마침내 세계 최초의 무인
+                  셀프 드라이클리닝을 출시했습니다. 전체 세탁 시장의 20-30%에 불과한 빨래방 시장을
+                  넘어 전체 세탁 시장을 아우르는 독보적인 차별화를 제공합니다.
                 </p>
               </div>
               <div className="hidden xl:block">
-                <p>
-                  미국과 유럽에서는 이미 물로 하는 드라이클리닝이 시장에서 대안이 되고 있습니다.
+                <p className="mb-8">빨래방과 드라이클리닝을 하나로 경제성을 극대화 하였습니다!</p>
+                <p className="mb-8">
+                  드라이클리닝 시장은 전체 세탁 시장의 70-80%를 차지하는 매우 큰 시장입니다. 연간
+                  수요 4조 3천억원이지만, <br />
+                  기존 드라이클리닝 업체들은 어려움과 고령화로 인해 어려움을 겪고 쇠퇴하고 있습니다.
                 </p>
                 <p>
-                  세계 최초로 호텔런드리의 무인 셀프 드라이클리닝은 시간과 비용이라는 두가지 혁신을
-                  담아 국내 독보적인 차별화 모델을 만들었습니다.
+                  호텔런드리는 이러한 시장 트렌드를 파악하고 연구개발을 통해 마침내 세계 최초의 무인
+                  셀프 드라이클리닝을 출시했습니다. <br />
+                  전체 세탁 시장의 20-30%에 불과한 빨래방 시장을 넘어 전체 세탁 시장을 아우르는
+                  독보적인 차별화를 제공합니다.
                 </p>
               </div>
             </div>
@@ -200,11 +215,11 @@ const SelfDryCleaning = () => {
               <div className="flex justify-center gap-6 mb-6">
                 <div className="flex items-center gap-2">
                   <div className="w-4 h-4 bg-[#102254] rounded"></div>
-                  <span className="text-sm text-gray-700">물빨래</span>
+                  <span className="text-sm text-gray-700">드라이클리닝</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-4 h-4 bg-[#E3F2FD] rounded"></div>
-                  <span className="text-sm text-gray-700">드라이클리닝</span>
+                  <span className="text-sm text-gray-700">물빨래</span>
                 </div>
               </div>
 
@@ -224,16 +239,24 @@ const SelfDryCleaning = () => {
           {/* 물 기반 드라이클리닝 특징 섹션 */}
           <div className="mb-12">
             <h2 className="section-title sm:text-2xl md:text-3xl font-bold text-[#102254] mb-8 text-center">
-              물 기반 드라이클리닝의 혁신
+              물로하는 깨끗한 Self Dry Cleaning
             </h2>
+            <div className="mb-8">
+              <p className="text-center text-gray-700 mb-8">
+                석유계열 용제 기반 드라이클리닝은 환경과 인체에 문제가 있으며, 미국과 유럽에서는
+                이미 물 기반 드라이클리닝이 대안이 되고 있습니다. <br />
+                호텔런드리의 무인 셀프 드라이클리닝은 세계 최초로 시간과 비용이라는 두 가지 혁신을
+                담아 국내 독보적인 차별화 모델을 만들었습니다.
+              </p>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg text-center">
                 <div className="w-16 h-16 bg-[#102254] rounded-full flex items-center justify-center mx-auto mb-4">
                   <div className="text-white text-xl">💧</div>
                 </div>
-                <h3 className="text-lg font-bold text-[#102254] mb-3">물 기반 세정</h3>
+                <h3 className="text-lg font-bold text-[#102254] mb-3">물 기반 세탁</h3>
                 <p className="text-gray-600 text-sm">
-                  유해한 화학약품 대신 물을 이용한 안전한 세정
+                  발암물질 석유계열 용제 대신 깨끗하고 안전한 물을 이용한 드라이클리닝
                 </p>
               </div>
               <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg text-center">
@@ -241,14 +264,16 @@ const SelfDryCleaning = () => {
                   <div className="text-white text-xl">⚡</div>
                 </div>
                 <h3 className="text-lg font-bold text-[#102254] mb-3">빠른 처리</h3>
-                <p className="text-gray-600 text-sm">1시간 20분 만에 완성되는 고속 처리</p>
+                <p className="text-gray-600 text-sm">
+                  1시간 20분 만에 완성되는 고속 처리 1시간대 리
+                </p>
               </div>
               <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg text-center">
                 <div className="w-16 h-16 bg-[#102254] rounded-full flex items-center justify-center mx-auto mb-4">
                   <div className="text-white text-xl">💰</div>
                 </div>
                 <h3 className="text-lg font-bold text-[#102254] mb-3">비용 절약</h3>
-                <p className="text-gray-600 text-sm">기존 대비 85% 비용 절약 (10만원 → 1만5천원)</p>
+                <p className="text-gray-600 text-sm">기존 대비 85% 비용 절약 (10만원 1만원대)</p>
               </div>
               <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg text-center">
                 <div className="w-16 h-16 bg-[#102254] rounded-full flex items-center justify-center mx-auto mb-4">
@@ -321,7 +346,7 @@ const SelfDryCleaning = () => {
                   4
                 </div>
                 <h3 className="text-lg font-bold text-[#102254] mb-2">완성</h3>
-                <p className="text-sm text-gray-600">최종 점검 및 완성</p>
+                <p className="text-sm text-gray-600">최종 정검 및 완성</p>
               </div>
             </div>
           </div>

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import esgCert from '../../../image/esg 확인서.png';
 import innovationCert from '../../../image/혁신중소기업확인서.png';
 import ventureCert from '../../../image/벤처기업.png';
@@ -15,8 +15,6 @@ import patent6 from '../../../image/특허6.png';
 
 const Certifications = () => {
   const [selectedImage, setSelectedImage] = useState(null);
-  const patentsScrollRef = useRef(null);
-  const certificationsScrollRef = useRef(null);
 
   const patents = [
     { image: patent1 },
@@ -36,48 +34,6 @@ const Certifications = () => {
     { image: brandAward },
     { image: techInnovationAward },
   ];
-
-  const scrollPatents = (direction) => {
-    if (patentsScrollRef.current) {
-      // 화면 크기에 따른 스크롤 거리 조정
-      const width = window.innerWidth;
-      let scrollAmount;
-      if (width < 640) {
-        scrollAmount = 280; // xs
-      } else if (width < 768) {
-        scrollAmount = 320; // sm
-      } else {
-        scrollAmount = 348; // md+
-      }
-
-      if (direction === 'left') {
-        patentsScrollRef.current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-      } else {
-        patentsScrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-      }
-    }
-  };
-
-  const scrollCertifications = (direction) => {
-    if (certificationsScrollRef.current) {
-      // 화면 크기에 따른 스크롤 거리 조정
-      const width = window.innerWidth;
-      let scrollAmount;
-      if (width < 640) {
-        scrollAmount = 280; // xs
-      } else if (width < 768) {
-        scrollAmount = 320; // sm
-      } else {
-        scrollAmount = 348; // md+
-      }
-
-      if (direction === 'left') {
-        certificationsScrollRef.current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-      } else {
-        certificationsScrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-      }
-    }
-  };
 
   return (
     <section className="py-20 bg-white">
@@ -153,73 +109,21 @@ const Certifications = () => {
               호텔런드리의 핵심 기술은 공식 등록된 특허로 보호받고 있습니다.
             </p>
 
-            <div className="relative">
-              {/* 왼쪽 화살표 */}
-              <button
-                onClick={() => scrollPatents('left')}
-                className="absolute left-0 top-1/2 -translate-y-1/2 bg-white p-3 rounded-full shadow-lg z-10 hover:bg-gray-50 transition-colors duration-300 hidden md:block"
-                aria-label="이전 특허"
-              >
-                <svg
-                  className="w-6 h-6 text-[#102254]"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+            {/* 특허 그리드 */}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 lg:gap-6">
+              {patents.map((patent, index) => (
+                <div
+                  key={index}
+                  className="cursor-pointer rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300"
+                  onClick={() => setSelectedImage(patent.image)}
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M15 19l-7-7 7-7"
-                  ></path>
-                </svg>
-              </button>
-
-              {/* 특허 카드 컨테이너 */}
-              <div
-                ref={patentsScrollRef}
-                className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 gap-2"
-                style={{
-                  scrollbarWidth: 'none',
-                  msOverflowStyle: 'none',
-                  WebkitScrollbar: { display: 'none' },
-                }}
-              >
-                {patents.map((patent, index) => (
-                  <div
-                    key={index}
-                    className="flex-shrink-0 snap-center cursor-pointer w-[280px] h-[400px] sm:w-[320px] sm:h-[460px] md:w-[348px] md:h-[500px] rounded-lg border border-gray-200 overflow-hidden"
-                    onClick={() => setSelectedImage(patent.image)}
-                  >
-                    <img
-                      src={patent.image}
-                      alt={`특허 ${index + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                ))}
-              </div>
-
-              {/* 오른쪽 화살표 */}
-              <button
-                onClick={() => scrollPatents('right')}
-                className="absolute right-0 top-1/2 -translate-y-1/2 bg-white p-3 rounded-full shadow-lg z-10 hover:bg-gray-50 transition-colors duration-300 hidden md:block"
-                aria-label="다음 특허"
-              >
-                <svg
-                  className="w-6 h-6 text-[#102254]"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M9 5l7 7-7 7"
-                  ></path>
-                </svg>
-              </button>
+                  <img
+                    src={patent.image}
+                    alt={`특허 ${index + 1}`}
+                    className="w-full h-[200px] md:h-[220px] lg:h-[250px] object-cover"
+                  />
+                </div>
+              ))}
             </div>
           </div>
 
@@ -232,73 +136,21 @@ const Certifications = () => {
               가맹 및 제휴를 위한 기술력과 사업 안정성을 갖춘 기업입니다.
             </p>
 
-            <div className="relative">
-              {/* 왼쪽 화살표 */}
-              <button
-                onClick={() => scrollCertifications('left')}
-                className="absolute left-0 top-1/2 -translate-y-1/2 bg-white p-3 rounded-full shadow-lg z-10 hover:bg-gray-50 transition-colors duration-300 hidden md:block"
-                aria-label="이전 인증서"
-              >
-                <svg
-                  className="w-6 h-6 text-[#102254]"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+            {/* 인증서 그리드 */}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 lg:gap-6">
+              {certifications.map((cert, index) => (
+                <div
+                  key={index}
+                  className="cursor-pointer rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300"
+                  onClick={() => setSelectedImage(cert.image)}
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M15 19l-7-7 7-7"
-                  ></path>
-                </svg>
-              </button>
-
-              {/* 인증서 카드 컨테이너 */}
-              <div
-                ref={certificationsScrollRef}
-                className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 gap-2"
-                style={{
-                  scrollbarWidth: 'none',
-                  msOverflowStyle: 'none',
-                  WebkitScrollbar: { display: 'none' },
-                }}
-              >
-                {certifications.map((cert, index) => (
-                  <div
-                    key={index}
-                    className="flex-shrink-0 snap-center cursor-pointer w-[280px] h-[400px] sm:w-[320px] sm:h-[460px] md:w-[348px] md:h-[500px] rounded-lg border border-gray-200 overflow-hidden"
-                    onClick={() => setSelectedImage(cert.image)}
-                  >
-                    <img
-                      src={cert.image}
-                      alt={`인증서 ${index + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                ))}
-              </div>
-
-              {/* 오른쪽 화살표 */}
-              <button
-                onClick={() => scrollCertifications('right')}
-                className="absolute right-0 top-1/2 -translate-y-1/2 bg-white p-3 rounded-full shadow-lg z-10 hover:bg-gray-50 transition-colors duration-300 hidden md:block"
-                aria-label="다음 인증서"
-              >
-                <svg
-                  className="w-6 h-6 text-[#102254]"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M9 5l7 7-7 7"
-                  ></path>
-                </svg>
-              </button>
+                  <img
+                    src={cert.image}
+                    alt={`인증서 ${index + 1}`}
+                    className="w-full h-[200px] md:h-[220px] lg:h-[250px] object-cover"
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </div>
