@@ -1,4 +1,7 @@
 import React from 'react';
+import noperSonOperationImg from '../image/NoperSonOperation.png';
+import reservationImg from '../image/reservation.png';
+
 
 const AutomationSolutions = () => {
   return (
@@ -29,9 +32,9 @@ const AutomationSolutions = () => {
                 {/* 첫 번째 칸 (1행 1열) - 이미지 */}
                 <div className="flex justify-start items-center">
                   <div className="flex-shrink-0 w-[600px] h-[400px] rounded-[50px] bg-[#D9D9D9]">
-                    <img
+                  <img
                       src="/images/SmartSystem/smart-3-1.png"
-                      alt="운영 자동화 솔루션"
+                      alt="무인 운영 최적화"
                       className="w-full h-full object-cover rounded-[50px]"
                     />
                   </div>
@@ -65,9 +68,9 @@ const AutomationSolutions = () => {
                 {/* 네 번째 칸 (2행 2열) - 이미지 */}
                 <div className="flex justify-end items-center">
                   <div className="flex-shrink-0 w-[600px] h-[400px] rounded-[50px] bg-[#D9D9D9]">
-                    <img
-                      src="/images/SmartSystem/smart-3-1.png"
-                      alt="무인 운영 최적화"
+                  <img
+                      src={noperSonOperationImg}
+                      alt="예약 시스템"
                       className="w-full h-full object-cover rounded-[50px]"
                     />
                   </div>
@@ -76,11 +79,11 @@ const AutomationSolutions = () => {
                 {/* 다섯 번째 칸 (3행 1열) - 이미지 */}
                 <div className="flex justify-start items-center">
                   <div className="flex-shrink-0 w-[600px] h-[400px] rounded-[50px] bg-[#D9D9D9]">
-                    <img
-                      src="/images/SmartSystem/smart-3-1.png"
-                      alt="예약 시스템"
-                      className="w-full h-full object-cover rounded-[50px]"
-                    />
+                      <img
+                        src={reservationImg}
+                        alt="예약 시스템"
+                        className="w-full h-full object-cover rounded-[50px]"
+                      />
                   </div>
                 </div>
 

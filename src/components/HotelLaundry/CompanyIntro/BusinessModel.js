@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import developmentImg from '../image/development.png';
+import automaticImg from '../image/automatic.png';
+import cleaningImg from '../image/cleaning.png';
 
 const Section2 = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -12,17 +15,17 @@ const Section2 = () => {
     {
       title: 'DEVELOPMENT',
       subtitle: '스마트 세탁장비 및 자동화 솔루션 연구 개발',
-      image: '/images/CompanyInfo/Company-2-1.png',
+      image: developmentImg,
     },
     {
       title: 'AUTOMATION',
       subtitle: '세탁공정의 전 과정 자동화 및 무인화 설계',
-      image: '/images/CompanyInfo/Company-2-1.png',
+      image: automaticImg,
     },
     {
       title: 'CLEANING',
       subtitle: '호텔급 침구 전문 클리닝 및 살균 세탁 서비스',
-      image: '/images/CompanyInfo/Company-2-1.png',
+      image: cleaningImg,
     },
   ];
 

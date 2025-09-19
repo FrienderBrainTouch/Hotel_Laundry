@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import automaticImg from '../image/smartoperation.jpg';
+import placetherapyImg from '../image/placetherapy.png';
+import techbrandImg from '../image/techbrand.png';
+import trustserviceImg from '../image/trustservice.png';
 
 const Section3 = () => {
   const [activeTab, setActiveTab] = useState('smart');
@@ -61,6 +65,13 @@ const Section3 = () => {
     { id: 'brand', title: '기술 자립 브랜드' },
     { id: 'trust', title: '신뢰기반 서비스' }
   ];
+
+  const tabImages = {
+    smart: automaticImg,
+    space: placetherapyImg,
+    brand: techbrandImg,
+    trust: trustserviceImg
+  };
 
   const tabContents = {
     smart: {
@@ -235,13 +246,8 @@ const Section3 = () => {
               {/* 상단 이미지 (xl 이하) / 왼쪽 이미지 (2xl) */}
               <div className="flex-shrink-0 w-full xs:w-[355px] sm:w-[535px] md:w-[728px] lg:w-[924px] xl:w-[1200px] 2xl:w-[500px] order-1 2xl:order-1">
                 <img
-                  src="/images/CompanyInfo/Company-tech-1.png"
-                  alt="호텔런드리 기술 시스템"
-                  className="rounded-lg w-full h-auto hidden 2xl:block"
-                />
-                <img
-                  src="/images/CompanyInfo/Company-Tech-2.png"
-                  alt="호텔런드리 기술 시스템"
+                  src={tabImages[activeTab]}
+                  alt={tabContents[activeTab].title}
                   className="rounded-lg w-full h-[180px] sm:h-[200px] md:h-[250px] lg:h-[250px] xl:h-[300px] 2xl:h-auto block 2xl:hidden object-cover"
                 />
               </div>

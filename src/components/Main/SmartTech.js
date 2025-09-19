@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 const slideLeft = '/images/slide-left.svg';
 const slideRight = '/images/slide-right.svg';
-const mainSmart1 = '/images/main-Images/main-smart-1.png';
+const mainSmart1 = '/images/main-Images/self-dry.png';
 const mainSmart2 = '/images/main-Images/main-smart-2.png';
-const mainSmart3 = '/images/main-Images/main-smart-3.png';
+const mainSmart3 = '/images/main-Images/callcenter.png';
 
 const SmartTech = () => {
   const [currentSlide, setCurrentSlide] = useState(0);

@@ -38,7 +38,7 @@ const BeyondLaundry = () => {
           '친환경 세제와 물로 하는 웨트클리닝',
         ],
       },
-      image: '/images/main-Images/main-Beyond-1.png',
+      image: '/images/main-Images/main-Beyond-3.png',
     },
     {
       title: '유일한 고객 전용 어플/키오스크',
@@ -98,7 +98,7 @@ const BeyondLaundry = () => {
           '민첩한 고객 응대로 서비스 만족율 UP 완전한 무인화 운영',
         ],
       },
-      image: '/images/main-Images/main-Beyond-3.png',
+      image: '/images/main-Images/main-Beyond-1.png',
     },
     {
       title: '24시간 본사 고객 센터 운영',
@@ -134,7 +134,7 @@ const BeyondLaundry = () => {
           '노동없는 제테크 창업을 제공',
         ],
       },
-      image: '/images/main-Images/main-Beyond-4.png',
+      image: '/images/main-Images/main-Beyond-5.png',
     },
     {
       title: 'AI 운영관리 시스템',
@@ -164,7 +164,7 @@ const BeyondLaundry = () => {
           '독보적인 쿠폰 시스템은 고객 재방문과 매출 차별화로 연결',
         ],
       },
-      image: '/images/main-Images/main-Beyond-5.png',
+      image: '/images/main-Images/main-Beyond-6.png',
     },
     {
       title: 'Hocl 살균수 세탁',
@@ -200,7 +200,7 @@ const BeyondLaundry = () => {
           '고객의 안심과 브랜드 신뢰를 상승시킴',
         ],
       },
-      image: '/images/main-Images/main-Beyond-6.png',
+      image: '/images/main-Images/main-Beyond-4.png',
     },
   ];
 

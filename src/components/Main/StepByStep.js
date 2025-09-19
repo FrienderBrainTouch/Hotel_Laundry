@@ -1,6 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const StepByStep = () => {
+  const navigate = useNavigate();
+  
   const steps = [
     {
       image: '/images/main-Images/main-step-1.png',
@@ -131,6 +134,7 @@ const StepByStep = () => {
         {/* View More Button */}
         <div className="flex justify-center mt-16">
           <button
+            onClick={() => navigate('/startup-guide/startup-guide-main')}
             className="text-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 w-[142px] h-[39px] sm:w-[150px] sm:h-[40px] md:w-[169px] md:h-[49px] lg:w-[201px] lg:h-[54px] xl:w-[225px] xl:h-[60px] 2xl:w-[300px] 2xl:h-[80px] flex items-center justify-center"
             style={{
               fontFamily: 'KoPubWorldBatang',
