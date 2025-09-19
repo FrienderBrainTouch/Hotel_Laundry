@@ -8,6 +8,68 @@ import shoeWasherUrl from './ModalImage/modal_shoe.svg';
 import hangerUrl from './ModalImage/modal_hanger.svg';
 import modal_chart from './ModalImage/modal_chart.svg';
 
+// 각 지점별 이미지 가져오기 함수
+const getStoreImages = (storeName) => {
+  const imageMap = {
+    '독산점': ['image 332.png', 'image 333.png', 'image 334.png'],
+    '관악조원점': ['image 312.png', 'image 313.png', 'image 314.png'],
+    '신림본점': ['image 225.png', 'image 226.png', 'image 227.png', 'image 228.png', 'image 229.png', 'image 230.png'],
+    '신림점': ['image 329.png', 'image 331.png'],
+    '보라매점': ['image 262.png', 'image 263.png', 'image 265.png'],
+    '신림서원점': ['image 242.png', 'image 243.png', 'image 244.png', 'image 245.png'],
+    '신길점': ['image 287.png', 'image 289.png', 'image 290.png', 'image 291.png'],
+    '봉천점': ['image 301.png', 'image 302.png', 'image 303.png', 'image 304.png', 'image 305.png', 'image 306.png', 'image 307.png', 'image 309.png'],
+    '신림서림점': ['image 242.png', 'image 243.png', 'image 244.png', 'image 245.png'],
+    '청룡점': ['image 268.png', 'image 270.png', 'image 271.png', 'image 272.png', 'image 273.png', 'image 274.png'],
+    '상도점': ['image 292.png', 'image 293.png', 'image 294.png', 'image 295.png', 'image 296.png'],
+    '봉천중앙점': ['image 231.png', 'image 232.png', 'image 233.png', 'image 234.png', 'image 235.png', 'image 236.png'],
+    '서울대입구점': ['image 251.png', 'image 252.png', 'image 253.png', 'image 254.png', 'image 255.png', 'image 256.png', 'image 257.png'],
+    '샤로수길점': ['image 246.png', 'image 247.png', 'image 248.png', 'image 249.png', 'image 250.png'],
+    '서울대행운점': ['image 346.png', 'image 347.png', 'image 348.png'],
+    '사당점': ['image 315.png', 'image 316.png', 'image 317.png'],
+    '항동점': ['image 261.png', 'image 264.png', 'image 266.png'],
+    '낙성대점': ['image 259.png', 'image 260.png'],
+    '평촌역점': ['image 275.png', 'image 276.png', 'image 278.png'],
+    '화곡점': ['image 297.png', 'image 298.png', 'image 299.png', 'image 300.png'],
+    '서교점': ['image 277.png', 'image 279.png', 'image 280.png', 'image 281.png', 'image 282.png', 'image 283.png', 'image 284.png', 'image 285.png', 'image 286.png', 'image 288.png'],
+    '아이에스비즈점': ['image 318.png', 'image 320.png', 'image 321.png', 'image 322.png', 'image 323.png', 'image 324.png', 'image 325.png', 'image 326.png'],
+    '도래울점': ['image 335.png', 'image 336.png', 'image 337.png', 'image 339.png', 'image 340.png', 'image 342.png', 'image 344.png', 'image 345.png'],
+    '안산중앙역점': ['image 327.png', 'image 328.png', 'image 330.png'],
+    '한양대학로점': ['image 308.png', 'image 310.png', 'image 311.png'],
+    '갈매점': ['image 338.png', 'image 341.png', 'image 343.png'],
+    '광교상현점': ['image 237.png', 'image 238.png', 'image 239.png', 'image 240.png', 'image 241.png'],
+    '경희대점': ['image 220.png'],
+    '송도랜드마크점': ['image 267.png', 'image 269.png', 'image 349.png'],
+    '장항점': ['image 258.png'],
+    '성남금광점': ['image 189.png', 'image 190.png', 'image 191.png', 'image 192.png', 'image 193.png', 'image 194.png', 'image 195.png'],
+    '분당장안점': ['image 205.png', 'image 206.png', 'image 207.png', 'image 208.png', 'image 209.png', 'image 210.png', 'image 211.png', 'image 212.png', 'image 213.png'],
+    '곡반정점': ['image 185.png', 'image 186.png', 'image 187.png', 'image 188.png'],
+    '미사헤븐시티점': ['image 202.png', 'image 203.png', 'image 204.png'],
+    '동탄실리콘앨리점': ['image 214.png', 'image 215.png', 'image 216.png', 'image 217.png', 'image 218.png', 'image 219.png'],
+    '수진역점': ['image 197.png', 'image 198.png', 'image 199.png', 'image 200.png', 'image 201.png'],
+    '동탄역점': ['image 180.png', 'image 181.png', 'image 182.png', 'image 183.png', 'image 184.png'],
+    '포천이동교점': ['image 174.png', 'image 175.png', 'image 176.png', 'image 177.png'],
+    '마장점': ['image 221.png', 'image 222.png', 'image 223.png', 'image 224.png'],
+    '평택점': ['image 178.png', 'image 179.png'],
+    '안성석정점': ['image 159.png', 'image 160.png', 'image 161.png', 'image 162.png', 'image 163.png'],
+    '광양중동점': ['image 164.png', 'image 165.png', 'image 166.png', 'image 167.png', 'image 168.png', 'image 169.png', 'image 171.png', 'image 173.png'],
+    '광주용봉점': ['image 156.png', 'image 157.png', 'image 158.png'],
+  };
+  
+  const imageNames = imageMap[storeName];
+  if (imageNames && imageNames.length > 0) {
+    try {
+      // 최대 5개까지만 가져오기 (첫 번째는 대표 이미지, 나머지 4개는 슬라이더용)
+      const limitedImages = imageNames.slice(0, 5);
+      return limitedImages.map(imageName => require(`./RealStoreImage/${storeName}/${imageName}`));
+    } catch (error) {
+      console.warn(`이미지를 찾을 수 없습니다: ${storeName}`, error);
+      return [subImage]; // 기본 이미지 사용
+    }
+  }
+  return [subImage]; // 기본 이미지 사용
+};
+
 // 각 아이콘을 <img> 태그를 사용하는 컴포넌트로 만듭니다.
 // 이렇게 하면 className으로 크기 조절이 가능합니다.
 const LocationPinIcon = ({ className }) => <img src={locationPinUrl} alt="Location" className={className} />;
@@ -77,16 +139,13 @@ const Chart = ({ data }) => {
 const StoreModal = ({ store, onClose }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // TODO: 실제 데이터 연동 시 아래 defaultStore의 구조를 참고하여 데이터를 구성해야 합니다.
-  // 필수 필드: name, address, phone, tags, images, machineTypes, machines, chartData, chartDescription
+  // 기본 매장 데이터 (이미지가 없는 지점용)
   const defaultStore = {
     name: '호텔런드리 암사점',
     address: '서울 강동구 올림픽로 98길 41 1층',
     phone: '02-1577-2657',
     tags: ['20평형', '서울'],
-    images: [
-      subImage, subImage, subImage, subImage, subImage  
-    ],
+    images: [subImage, subImage, subImage, subImage, subImage],
     machineTypes: [
       { name: '프리미엄 살균 세탁기', count: 10, icon: WasherIcon },
       { name: '운동화 세탁기', count: 3, icon: ShoeWasherIcon },
@@ -101,10 +160,25 @@ const StoreModal = ({ store, onClose }) => {
     chartDescription: '개점 이후 누적 수익이 꾸준히 증가하고 있는 매장입니다. 실제 데이터를 통해 안정적인 성장 흐름을 확인할 수 있습니다.'
   };
 
-  // 현재는 개발 목적으로 항상 defaultStore를 사용합니다.
-  // 실제 데이터 연동 시에는 아래 주석을 해제하고 store || defaultStore로 변경하세요.
-  const currentStore = defaultStore;
-  // const currentStore = store || defaultStore;
+  // 실제 지점 데이터가 있으면 사용, 없으면 기본 데이터 사용
+  const currentStore = store ? {
+    ...store,
+    images: getStoreImages(store.name),
+    phone: '02-1577-2657', // 기본 전화번호
+    tags: [store.region, '20평형'], // 지역과 기본 태그
+    machineTypes: [
+      { name: '프리미엄 살균 세탁기', count: 10, icon: WasherIcon },
+      { name: '운동화 세탁기', count: 3, icon: ShoeWasherIcon },
+      { name: '드라이클리닝', count: 2, icon: HangerIcon },
+    ],
+    machines: Array.from({ length: 11 }, (_, i) => ({
+        id: i + 1,
+        name: `${[1,2,3,4,5,20,21,22,23,4,5][i]}번 세탁기`,
+        isAvailable: Math.random() > 0.3,
+    })),
+    chartData: modal_chart,
+    chartDescription: '개점 이후 누적 수익이 꾸준히 증가하고 있는 매장입니다. 실제 데이터를 통해 안정적인 성장 흐름을 확인할 수 있습니다.'
+  } : defaultStore;
 
   const images = currentStore.images || [];
   const tags = currentStore.tags || [];
