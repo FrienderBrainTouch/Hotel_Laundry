@@ -12,11 +12,11 @@ const getStoreImage = (storeName) => {
     '신림점': 'image 329.png',
     '보라매점': 'image 262.png',
     '신림서원점': 'image 242.png',
-    '신림역점': null, // 이미지 없음
+    '신림역점': 'image 354.png',
     '신길점': 'image 287.png',
-    '서울대학점': null, // 이미지 없음
+    '서울대학점': 'image 350.png',
     '봉천점': 'image 301.png',
-    '서울대점': null, // 이미지 없음
+    '서울대점': 'image 350.png',
     '신림서림점': 'image 242.png',
     '청룡점': 'image 268.png',
     '상도점': 'image 292.png',
@@ -31,12 +31,12 @@ const getStoreImage = (storeName) => {
     '화곡점': 'image 297.png',
     '서교점': 'image 277.png',
     '아이에스비즈점': 'image 318.png',
-    '금정점': null, // 이미지 없음
+    '금정점': 'image 372.png', // 이미지 없음
     '도래울점': 'image 335.png',
     '안산중앙역점': 'image 327.png',
     '한양대학로점': 'image 308.png',
     '갈매점': 'image 338.png',
-    '성내점': null, // 이미지 없음
+    '성내점': 'image 385.png',
     '광교상현점': 'image 237.png',
     '경희대점': 'image 220.png',
     '송도랜드마크점': 'image 267.png',
