@@ -6,7 +6,7 @@ const HygieneOptimization = () => {
       {/* 섹션 타이틀 */}
       <div className="text-center mb-16">
         <h2 className="section-title md:text-3xl lg:text-4xl font-bold text-brand-blue font-KoPubWorldBatang mb-6">
-          'HOCl' 깨끗함에 반하다!
+          친환경 살균수로 빨래
         </h2>
         <p className="section-subtitle md:text-24 text-brand-dark leading-relaxed max-w-4xl mx-auto mb-4">
           친환경 살균수로 빨래하는 빨래방
@@ -29,8 +29,10 @@ const HygieneOptimization = () => {
             </h3>
             <div className="w-12 h-1 bg-gradient-to-r from-brand-blue to-brand-light-blue mx-auto mb-4"></div>
             <p className="text-20 text-brand-dark leading-relaxed">
-              HOCl 살균수는 일반 소독제 대비<br />
-              100배 강력한 살균력을 자랑하며<br />
+              HOCl 살균수는 일반 소독제 대비
+              <br />
+              100배 강력한 살균력을 자랑하며
+              <br />
               바이러스와 세균을 99.999% 제거합니다.
             </p>
           </div>
@@ -47,8 +49,10 @@ const HygieneOptimization = () => {
             </h3>
             <div className="w-12 h-1 bg-gradient-to-r from-brand-light-blue to-brand-blue mx-auto mb-4"></div>
             <p className="text-20 text-brand-dark leading-relaxed">
-              99.9% 천연성분으로 제조되어<br />
-              피부 자극이나 알레르기 반응 없이<br />
+              99.9% 천연성분으로 제조되어
+              <br />
+              피부 자극이나 알레르기 반응 없이
+              <br />
               안전하게 사용할 수 있습니다.
             </p>
           </div>
@@ -65,8 +69,10 @@ const HygieneOptimization = () => {
             </h3>
             <div className="w-12 h-1 bg-gradient-to-r from-brand-blue to-brand-dark mx-auto mb-4"></div>
             <p className="text-20 text-brand-dark leading-relaxed">
-              세탁 완료 후 자동으로<br />
-              HOCl 살균수가 분사되어<br />
+              세탁 완료 후 자동으로
+              <br />
+              HOCl 살균수가 분사되어
+              <br />
               세탁기 내부를 완벽하게 살균합니다.
             </p>
           </div>
@@ -83,8 +89,10 @@ const HygieneOptimization = () => {
             </h3>
             <div className="w-12 h-1 bg-gradient-to-r from-brand-dark to-brand-blue mx-auto mb-4"></div>
             <p className="text-20 text-brand-dark leading-relaxed">
-              세탁물의 불쾌한 냄새를<br />
-              근본적으로 제거하여<br />
+              세탁물의 불쾌한 냄새를
+              <br />
+              근본적으로 제거하여
+              <br />
               깨끗하고 상쾌한 향을 유지합니다.
             </p>
           </div>
@@ -101,8 +109,10 @@ const HygieneOptimization = () => {
             </h3>
             <div className="w-12 h-1 bg-gradient-to-r from-brand-blue to-brand-light-blue mx-auto mb-4"></div>
             <p className="text-20 text-brand-dark leading-relaxed">
-              자연 분해되는 친환경 성분으로<br />
-              환경에 부담을 주지 않으며<br />
+              자연 분해되는 친환경 성분으로
+              <br />
+              환경에 부담을 주지 않으며
+              <br />
               지속 가능한 위생관리를 실현합니다.
             </p>
           </div>
@@ -119,8 +129,10 @@ const HygieneOptimization = () => {
             </h3>
             <div className="w-12 h-1 bg-gradient-to-r from-brand-light-blue to-brand-dark mx-auto mb-4"></div>
             <p className="text-20 text-brand-dark leading-relaxed">
-              살균 효과가 24시간 지속되어<br />
-              지속적인 위생 환경을<br />
+              살균 효과가 24시간 지속되어
+              <br />
+              지속적인 위생 환경을
+              <br />
               자동으로 유지합니다.
             </p>
           </div>
@@ -191,8 +203,10 @@ const HygieneOptimization = () => {
       <div className="mt-16">
         <div className="bg-white rounded-2xl p-8 md:p-12 shadow-lg">
           <p className="text-20 text-brand-dark leading-relaxed text-center">
-            국내 최초로 HOCl 살균수로 세탁하는 프리미엄 빨래방 '호텔런드리'는<br />
-            세균, 바이러스, 곰팡이, 탈취까지 한번에 세탁 처리하고<br />
+            국내 최초로 HOCl 살균수로 세탁하는 프리미엄 빨래방 '호텔런드리'는
+            <br />
+            세균, 바이러스, 곰팡이, 탈취까지 한번에 세탁 처리하고
+            <br />
             집보다 더 위생적인 빨래방 이미지를 만들어가고 있는 프리미엄 빨래방입니다.
           </p>
         </div>

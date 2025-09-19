@@ -26,11 +26,11 @@ const TechCards = () => {
             </h3>
             <div className="w-16 h-1 bg-gradient-to-r from-brand-light-blue to-brand-blue mx-auto mb-6"></div>
             <p className="text-20 text-brand-dark leading-relaxed">
-              매장 내 모든 장비와 기기를 연결하여
+              장비와 매장의 모든 기기를 연결하여
               <br />
-              실시간 모니터링과 원격 제어가
+              실시간 모니터링과 원격제어가 가능한
               <br />
-              가능한 통합 관리 시스템입니다.
+              복합 관리 시스템
             </p>
           </div>
         </div>
@@ -48,11 +48,11 @@ const TechCards = () => {
             </h3>
             <div className="w-16 h-1 bg-gradient-to-r from-brand-blue to-brand-dark mx-auto mb-6"></div>
             <p className="text-20 text-brand-dark leading-relaxed">
-              고객 이용에 문제가 없도록
+              장비 사용 오류에 대해
               <br />
-              장비 사용 오류를 실시간으로
+              실시간 자동 체크 기능으로
               <br />
-              자동 점검하는 시스템입니다.
+              고객 사용에 이상이 없도록 해주는 시스템
             </p>
           </div>
         </div>
@@ -70,11 +70,11 @@ const TechCards = () => {
             </h3>
             <div className="w-16 h-1 bg-gradient-to-r from-purple-500 to-purple-700 mx-auto mb-6"></div>
             <p className="text-20 text-brand-dark leading-relaxed">
-              고객 이용 패턴을 분석하고
+              고객 사용 패턴을 분석하고 데이터화 하여
               <br />
-              데이터화하여 맞춤형 고객 관리를
+              맞춤식 고객관리를 가능하게 하는
               <br />
-              가능하게 하는 첨단 운영체계입니다.
+              첨단 운영 체계
             </p>
           </div>
         </div>
@@ -92,13 +92,11 @@ const TechCards = () => {
             </h3>
             <div className="w-16 h-1 bg-gradient-to-r from-green-500 to-green-700 mx-auto mb-6"></div>
             <p className="text-20 text-brand-dark leading-relaxed">
-              온라인과 오프라인을 연결하여
+              온, 오프라인이 연결된 시스템으로
               <br />
-              실시간 세탁 예약, 장비 사용 현황,
+              실시간 세탁예약, 장비사용현황, 실시간 알림 등
               <br />
-              실시간 알림 등을 제공하는
-              <br />
-              호텔런드리만의 고유 서비스입니다.
+              호텔런드리만의 고유 서비스
             </p>
           </div>
         </div>
