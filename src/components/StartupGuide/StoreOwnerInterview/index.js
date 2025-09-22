@@ -14,7 +14,7 @@ const StoreOwnerInterview = () => {
               점주 인터뷰
             </h1>
             <p className="text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] 2xl:text-[26px] text-gray-600 mb-12 font-KoPubWorldDotum">
-              실제 호텔세탁소 점주들의 생생한 경험담을 들어보세요
+              실제 호텔런드리 점주들의 생생한 경험담을 들어보세요
             </p>
 
             {/* 인터뷰 콘텐츠 영역 */}

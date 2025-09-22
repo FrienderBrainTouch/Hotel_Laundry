@@ -160,7 +160,7 @@ const CallCenter = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="text-center">
                   <div className="text-[24px] sm:text-[26px] md:text-[28px] lg:text-[30px] xl:text-[32px] 2xl:text-[34px] font-bold mb-2">
-                    1588-0000
+                  02-1577-2657 
                   </div>
                   <p
                     className="text-[14px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] opacity-90"
@@ -175,7 +175,7 @@ const CallCenter = () => {
                 </div>
                 <div className="text-center">
                   <div className="text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[26px] 2xl:text-[28px] font-bold mb-2">
-                    support@hotellaundry.co.kr
+                  hotellaundry@naver.com
                   </div>
                   <p
                     className="text-[14px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] opacity-90"

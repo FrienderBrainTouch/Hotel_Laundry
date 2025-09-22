@@ -11,7 +11,7 @@ const SoloStartup = () => {
               단독 창업
             </h1>
             <p className="text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] 2xl:text-[26px] text-gray-600 mb-12 font-KoPubWorldDotum">
-              혼자서도 충분히 운영할 수 있는 호텔세탁소 창업 가이드
+              혼자서도 충분히 운영할 수 있는 호텔런드리 창업 가이드
             </p>
 
             {/* 단독 창업 콘텐츠 영역 */}

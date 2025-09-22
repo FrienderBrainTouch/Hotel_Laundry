@@ -16,7 +16,7 @@ const BusinessSeminar = () => {
                 </h2>
                 <div className="space-y-4 text-center">
                   <p className="text-24 text-gray-700 leading-relaxed">
-                    호텔세탁소 사업에 대한 상세한 설명과 Q&A를 통해
+                  호텔런드리 사업에 대한 상세한 설명과 Q&A를 통해
                     <br className="hidden sm:block" />
                     창업에 필요한 모든 정보를 제공합니다.
                   </p>
@@ -58,9 +58,9 @@ const BusinessSeminar = () => {
                   아래 연락처로 문의해 주세요.
                 </p>
                 <div className="space-y-2">
-                  <p className="text-22 text-brand-blue font-medium">📞 전화: 1588-0000</p>
+                  <p className="text-22 text-brand-blue font-medium">📞 전화: 02-1577-2657</p>
                   <p className="text-22 text-brand-blue font-medium">
-                    📧 이메일: info@hotellaundry.co.kr
+                    📧 이메일: hotellaundry@naver.com
                   </p>
                 </div>
               </div>

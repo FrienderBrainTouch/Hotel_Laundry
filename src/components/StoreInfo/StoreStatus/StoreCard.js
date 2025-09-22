@@ -11,7 +11,7 @@ const getStoreImage = (storeName) => {
     '신림본점': 'image 225.png',
     '신림점': 'image 329.png',
     '보라매점': 'image 262.png',
-    '신림서원점': 'image 242.png',
+    '신림서원점': 'sillimseowon.jpeg',
     '신림역점': 'image 354.png',
     '신길점': 'image 287.png',
     '서울대학점': 'image 350.png',

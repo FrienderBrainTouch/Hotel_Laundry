@@ -1,6 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const LocalPartnership = () => {
+  const navigate = useNavigate();
+  
   const partnerships = [
     {
       category: '지역 상권',
@@ -126,11 +129,11 @@ const LocalPartnership = () => {
               호텔런드리와 함께 지역 사회 발전에 기여하고, 상생의 가치를 실현해보세요
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-[#102254] text-white px-8 py-4 rounded-xl font-bold text-20 hover:bg-[#1C262B] transition-colors">
+              <button 
+                onClick={() => navigate('/contact')}
+                className="bg-[#102254] text-white px-8 py-4 rounded-xl font-bold text-20 hover:bg-[#1C262B] transition-colors"
+              >
                 🤝 파트너십 문의하기
-              </button>
-              <button className="bg-[#E3F2FD] text-[#102254] px-8 py-4 rounded-xl font-bold text-20 hover:bg-[#BBDEFB] transition-colors">
-                📋 파트너십 가이드 다운로드
               </button>
             </div>
           </div>

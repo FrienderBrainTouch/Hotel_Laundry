@@ -6,7 +6,7 @@ const DownloadButtons = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row gap-6 justify-center">
           <a
-            href="https://apps.apple.com/app/hotel-laundry"
+            href="https://apps.apple.com/kr/app/%ED%98%B8%ED%85%94%EB%9F%B0%EB%93%9C%EB%A6%AC/id1659312656"
             target="_blank"
             rel="noopener noreferrer"
             className="flex-1 inline-flex items-center justify-center px-12 py-6 bg-white text-[#102254] rounded-xl font-bold text-20 hover:bg-gray-100 transition-colors min-h-[60px]"
@@ -15,7 +15,7 @@ const DownloadButtons = () => {
             App Store에서 다운로드
           </a>
           <a
-            href="https://play.google.com/store/apps/details?id=com.hotellaundry.app"
+            href="https://play.google.com/store/apps/details?id=com.drwash.hotellaundry"
             target="_blank"
             rel="noopener noreferrer"
             className="flex-1 inline-flex items-center justify-center px-12 py-6 bg-white text-[#102254] rounded-xl font-bold text-20 hover:bg-gray-100 transition-colors min-h-[60px]"

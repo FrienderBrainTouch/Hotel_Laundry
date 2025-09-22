@@ -71,7 +71,7 @@ const RevenueComparison = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="section-title font-bold text-brand-dark mb-4">
-            호텔세탁소 vs 일반세탁소
+            호텔런드리 vs 일반세탁소
           </h2>
           <p className="text-24 text-gray-600 max-w-3xl mx-auto">
             수익 구조의 차별성을 데이터로 확인해보세요
@@ -90,7 +90,7 @@ const RevenueComparison = () => {
               <thead className="bg-gray-50">
                 <tr>
                   <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">구분</th>
-                  <th className="px-6 py-4 text-center text-sm font-semibold text-blue-600">호텔세탁소</th>
+                  <th className="px-6 py-4 text-center text-sm font-semibold text-blue-600">호텔런드리</th>
                   <th className="px-6 py-4 text-center text-sm font-semibold text-gray-600">일반세탁소</th>
                   <th className="px-6 py-4 text-center text-sm font-semibold text-green-600">차이</th>
                 </tr>
@@ -120,7 +120,7 @@ const RevenueComparison = () => {
         {/* 호텔세탁소의 핵심 장점 */}
         <div className="mb-16">
           <h3 className="section-title font-bold text-brand-dark mb-8 text-center">
-            호텔세탁소의 핵심 경쟁력
+          호텔런드리의 핵심 경쟁력
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {advantages.map((advantage, index) => (
@@ -157,7 +157,7 @@ const RevenueComparison = () => {
               <div className="space-y-4">
                 <div>
                   <div className="flex justify-between items-center mb-2">
-                    <span className="text-sm font-medium text-blue-600">호텔세탁소</span>
+                    <span className="text-sm font-medium text-blue-600">호텔런드리</span>
                     <span className="text-sm font-bold text-blue-600">695만원</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-3">
@@ -182,7 +182,7 @@ const RevenueComparison = () => {
               <div className="space-y-4">
                 <div>
                   <div className="flex justify-between items-center mb-2">
-                    <span className="text-sm font-medium text-green-600">호텔세탁소</span>
+                    <span className="text-sm font-medium text-green-600">호텔런드리</span>
                     <span className="text-sm font-bold text-green-600">450~500만원</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-3">

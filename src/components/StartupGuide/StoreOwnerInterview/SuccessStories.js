@@ -10,7 +10,7 @@ const SuccessStories = () => {
             성공 지표
           </h2>
           <p className="text-24 text-gray-600 max-w-3xl mx-auto">
-            호텔세탁소 창업의 성공률과 주요 지표를 확인해보세요
+          호텔런드리 창업의 성공률과 주요 지표를 확인해보세요
           </p>
         </div>
 

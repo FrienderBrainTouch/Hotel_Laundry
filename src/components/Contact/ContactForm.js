@@ -311,7 +311,7 @@ const ContactForm = ({
         <div className="bg-blue-800 text-white text-center p-4 my-8 flex items-center justify-center gap-4">
           <span className="text-hero-subtitle font-bold">📞</span>
           <p className="font-semibold text-24">
-            365일 24시간 <span className="font-bold text-hero-subtitle">1588-5942</span>,
+            365일 24시간 <span className="font-bold text-hero-subtitle">02-1577-2657</span>,
             콜센터에서도 지금 상담 가능합니다.
           </p>
         </div>
