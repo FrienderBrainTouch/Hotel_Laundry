@@ -13,8 +13,8 @@ const FloatingMenu = () => {
   const handleCatalogDownload = () => {
     // PDF 파일 다운로드 (public/documents 폴더에 파일이 있다고 가정)
     const link = document.createElement('a');
-    link.href = '/documents/hotel-laundry-catalog.pdf';
-    link.download = 'hotel-laundry-catalog.pdf';
+    link.href = '/documents/2024 호텔런드리 소개.pdf';
+    link.download = '2024 호텔런드리 소개.pdf';
     link.target = '_blank';
     
     // 파일 존재 여부 확인 후 다운로드
