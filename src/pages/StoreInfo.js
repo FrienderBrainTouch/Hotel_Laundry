@@ -3,10 +3,79 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import Breadcrumb from '../components/common/Breadcrumb';
 import StoreList from '../components/StoreInfo/StoreStatus/StoreList';
 import StoreFinder from '../components/StoreInfo/FindStore/StoreFinder';
+import StoreDetail from './StoreDetail';
+
+// 매장별 serialNumber 매핑 객체 (역매핑용)
+const STORE_SERIAL_MAPPINGS = {
+  신길점: '1001',
+  관악조원점: '20002',
+  조원점: '20002',
+  서울대입구점: '1003',
+  신림점: '20004',
+  미사헤븐시티점: '20006',
+  성내점: '1007',
+  청룡점: '1008',
+  동탄역점: '20009',
+  동탄실리콘앨리점: '20010',
+  송도랜드마크점: '20011',
+  광교상현점: '20012',
+  상도점: '1013',
+  보라매점: '1014',
+  평택점: '20015',
+  광주용봉점: '40016',
+  화곡점: '1017',
+  낙성대점: '1018',
+  서울대행운점: '1020',
+  평촌역점: '20021',
+  봉천점: '1022',
+  샤로수길점: '1023',
+  갈매점: '20024',
+  한양대학로점: '20025',
+  도래울점: '20026',
+  서울대학점: '1027',
+  분당장안점: '20028',
+  장항점: '20029',
+  성남금광점: '20030',
+  독산점: '9031',
+  서교점: '1032',
+  안산중앙역점: '20033',
+  광양중동점: '40034',
+  봉천중앙점: '1035',
+  사당점: '1036',
+  평촌아이에스비즈점: '20037',
+  아이에스비즈점: '20037',
+  경희대점: '1038',
+  신림서원점: '1039',
+  곡반정점: '20040',
+  신림서림점: '1041',
+  금정점: '20042',
+  신림역점: '1043',
+  신림본점: '1044',
+  포천이동교점: '20045',
+  항동점: '1046',
+  서울대점: '1047',
+  수진역점: '20048',
+  마장점: '1049',
+  난곡점: '1050',
+};
+
+// serialNumber로 매장명 찾기 (역매핑)
+const getStoreNameBySerial = (serialNumber) => {
+  const entry = Object.entries(STORE_SERIAL_MAPPINGS).find(
+    ([name, serial]) => serial === serialNumber
+  );
+  return entry ? entry[0] : null;
+};
 
 const StoreInfo = () => {
   const location = useLocation();
-  const currentPath = location.pathname.split('/').pop() || 'store-status';
+  const pathParts = location.pathname.split('/');
+  const currentPath = pathParts.pop() || 'store-status';
+
+  // 매장 상세 페이지인지 확인 (serialNumber가 있는지)
+  const isStoreDetail = pathParts.includes('store-status') && /^\d+$/.test(currentPath);
+  const serialNumber = isStoreDetail ? currentPath : null;
+  const storeName = serialNumber ? getStoreNameBySerial(serialNumber) : null;
 
   const breadcrumbItems = [
     {
@@ -15,21 +84,33 @@ const StoreInfo = () => {
       isActive: false,
     },
     {
-      label: getCurrentPageLabel(currentPath),
-      hasDropdown: true,
-      dropdownItems: [
-        {
-          label: '전국 매장 현황',
-          link: '/store-info/store-status',
-          isActive: currentPath === 'store-status',
-        },
-        {
-          label: '매장 찾기',
-          link: '/store-info/find-store',
-          isActive: currentPath === 'find-store',
-        },
-      ],
+      label: getCurrentPageLabel(isStoreDetail ? 'store-status' : currentPath),
+      hasDropdown: !isStoreDetail,
+      dropdownItems: !isStoreDetail
+        ? [
+            {
+              label: '전국 매장 현황',
+              link: '/store-info/store-status',
+              isActive: currentPath === 'store-status',
+            },
+            {
+              label: '매장 찾기',
+              link: '/store-info/find-store',
+              isActive: currentPath === 'find-store',
+            },
+          ]
+        : undefined,
+      ...(isStoreDetail && { link: '/store-info/store-status' }),
     },
+    // 매장 상세 페이지인 경우 매장명 추가
+    ...(isStoreDetail && storeName
+      ? [
+          {
+            label: `호텔런드리 ${storeName}`,
+            isActive: true,
+          },
+        ]
+      : []),
   ];
 
   function getCurrentPageLabel(path) {
@@ -55,6 +136,7 @@ const StoreInfo = () => {
             <Route path="/" element={<StoreList />} />
             <Route path="/store-info" element={<StoreList />} />
             <Route path="/store-status" element={<StoreList />} />
+            <Route path="/store-status/:serialNumber" element={<StoreDetail />} />
             <Route path="/find-store" element={<StoreFinder />} />
           </Routes>
         </div>
