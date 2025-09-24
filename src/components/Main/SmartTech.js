@@ -4,7 +4,6 @@ import mainImage2 from '../../image/ai_iot.jpeg';
 const slideLeft = '/images/slide-left.svg';
 const slideRight = '/images/slide-right.svg';
 const mainSmart1 = '/images/main-Images/main-change-01.png';
-const mainSmart2 = mainImage2;
 const mainSmart3 = '/images/main-Images/main-change-03.png';
 
 const SmartTech = () => {
