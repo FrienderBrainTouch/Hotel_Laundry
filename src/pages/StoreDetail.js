@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 // SVG 아이콘들을 URL로 불러옵니다. 이 방식은 모든 React 환경에서 동작합니다.
-import locationPinUrl from '../components/StoreInfo/StoreStatus/ModalImage/modal_location.svg';
 import subImage from '../components/StoreInfo/StoreStatus/ModalImage/modal_sub.svg';
 import washerUrl from '../components/StoreInfo/StoreStatus/ModalImage/modal_washer.svg';
 import shoeWasherUrl from '../components/StoreInfo/StoreStatus/ModalImage/modal_shoe.svg';
@@ -455,9 +454,6 @@ const getStoreImages = (storeName) => {
 
 // 각 아이콘을 <img> 태그를 사용하는 컴포넌트로 만듭니다.
 // 이렇게 하면 className으로 크기 조절이 가능합니다.
-const LocationPinIcon = ({ className }) => (
-  <img src={locationPinUrl} alt="Location" className={className} />
-);
 const WasherIcon = ({ className }) => <img src={washerUrl} alt="Washer" className={className} />;
 const ShoeWasherIcon = ({ className }) => (
   <img src={shoeWasherUrl} alt="Shoe Washer" className={className} />
@@ -526,7 +522,7 @@ const StoreDetail = () => {
   const storeName = getStoreNameBySerial(serialNumber);
 
   // API 데이터 로드 함수
-  const loadMachineData = async () => {
+  const loadMachineData = useCallback(async () => {
     if (!serialNumber) {
       setLoading(false);
       return;
@@ -543,7 +539,7 @@ const StoreDetail = () => {
     }
 
     setLoading(false);
-  };
+  }, [serialNumber]);
 
   // 새로고침 함수
   const handleRefresh = async () => {
@@ -555,7 +551,7 @@ const StoreDetail = () => {
   // API 데이터 로드
   useEffect(() => {
     loadMachineData();
-  }, [serialNumber]);
+  }, [loadMachineData]);
 
   // 외부 클릭 시 드롭다운 닫기
   useEffect(() => {
