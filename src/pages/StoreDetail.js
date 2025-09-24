@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 // SVG 아이콘들을 URL로 불러옵니다. 이 방식은 모든 React 환경에서 동작합니다.
@@ -432,11 +432,21 @@ const getStoreImages = (storeName) => {
     try {
       // 최대 5개까지만 가져오기 (첫 번째는 대표 이미지, 나머지 4개는 슬라이더용)
       const limitedImages = imageNames.slice(0, 5);
-      return limitedImages.map((imageName) =>
-        require(`../components/StoreInfo/StoreStatus/RealStoreImage/${storeName}/${imageName}`)
-      );
+      const loadedImages = [];
+
+      limitedImages.forEach((imageName) => {
+        try {
+          const imagePath = require(`../components/StoreInfo/StoreStatus/RealStoreImage/${storeName}/${imageName}`);
+          loadedImages.push(imagePath);
+        } catch (imageError) {
+          console.warn(`개별 이미지 로드 실패: ${storeName}/${imageName}`, imageError);
+        }
+      });
+
+      // 성공적으로 로드된 이미지가 있으면 반환, 없으면 기본 이미지
+      return loadedImages.length > 0 ? loadedImages : [subImage];
     } catch (error) {
-      console.warn(`이미지를 찾을 수 없습니다: ${storeName}`, error);
+      console.warn(`이미지 폴더 접근 실패: ${storeName}`, error);
       return [subImage]; // 기본 이미지 사용
     }
   }
@@ -508,32 +518,58 @@ const StoreDetail = () => {
   const [machineData, setMachineData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [filterType, setFilterType] = useState('전체');
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const filterRef = useRef(null);
 
   const storeName = getStoreNameBySerial(serialNumber);
 
+  // API 데이터 로드 함수
+  const loadMachineData = async () => {
+    if (!serialNumber) {
+      setLoading(false);
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+
+    const data = await fetchMachineData(serialNumber);
+    if (data) {
+      setMachineData(data);
+    } else {
+      setError('데이터를 불러올 수 없습니다.');
+    }
+
+    setLoading(false);
+  };
+
+  // 새로고침 함수
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    await loadMachineData();
+    setIsRefreshing(false);
+  };
+
   // API 데이터 로드
   useEffect(() => {
-    const loadMachineData = async () => {
-      if (!serialNumber) {
-        setLoading(false);
-        return;
-      }
-
-      setLoading(true);
-      setError(null);
-
-      const data = await fetchMachineData(serialNumber);
-      if (data) {
-        setMachineData(data);
-      } else {
-        setError('데이터를 불러올 수 없습니다.');
-      }
-
-      setLoading(false);
-    };
-
     loadMachineData();
   }, [serialNumber]);
+
+  // 외부 클릭 시 드롭다운 닫기
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (filterRef.current && !filterRef.current.contains(event.target)) {
+        setIsFilterOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   // 기본 매장 데이터 (이미지가 없는 지점용) - API 데이터 우선 사용
   const defaultStore = {
@@ -570,8 +606,26 @@ const StoreDetail = () => {
   const images = currentStore.images || [];
   const tags = currentStore.tags || [];
   const machineTypes = currentStore.machineTypes || [];
-  const machines = currentStore.machines || [];
+  const allMachines = currentStore.machines || [];
   const chartData = currentStore.chartData || [];
+
+  // 필터링된 세탁기 목록
+  const filteredMachines = allMachines.filter((machine) => {
+    if (filterType === '전체') return true;
+
+    switch (filterType) {
+      case '세탁기':
+        return machine.type === 'WASHING_L' || machine.type === 'WASHING_S';
+      case '건조기':
+        return machine.type === 'DRYER_L' || machine.type === 'DRYER_S';
+      case '운동화 세탁기':
+        return machine.type === 'SHOE_WASHING' || machine.type === 'SHOE_DRY_CLEANING';
+      case '스타일러':
+        return machine.type === 'STYLER';
+      default:
+        return true;
+    }
+  });
 
   const nextImage = () => {
     if (images.length === 0) return;
@@ -628,252 +682,314 @@ const StoreDetail = () => {
 
   return (
     <section className="py-20 bg-white">
-      <div className="flex justify-center">
-        <div className="w-full max-w-6xl mx-auto px-4">
-          {/* 상단 네비게이션 */}
-          <div className="flex items-center justify-between mb-8">
-            <button
-              onClick={() => navigate('/store-info/store-status')}
-              className="flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors"
-            >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 19l-7-7 7-7"
-                />
-              </svg>
-              매장 목록으로 돌아가기
-            </button>
+      <div className="w-full xs:max-w-[355px] sm:max-w-[535px] md:max-w-[728px] lg:max-w-[924px] xl:max-w-[1200px] 2xl:max-w-[1400px] mx-auto px-4">
+        {/* 상단 네비게이션 */}
+        <div className="mb-8">
+          <button
+            onClick={() => navigate('/store-info/store-status')}
+            className="flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors font-pretendard"
+          >
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+            매장 목록으로 돌아가기
+          </button>
+        </div>
+
+        {/* 제목 */}
+        <h1 className="text-[22px] sm:text-[24px] md:text-[28px] lg:text-[32px] xl:text-[36px] 2xl:text-[40px] font-bold text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.48px] sm:tracking-[-0.48px] md:tracking-[-0.56px] lg:tracking-[-0.64px] xl:tracking-[-0.72px] 2xl:tracking-normal mb-[30px] text-center">
+          매장 상세 정보
+        </h1>
+
+        {/* 매장 기본 정보 */}
+        <div className="mb-8 p-6 bg-gray-50 rounded-lg">
+          <div className="text-center space-y-3">
+            <h2 className="text-[20px] sm:text-[22px] md:text-[24px] lg:text-[26px] xl:text-[28px] 2xl:text-[30px] font-bold text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.4px] sm:tracking-[-0.44px] md:tracking-[-0.48px] lg:tracking-[-0.52px] xl:tracking-[-0.56px] 2xl:tracking-[-0.6px]">
+              {currentStore.name}
+            </h2>
+            <p className="text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.32px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px]">
+              📍 {currentStore.address}
+            </p>
+            <p className="text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.32px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px]">
+              📞 {currentStore.phone}
+            </p>
+            <div className="flex flex-wrap justify-center gap-2 mt-4">
+              {tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="bg-white text-gray-700 text-[14px] sm:text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] 2xl:text-[22px] font-medium px-3 py-1 rounded-full font-KoPubWorldDotum shadow-sm"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
           </div>
+        </div>
 
-          {/* 제목 */}
-          <h1 className="text-[22px] sm:text-[24px] md:text-[28px] lg:text-[32px] xl:text-[36px] 2xl:text-[40px] font-bold text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.48px] sm:tracking-[-0.48px] md:tracking-[-0.56px] lg:tracking-[-0.64px] xl:tracking-[-0.72px] 2xl:tracking-normal mb-[20px] sm:mb-[30px] md:mb-[20px] lg:mb-[30px] xl:mb-[30px] 2xl:mb-[30px] text-center">
-            매장 상세 정보
-          </h1>
+        {/* 매장 이미지 */}
+        <div className="mb-8">
+          <div className="relative w-full">
+            <img
+              src={
+                images && images.length > 0 && images[currentImageIndex]
+                  ? images[currentImageIndex]
+                  : subImage
+              }
+              alt={currentStore.name || '매장 이미지'}
+              className="w-full h-64 md:h-96 object-cover rounded-lg bg-gray-200"
+            />
+            {images.length > 1 && (
+              <>
+                <div className="absolute inset-0 flex items-center justify-between px-4">
+                  <button
+                    onClick={prevImage}
+                    className="text-white bg-black bg-opacity-30 rounded-full p-2 hover:bg-opacity-50 transition-all"
+                  >
+                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 19l-7-7 7-7"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    onClick={nextImage}
+                    className="text-white bg-black bg-opacity-30 rounded-full p-2 hover:bg-opacity-50 transition-all"
+                  >
+                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M10 5l7 7-7 7"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                  {images.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentImageIndex(index)}
+                      className={`w-2 h-2 rounded-full transition-all ${
+                        index === currentImageIndex ? 'bg-white' : 'bg-white bg-opacity-50'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        </div>
 
-          <div className="space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* 이미지 슬라이더 */}
-              <div className="relative w-full">
-                <img
-                  src={
-                    images[currentImageIndex] ||
-                    'https://placehold.co/800x600/E2E8F0/4A5568?text=No+Image'
-                  }
-                  alt={currentStore.name || '매장 이미지'}
-                  className="w-full h-64 md:h-80 object-cover rounded-lg bg-gray-200"
-                />
-                {images.length > 1 && (
-                  <>
-                    <div className="absolute inset-0 flex items-center justify-between px-2">
+        {/* 매장 장비 현황 */}
+        <div className="mb-8">
+          <h3 className="text-[20px] sm:text-[22px] md:text-[24px] lg:text-[26px] xl:text-[28px] 2xl:text-[30px] font-bold text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.4px] sm:tracking-[-0.44px] md:tracking-[-0.48px] lg:tracking-[-0.52px] xl:tracking-[-0.56px] 2xl:tracking-[-0.6px] mb-6">
+            매장 장비 현황
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {machineTypes.map((machineType, index) => (
+              <div
+                key={index}
+                className="flex items-center space-x-3 p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+              >
+                <machineType.icon className="w-8 h-8 text-gray-600 flex-shrink-0" />
+                <div>
+                  <p className="text-[14px] sm:text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] 2xl:text-[22px] font-medium text-[#1C262B] font-KoPubWorldDotum">
+                    {machineType.name}
+                  </p>
+                  <p className="text-[12px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] text-gray-600 font-KoPubWorldDotum">
+                    {machineType.count}대
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 실시간 세탁기 사용 현황 */}
+        <div className="mb-8">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
+            <div className="flex items-center gap-3">
+              <h3 className="text-[20px] sm:text-[22px] md:text-[24px] lg:text-[26px] xl:text-[28px] 2xl:text-[30px] font-bold text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.4px] sm:tracking-[-0.44px] md:tracking-[-0.48px] lg:tracking-[-0.52px] xl:tracking-[-0.56px] 2xl:tracking-[-0.6px]">
+                실시간 세탁기 사용 현황
+              </h3>
+              {/* 새로고침 버튼 */}
+              <button
+                onClick={handleRefresh}
+                disabled={isRefreshing}
+                className="flex items-center gap-2 px-3 py-2 text-[14px] sm:text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] 2xl:text-[22px] text-gray-600 hover:text-gray-800 disabled:text-gray-400 rounded-lg transition-all font-KoPubWorldDotum"
+              >
+                <svg
+                  className={`w-4 h-4 ${isRefreshing ? 'animate-spin' : ''}`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                  />
+                </svg>
+                <span>{isRefreshing ? '새로고침 중...' : '새로고침'}</span>
+              </button>
+            </div>
+            <div className="flex items-center gap-2">
+              {/* 필터 드롭다운 */}
+              <div className="relative" ref={filterRef}>
+                <button
+                  onClick={() => setIsFilterOpen(!isFilterOpen)}
+                  className="flex items-center gap-2 text-[14px] sm:text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] 2xl:text-[22px] border border-gray-300 rounded-lg px-4 py-2 bg-white hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all font-KoPubWorldDotum shadow-sm min-w-[120px] justify-between"
+                >
+                  <span>{filterType}</span>
+                  <svg
+                    className={`w-4 h-4 transition-transform duration-200 ${
+                      isFilterOpen ? 'rotate-180' : ''
+                    }`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </button>
+
+                {isFilterOpen && (
+                  <div className="absolute top-full left-0 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-lg z-50">
+                    {['전체', '세탁기', '건조기', '운동화 세탁기', '스타일러'].map((option) => (
                       <button
-                        onClick={prevImage}
-                        className="text-white bg-black bg-opacity-30 rounded-full p-1 hover:bg-opacity-50"
+                        key={option}
+                        onClick={() => {
+                          setFilterType(option);
+                          setIsFilterOpen(false);
+                        }}
+                        className={`w-full text-left px-4 py-2 text-[14px] sm:text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] 2xl:text-[22px] font-KoPubWorldDotum hover:bg-gray-50 transition-colors first:rounded-t-lg last:rounded-b-lg ${
+                          filterType === option
+                            ? 'bg-blue-50 text-blue-600 font-medium'
+                            : 'text-gray-700'
+                        }`}
                       >
-                        <svg
-                          className="w-6 h-6"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M15 19l-7-7 7-7"
-                          />
-                        </svg>
+                        <div className="flex items-center justify-between">
+                          <span>{option}</span>
+                          {filterType === option && (
+                            <svg
+                              className="w-4 h-4 text-blue-600"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          )}
+                        </div>
                       </button>
-                      <button
-                        onClick={nextImage}
-                        className="text-white bg-black bg-opacity-30 rounded-full p-1 hover:bg-opacity-50"
-                      >
-                        <svg
-                          className="w-6 h-6"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M9 5l7 7-7 7"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                    <div className="flex space-x-2 mt-2">
-                      {images.map((img, index) => (
-                        <img
-                          key={index}
-                          src={img}
-                          alt={`thumbnail ${index + 1}`}
-                          onClick={() => setCurrentImageIndex(index)}
-                          className={`w-1/5 h-16 object-cover rounded-md cursor-pointer transition-all ${
-                            index === currentImageIndex
-                              ? 'ring-2 ring-blue-500'
-                              : 'opacity-60 hover:opacity-100'
-                          }`}
-                        />
-                      ))}
-                    </div>
-                  </>
+                    ))}
+                  </div>
                 )}
               </div>
-
-              {/* 매장 정보 */}
-              <div className="flex flex-col justify-start pt-2">
-                <div className="flex items-start gap-3">
-                  <div className="text-blue-600 mt-1">
-                    <LocationPinIcon className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h3 className="text-[20px] sm:text-[22px] md:text-[24px] lg:text-[26px] xl:text-[28px] 2xl:text-[30px] font-bold text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.4px] sm:tracking-[-0.44px] md:tracking-[-0.48px] lg:tracking-[-0.52px] xl:tracking-[-0.56px] 2xl:tracking-[-0.6px]">
-                      {currentStore.name}
-                    </h3>
-                    <p className="mt-2 text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.32px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px]">
-                      {currentStore.address}
-                    </p>
-                    <p className="mt-1 text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.32px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px]">
-                      {currentStore.phone}
-                    </p>
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      {tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-3 py-1 text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] font-semibold text-[#1C262B] bg-gray-200 rounded-full"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* 세탁기 종류 */}
-                <div className="mt-6 border-t pt-6 space-y-4">
-                  {machineTypes.map((type) => {
-                    const IconComponent = type.icon;
-                    return (
-                      <div
-                        key={type.name}
-                        className="flex items-center justify-between text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px]"
-                      >
-                        <div className="flex items-center gap-3 text-[#1C262B]">
-                          <IconComponent className="w-6 h-6" />
-                          <span>{type.name}</span>
-                        </div>
-                        <div className="flex-grow border-b border-dashed mx-4"></div>
-                        <span className="font-semibold text-[#1C262B]">{type.count}대</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-
-            {/* 실시간 세탁기 사용 현황 */}
-            <div>
-              <div className="flex justify-between items-center mb-4">
-                <h4 className="text-[20px] sm:text-[22px] md:text-[24px] lg:text-[26px] xl:text-[28px] 2xl:text-[30px] font-bold text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.4px] sm:tracking-[-0.44px] md:tracking-[-0.48px] lg:tracking-[-0.52px] xl:tracking-[-0.56px] 2xl:tracking-[-0.6px]">
-                  실시간 세탁기 사용 현황
-                </h4>
-                <select className="text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] border border-gray-300 rounded-md px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-500">
-                  <option>세탁기 종류</option>
-                  <option>전체</option>
-                </select>
-              </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
-                {machines.map((machine) => {
-                  const IconComponent = getMachineIcon(machine.type);
-                  return (
-                    <div
-                      key={machine.id}
-                      className="border border-gray-200 rounded-lg p-2.5 flex flex-col items-center justify-between text-center min-h-[110px] max-h-[140px] hover:shadow-md transition-shadow"
-                    >
-                      <IconComponent className="w-7 h-7 text-gray-500 flex-shrink-0" />
-                      <div className="flex-grow flex items-center justify-center px-1 overflow-hidden">
-                        <p
-                          className="text-xs font-medium text-[#1C262B] font-KoPubWorldDotum leading-tight text-center break-words"
-                          style={{
-                            display: '-webkit-box',
-                            WebkitLineClamp: '2',
-                            WebkitBoxOrient: 'vertical',
-                            overflow: 'hidden',
-                            wordBreak: 'break-word',
-                          }}
-                        >
-                          {machine.name}
-                        </p>
-                      </div>
-                      <div className="flex items-center justify-center gap-1 flex-shrink-0">
-                        {machine.isAvailable ? (
-                          <>
-                            <svg
-                              className="w-3 h-3 text-green-500"
-                              viewBox="0 0 20 20"
-                              fill="currentColor"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
-                            <span className="text-xs font-medium text-green-600">사용가능</span>
-                          </>
-                        ) : machine.isRunning ? (
-                          <>
-                            <svg
-                              className="w-3 h-3 text-red-500"
-                              viewBox="0 0 20 20"
-                              fill="currentColor"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
-                            <span className="text-xs font-medium text-red-600">사용중</span>
-                          </>
-                        ) : (
-                          <span className="text-xs font-medium text-white">사용불가</span>
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* 전월 대비 수익 상승률 */}
-            <div>
-              <h4 className="text-[20px] sm:text-[22px] md:text-[24px] lg:text-[26px] xl:text-[28px] 2xl:text-[30px] font-bold text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.4px] sm:tracking-[-0.44px] md:tracking-[-0.48px] lg:tracking-[-0.52px] xl:tracking-[-0.56px] 2xl:tracking-[-0.6px] mb-4">
-                전월 대비 수익 상승률
-              </h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                <div className="md:col-span-1">
-                  <Chart data={chartData} />
-                </div>
-                <div className="md:col-span-1 text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.32px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px]">
-                  <p>{currentStore.chartDescription}</p>
-                </div>
-              </div>
             </div>
           </div>
+          {filteredMachines.length > 0 ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
+              {filteredMachines.map((machine) => {
+                const IconComponent = getMachineIcon(machine.type);
+                return (
+                  <div
+                    key={machine.id}
+                    className="border border-gray-200 rounded-lg p-2.5 flex flex-col items-center justify-between text-center min-h-[110px] max-h-[140px] hover:shadow-md transition-shadow"
+                  >
+                    <IconComponent className="w-7 h-7 text-gray-500 flex-shrink-0" />
+                    <div className="flex-grow flex items-center justify-center px-1 overflow-hidden">
+                      <p
+                        className="text-xs font-medium text-[#1C262B] font-KoPubWorldDotum leading-tight text-center break-words"
+                        style={{
+                          display: '-webkit-box',
+                          WebkitLineClamp: '2',
+                          WebkitBoxOrient: 'vertical',
+                          overflow: 'hidden',
+                          wordBreak: 'break-word',
+                        }}
+                      >
+                        {machine.name}
+                      </p>
+                    </div>
+                    <div className="flex items-center justify-center gap-1 flex-shrink-0">
+                      {machine.isAvailable ? (
+                        <>
+                          <svg
+                            className="w-3 h-3 text-green-500"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                          <span className="text-xs font-medium text-green-600">사용가능</span>
+                        </>
+                      ) : machine.isRunning ? (
+                        <>
+                          <svg
+                            className="w-3 h-3 text-red-500"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                          <span className="text-xs font-medium text-red-600">사용중</span>
+                        </>
+                      ) : (
+                        <span className="text-xs font-medium text-white">사용불가</span>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="text-center py-8 text-gray-500">
+              <p className="text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] font-KoPubWorldDotum">
+                선택한 종류의 세탁기가 없습니다.
+              </p>
+            </div>
+          )}
+        </div>
 
-          {/* 하단 버튼 */}
-          <div className="mt-8 pt-6 border-t text-center">
-            <button
-              onClick={() => navigate('/store-info/store-status')}
-              className="w-full sm:w-auto inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-10 py-2 bg-white text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] font-medium text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.32px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px] hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            >
-              매장 목록으로 돌아가기
-            </button>
+        {/* 전월 대비 수익 상승률 */}
+        <div>
+          <h4 className="text-[20px] sm:text-[22px] md:text-[24px] lg:text-[26px] xl:text-[28px] 2xl:text-[30px] font-bold text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.4px] sm:tracking-[-0.44px] md:tracking-[-0.48px] lg:tracking-[-0.52px] xl:tracking-[-0.56px] 2xl:tracking-[-0.6px] mb-4">
+            전월 대비 수익 상승률
+          </h4>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div className="md:col-span-1">
+              <Chart data={chartData} />
+            </div>
+            <div className="md:col-span-1 text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.32px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px]">
+              <p>{currentStore.chartDescription}</p>
+            </div>
           </div>
         </div>
       </div>

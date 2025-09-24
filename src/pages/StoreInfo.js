@@ -67,6 +67,32 @@ const getStoreNameBySerial = (serialNumber) => {
   return entry ? entry[0] : null;
 };
 
+// 매장 목록 데이터 생성 (브레드크럼 셀렉터용)
+const getStoreListForSelector = () => {
+  return Object.entries(STORE_SERIAL_MAPPINGS)
+    .map(([name, serialNumber]) => {
+      // 지역 분류 (간단한 분류)
+      let region = '서울';
+      if (serialNumber.startsWith('2')) region = '경기';
+      else if (serialNumber.startsWith('4')) region = '전라';
+      else if (serialNumber.startsWith('9')) region = '서울'; // 독산점은 서울
+
+      return {
+        name,
+        serialNumber,
+        region,
+      };
+    })
+    .sort((a, b) => {
+      // 지역별, 매장명별 정렬
+      if (a.region !== b.region) {
+        const regionOrder = ['서울', '경기', '전라'];
+        return regionOrder.indexOf(a.region) - regionOrder.indexOf(b.region);
+      }
+      return a.name.localeCompare(b.name);
+    });
+};
+
 const StoreInfo = () => {
   const location = useLocation();
   const pathParts = location.pathname.split('/');
@@ -102,12 +128,13 @@ const StoreInfo = () => {
         : undefined,
       ...(isStoreDetail && { link: '/store-info/store-status' }),
     },
-    // 매장 상세 페이지인 경우 매장명 추가
+    // 매장 상세 페이지인 경우 매장명 추가 (셀렉터로)
     ...(isStoreDetail && storeName
       ? [
           {
-            label: `호텔런드리 ${storeName}`,
+            label: storeName,
             isActive: true,
+            isStoreSelector: true, // 매장 셀렉터로 표시
           },
         ]
       : []),
@@ -129,7 +156,17 @@ const StoreInfo = () => {
       <div className="flex justify-center">
         <div className="w-full xs:max-w-[355px] sm:max-w-[535px] md:max-w-[728px] lg:max-w-[924px] xl:max-w-[1200px] 2xl:max-w-[1400px] mx-auto">
           {/* 브레드크럼 */}
-          <Breadcrumb items={breadcrumbItems} />
+          <Breadcrumb
+            items={breadcrumbItems}
+            storeSelector={
+              isStoreDetail
+                ? {
+                    stores: getStoreListForSelector(),
+                    currentSerialNumber: serialNumber,
+                  }
+                : null
+            }
+          />
 
           {/* 개별 라우팅 */}
           <Routes>
