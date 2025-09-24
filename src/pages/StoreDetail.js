@@ -73,9 +73,8 @@ const getStoreNameBySerial = (serialNumber) => {
 // API 호출 함수
 const fetchMachineData = async (serialNumber) => {
   try {
-    const response = await fetch(
-      `https://api.hotel-laundry.com/api/v1/kiosk/machine/machines-by-store/${serialNumber}`
-    );
+    const baseUrl = process.env.REACT_APP_API_BASE_URL;
+    const response = await fetch(`${baseUrl}/kiosk/machine/machines-by-store/${serialNumber}`);
     const result = await response.json();
 
     if (result.success) {
