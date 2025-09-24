@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>호텔런드리 - 호텔 세탁 서비스</title>
+    <description>호텔 세탁 서비스 - 셀프빨래방, 소자본창업, 무인창업, 빨래방, 재테크, 워시업, 워시업코리아, 호텔런드리. 스마트 시스템과 자동화 솔루션으로 제공되는 프리미엄 세탁 서비스</description>
+    <link>https://hotellaundry.co.kr/</link>
+    <language>ko-KR</language>
+    <copyright>© 2024 호텔런드리. All rights reserved.</copyright>
+    <managingEditor>info@hotellaundry.co.kr (호텔런드리)</managingEditor>
+    <webMaster>info@hotellaundry.co.kr (호텔런드리)</webMaster>
+    <lastBuildDate>Fri, 20 Dec 2024 00:00:00 +0900</lastBuildDate>
+    <atom:link href="https://hotellaundry.co.kr/rss.xml" rel="self" type="application/rss+xml"/>
+    
+    <!-- 메인 페이지 -->
+    <item>
+      <title>호텔런드리 - 호텔 세탁 서비스</title>
+      <description>스마트 시스템과 자동화 솔루션으로 제공되는 프리미엄 세탁 서비스. IoT 기술을 활용한 효율적인 세탁 관리 시스템을 경험하세요.</description>
+      <link>https://hotellaundry.co.kr/</link>
+      <guid>https://hotellaundry.co.kr/</guid>
+      <pubDate>Fri, 20 Dec 2024 00:00:00 +0900</pubDate>
+    </item>
+    
+    <!-- 호텔세탁소 소개 -->
+    <item>
+      <title>호텔세탁소 소개</title>
+      <description>호텔런드리의 브랜드 스토리와 회사 소개를 확인하세요. 셀프빨래방, 소자본창업, 무인창업의 새로운 패러다임을 제시합니다.</description>
+      <link>https://hotellaundry.co.kr/hotel-laundry</link>
+      <guid>https://hotellaundry.co.kr/hotel-laundry</guid>
+      <pubDate>Fri, 20 Dec 2024 00:00:00 +0900</pubDate>
+    </item>
+    
+    <!-- 스마트 시스템 -->
+    <item>
+      <title>스마트 시스템</title>
+      <description>IoT 기술을 활용한 스마트 세탁 시스템. 자동화된 세탁 관리로 효율성을 극대화하세요.</description>
+      <link>https://hotellaundry.co.kr/smart-system</link>
+      <guid>https://hotellaundry.co.kr/smart-system</guid>
+      <pubDate>Fri, 20 Dec 2024 00:00:00 +0900</pubDate>
+    </item>
+    
+    <!-- 창업 가이드 -->
+    <item>
+      <title>창업 가이드</title>
+      <description>소자본창업, 무인창업을 위한 완벽한 가이드. 셀프빨래방 창업의 모든 것을 알려드립니다.</description>
+      <link>https://hotellaundry.co.kr/startup-guide</link>
+      <guid>https://hotellaundry.co.kr/startup-guide</guid>
+      <pubDate>Fri, 20 Dec 2024 00:00:00 +0900</pubDate>
+    </item>
+    
+    <!-- 매장 정보 -->
+    <item>
+      <title>매장 정보</title>
+      <description>전국 호텔런드리 매장 위치와 운영 현황을 확인하세요. 가까운 셀프빨래방을 찾아보세요.</description>
+      <link>https://hotellaundry.co.kr/store-info</link>
+      <guid>https://hotellaundry.co.kr/store-info</guid>
+      <pubDate>Fri, 20 Dec 2024 00:00:00 +0900</pubDate>
+    </item>
+    
+    <!-- 기계 정보 -->
+    <item>
+      <title>세탁기 및 건조기</title>
+      <description>최신 세탁기와 건조기 정보. 스마트 세탁 시스템의 핵심 장비를 소개합니다.</description>
+      <link>https://hotellaundry.co.kr/equipment</link>
+      <guid>https://hotellaundry.co.kr/equipment</guid>
+      <pubDate>Fri, 20 Dec 2024 00:00:00 +0900</pubDate>
+    </item>
+    
+    <!-- 앱 가이드 -->
+    <item>
+      <title>앱 가이드</title>
+      <description>호텔런드리 앱 사용법과 기능을 확인하세요. 편리한 세탁 서비스를 경험해보세요.</description>
+      <link>https://hotellaundry.co.kr/app-guide</link>
+      <guid>https://hotellaundry.co.kr/app-guide</guid>
+      <pubDate>Fri, 20 Dec 2024 00:00:00 +0900</pubDate>
+    </item>
+    
+    <!-- 관리 지원 -->
+    <item>
+      <title>관리 지원</title>
+      <description>매장 운영을 위한 관리 지원 서비스. 중앙 통제 시스템과 매장 관리 솔루션을 제공합니다.</description>
+      <link>https://hotellaundry.co.kr/management-support</link>
+      <guid>https://hotellaundry.co.kr/management-support</guid>
+      <pubDate>Fri, 20 Dec 2024 00:00:00 +0900</pubDate>
+    </item>
+    
+    <!-- 문의 -->
+    <item>
+      <title>문의하기</title>
+      <description>호텔런드리에 대한 문의사항이 있으시면 언제든지 연락주세요. 전문 상담팀이 도와드립니다.</description>
+      <link>https://hotellaundry.co.kr/contact</link>
+      <guid>https://hotellaundry.co.kr/contact</guid>
+      <pubDate>Fri, 20 Dec 2024 00:00:00 +0900</pubDate>
+    </item>
+  </channel>
+</rss>
