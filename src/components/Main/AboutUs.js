@@ -1,10 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const AboutUs = () => {
+  const navigate = useNavigate();
+
   const features = [
     {
       icon: 'main-service-1.svg',
       title: '셀프 드라이클리닝',
+      path: '/equipment/self-dry-cleaning',
       subtitle: {
         xs: '빨래방과 드라이클리닝을 하나로\n경제성을 극대화 했습니다',
         sm: '빨래방과 드라이클리닝을 하나로\n경제성을 극대화 했습니다',
@@ -17,6 +21,7 @@ const AboutUs = () => {
     {
       icon: 'main-service-2.svg',
       title: '첨단 기술',
+      path: '/smart-system/advanced-technology',
       subtitle: {
         xs: 'IOT원격제어와 AI운영관리 시스템으로\n완전한 무인운영이 가능',
         sm: 'IOT원격제어와 AI운영관리 시스템으로\n완전한 무인운영이 가능',
@@ -29,6 +34,7 @@ const AboutUs = () => {
     {
       icon: 'main-service-3.svg',
       title: '청결 메커니즘',
+      path: '/smart-system/status-management',
       subtitle: {
         xs: '모든 세탁, 헹굼 과정에서\n자동 투입하는 Hol 살균수',
         sm: '모든 세탁, 헹굼 과정에서\n자동 투입하는 Hol 살균수',
@@ -41,6 +47,7 @@ const AboutUs = () => {
     {
       icon: 'main-service-4.svg',
       title: '지역 플랫폼',
+      path: '/app-guide/local-platform',
       subtitle: {
         xs: '호텔런드리 각 매장을 중심으로\n인근 상가 커뮤니티 제공',
         sm: '호텔런드리 각 매장을 중심으로\n인근 상가 커뮤니티 제공',
@@ -51,6 +58,10 @@ const AboutUs = () => {
       },
     },
   ];
+
+  const handleFeatureClick = (path) => {
+    navigate(path);
+  };
 
   const renderSubtitle = (subtitle) => {
     return (
@@ -152,7 +163,8 @@ const AboutUs = () => {
               {features.map((feature, index) => (
                 <div
                   key={index}
-                  className="relative w-full h-[180px] sm:w-[278px] sm:h-[180px] md:w-[364px] md:h-[230px] lg:w-[400px] lg:h-[300px] xl:w-auto xl:h-auto 2xl:w-auto 2xl:h-auto mx-auto flex items-center justify-center"
+                  className="relative w-full h-[200px] sm:w-[300px] sm:h-[200px] md:w-[390px] md:h-[250px] lg:w-[430px] lg:h-[320px] xl:w-auto xl:h-auto 2xl:w-auto 2xl:h-auto mx-auto flex items-center justify-center cursor-pointer hover:shadow-[4px_4px_12px_rgba(0,0,0,0.1)] transition-all duration-300 ease-in-out rounded-lg"
+                  onClick={() => handleFeatureClick(feature.path)}
                 >
                   <div className="text-center px-8 sm:px-4 md:px-8">
                     <div className=" flex justify-center">
