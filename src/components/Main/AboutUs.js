@@ -190,57 +190,38 @@ const AboutUs = () => {
                 </div>
               ))}
 
-              {/* Vertical dividers between items */}
-              {/* Between 1-2 for 2x2 layout */}
+              {/* Vertical dividers for horizontal layouts (sm, lg, xl, 2xl) */}
+              {/* Between 1-2 for 2x2 layout (sm, lg) */}
               <div
-                className="hidden sm:block lg:block xl:hidden absolute top-0 left-1/2 bg-[#D4D4D4]"
-                style={{ width: '1px', height: '40%', transform: 'translateX(-50%)' }}
+                className="hidden sm:block lg:block xl:hidden 2xl:hidden absolute top-0 left-1/2 bg-[#D4D4D4]"
+                style={{ width: '1px', height: '100%', transform: 'translateX(-50%)' }}
               ></div>
 
-              {/* Between 3-4 for 2x2 layout */}
-              <div
-                className="hidden sm:block lg:block xl:hidden absolute bottom-0 left-1/2 bg-[#D4D4D4]"
-                style={{ width: '1px', height: '40%', transform: 'translateX(-50%)' }}
-              ></div>
-
-              {/* Between 1-2, 2-3, 3-4 for 4x1 layout */}
+              {/* Between 1-2, 2-3, 3-4 for 4x1 layout (xl, 2xl) */}
               <div
                 className="hidden xl:block 2xl:block absolute top-0 left-1/4 bg-[#D4D4D4]"
-                style={{ width: '1px', height: '255px' }}
+                style={{ width: '1px', height: '100%', transform: 'translateX(-50%)' }}
               ></div>
               <div
                 className="hidden xl:block 2xl:block absolute top-0 left-2/4 bg-[#D4D4D4]"
-                style={{ width: '1px', height: '255px' }}
+                style={{ width: '1px', height: '100%', transform: 'translateX(-50%)' }}
               ></div>
               <div
                 className="hidden xl:block 2xl:block absolute top-0 left-3/4 bg-[#D4D4D4]"
-                style={{ width: '1px', height: '255px' }}
+                style={{ width: '1px', height: '100%', transform: 'translateX(-50%)' }}
               ></div>
 
-              {/* Horizontal dividers for 2x2 layout */}
-              {/* Top row horizontal divider */}
+              {/* Horizontal dividers for vertical layout (xs) */}
               <div
-                className="hidden sm:block lg:block xl:hidden absolute top-1/2 left-0 right-0 bg-[#D4D4D4]"
-                style={{ height: '1px', transform: 'translateY(-50%)' }}
-              ></div>
-
-              {/* Bottom row horizontal divider */}
-              <div
-                className="hidden sm:block lg:block xl:hidden absolute top-1/2 left-0 right-0 bg-[#D4D4D4]"
-                style={{ height: '1px', transform: 'translateY(-50%)' }}
-              ></div>
-
-              {/* Horizontal dividers for xs layout */}
-              <div
-                className="block sm:hidden  xl:hidden absolute top-[180px] left-0 right-0 bg-[#D4D4D4]"
+                className="block sm:hidden absolute top-[200px] left-0 right-0 bg-[#D4D4D4]"
                 style={{ height: '1px' }}
               ></div>
               <div
-                className="block sm:hidden xl:hidden absolute top-[360px] left-0 right-0 bg-[#D4D4D4]"
+                className="block sm:hidden absolute top-[400px] left-0 right-0 bg-[#D4D4D4]"
                 style={{ height: '1px' }}
               ></div>
               <div
-                className="block sm:hidden xl:hidden absolute top-[540px] left-0 right-0 bg-[#D4D4D4]"
+                className="block sm:hidden absolute top-[600px] left-0 right-0 bg-[#D4D4D4]"
                 style={{ height: '1px' }}
               ></div>
             </div>
