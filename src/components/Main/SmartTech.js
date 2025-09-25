@@ -20,19 +20,26 @@ const SmartTech = () => {
         id: 1,
         image: mainSmart3,
         title: '셀프 드라이클리닝 도입 수익 걱정 끝!',
-        subtitle: '이불 세탁과 양복 드라이클리닝이\n하나의 세탁기에서 모두 가능',
+        subtitles: [
+          '이불 세탁과 양복 드라이클리닝이\n하나의 세탁기에서 모두 가능',
+          '세탁소나 크린토**를 위협하는 가장\n강력한 매출 극대화'
+        ],
       },
       {
         id: 2,
         image: mainImage2,
         title: 'IOT기반 스마트 매장',
-        subtitle: "'대기 시간 없는 세탁고객'\n'일하지 않아도 되는 점주'",
+        subtitles: [
+          '대기 시간 없는 세탁고객\n일하지 않아도 되는 점주',
+        ],
       },
       {
         id: 3,
         image: mainSmart1,
         title: '새벽에도 걸려오는 고객전화 스트레스로부터 해방!',
-        subtitle: '전 매장 24시간 통합 콜센터',
+        subtitles: [
+          '전 매장 24시간 통합 콜센터운영을 통한\n고객전화 스트레스 해결'
+        ],
       },
     ],
     []
@@ -173,12 +180,16 @@ const SmartTech = () => {
                         className="w-full h-[200px] object-cover"
                       />
                       <div className="p-4">
-                        <h3 className="text-[#1C262B] font-['KoPubWorldDotum'] text-[14px] sm:text-[16px] font-bold mb-2">
+                        <h3 className="text-[#1C262B] font-['KoPubWorldDotum'] text-[16px] sm:text-[18px] font-bold mb-2">
                           {slide.title}
                         </h3>
-                        <p className="text-[#1C262B] font-['KoPubWorldDotum'] text-[10px] sm:text-[12px] leading-relaxed whitespace-pre-line">
-                          {slide.subtitle}
-                        </p>
+                        <div className="space-y-2">
+                          {slide.subtitles.map((subtitle, index) => (
+                            <p key={index} className="text-[#1C262B] font-['KoPubWorldDotum'] text-[12px] sm:text-[14px] leading-relaxed whitespace-pre-line">
+                              {subtitle}
+                            </p>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -192,12 +203,16 @@ const SmartTech = () => {
                         className="w-full h-[300px] object-cover"
                       />
                       <div className="p-6">
-                        <h3 className="text-[#1C262B] font-['KoPubWorldDotum'] text-[16px] md:text-[18px] font-bold mb-3">
+                        <h3 className="text-[#1C262B] font-['KoPubWorldDotum'] text-[18px] md:text-[20px] font-bold mb-3">
                           {slide.title}
                         </h3>
-                        <p className="text-[#1C262B] font-['KoPubWorldDotum'] text-[12px] md:text-[14px] leading-relaxed whitespace-pre-line">
-                          {slide.subtitle}
-                        </p>
+                        <div className="space-y-2">
+                          {slide.subtitles.map((subtitle, index) => (
+                            <p key={index} className="text-[#1C262B] font-['KoPubWorldDotum'] text-[14px] md:text-[16px] leading-relaxed whitespace-pre-line">
+                              {subtitle}
+                            </p>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -216,12 +231,16 @@ const SmartTech = () => {
 
                     {/* Text Card - Overlapping */}
                     <div className="absolute bottom-[-20px] right-[-20px] xl:bottom-[-30px] xl:right-[-30px] bg-white rounded-2xl xl:rounded-3xl p-6 xl:p-8 shadow-lg xl:shadow-xl w-[280px] xl:w-[400px] h-[220px] xl:h-[260px] z-10">
-                      <h3 className="text-[#1C262B] font-['KoPubWorldDotum'] text-[16px] lg:text-[18px] xl:text-[20px] font-bold mb-3">
+                      <h3 className="text-[#1C262B] font-['KoPubWorldDotum'] text-[18px] lg:text-[20px] xl:text-[22px] font-bold mb-3">
                         {slide.title}
                       </h3>
-                      <p className="text-[#1C262B] font-['KoPubWorldDotum'] text-[12px] lg:text-[14px] xl:text-[16px] leading-relaxed whitespace-pre-line">
-                        {slide.subtitle}
-                      </p>
+                      <div className="space-y-2">
+                        {slide.subtitles.map((subtitle, index) => (
+                          <p key={index} className="text-[#1C262B] font-['KoPubWorldDotum'] text-[14px] lg:text-[16px] xl:text-[18px] leading-relaxed whitespace-pre-line">
+                            {subtitle}
+                          </p>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
