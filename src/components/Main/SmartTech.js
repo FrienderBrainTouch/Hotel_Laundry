@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import mainImage2 from '../../image/ai_iot.jpeg';
 
 const slideLeft = '/images/slide-left.svg';
@@ -8,33 +8,38 @@ const mainSmart3 = '/images/main-Images/main-change-03.png';
 
 const SmartTech = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(true);
   const [isAnimating, setIsAnimating] = useState(false); // rapid click guard
   const animTimeoutRef = useRef(null);
+  const isAutoPausedRef = useRef(false);
 
-  const slides = [
-    {
-      id: 1,
-      image: mainSmart3,
-      title: '셀프 드라이클리닝 도입 수익 걱정 끝!',
-      subtitle: '이불 세탁과 양복 드라이클리닝이\n하나의 세탁기에서 모두 가능',
-    },
-    {
-      id: 2,
-      image: mainImage2,
-      title: 'IOT기반 스마트 매장',
-      subtitle: "'대기 시간 없는 세탁고객'\n'일하지 않아도 되는 점주'",
-    },
-    {
-      id: 3,
-      image: mainSmart1,
-      title: '새벽에도 걸려오는 고객전화 스트레스로부터 해방!',
-      subtitle: '전 매장 24시간 통합 콜센터',
-    },
-  ];
+  // slides 고정
+  const slides = useMemo(
+    () => [
+      {
+        id: 1,
+        image: mainSmart3,
+        title: '셀프 드라이클리닝 도입 수익 걱정 끝!',
+        subtitle: '이불 세탁과 양복 드라이클리닝이\n하나의 세탁기에서 모두 가능',
+      },
+      {
+        id: 2,
+        image: mainImage2,
+        title: 'IOT기반 스마트 매장',
+        subtitle: "'대기 시간 없는 세탁고객'\n'일하지 않아도 되는 점주'",
+      },
+      {
+        id: 3,
+        image: mainSmart1,
+        title: '새벽에도 걸려오는 고객전화 스트레스로부터 해방!',
+        subtitle: '전 매장 24시간 통합 콜센터',
+      },
+    ],
+    []
+  );
 
-  // 확장 슬라이드 (마지막에 첫 슬라이드 클론 추가)
-  const slidesExtended = [...slides, slides[0]];
+  const slidesLength = slides.length;
+  const slidesExtended = useMemo(() => [...slides, slides[0]], [slides]);
 
   const beginAnimation = useCallback(() => {
     if (animTimeoutRef.current) clearTimeout(animTimeoutRef.current);
@@ -45,52 +50,57 @@ const SmartTech = () => {
   }, []);
 
   const nextSlide = useCallback(() => {
-    if (isAnimating) return; // ignore rapid clicks
+    if (isAnimating) return; // rapid clicks 무시
     beginAnimation();
     setCurrentIndex((prev) => prev + 1);
   }, [isAnimating, beginAnimation]);
 
   const prevSlide = useCallback(() => {
-    if (isAnimating) return; // ignore rapid clicks
+    if (isAnimating) return;
     beginAnimation();
-    setCurrentIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
-  }, [isAnimating, beginAnimation, slides.length]);
+    setCurrentIndex((prev) => (prev === 0 ? slidesLength - 1 : prev - 1));
+  }, [isAnimating, beginAnimation, slidesLength]);
 
-  // 컴포넌트 마운트 시 초기화
+  // 자동 슬라이드 (5초) - 래핑 중에는 정지
   useEffect(() => {
-    setIsTransitioning(true);
-    setIsAnimating(false);
-  }, []);
-
-  // 자동 슬라이드 (5초)
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (!isAnimating) nextSlide();
+    const id = setInterval(() => {
+      if (!isAnimating && !isAutoPausedRef.current) {
+        nextSlide();
+      }
     }, 5000);
-    return () => clearInterval(interval);
+    return () => clearInterval(id);
   }, [nextSlide, isAnimating]);
 
-  // 래핑 처리: (마지막 클론에 도달하면 transition 끄고 index를 0으로 즉시 이동)
-  const handleTransitionEnd = () => {
-    if (currentIndex === slides.length) {
+  // 래핑 로직: 마지막 클론 도달 시(= slidesLength) 0으로 점프
+  useEffect(() => {
+    if (currentIndex === slidesLength) {
+      // 자동재생 일시정지 + 전환 제거 후 점프
+      isAutoPausedRef.current = true;
       setIsTransitioning(false);
-      setTimeout(() => {
-        setCurrentIndex(0);
-        setTimeout(() => {
+      setCurrentIndex(0);
+
+      // 두 프레임 보장 후 전환 복구 및 재개
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
           setIsTransitioning(true);
           setIsAnimating(false);
-          if (animTimeoutRef.current) {
-            clearTimeout(animTimeoutRef.current);
-            animTimeoutRef.current = null;
-          }
-        }, 50);
-      }, 50);
-    } else {
-      setIsAnimating(false);
-      if (animTimeoutRef.current) {
-        clearTimeout(animTimeoutRef.current);
-        animTimeoutRef.current = null;
-      }
+          isAutoPausedRef.current = false;
+        });
+      });
+    } else if (currentIndex > slidesLength) {
+      // 방어적 클램프 (예외 상황 대비)
+      setCurrentIndex(slidesLength);
+    } else if (currentIndex < 0) {
+      setCurrentIndex(0);
+    }
+  }, [currentIndex, slidesLength]);
+
+  // transition 끝난 뒤 정리만 수행 (래핑은 effect에서 처리)
+  const handleTransitionEnd = () => {
+    setIsAnimating(false);
+    if (animTimeoutRef.current) {
+      clearTimeout(animTimeoutRef.current);
+      animTimeoutRef.current = null;
     }
   };
 
@@ -153,7 +163,7 @@ const SmartTech = () => {
               onTransitionEnd={handleTransitionEnd}
             >
               {slidesExtended.map((slide, index) => (
-                <div key={`${slide.id}-${index}`} className="w-full flex-shrink-0">
+                <div key={index} className="w-full flex-shrink-0">
                   {/* Mobile: Integrated card design */}
                   <div className="block sm:hidden">
                     <div className="bg-white rounded-2xl shadow-xl overflow-hidden h-[350px]">
