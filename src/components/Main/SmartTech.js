@@ -8,7 +8,7 @@ const mainSmart3 = '/images/main-Images/main-change-03.png';
 
 const SmartTech = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(true);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false); // rapid click guard
   const animTimeoutRef = useRef(null);
 
@@ -56,6 +56,12 @@ const SmartTech = () => {
     setCurrentIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
   }, [isAnimating, beginAnimation, slides.length]);
 
+  // 컴포넌트 마운트 시 초기화
+  useEffect(() => {
+    setIsTransitioning(true);
+    setIsAnimating(false);
+  }, []);
+
   // 자동 슬라이드 (5초)
   useEffect(() => {
     const interval = setInterval(() => {
@@ -68,17 +74,17 @@ const SmartTech = () => {
   const handleTransitionEnd = () => {
     if (currentIndex === slides.length) {
       setIsTransitioning(false);
-      requestAnimationFrame(() => {
+      setTimeout(() => {
         setCurrentIndex(0);
-        requestAnimationFrame(() => {
+        setTimeout(() => {
           setIsTransitioning(true);
           setIsAnimating(false);
           if (animTimeoutRef.current) {
             clearTimeout(animTimeoutRef.current);
             animTimeoutRef.current = null;
           }
-        });
-      });
+        }, 50);
+      }, 50);
     } else {
       setIsAnimating(false);
       if (animTimeoutRef.current) {
@@ -138,7 +144,7 @@ const SmartTech = () => {
           </button>
 
           {/* Unified Slide Track (mobile + desktop) */}
-          <div className="relative overflow-hidden w-full h-[400px] sm:h-[400px]">
+          <div className="relative overflow-hidden w-full h-[350px] sm:h-[500px] md:h-[500px] lg:h-[550px] xl:h-[600px] min-h-[350px]">
             <div
               className={`${
                 isTransitioning ? 'transition-transform duration-500 ease-in-out' : ''
@@ -147,25 +153,64 @@ const SmartTech = () => {
               onTransitionEnd={handleTransitionEnd}
             >
               {slidesExtended.map((slide, index) => (
-                <div key={`${slide.id}-${index}`} className="w-full flex-shrink-0 relative">
-                  {/* Centered inner wrapper to avoid left/right drifting */}
-                  <div className="relative h-[400px] mx-auto w-[680px] sm:w-[720px] md:w-[900px] lg:w-[1100px] xl:w-[1200px]">
-                    {/* Image at top-left with small inward offset */}
+                <div key={`${slide.id}-${index}`} className="w-full flex-shrink-0">
+                  {/* Mobile: Integrated card design */}
+                  <div className="block sm:hidden">
+                    <div className="bg-white rounded-2xl shadow-xl overflow-hidden h-[350px]">
+                      <img
+                        src={slide.image}
+                        alt={`Smart Tech Slide ${slide.id}`}
+                        className="w-full h-[200px] object-cover"
+                      />
+                      <div className="p-4">
+                        <h3 className="text-[#1C262B] font-['KoPubWorldDotum'] text-[14px] sm:text-[16px] font-bold mb-2">
+                          {slide.title}
+                        </h3>
+                        <p className="text-[#1C262B] font-['KoPubWorldDotum'] text-[10px] sm:text-[12px] leading-relaxed whitespace-pre-line">
+                          {slide.subtitle}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Tablet: Integrated card design (768px-1024px) */}
+                  <div className="hidden sm:block lg:hidden">
+                    <div className="bg-white rounded-2xl shadow-xl overflow-hidden max-w-[600px] mx-auto h-[450px]">
+                      <img
+                        src={slide.image}
+                        alt={`Smart Tech Slide ${slide.id}`}
+                        className="w-full h-[300px] object-cover"
+                      />
+                      <div className="p-6">
+                        <h3 className="text-[#1C262B] font-['KoPubWorldDotum'] text-[16px] md:text-[18px] font-bold mb-3">
+                          {slide.title}
+                        </h3>
+                        <p className="text-[#1C262B] font-['KoPubWorldDotum'] text-[12px] md:text-[14px] leading-relaxed whitespace-pre-line">
+                          {slide.subtitle}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Desktop: Image with overlapping text card (1024px+) */}
+                  <div
+                    className="hidden lg:block relative mx-auto"
+                    style={{ width: 'fit-content' }}
+                  >
+                    {/* Image */}
                     <img
                       src={slide.image}
                       alt={`Smart Tech Slide ${slide.id}`}
-                      className="absolute top-0 left-6 sm:left-8 lg:left-10 object-cover rounded-[15px] w-[340px] h-[350px] sm:w-[400px] sm:h-[390px] md:w-[540px] md:h-[440px] lg:w-[780px] lg:h-[510px] xl:w-[880px] xl:h-[550px] 2xl:w-[980px] 2xl:h-[590px]"
+                      className="rounded-[15px] w-[600px] h-[400px] xl:w-[880px] xl:h-[550px] 2xl:w-[980px] 2xl:h-[590px] object-cover"
                     />
 
-                    {/* Text Box at bottom-right with small inward offset (overlaps image slightly) */}
-                    <div className="absolute bottom-4 right-6 sm:bottom-6 sm:right-8 lg:bottom-8 lg:right-10 bg-white rounded-2xl lg:rounded-3xl p-6 lg:p-8 shadow-lg lg:shadow-xl max-w-[280px] lg:max-w-[400px] z-10">
-                      <h3 className="text-[#1C262B] font-['KoPubWorldDotum'] text-[18px] lg:text-[24px] font-bold mb-3 lg:mb-4">
-                        IoT 기반 스마트 매장 운영
+                    {/* Text Card - Overlapping */}
+                    <div className="absolute bottom-[-20px] right-[-20px] xl:bottom-[-30px] xl:right-[-30px] bg-white rounded-2xl xl:rounded-3xl p-6 xl:p-8 shadow-lg xl:shadow-xl w-[280px] xl:w-[400px] h-[220px] xl:h-[260px] z-10">
+                      <h3 className="text-[#1C262B] font-['KoPubWorldDotum'] text-[16px] lg:text-[18px] xl:text-[20px] font-bold mb-3">
+                        {slide.title}
                       </h3>
-                      <p className="text-[#1C262B] font-['KoPubWorldDotum'] text-[14px] lg:text-[18px] leading-relaxed">
-                        전 매장을 본사에서 원격 제어하고, 장비 상태와
-                        <br />
-                        고객 이용 현황을 실시간으로 관리하는 스마트 시스템
+                      <p className="text-[#1C262B] font-['KoPubWorldDotum'] text-[12px] lg:text-[14px] xl:text-[16px] leading-relaxed whitespace-pre-line">
+                        {slide.subtitle}
                       </p>
                     </div>
                   </div>
