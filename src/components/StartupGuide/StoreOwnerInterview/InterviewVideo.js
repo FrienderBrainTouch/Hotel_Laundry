@@ -8,10 +8,17 @@ const InterviewVideo = () => {
         <div className="max-w-4xl mx-auto mb-12">
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
             <div className="aspect-video bg-gray-900 relative">
-            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/bp11ZgRBWoo?si=sxSjw6zZGNCOs8mi" title="YouTube video player" 
-            frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; 
-            gyroscope; picture-in-picture; web-share" 
-            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe 
+              width="100%" 
+              height="100%" 
+              src="https://www.youtube.com/embed/bp11ZgRBWoo?si=sxSjw6zZGNCOs8mi" 
+              title="YouTube video player" 
+              style={{ border: 'none' }}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; 
+              gyroscope; picture-in-picture; web-share" 
+              referrerPolicy="strict-origin-when-cross-origin" 
+              allowFullScreen>
+            </iframe>
             </div>
             <div className="p-8">
               <h3 className="section-title font-bold text-brand-dark mb-4">

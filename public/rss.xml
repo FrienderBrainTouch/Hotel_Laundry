@@ -24,8 +24,35 @@
     <item>
       <title>호텔런드리 소개 - 혁신적인 IoT 세탁 서비스 | 회사소개</title>
       <description>호텔런드리는 IoT 기술을 활용한 혁신적인 무인세탁 서비스를 제공합니다. 회사 소개, 브랜드 스토리, 연혁, 인증/특허 정보를 확인하세요.</description>
-      <link>https://hotellaundry.co.kr/hotel-laundry</link>
-      <guid>https://hotellaundry.co.kr/hotel-laundry</guid>
+      <link>https://hotellaundry.co.kr/hotel-laundry/company-intro</link>
+      <guid>https://hotellaundry.co.kr/hotel-laundry/company-intro</guid>
+      <pubDate>Mon, 30 Dec 2024 00:00:00 +0900</pubDate>
+    </item>
+    
+    <!-- 브랜드 스토리 -->
+    <item>
+      <title>브랜드 스토리 - 호텔런드리의 비전과 미션 | 브랜드 스토리</title>
+      <description>호텔런드리의 브랜드 스토리와 비전, 미션을 소개합니다. IoT 기술로 세탁업계를 혁신하는 호텔런드리의 이야기를 확인하세요.</description>
+      <link>https://hotellaundry.co.kr/hotel-laundry/brand-story</link>
+      <guid>https://hotellaundry.co.kr/hotel-laundry/brand-story</guid>
+      <pubDate>Mon, 30 Dec 2024 00:00:00 +0900</pubDate>
+    </item>
+    
+    <!-- 연혁 -->
+    <item>
+      <title>연혁 - 호텔런드리 성장 과정 | 회사 연혁</title>
+      <description>호텔런드리의 성장 과정과 주요 이벤트, 성과를 연혁으로 확인하세요. IoT 세탁 서비스의 발전 과정을 살펴보세요.</description>
+      <link>https://hotellaundry.co.kr/hotel-laundry/history</link>
+      <guid>https://hotellaundry.co.kr/hotel-laundry/history</guid>
+      <pubDate>Mon, 30 Dec 2024 00:00:00 +0900</pubDate>
+    </item>
+    
+    <!-- 인증/특허 -->
+    <item>
+      <title>인증/특허 - 호텔런드리 기술력 인증 | 인증서</title>
+      <description>호텔런드리의 다양한 인증서와 특허를 확인하세요. 혁신기업, 벤처기업, 기술혁신 확인서 등 호텔런드리의 기술력을 증명합니다.</description>
+      <link>https://hotellaundry.co.kr/hotel-laundry/certifications</link>
+      <guid>https://hotellaundry.co.kr/hotel-laundry/certifications</guid>
       <pubDate>Mon, 30 Dec 2024 00:00:00 +0900</pubDate>
     </item>
     
@@ -33,8 +60,26 @@
     <item>
       <title>스마트 시스템 - IoT 무인세탁 관리 | 호텔런드리</title>
       <description>IoT 기술로 세탁기 상태를 실시간 모니터링하고 관리하는 스마트 시스템. 원격 제어와 자동화로 효율적인 무인세탁 운영을 경험하세요.</description>
-      <link>https://hotellaundry.co.kr/smart-system</link>
-      <guid>https://hotellaundry.co.kr/smart-system</guid>
+      <link>https://hotellaundry.co.kr/smart-system/smart-system</link>
+      <guid>https://hotellaundry.co.kr/smart-system/smart-system</guid>
+      <pubDate>Mon, 30 Dec 2024 00:00:00 +0900</pubDate>
+    </item>
+    
+    <!-- 첨단 기술 -->
+    <item>
+      <title>첨단 기술 - AI와 IoT 기술 | 호텔런드리</title>
+      <description>호텔런드리의 첨단 AI와 IoT 기술을 소개합니다. 스마트 세탁기 관리와 자동화 시스템으로 혁신적인 세탁 서비스를 제공합니다.</description>
+      <link>https://hotellaundry.co.kr/smart-system/advanced-technology</link>
+      <guid>https://hotellaundry.co.kr/smart-system/advanced-technology</guid>
+      <pubDate>Mon, 30 Dec 2024 00:00:00 +0900</pubDate>
+    </item>
+    
+    <!-- 위생 관리 -->
+    <item>
+      <title>위생 관리 - 세탁기 상태 관리 | 호텔런드리</title>
+      <description>호텔런드리의 위생 관리 시스템을 소개합니다. 세탁기 상태를 실시간으로 모니터링하고 관리하여 최고의 위생 상태를 유지합니다.</description>
+      <link>https://hotellaundry.co.kr/smart-system/status-management</link>
+      <guid>https://hotellaundry.co.kr/smart-system/status-management</guid>
       <pubDate>Mon, 30 Dec 2024 00:00:00 +0900</pubDate>
     </item>
     
@@ -42,35 +87,116 @@
     <item>
       <title>창업 안내 - 무인세탁 창업 가이드 | 호텔런드리</title>
       <description>무인세탁 창업을 위한 완벽한 가이드. 점주 인터뷰, 단독 창업, 사업 설명회, 카탈로그 다운로드까지 모든 정보를 확인하세요.</description>
-      <link>https://hotellaundry.co.kr/startup-guide</link>
-      <guid>https://hotellaundry.co.kr/startup-guide</guid>
+      <link>https://hotellaundry.co.kr/startup-guide/startup-guide-main</link>
+      <guid>https://hotellaundry.co.kr/startup-guide/startup-guide-main</guid>
       <pubDate>Mon, 30 Dec 2024 00:00:00 +0900</pubDate>
     </item>
     
-    <!-- 매장 안내 -->
+    <!-- 점주 인터뷰 -->
     <item>
-      <title>매장 안내 - 전국 호텔런드리 매장 찾기 | 매장 현황</title>
-      <description>전국 호텔런드리 매장 현황과 매장 찾기 서비스. 가까운 매장을 찾아 편리한 세탁 서비스를 이용하세요.</description>
-      <link>https://hotellaundry.co.kr/store-info</link>
-      <guid>https://hotellaundry.co.kr/store-info</guid>
+      <title>점주 인터뷰 - 실제 창업자들의 이야기 | 호텔런드리</title>
+      <description>호텔런드리로 창업한 실제 점주들의 인터뷰를 확인하세요. 창업 과정, 운영 노하우, 수익성 등 생생한 경험담을 들어보세요.</description>
+      <link>https://hotellaundry.co.kr/startup-guide/store-owner-interview</link>
+      <guid>https://hotellaundry.co.kr/startup-guide/store-owner-interview</guid>
       <pubDate>Mon, 30 Dec 2024 00:00:00 +0900</pubDate>
     </item>
     
-    <!-- 장비 소개 -->
+    <!-- 단독 창업 -->
     <item>
-      <title>장비 소개 - 세탁기, 건조기, 드라이클리닝 | 호텔런드리</title>
-      <description>호텔런드리의 최신 세탁 장비를 소개합니다. 고성능 세탁기, 건조기, 셀프 드라이클리닝 장비로 프리미엄 세탁 서비스를 제공합니다.</description>
-      <link>https://hotellaundry.co.kr/equipment</link>
-      <guid>https://hotellaundry.co.kr/equipment</guid>
+      <title>단독 창업 - 1인 창업 가이드 | 호텔런드리</title>
+      <description>1인도 가능한 무인세탁 창업을 위한 가이드입니다. 소자본으로 시작할 수 있는 단독 창업의 모든 것을 확인하세요.</description>
+      <link>https://hotellaundry.co.kr/startup-guide/solo-startup</link>
+      <guid>https://hotellaundry.co.kr/startup-guide/solo-startup</guid>
       <pubDate>Mon, 30 Dec 2024 00:00:00 +0900</pubDate>
     </item>
     
-    <!-- 앱 가이드 -->
+    <!-- 사업 설명회 -->
     <item>
-      <title>앱 가이드 - 지역 플랫폼 &amp; 당일 수거서비스 | 호텔런드리</title>
-      <description>호텔런드리 앱을 통한 지역 플랫폼 서비스와 당일 수거서비스를 이용하세요. 편리한 앱 다운로드와 사용법을 안내합니다.</description>
-      <link>https://hotellaundry.co.kr/app-guide</link>
-      <guid>https://hotellaundry.co.kr/app-guide</guid>
+      <title>사업 설명회 - 창업 상담 및 설명회 | 호텔런드리</title>
+      <description>호텔런드리 무인세탁 창업 사업 설명회에 참여하세요. 전문 상담사와의 1:1 상담으로 창업에 대한 모든 궁금증을 해결하세요.</description>
+      <link>https://hotellaundry.co.kr/startup-guide/business-seminar</link>
+      <guid>https://hotellaundry.co.kr/startup-guide/business-seminar</guid>
+      <pubDate>Mon, 30 Dec 2024 00:00:00 +0900</pubDate>
+    </item>
+    
+    <!-- 카탈로그 -->
+    <item>
+      <title>카탈로그 - 호텔런드리 상품 카탈로그 | 호텔런드리</title>
+      <description>호텔런드리의 모든 상품과 서비스를 한눈에 확인할 수 있는 카탈로그를 다운로드하세요. 장비, 시스템, 서비스 정보가 담겨있습니다.</description>
+      <link>https://hotellaundry.co.kr/startup-guide/catalog</link>
+      <guid>https://hotellaundry.co.kr/startup-guide/catalog</guid>
+      <pubDate>Mon, 30 Dec 2024 00:00:00 +0900</pubDate>
+    </item>
+    
+    <!-- 세탁기 -->
+    <item>
+      <title>세탁기 - 고성능 세탁기 장비 | 호텔런드리</title>
+      <description>호텔런드리의 고성능 세탁기 장비를 소개합니다. 최신 기술이 적용된 세탁기로 프리미엄 세탁 서비스를 제공합니다.</description>
+      <link>https://hotellaundry.co.kr/equipment/washing-machine</link>
+      <guid>https://hotellaundry.co.kr/equipment/washing-machine</guid>
+      <pubDate>Mon, 30 Dec 2024 00:00:00 +0900</pubDate>
+    </item>
+    
+    <!-- 건조기 -->
+    <item>
+      <title>건조기 - 고효율 건조기 장비 | 호텔런드리</title>
+      <description>호텔런드리의 고효율 건조기 장비를 소개합니다. 빠르고 안전한 건조로 고객 만족도를 높입니다.</description>
+      <link>https://hotellaundry.co.kr/equipment/dryer</link>
+      <guid>https://hotellaundry.co.kr/equipment/dryer</guid>
+      <pubDate>Mon, 30 Dec 2024 00:00:00 +0900</pubDate>
+    </item>
+    
+    <!-- 셀프 드라이클리닝 -->
+    <item>
+      <title>셀프 드라이클리닝 - 드라이클리닝 장비 | 호텔런드리</title>
+      <description>호텔런드리의 셀프 드라이클리닝 장비를 소개합니다. 고급 의류도 안전하게 드라이클리닝할 수 있는 전문 장비입니다.</description>
+      <link>https://hotellaundry.co.kr/equipment/self-dry-cleaning</link>
+      <guid>https://hotellaundry.co.kr/equipment/self-dry-cleaning</guid>
+      <pubDate>Mon, 30 Dec 2024 00:00:00 +0900</pubDate>
+    </item>
+    
+    <!-- 지역 플랫폼 -->
+    <item>
+      <title>지역 플랫폼 - 지역 기반 세탁 서비스 | 호텔런드리</title>
+      <description>호텔런드리의 지역 플랫폼 서비스를 소개합니다. 지역 커뮤니티와 연계된 편리한 세탁 서비스를 경험하세요.</description>
+      <link>https://hotellaundry.co.kr/app-guide/local-platform</link>
+      <guid>https://hotellaundry.co.kr/app-guide/local-platform</guid>
+      <pubDate>Mon, 30 Dec 2024 00:00:00 +0900</pubDate>
+    </item>
+    
+    <!-- 당일 수거서비스 -->
+    <item>
+      <title>당일 수거서비스 - 빠른 세탁 서비스 | 호텔런드리</title>
+      <description>호텔런드리의 당일 수거서비스를 소개합니다. 빠르고 편리한 수거와 배송으로 고객의 시간을 절약해드립니다.</description>
+      <link>https://hotellaundry.co.kr/app-guide/same-day-pickup</link>
+      <guid>https://hotellaundry.co.kr/app-guide/same-day-pickup</guid>
+      <pubDate>Mon, 30 Dec 2024 00:00:00 +0900</pubDate>
+    </item>
+    
+    <!-- 앱 다운로드 -->
+    <item>
+      <title>앱 다운로드 - 호텔런드리 모바일 앱 | 호텔런드리</title>
+      <description>호텔런드리 모바일 앱을 다운로드하세요. 편리한 세탁 서비스와 매장 찾기, 결제까지 모든 기능을 앱에서 이용하세요.</description>
+      <link>https://hotellaundry.co.kr/app-guide/app-download</link>
+      <guid>https://hotellaundry.co.kr/app-guide/app-download</guid>
+      <pubDate>Mon, 30 Dec 2024 00:00:00 +0900</pubDate>
+    </item>
+    
+    <!-- 매장 현황 -->
+    <item>
+      <title>매장 현황 - 전국 호텔런드리 매장 현황 | 호텔런드리</title>
+      <description>전국 호텔런드리 매장의 현황을 확인하세요. 각 매장의 운영 상태와 서비스 정보를 실시간으로 제공합니다.</description>
+      <link>https://hotellaundry.co.kr/store-info/store-status</link>
+      <guid>https://hotellaundry.co.kr/store-info/store-status</guid>
+      <pubDate>Mon, 30 Dec 2024 00:00:00 +0900</pubDate>
+    </item>
+    
+    <!-- 매장 찾기 -->
+    <item>
+      <title>매장 찾기 - 가까운 호텔런드리 매장 찾기 | 호텔런드리</title>
+      <description>가까운 호텔런드리 매장을 찾아보세요. 위치 기반 검색으로 가장 편리한 매장을 찾을 수 있습니다.</description>
+      <link>https://hotellaundry.co.kr/store-info/find-store</link>
+      <guid>https://hotellaundry.co.kr/store-info/find-store</guid>
       <pubDate>Mon, 30 Dec 2024 00:00:00 +0900</pubDate>
     </item>
     
@@ -78,8 +204,26 @@
     <item>
       <title>관리 지원 - 중앙관제 &amp; 매장관리 | 호텔런드리</title>
       <description>호텔런드리의 중앙관제 시스템과 매장 관리 지원 서비스를 소개합니다. 원격 모니터링과 24시간 지원으로 안정적인 운영을 보장합니다.</description>
-      <link>https://hotellaundry.co.kr/management-support</link>
-      <guid>https://hotellaundry.co.kr/management-support</guid>
+      <link>https://hotellaundry.co.kr/management-support/management-support</link>
+      <guid>https://hotellaundry.co.kr/management-support/management-support</guid>
+      <pubDate>Mon, 30 Dec 2024 00:00:00 +0900</pubDate>
+    </item>
+    
+    <!-- 중앙관제 -->
+    <item>
+      <title>중앙관제 - 24시간 원격 모니터링 | 호텔런드리</title>
+      <description>호텔런드리의 중앙관제 시스템을 소개합니다. 24시간 원격 모니터링으로 매장의 안정적인 운영을 지원합니다.</description>
+      <link>https://hotellaundry.co.kr/management-support/central-control</link>
+      <guid>https://hotellaundry.co.kr/management-support/central-control</guid>
+      <pubDate>Mon, 30 Dec 2024 00:00:00 +0900</pubDate>
+    </item>
+    
+    <!-- 매장 관리 -->
+    <item>
+      <title>매장 관리 - 효율적인 매장 운영 | 호텔런드리</title>
+      <description>호텔런드리의 매장 관리 지원 서비스를 소개합니다. 효율적인 매장 운영을 위한 다양한 도구와 지원을 제공합니다.</description>
+      <link>https://hotellaundry.co.kr/management-support/store-management</link>
+      <guid>https://hotellaundry.co.kr/management-support/store-management</guid>
       <pubDate>Mon, 30 Dec 2024 00:00:00 +0900</pubDate>
     </item>
     
