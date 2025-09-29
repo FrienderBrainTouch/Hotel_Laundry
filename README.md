@@ -1,70 +1,179 @@
-# Getting Started with Create React App
+# Hotel Laundry - 스마트 무인세탁 창업 플랫폼
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> IoT 기술을 활용한 혁신적인 무인세탁 창업 서비스 웹사이트
 
-## Available Scripts
+## 📋 프로젝트 개요
 
-In the project directory, you can run:
+호텔런드리는 IoT 기술을 활용한 스마트 무인세탁 창업 플랫폼입니다. 원격 모니터링과 자동화 시스템을 통해 효율적인 무인세탁 운영을 지원하며, 셀프빨래방, 드라이클리닝, 소자본창업까지 다양한 세탁 서비스를 제공합니다.
 
-### `npm start`
+## 🚀 주요 기능
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 🏢 회사 소개
+- **회사 소개**: 호텔런드리 브랜드 스토리 및 회사 정보
+- **연혁**: 회사 발전 과정 및 주요 이정표
+- **인증/특허**: 기술 혁신 확인서, 벤처기업 인증, 상표등록증 등
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 🔧 스마트 시스템
+- **IoT 기술**: 실시간 세탁기 상태 모니터링
+- **원격 제어**: 중앙에서 모든 장비 관리
+- **자동화**: 효율적인 무인 운영 시스템
+- **위생 관리**: 첨단 기술을 통한 위생 상태 관리
 
-### `npm test`
+### 💼 창업 안내
+- **창업 가이드**: 단계별 창업 프로세스 안내
+- **점주 인터뷰**: 실제 운영자들의 경험담
+- **사업 설명회**: 정기적인 창업 설명회 정보
+- **카탈로그**: 상세한 사업 정보 다운로드
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 🛠️ 장비 소개
+- **세탁기**: 고성능 무인세탁기
+- **건조기**: 효율적인 건조 시스템
+- **셀프 드라이클리닝**: 프리미엄 드라이클리닝 장비
 
-### `npm run build`
+### 📱 앱 가이드
+- **지역 플랫폼**: 지역별 맞춤 서비스
+- **당일 수거서비스**: 편리한 수거/배송 서비스
+- **앱 다운로드**: 모바일 앱 설치 및 사용법
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 🏪 매장 안내
+- **전국 매장 현황**: 운영 중인 매장 정보
+- **매장 찾기**: 위치 기반 매장 검색
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 🎯 관리 지원
+- **24시간 콜센터**: 연중무휴 고객 지원
+- **중앙 관제**: 실시간 매장 모니터링
+- **매장관리 대행**: 전문적인 운영 지원
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🛠️ 기술 스택
 
-### `npm run eject`
+### Frontend
+- **React 19.1.1**: 최신 React 버전 사용
+- **React Router DOM 7.8.2**: SPA 라우팅
+- **Tailwind CSS 3.3.3**: 유틸리티 기반 CSS 프레임워크
+- **PostCSS 8.4.31**: CSS 후처리
+- **Autoprefixer 10.4.16**: CSS 벤더 프리픽스 자동화
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 개발 도구
+- **Create React App**: React 프로젝트 보일러플레이트
+- **Web Vitals 2.1.4**: 웹 성능 측정
+- **Testing Library**: 컴포넌트 테스팅
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 폰트
+- **KoPubWorldBatang**: 한글 제목용 폰트
+- **KoPubWorldDotum**: 한글 본문용 폰트
+- **Pretendard**: 기본 시스템 폰트
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 외부 서비스
+- **EmailJS 4.4.1**: 이메일 전송 서비스
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 📁 프로젝트 구조
 
-## Learn More
+```
+src/
+├── components/           # 재사용 가능한 컴포넌트
+│   ├── AppGuide/        # 앱 가이드 관련 컴포넌트
+│   ├── common/          # 공통 컴포넌트
+│   ├── Contact/         # 문의하기 컴포넌트
+│   ├── Equipment/       # 장비 소개 컴포넌트
+│   ├── HotelLaundry/    # 회사 소개 컴포넌트
+│   ├── layout/          # 레이아웃 컴포넌트 (Header, Footer)
+│   ├── Main/            # 메인 페이지 컴포넌트
+│   ├── ManagementSupport/ # 관리 지원 컴포넌트
+│   ├── SmartSystem/     # 스마트 시스템 컴포넌트
+│   ├── StartupGuide/    # 창업 안내 컴포넌트
+│   └── StoreInfo/       # 매장 정보 컴포넌트
+├── hooks/               # 커스텀 훅
+│   └── useMetaTags.js   # 메타태그 관리 훅
+├── pages/               # 페이지 컴포넌트
+├── utils/               # 유틸리티 함수
+│   └── metaTags.js      # SEO 메타태그 관리
+└── image/               # 이미지 리소스
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🎨 디자인 시스템
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 색상 팔레트
+- **Primary**: `#102254` (메인 블루)
+- **Secondary**: `#E3F2FD` (라이트 블루)
+- **Dark**: `#1C262B` (다크 그레이)
+- **White**: `#FFFFFF` (화이트)
 
-### Code Splitting
+### 반응형 브레이크포인트
+- **xs**: 375px
+- **sm**: 576px
+- **md**: 768px
+- **lg**: 1024px
+- **xl**: 1440px
+- **2xl**: 1920px
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 타이포그래피
+- **Hero Title**: 24px ~ 70px (반응형)
+- **Hero Subtitle**: 18px ~ 50px (반응형)
+- **Section Title**: 20px (모바일 기준)
+- **Body Text**: 14px ~ 20px (반응형)
 
-### Analyzing the Bundle Size
+## 🚀 시작하기
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### 설치
+```bash
+# 의존성 설치
+npm install
 
-### Making a Progressive Web App
+# 개발 서버 실행
+npm start
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+# 프로덕션 빌드
+npm run build
 
-### Advanced Configuration
+# 테스트 실행
+npm test
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### 환경 설정
+1. Node.js 16.0.0 이상 필요
+2. React 19.1.1 사용
+3. Tailwind CSS 설정 완료
 
-### Deployment
+## 📱 반응형 디자인
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+모든 컴포넌트는 모바일 우선(Mobile First) 방식으로 설계되었으며, 다양한 화면 크기에서 최적화된 사용자 경험을 제공합니다.
 
-### `npm run build` fails to minify
+### 주요 반응형 특징
+- **모바일**: 햄버거 메뉴, 세로 레이아웃
+- **태블릿**: 중간 크기 레이아웃, 최적화된 네비게이션
+- **데스크톱**: 풀 네비게이션, 호버 효과, 다중 컬럼 레이아웃
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 🔍 SEO 최적화
+
+### 메타태그 관리
+- 동적 메타태그 업데이트
+- 페이지별 최적화된 제목, 설명, 키워드
+- Open Graph 태그 지원
+- 구조화된 데이터 적용
+
+### 성능 최적화
+- 이미지 최적화 (WebP, 반응형 이미지)
+- 비디오 최적화 (자동 재생, 루프)
+- 코드 스플리팅
+- 지연 로딩
+
+## 📞 연락처
+
+- **제휴문의**: hotellaundry@naver.com
+- **대표번호**: 02-1577-2657
+- **팩스번호**: 02-6455-6425
+- **주소**: 서울특별시 금천구 가산디지털2로 43-14 한화비즈메트로2차 619호
+
+## 🏢 회사 정보
+
+- **회사명**: 주식회사 워시업코리아
+- **사업자등록번호**: 529-86-01519
+- **대표자**: 안용찬
+
+## 📄 라이선스
+
+© HOTEL.LAUNDRY. All rights reserved.
+
+---
+
+**호텔런드리**와 함께 스마트한 무인세탁 창업을 시작하세요! 🚀

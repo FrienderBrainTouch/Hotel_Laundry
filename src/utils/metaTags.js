@@ -39,37 +39,35 @@ export const updateMetaTags = (metaData) => {
 const updateMetaTag = (attribute, name, content) => {
   if (!content) return;
   
-  let metaTag = document.querySelector(`meta[${attribute}="${name}"]`);
+  // 기존 태그들 제거 (중복 방지)
+  const existingTags = document.querySelectorAll(`meta[${attribute}="${name}"]`);
+  existingTags.forEach(tag => tag.remove());
   
-  if (metaTag) {
-    metaTag.setAttribute('content', content);
-  } else {
-    metaTag = document.createElement('meta');
-    metaTag.setAttribute(attribute, name);
-    metaTag.setAttribute('content', content);
-    document.head.appendChild(metaTag);
-  }
+  // 새 태그 생성
+  const metaTag = document.createElement('meta');
+  metaTag.setAttribute(attribute, name);
+  metaTag.setAttribute('content', content);
+  document.head.appendChild(metaTag);
 };
 
 const updateCanonicalUrl = (url) => {
   if (!url) return;
   
-  let canonical = document.querySelector('link[rel="canonical"]');
+  // 기존 canonical 링크들 제거 (중복 방지)
+  const existingCanonicals = document.querySelectorAll('link[rel="canonical"]');
+  existingCanonicals.forEach(link => link.remove());
   
-  if (canonical) {
-    canonical.setAttribute('href', url);
-  } else {
-    canonical = document.createElement('link');
-    canonical.setAttribute('rel', 'canonical');
-    canonical.setAttribute('href', url);
-    document.head.appendChild(canonical);
-  }
+  // 새 canonical 링크 생성
+  const canonical = document.createElement('link');
+  canonical.setAttribute('rel', 'canonical');
+  canonical.setAttribute('href', url);
+  document.head.appendChild(canonical);
 };
 
 // 페이지별 메타데이터 정의
 export const metaData = {
   home: {
-    title: 'Hotel Laundry - 스마트 무인세탁 창업',
+    title: 'Hotel Laundry - 스마트 무인세탁 창업 | IoT 세탁 서비스',
     description: '스마트 IoT 기술로 무인세탁 창업을 시작하세요. 셀프빨래방, 드라이클리닝, 소자본창업까지 호텔런드리에서 시작하세요. 원격 모니터링과 자동화로 효율적인 무인세탁 운영을 경험하세요.',
     keywords: '호텔 세탁, 무인세탁, IoT 세탁, 셀프빨래방, 소자본창업, 스마트 세탁, 드라이클리닝, 무인창업, 세탁기, 건조기, 호텔런드리',
     ogTitle: 'Hotel Laundry - 스마트 무인세탁 창업',
