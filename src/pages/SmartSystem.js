@@ -4,10 +4,23 @@ import Breadcrumb from '../components/common/Breadcrumb';
 import SmartSystem from '../components/SmartSystem/SmartSystem';
 import AdvancedTech from '../components/SmartSystem/AdvancedTech';
 import HygieneManagement from '../components/SmartSystem/HygieneManagement';
+import { useMetaTags } from '../hooks/useMetaTags';
 
 const SmartSystemPage = () => {
   const location = useLocation();
   const currentPath = location.pathname.split('/').pop() || 'smart-system';
+  
+  // 스마트 시스템 페이지 전용 메타태그 설정
+  useMetaTags({
+    title: '스마트 시스템 - IoT 무인세탁 관리 | 호텔런드리',
+    description: 'IoT 기술로 세탁기 상태를 실시간 모니터링하고 관리하는 스마트 시스템. 원격 제어와 자동화로 효율적인 무인세탁 운영을 경험하세요.',
+    keywords: '스마트 시스템, IoT 세탁, 무인세탁 관리, 원격 모니터링, 자동화, 세탁기 관리, 실시간 모니터링, IoT 기술',
+    ogTitle: '스마트 시스템 - IoT 무인세탁 관리',
+    ogDescription: 'IoT 기술로 세탁기를 실시간 모니터링하고 관리하는 스마트 시스템을 경험하세요.',
+    ogImage: 'https://hotellaundry.co.kr/images/SmartSystem/Smart-1.png',
+    ogUrl: 'https://hotellaundry.co.kr/smart-system',
+    canonical: 'https://hotellaundry.co.kr/smart-system'
+  });
 
   const breadcrumbItems = [
     {

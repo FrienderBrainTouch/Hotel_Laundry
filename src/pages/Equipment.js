@@ -4,10 +4,23 @@ import Breadcrumb from '../components/common/Breadcrumb';
 import WashingMachine from '../components/Equipment/WashingMachine';
 import Dryer from '../components/Equipment/Dryer';
 import SelfDryCleaning from '../components/Equipment/SelfDryCleaning';
+import { useMetaTags } from '../hooks/useMetaTags';
 
 const EquipmentPage = () => {
   const location = useLocation();
   const currentPath = location.pathname.split('/').pop() || 'washing-machine';
+  
+  // 장비 소개 페이지 전용 메타태그 설정
+  useMetaTags({
+    title: '장비 소개 - 세탁기, 건조기, 드라이클리닝 | 호텔런드리',
+    description: '호텔런드리의 최신 세탁 장비를 소개합니다. 고성능 세탁기, 건조기, 셀프 드라이클리닝 장비로 프리미엄 세탁 서비스를 제공합니다.',
+    keywords: '세탁기, 건조기, 드라이클리닝, 셀프드라이클리닝, 세탁장비, 무인세탁기, 고성능세탁기, 세탁장비소개',
+    ogTitle: '장비 소개 - 세탁기, 건조기, 드라이클리닝',
+    ogDescription: '최신 세탁 장비로 프리미엄 세탁 서비스를 제공합니다.',
+    ogImage: 'https://hotellaundry.co.kr/images/main-Images/main-smart-1.png',
+    ogUrl: 'https://hotellaundry.co.kr/equipment',
+    canonical: 'https://hotellaundry.co.kr/equipment'
+  });
 
   const breadcrumbItems = [
     {

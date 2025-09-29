@@ -2,8 +2,21 @@ import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import ContactForm from '../components/Contact/ContactForm';
 import emailjs from '@emailjs/browser';
+import { useMetaTags } from '../hooks/useMetaTags';
 
 const Contact = () => {
+  // 문의 페이지 전용 메타태그 설정
+  useMetaTags({
+    title: '문의하기 - 호텔런드리 고객센터 | 창업 상담',
+    description: '호텔런드리 창업 상담 및 문의사항을 접수하세요. 전문 상담사가 무인세탁 창업에 대한 모든 질문에 답변드립니다.',
+    keywords: '호텔런드리 문의, 창업상담, 고객센터, 문의하기, 상담신청, 무인세탁상담, 창업문의',
+    ogTitle: '문의하기 - 호텔런드리 고객센터',
+    ogDescription: '무인세탁 창업 상담 및 문의사항을 접수하세요.',
+    ogImage: 'https://hotellaundry.co.kr/images/main-Images/main-contact.png',
+    ogUrl: 'https://hotellaundry.co.kr/contact',
+    canonical: 'https://hotellaundry.co.kr/contact'
+  });
+
   // 폼 데이터 상태
   const [formData, setFormData] = useState({
     name: '',

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { useMetaTags } from './hooks/useMetaTags';
 
 // layout
 import { Header, Footer, FloatingMenu } from './components/layout';
@@ -40,6 +41,9 @@ function ScrollToTop() {
 function Layout() {
   const location = useLocation();
   const currentPage = location.pathname;
+  
+  // 메타태그 자동 설정
+  useMetaTags();
 
   return (
     <div className="w-full min-h-screen m-0 p-0">
