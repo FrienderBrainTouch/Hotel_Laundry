@@ -30,3 +30,6 @@ Disallow: /package-lock.json
 
 # 사이트맵 위치
 Sitemap: https://hotellaundry.co.kr/sitemap.xml
+
+
+#DaumWebMasterTool:eae0b49419141540f7862046ef412310962edccf12b091a2f092a1630eb25853:ONlUpuqeSOfNDUaeYw1UKg==
