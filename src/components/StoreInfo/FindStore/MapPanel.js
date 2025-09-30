@@ -1,55 +1,58 @@
-import React, { useEffect, useState } from 'react'; // useState를 import 합니다.
+import React, { useEffect, useState } from 'react';
+import naverMapLoader from '../../../utils/naverMapLoader';
 
 const MapPanel = ({ stores, className }) => {
-  // 1. 스크립트가 로딩되었는지 확인하기 위한 state 추가
-  const [isScriptLoaded, setIsScriptLoaded] = useState(false);
+  const [isMapReady, setIsMapReady] = useState(false);
+  const [mapInstance, setMapInstance] = useState(null);
 
-  // 2. [스크립트 로딩 전용] 이 useEffect는 컴포넌트가 처음 생성될 때 딱 한 번만 실행됩니다.
+  // 네이버 지도 API 로드 및 지도 초기화
   useEffect(() => {
-    const script = document.createElement('script');
-    script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${process.env.REACT_APP_NAVER_MAP_CLIENT_ID}`;
-    script.async = true;
+    const initializeMap = async () => {
+      try {
+        // 네이버 지도 API 로드
+        await naverMapLoader.loadMapAPI();
+        
+        // 지도 컨테이너 확인
+        const mapContainer = document.getElementById('map');
+        if (!mapContainer) {
+          console.error('지도 컨테이너를 찾을 수 없습니다.');
+          return;
+        }
 
-    // 스크립트 로딩이 성공하면 isScriptLoaded를 true로 변경
-    script.onload = () => {
-      setIsScriptLoaded(true);
+        // 지도 생성
+        const map = naverMapLoader.createMap('map', {
+          center: new window.naver.maps.LatLng(37.5665, 126.9780),
+          zoom: 10,
+          zoomControl: true,
+        });
+
+        setMapInstance(map);
+        setIsMapReady(true);
+      } catch (error) {
+        console.error('지도 초기화 실패:', error);
+      }
     };
 
-    document.head.appendChild(script);
+    initializeMap();
+  }, []);
 
-    // 컴포넌트가 사라질 때 스크립트를 정리합니다.
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, []); // []가 비어있으므로 최초 1회만 실행
-
-  // 3. [지도 생성 전용] 이 useEffect는 스크립트가 로딩되거나, stores 데이터가 바뀔 때 실행됩니다.
+  // 지점 마커 생성
   useEffect(() => {
-    // 스크립트가 아직 로딩되지 않았다면 아무것도 하지 않습니다.
-    if (!isScriptLoaded) {
+    if (!isMapReady || !mapInstance || !stores || stores.length === 0) {
       return;
     }
 
-    // 여기서부터는 기존에 작성하신 코드와 거의 동일합니다.
-    const mapContainer = document.getElementById('map');
-    const mapOptions = {
-      center: new window.naver.maps.LatLng(37.5665, 126.9780), // 기본 중심 위치
-      zoom: 10,
-      zoomControl: true,
-    };
+    // 기존 마커 제거 (필요시)
+    // markers.forEach(marker => marker.setMap(null));
 
-    const map = new window.naver.maps.Map(mapContainer, mapOptions);
-
-    // stores 데이터가 있을 경우 마커를 생성합니다.
+    // 새로운 마커 생성
     stores.forEach(store => {
-      const markerPosition = new window.naver.maps.LatLng(store.latitude, store.longitude);
-      new window.naver.maps.Marker({
-        position: markerPosition,
-        map: map,
-      });
+      if (store.latitude && store.longitude) {
+        const markerPosition = new window.naver.maps.LatLng(store.latitude, store.longitude);
+        naverMapLoader.createMarker(markerPosition, mapInstance);
+      }
     });
-
-  }, [isScriptLoaded, stores]); // isScriptLoaded나 stores가 변경될 때마다 다시 실행
+  }, [isMapReady, mapInstance, stores]);
 
   return <div id="map" className={className}></div>;
 };
