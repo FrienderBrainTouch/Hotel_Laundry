@@ -12,6 +12,11 @@ const SmartTech = () => {
   const [isAnimating, setIsAnimating] = useState(false); // rapid click guard
   const animTimeoutRef = useRef(null);
   const isAutoPausedRef = useRef(false);
+  
+  // 터치 슬라이드 관련 상태
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   // slides 고정
   const slides = useMemo(
@@ -47,6 +52,43 @@ const SmartTech = () => {
 
   const slidesLength = slides.length;
   const slidesExtended = useMemo(() => [...slides, slides[0]], [slides]);
+
+  // 모바일 감지
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 576); // sm 브레이크포인트
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // 터치 이벤트 핸들러
+  const handleTouchStart = (e) => {
+    if (!isMobile) return;
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isMobile) return;
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!isMobile || !touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe) {
+      nextSlide();
+    } else if (isRightSwipe) {
+      prevSlide();
+    }
+  };
 
   const beginAnimation = useCallback(() => {
     if (animTimeoutRef.current) clearTimeout(animTimeoutRef.current);
@@ -161,7 +203,12 @@ const SmartTech = () => {
           </button>
 
           {/* Unified Slide Track (mobile + desktop) */}
-          <div className="relative overflow-hidden w-full h-[350px] sm:h-[500px] md:h-[500px] lg:h-[550px] xl:h-[600px] min-h-[350px]">
+          <div 
+            className="relative overflow-hidden w-full h-[350px] sm:h-[500px] md:h-[500px] lg:h-[550px] xl:h-[600px] min-h-[350px]"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
             <div
               className={`${
                 isTransitioning ? 'transition-transform duration-500 ease-in-out' : ''
