@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const BeyondLaundry = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -39,6 +40,7 @@ const BeyondLaundry = () => {
         ],
       },
       image: '/images/main-Images/main-Beyond-3.png',
+      link: '/equipment/self-dry-cleaning',
     },
     {
       title: '유일한 고객 전용 어플/키오스크',
@@ -64,11 +66,12 @@ const BeyondLaundry = () => {
           '현장 결제와 줄서기 기능, 문자 알림 등 다양한 편의성으로 찾아가는 세탁 브랜드가 되고 있습니다.',
         ],
         '2xl': [
-          '실시간 장비 사용을 모바일 어플로 확인하고 원하는 시간에 예약하는 기능은 고객의 기다리는 불편을 해소합니다.',
+          '실시간 장비 사용을 모바일 어플로 확인하고 원하는 시간에 예약하는 기능은 고객의 기다리는 세탁 브랜드가 되고 있습니다.',
           '현장 결제와 줄서기 기능, 문자 알림 등 다양한 편의성으로 찾아가는 세탁 브랜드가 되고 있습니다.',
         ],
       },
       image: '/images/main-Images/main-Beyond-2.png',
+      link: '/app-guide/app-download',
     },
     {
       title: 'IoT 실시간 원격 제어 및 관리',
@@ -99,6 +102,7 @@ const BeyondLaundry = () => {
         ],
       },
       image: '/images/main-Images/main-Beyond-1.png',
+      link: '/smart-system',
     },
     {
       title: '24시간 본사 고객 센터 운영',
@@ -129,6 +133,7 @@ const BeyondLaundry = () => {
         ],
       },
       image: '/images/main-Images/main-Beyond-5.png',
+      link: '/management-support',
     },
     {
       title: 'AI 운영관리 시스템',
@@ -159,6 +164,7 @@ const BeyondLaundry = () => {
         ],
       },
       image: '/images/main-Images/main-Beyond-6.png',
+      link: '/smart-system/advanced-technology',
     },
     {
       title: 'Hocl 살균수 세탁',
@@ -195,6 +201,7 @@ const BeyondLaundry = () => {
         ],
       },
       image: '/images/main-Images/main-Beyond-4.png',
+      link: '/smart-system/status-management',
     },
   ];
 
@@ -244,35 +251,69 @@ const BeyondLaundry = () => {
 
       {/* Content Box - 고정 높이 */}
       <div
-        className="p-4 h-[200px] md:h-[220px] flex flex-col justify-start"
+        className="p-4 h-[280px] md:h-[300px] flex flex-col justify-between"
         style={{
           borderRadius: '0 0 20px 20px',
           background: '#102254',
         }}
       >
-        <h3
-          className={`text-[18px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] 2xl:text-[26px] font-[700] text-white text-left ${index === 0 ? 'mb-2' : 'mb-4'}`}
+        <div>
+          <h3
+            className={`text-[18px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] 2xl:text-[26px] font-[700] text-white text-left ${
+              index === 0 ? 'mb-2' : 'mb-4'
+            }`}
+            style={{
+              fontFamily: 'KoPubWorldDotum',
+              letterSpacing: '-0.4px',
+            }}
+          >
+            {item.title}
+          </h3>
+          <ul
+            className={`text-[14px] sm:text-[15px] md:text-[16px] lg:text-[17px] xl:text-[18px] 2xl:text-[19px] font-[500] text-white text-left list-disc list-outside pl-4 overflow-hidden ${
+              index === 0 ? 'space-y-1' : 'space-y-2'
+            }`}
+          >
+            {getSubtitleForBreakpoint(item).map((text, idx) => (
+              <li
+                key={idx}
+                style={{
+                  fontFamily: 'KoPubWorldDotum',
+                  letterSpacing: '-0.3px',
+                  lineHeight: '1.3',
+                }}
+              >
+                {text}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* 더보기 버튼 */}
+        <Link
+          to={item.link}
+          className="mt-3 w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-white text-[#102254] rounded-lg hover:bg-gray-100 transition-all text-[14px] font-[700] shadow-sm"
           style={{
             fontFamily: 'KoPubWorldDotum',
-            letterSpacing: '-0.4px',
           }}
         >
-          {item.title}
-        </h3>
-        <ul className={`text-[14px] sm:text-[15px] md:text-[16px] lg:text-[17px] xl:text-[18px] 2xl:text-[19px] font-[500] text-white text-left list-disc list-outside pl-4 flex-1 overflow-hidden ${index === 0 ? 'space-y-1' : 'space-y-2'}`}>
-          {getSubtitleForBreakpoint(item).map((text, index) => (
-            <li
-              key={index}
-              style={{
-                fontFamily: 'KoPubWorldDotum',
-                letterSpacing: '-0.3px',
-                lineHeight: '1.3',
-              }}
-            >
-              {text}
-            </li>
-          ))}
-        </ul>
+          자세히 보기
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M6 3L11 8L6 13"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </Link>
       </div>
     </div>
   );
@@ -312,7 +353,7 @@ const BeyondLaundry = () => {
           {gridItems.map((item, index) => (
             <div
               key={index}
-              className="relative overflow-hidden rounded-[20px] h-[470px] 2xl:h-[470px] flex flex-col"
+              className="relative overflow-hidden rounded-[20px] h-[550px] 2xl:h-[550px] flex flex-col"
             >
               {/* Background Image */}
               <div
@@ -324,34 +365,68 @@ const BeyondLaundry = () => {
 
               {/* Content Box - 고정 높이 */}
               <div
-                className="p-6 2xl:p-8 h-[220px] flex flex-col justify-start"
+                className="p-6 2xl:p-8 h-[300px] flex flex-col justify-between"
                 style={{
                   borderRadius: '0 0 20px 20px',
                   background: '#102254',
                 }}
               >
-                <h3
-                  className={`text-[22px] 2xl:text-[24px] font-[700] text-white text-left ${index === 0 ? 'mb-2' : 'mb-4'}`}
+                <div>
+                  <h3
+                    className={`text-[22px] 2xl:text-[24px] font-[700] text-white text-left ${
+                      index === 0 ? 'mb-2' : 'mb-4'
+                    }`}
+                    style={{
+                      fontFamily: 'KoPubWorldDotum',
+                      letterSpacing: '-0.52px',
+                    }}
+                  >
+                    {item.title}
+                  </h3>
+                  <ul
+                    className={`text-[16px] 2xl:text-[17px] font-[500] text-white text-left list-disc list-outside pl-4 overflow-hidden ${
+                      index === 0 ? 'space-y-1' : 'space-y-2'
+                    }`}
+                  >
+                    {getSubtitleForBreakpoint(item).map((text, idx) => (
+                      <li
+                        key={idx}
+                        style={{
+                          fontFamily: 'KoPubWorldDotum',
+                          lineHeight: '1.3',
+                        }}
+                      >
+                        {text}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* 더보기 버튼 */}
+                <Link
+                  to={item.link}
+                  className="mt-3 w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-white text-[#102254] rounded-lg hover:bg-gray-100 transition-all text-[15px] 2xl:text-[16px] font-[700] shadow-sm"
                   style={{
                     fontFamily: 'KoPubWorldDotum',
-                    letterSpacing: '-0.52px',
                   }}
                 >
-                  {item.title}
-                </h3>
-                <ul className={`text-[16px] 2xl:text-[17px] font-[500] text-white text-left list-disc list-outside pl-4 flex-1 overflow-hidden ${index === 0 ? 'space-y-1' : 'space-y-2'}`}>
-                  {getSubtitleForBreakpoint(item).map((text, index) => (
-                    <li
-                      key={index}
-                      style={{
-                        fontFamily: 'KoPubWorldDotum',
-                        lineHeight: '1.3',
-                      }}
-                    >
-                      {text}
-                    </li>
-                  ))}
-                </ul>
+                  자세히 보기
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M6 3L11 8L6 13"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </Link>
               </div>
             </div>
           ))}
@@ -361,7 +436,7 @@ const BeyondLaundry = () => {
         <div className="xl:hidden">
           {/* sm까지: 1개씩 보이기 */}
           <div className="block md:hidden">
-            <div className="relative overflow-hidden rounded-[20px]" style={{ height: '400px' }}>
+            <div className="relative overflow-hidden rounded-[20px]" style={{ height: '480px' }}>
               <div
                 className="flex transition-transform duration-500 ease-in-out h-full"
                 style={{
@@ -382,7 +457,7 @@ const BeyondLaundry = () => {
             <div
               className="relative overflow-hidden rounded-[20px]"
               style={{
-                height: '470px',
+                height: '550px',
               }}
             >
               <div
