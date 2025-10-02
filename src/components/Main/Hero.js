@@ -39,7 +39,7 @@ const Hero = () => {
       <div className="absolute inset-0 bg-black bg-opacity-40"></div>
 
       {/* 텍스트 콘텐츠 */}
-      <div className="absolute inset-0 flex flex-col justify-start text-sky-200/70 text-left sm:text-center px-6 sm:px-4 sm:items-center pt-[20%] sm:pt-[25%] md:pt-[20%] lg:pt-[15%] xl:pt-[12%] 2xl:pt-[10%]">
+      <div className="absolute inset-0 flex flex-col justify-start text-white text-left sm:text-center px-6 sm:px-4 sm:items-center pt-[20%] sm:pt-[25%] md:pt-[20%] lg:pt-[15%] xl:pt-[12%] 2xl:pt-[10%]">
         <h1 className="hero-title font-['KoPubWorldBatang'] font-[700] text-[30px] leading-[38px] tracking-[-0.6px] sm:text-[32px] sm:leading-normal sm:tracking-[-0.64px] md:text-[40px] md:tracking-[-0.8px] lg:text-[50px] lg:tracking-[-1px] xl:text-[60px] xl:tracking-[-1.2px] 2xl:text-[70px] 2xl:tracking-[-1.4px] mb-[12px] sm:mb-[10px] md:mb-[12px] lg:mb-[12px] xl:mb-[11px] 2xl:mb-[12px]">
           Start Your
           <br className="sm:hidden" /> Smart Laundry Business
