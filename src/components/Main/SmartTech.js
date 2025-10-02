@@ -11,12 +11,11 @@ const SmartTech = () => {
   const [isTransitioning, setIsTransitioning] = useState(true);
   const [isAnimating, setIsAnimating] = useState(false); // rapid click guard
   const animTimeoutRef = useRef(null);
-  const isAutoPausedRef = useRef(false);
   
-  // 터치 슬라이드 관련 상태
+  // 터치/드래그 슬라이드 관련 상태
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
 
   // slides 고정
   const slides = useMemo(
@@ -53,31 +52,20 @@ const SmartTech = () => {
   const slidesLength = slides.length;
   const slidesExtended = useMemo(() => [...slides, slides[0]], [slides]);
 
-  // 모바일 감지
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 576); // sm 브레이크포인트
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  // 터치 이벤트 핸들러
+  // 터치/드래그 이벤트 핸들러 (모든 화면 크기에서 작동)
   const handleTouchStart = (e) => {
-    if (!isMobile) return;
     setTouchEnd(null);
     setTouchStart(e.targetTouches[0].clientX);
+    setIsDragging(true);
   };
 
   const handleTouchMove = (e) => {
-    if (!isMobile) return;
+    if (!isDragging) return;
     setTouchEnd(e.targetTouches[0].clientX);
   };
 
   const handleTouchEnd = () => {
-    if (!isMobile || !touchStart || !touchEnd) return;
+    if (!isDragging || !touchStart || !touchEnd) return;
     
     const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > 50;
@@ -88,6 +76,47 @@ const SmartTech = () => {
     } else if (isRightSwipe) {
       prevSlide();
     }
+    
+    setIsDragging(false);
+    setTouchStart(null);
+    setTouchEnd(null);
+  };
+
+  // 마우스 이벤트 핸들러 (데스크톱용)
+  const handleMouseDown = (e) => {
+    e.preventDefault();
+    setTouchEnd(null);
+    setTouchStart(e.clientX);
+    setIsDragging(true);
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    setTouchEnd(e.clientX);
+  };
+
+  const handleMouseUp = () => {
+    if (!isDragging || !touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe) {
+      nextSlide();
+    } else if (isRightSwipe) {
+      prevSlide();
+    }
+    
+    setIsDragging(false);
+    setTouchStart(null);
+    setTouchEnd(null);
+  };
+
+  const handleMouseLeave = () => {
+    setIsDragging(false);
+    setTouchStart(null);
+    setTouchEnd(null);
   };
 
   const beginAnimation = useCallback(() => {
@@ -110,30 +139,19 @@ const SmartTech = () => {
     setCurrentIndex((prev) => (prev === 0 ? slidesLength - 1 : prev - 1));
   }, [isAnimating, beginAnimation, slidesLength]);
 
-  // 자동 슬라이드 (5초) - 래핑 중에는 정지
-  useEffect(() => {
-    const id = setInterval(() => {
-      if (!isAnimating && !isAutoPausedRef.current) {
-        nextSlide();
-      }
-    }, 5000);
-    return () => clearInterval(id);
-  }, [nextSlide, isAnimating]);
 
   // 래핑 로직: 마지막 클론 도달 시(= slidesLength) 0으로 점프
   useEffect(() => {
     if (currentIndex === slidesLength) {
-      // 자동재생 일시정지 + 전환 제거 후 점프
-      isAutoPausedRef.current = true;
+      // 전환 제거 후 점프
       setIsTransitioning(false);
       setCurrentIndex(0);
 
-      // 두 프레임 보장 후 전환 복구 및 재개
+      // 두 프레임 보장 후 전환 복구
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           setIsTransitioning(true);
           setIsAnimating(false);
-          isAutoPausedRef.current = false;
         });
       });
     } else if (currentIndex > slidesLength) {
@@ -204,10 +222,15 @@ const SmartTech = () => {
 
           {/* Unified Slide Track (mobile + desktop) */}
           <div 
-            className="relative overflow-hidden w-full h-[350px] sm:h-[500px] md:h-[500px] lg:h-[550px] xl:h-[600px] min-h-[350px]"
+            className="relative overflow-hidden w-full h-[350px] sm:h-[500px] md:h-[500px] lg:h-[550px] xl:h-[600px] min-h-[350px] select-none"
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseLeave}
+            style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
           >
             <div
               className={`${
