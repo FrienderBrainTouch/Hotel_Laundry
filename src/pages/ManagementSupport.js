@@ -10,17 +10,8 @@ const ManagementSupport = () => {
   const location = useLocation();
   const currentPath = location.pathname.split('/').pop() || 'management-support';
   
-  // 관리 지원 페이지 전용 메타태그 설정
-  useMetaTags({
-    title: '관리 지원 - 중앙관제 & 매장관리 | 호텔런드리',
-    description: '호텔런드리의 중앙관제 시스템과 매장 관리 지원 서비스를 소개합니다. 원격 모니터링과 24시간 지원으로 안정적인 운영을 보장합니다.',
-    keywords: '중앙관제, 매장관리, 원격모니터링, 24시간지원, 관리지원, 세탁소관리, 중앙관제시스템',
-    ogTitle: '관리 지원 - 중앙관제 & 매장관리',
-    ogDescription: '중앙관제 시스템과 24시간 지원으로 안정적인 매장 운영을 보장합니다.',
-    ogImage: 'https://hotellaundry.co.kr/images/main-Images/main-Beyond-1.png',
-    ogUrl: 'https://hotellaundry.co.kr/management-support',
-    canonical: 'https://hotellaundry.co.kr/management-support'
-  });
+  // 관리 지원 페이지 전용 메타태그 설정 (기본값 사용)
+  useMetaTags();
 
   const breadcrumbItems = [
     {

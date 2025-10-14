@@ -10,17 +10,8 @@ const AppGuidePage = () => {
   const location = useLocation();
   const currentPath = location.pathname.split('/').pop() || 'local-platform';
   
-  // 앱 가이드 페이지 전용 메타태그 설정
-  useMetaTags({
-    title: '앱 가이드 - 지역 플랫폼 & 당일 수거서비스 | 호텔런드리',
-    description: '호텔런드리 앱을 통한 지역 플랫폼 서비스와 당일 수거서비스를 이용하세요. 편리한 앱 다운로드와 사용법을 안내합니다.',
-    keywords: '호텔런드리 앱, 지역플랫폼, 당일수거서비스, 앱다운로드, 모바일앱, 세탁앱, 앱가이드',
-    ogTitle: '앱 가이드 - 지역 플랫폼 & 당일 수거서비스',
-    ogDescription: '호텔런드리 앱으로 편리한 세탁 서비스를 이용하세요.',
-    ogImage: 'https://hotellaundry.co.kr/images/main-Images/main-contact.png',
-    ogUrl: 'https://hotellaundry.co.kr/app-guide',
-    canonical: 'https://hotellaundry.co.kr/app-guide'
-  });
+  // 앱 가이드 페이지 전용 메타태그 설정 (기본값 사용)
+  useMetaTags();
 
   const breadcrumbItems = [
     {

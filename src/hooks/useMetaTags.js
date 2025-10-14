@@ -25,7 +25,13 @@ export const useMetaTags = (customMetaData = {}) => {
     } else if (path.startsWith('/app-guide')) {
       pageMetaData = metaData['app-guide'];
     } else if (path.startsWith('/store-info')) {
-      pageMetaData = metaData['store-info'];
+      // 매장 상세 페이지인지 확인 (serialNumber가 있는지)
+      const isStoreDetail = /\/store-info\/store-status\/\d+$/.test(path);
+      if (isStoreDetail) {
+        pageMetaData = metaData['store-detail'];
+      } else {
+        pageMetaData = metaData['store-info'];
+      }
     } else if (path.startsWith('/management-support')) {
       pageMetaData = metaData['management-support'];
     } else if (path.startsWith('/contact')) {

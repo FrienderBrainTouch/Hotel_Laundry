@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useMetaTags } from '../hooks/useMetaTags';
 
 // SVG 아이콘들을 URL로 불러옵니다. 이 방식은 모든 React 환경에서 동작합니다.
 import subImage from '../components/StoreInfo/StoreStatus/ModalImage/modal_sub.svg';
@@ -519,6 +520,9 @@ const StoreDetail = () => {
   const filterRef = useRef(null);
 
   const storeName = getStoreNameBySerial(serialNumber);
+
+  // 매장 상세 페이지 전용 메타태그 설정 (기본값 사용)
+  useMetaTags();
 
   // API 데이터 로드 함수
   const loadMachineData = useCallback(async () => {

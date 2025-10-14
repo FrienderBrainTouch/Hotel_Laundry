@@ -103,17 +103,8 @@ const StoreInfo = () => {
   const isStoreDetail = pathParts.includes('store-status') && /^\d+$/.test(currentPath);
   const serialNumber = isStoreDetail ? currentPath : null;
   
-  // 매장 안내 페이지 전용 메타태그 설정
-  useMetaTags({
-    title: '매장 안내 - 전국 호텔런드리 매장 찾기 | 매장 현황',
-    description: '전국 호텔런드리 매장 현황과 매장 찾기 서비스. 가까운 매장을 찾아 편리한 세탁 서비스를 이용하세요.',
-    keywords: '호텔런드리 매장, 매장찾기, 전국매장, 매장현황, 세탁소위치, 가까운세탁소, 매장안내',
-    ogTitle: '매장 안내 - 전국 호텔런드리 매장',
-    ogDescription: '전국 호텔런드리 매장을 찾아 편리한 세탁 서비스를 이용하세요.',
-    ogImage: 'https://hotellaundry.co.kr/images/main-Images/main-ourstores.png',
-    ogUrl: 'https://hotellaundry.co.kr/store-info',
-    canonical: 'https://hotellaundry.co.kr/store-info'
-  });
+  // 매장 안내 페이지 전용 메타태그 설정 (기본값 사용)
+  useMetaTags();
   const storeName = serialNumber ? getStoreNameBySerial(serialNumber) : null;
 
   const breadcrumbItems = [

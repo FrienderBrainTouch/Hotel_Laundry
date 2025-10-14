@@ -11,17 +11,8 @@ const HotelLaundry = () => {
   const location = useLocation();
   const currentPath = location.pathname.split('/').pop() || 'company-intro';
   
-  // 호텔런드리 페이지 전용 메타태그 설정
-  useMetaTags({
-    title: '호텔런드리 소개 - 혁신적인 IoT 세탁 서비스 | 회사소개',
-    description: '호텔런드리는 IoT 기술을 활용한 혁신적인 무인세탁 서비스를 제공합니다. 회사 소개, 브랜드 스토리, 연혁, 인증/특허 정보를 확인하세요.',
-    keywords: '호텔런드리, 회사소개, 브랜드스토리, 연혁, 인증, 특허, IoT 세탁, 무인세탁, 혁신기업',
-    ogTitle: '호텔런드리 소개 - IoT 세탁 서비스',
-    ogDescription: 'IoT 기술을 활용한 혁신적인 무인세탁 서비스 호텔런드리를 소개합니다.',
-    ogImage: 'https://hotellaundry.co.kr/images/CompanyInfo/Company-1.png',
-    ogUrl: 'https://hotellaundry.co.kr/hotel-laundry',
-    canonical: 'https://hotellaundry.co.kr/hotel-laundry'
-  });
+  // 호텔런드리 페이지 전용 메타태그 설정 (기본값 사용)
+  useMetaTags();
 
   const breadcrumbItems = [
     {
