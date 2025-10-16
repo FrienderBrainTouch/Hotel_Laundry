@@ -34,7 +34,7 @@ const StartupGuidePage = () => {
   const isStoreProgressPage = currentPath === 'store-progress';
   const isStoreDetailPage =
     location.pathname.includes('/store-progress/') && location.pathname.split('/').length > 4;
-  const isStoreInquiryPage = location.pathname.includes('/inquiry');
+  // const isStoreInquiryPage = location.pathname.includes('/inquiry'); // 현재 사용되지 않음
 
   const breadcrumbItems = [
     {
