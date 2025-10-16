@@ -7,6 +7,7 @@ import SoloStartup from '../components/StartupGuide/SoloStartup';
 import BusinessSeminar from '../components/StartupGuide/BusinessSeminar';
 import Catalog from '../components/StartupGuide/Catalog';
 import LowCapitalStartup from '../components/StartupGuide/LowCapitalStartup';
+import StoreProgress from '../components/StartupGuide/StoreProgress';
 import { useMetaTags } from '../hooks/useMetaTags';
 
 const StartupGuidePage = () => {
@@ -27,6 +28,9 @@ const StartupGuidePage = () => {
     canonical: 'https://hotellaundry.co.kr/startup-guide',
   });
 
+  // 진행 매장 페이지인 경우 4단계 브레드크럼
+  const isStoreProgressPage = currentPath === 'store-progress';
+
   const breadcrumbItems = [
     {
       label: '창업 안내',
@@ -34,7 +38,9 @@ const StartupGuidePage = () => {
       isActive: false,
     },
     {
-      label: getCurrentPageLabel(currentPath),
+      label: isStoreProgressPage ? '소자본 창업' : getCurrentPageLabel(currentPath),
+      link: isStoreProgressPage ? '/startup-guide/low-capital-startup' : undefined,
+      isActive: false,
       hasDropdown: true,
       dropdownItems: [
         {
@@ -69,6 +75,15 @@ const StartupGuidePage = () => {
         },
       ],
     },
+    ...(isStoreProgressPage
+      ? [
+          {
+            label: '진행 매장',
+            link: '/startup-guide/low-capital-startup/store-progress',
+            isActive: true,
+          },
+        ]
+      : []),
   ];
 
   function getCurrentPageLabel(path) {
@@ -104,6 +119,7 @@ const StartupGuidePage = () => {
             <Route path="/startup-guide" element={<StartupGuide />} />
             <Route path="/startup-guide-main" element={<StartupGuide />} />
             <Route path="/low-capital-startup" element={<LowCapitalStartup />} />
+            <Route path="/low-capital-startup/store-progress" element={<StoreProgress />} />
             <Route path="/store-owner-interview" element={<StoreOwnerInterview />} />
             <Route path="/solo-startup" element={<SoloStartup />} />
             <Route path="/business-seminar" element={<BusinessSeminar />} />
