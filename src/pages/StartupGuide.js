@@ -9,6 +9,7 @@ import Catalog from '../components/StartupGuide/Catalog';
 import LowCapitalStartup from '../components/StartupGuide/LowCapitalStartup';
 import StoreProgress from '../components/StartupGuide/StoreProgress';
 import StoreDetail from '../components/StartupGuide/StoreDetail';
+import StoreInquiry from '../components/StartupGuide/StoreInquiry';
 import { useMetaTags } from '../hooks/useMetaTags';
 
 const StartupGuidePage = () => {
@@ -33,6 +34,7 @@ const StartupGuidePage = () => {
   const isStoreProgressPage = currentPath === 'store-progress';
   const isStoreDetailPage =
     location.pathname.includes('/store-progress/') && location.pathname.split('/').length > 4;
+  const isStoreInquiryPage = location.pathname.includes('/inquiry');
 
   const breadcrumbItems = [
     {
@@ -150,6 +152,10 @@ const StartupGuidePage = () => {
             <Route path="/low-capital-startup" element={<LowCapitalStartup />} />
             <Route path="/low-capital-startup/store-progress" element={<StoreProgress />} />
             <Route path="/low-capital-startup/store-progress/:storeId" element={<StoreDetail />} />
+            <Route
+              path="/low-capital-startup/store-progress/:storeId/inquiry"
+              element={<StoreInquiry />}
+            />
             <Route path="/store-owner-interview" element={<StoreOwnerInterview />} />
             <Route path="/solo-startup" element={<SoloStartup />} />
             <Route path="/business-seminar" element={<BusinessSeminar />} />

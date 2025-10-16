@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 const StoreDetail = () => {
   const { storeId } = useParams();
@@ -180,9 +180,12 @@ const StoreDetail = () => {
 
             {/* Contact Button */}
             <div className="flex justify-center">
-              <button className="bg-[rgba(164,198,224,0.2)] text-black px-8 py-5 rounded-lg text-[24px] font-bold font-KoPubWorldDotum hover:bg-[rgba(164,198,224,0.3)] transition-colors duration-200">
+              <Link
+                to={`/startup-guide/low-capital-startup/store-progress/${storeId}/inquiry`}
+                className="bg-[rgba(164,198,224,0.2)] text-black px-8 py-5 rounded-lg text-[24px] font-bold font-KoPubWorldDotum hover:bg-[rgba(164,198,224,0.3)] transition-colors duration-200"
+              >
                 문의하기
-              </button>
+              </Link>
             </div>
           </div>
         </div>
