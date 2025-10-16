@@ -7,6 +7,8 @@ import SoloStartup from '../components/StartupGuide/SoloStartup';
 import BusinessSeminar from '../components/StartupGuide/BusinessSeminar';
 import Catalog from '../components/StartupGuide/Catalog';
 import LowCapitalStartup from '../components/StartupGuide/LowCapitalStartup';
+import StoreProgress from '../components/StartupGuide/StoreProgress';
+import StoreDetail from '../components/StartupGuide/StoreDetail';
 import { useMetaTags } from '../hooks/useMetaTags';
 
 const StartupGuidePage = () => {
@@ -27,6 +29,11 @@ const StartupGuidePage = () => {
     canonical: 'https://hotellaundry.co.kr/startup-guide',
   });
 
+  // 진행 매장 페이지인 경우 4단계 브레드크럼
+  const isStoreProgressPage = currentPath === 'store-progress';
+  const isStoreDetailPage =
+    location.pathname.includes('/store-progress/') && location.pathname.split('/').length > 4;
+
   const breadcrumbItems = [
     {
       label: '창업 안내',
@@ -34,7 +41,9 @@ const StartupGuidePage = () => {
       isActive: false,
     },
     {
-      label: getCurrentPageLabel(currentPath),
+      label: isStoreProgressPage ? '소자본 창업' : getCurrentPageLabel(currentPath),
+      link: isStoreProgressPage ? '/startup-guide/low-capital-startup' : undefined,
+      isActive: false,
       hasDropdown: true,
       dropdownItems: [
         {
@@ -69,6 +78,15 @@ const StartupGuidePage = () => {
         },
       ],
     },
+    ...(isStoreProgressPage
+      ? [
+          {
+            label: '진행 매장',
+            link: '/startup-guide/low-capital-startup/store-progress',
+            isActive: true,
+          },
+        ]
+      : []),
   ];
 
   function getCurrentPageLabel(path) {
@@ -95,8 +113,34 @@ const StartupGuidePage = () => {
     <section className="py-20 bg-white">
       <div className="flex justify-center">
         <div className="w-full xs:max-w-[355px] sm:max-w-[535px] md:max-w-[728px] lg:max-w-[924px] xl:max-w-[1200px] 2xl:max-w-[1400px] mx-auto">
-          {/* 브레드크럼 */}
-          <Breadcrumb items={breadcrumbItems} />
+          {/* 브레드크럼 또는 뒤로 가기 버튼 */}
+          {isStoreDetailPage ? (
+            <div className="mb-8">
+              <button
+                onClick={() => window.history.back()}
+                className="flex items-center gap-2 text-[20px] font-medium text-black font-KoPubWorldDotum hover:opacity-70 transition-opacity duration-200"
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M15 18L9 12L15 6"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                뒤로 가기
+              </button>
+            </div>
+          ) : (
+            <Breadcrumb items={breadcrumbItems} />
+          )}
 
           {/* 개별 라우팅 */}
           <Routes>
@@ -104,6 +148,8 @@ const StartupGuidePage = () => {
             <Route path="/startup-guide" element={<StartupGuide />} />
             <Route path="/startup-guide-main" element={<StartupGuide />} />
             <Route path="/low-capital-startup" element={<LowCapitalStartup />} />
+            <Route path="/low-capital-startup/store-progress" element={<StoreProgress />} />
+            <Route path="/low-capital-startup/store-progress/:storeId" element={<StoreDetail />} />
             <Route path="/store-owner-interview" element={<StoreOwnerInterview />} />
             <Route path="/solo-startup" element={<SoloStartup />} />
             <Route path="/business-seminar" element={<BusinessSeminar />} />

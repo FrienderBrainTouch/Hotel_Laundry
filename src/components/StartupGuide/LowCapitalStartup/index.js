@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const LowCapitalStartup = () => {
   return (
@@ -41,6 +42,16 @@ const LowCapitalStartup = () => {
               </div>
             </div>
           </div> */}
+
+          {/* CTA 버튼 */}
+          <div className="text-center mt-12">
+            <Link
+              to="/startup-guide/low-capital-startup/store-progress"
+              className="inline-block bg-[#102254] text-white px-8 py-4 rounded-lg text-lg font-bold hover:bg-[#0a1a3a] transition-colors duration-200"
+            >
+              지금 바로 진행 매장 확인하기
+            </Link>
+          </div>
         </div>
       </div>
     </section>
