@@ -56,6 +56,7 @@ const Header = () => {
       hasSubmenu: true,
       submenu: [
         { id: 'startup-guide-main', label: '창업안내' },
+        { id: 'low-capital-startup', label: '소자본 창업' },
         { id: 'store-owner-interview', label: '점주 인터뷰' },
         { id: 'solo-startup', label: '단독 창업' },
         { id: 'business-seminar', label: '사업 설명회' },
