@@ -7,6 +7,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [hoveredMenu, setHoveredMenu] = useState(null);
+  const [hoveredSubmenu, setHoveredSubmenu] = useState(null);
   const [expandedSubmenu, setExpandedSubmenu] = useState(null);
 
   useEffect(() => {
@@ -19,6 +20,7 @@ const Header = () => {
   }, []);
 
   const handleMenuClose = () => {
+    console.log('handleMenuClose 호출됨');
     setIsMenuOpen(false);
     setExpandedSubmenu(null);
     setHoveredMenu(null);
@@ -56,7 +58,12 @@ const Header = () => {
       hasSubmenu: true,
       submenu: [
         { id: 'startup-guide-main', label: '창업안내' },
-        { id: 'low-capital-startup', label: '소자본 창업' },
+        {
+          id: 'low-capital-startup',
+          label: '소자본 창업',
+          hasSubmenu: true,
+          submenu: [{ id: 'store-progress', label: '진행 매장' }],
+        },
         { id: 'store-owner-interview', label: '점주 인터뷰' },
         { id: 'solo-startup', label: '단독 창업' },
         { id: 'business-seminar', label: '사업 설명회' },
@@ -171,49 +178,94 @@ const Header = () => {
                         {/* 투명한 연결 영역 */}
                         <div className="absolute top-full left-0 w-full h-2 bg-transparent" />
                         {/* 서브메뉴 */}
-                        <div className="absolute top-[calc(100%+32px)] -left-6 bg-[#102254] shadow-lg z-[9999] min-w-[150px] border border-white border-t-1 rounded-b-lg">
+                        <div
+                          className="absolute top-[calc(100%+32px)] -left-6 bg-[#102254] shadow-lg z-[9999] min-w-[150px] border border-white border-t-1 rounded-b-lg"
+                          onMouseEnter={() => setHoveredMenu(item.id)}
+                          onMouseLeave={() => setHoveredMenu(null)}
+                        >
                           {item.submenu.map((subItem) => (
-                            <Link
-                              key={subItem.id}
-                              to={
-                                item.id === 'hotel-laundry'
-                                  ? `/hotel-laundry/${subItem.id}`
-                                  : item.id === 'smart-system'
-                                  ? `/smart-system/${subItem.id}`
-                                  : item.id === 'startup-guide'
-                                  ? `/startup-guide/${subItem.id}`
-                                  : item.id === 'equipment-intro'
-                                  ? `/equipment/${subItem.id}`
-                                  : item.id === 'hotel-laundry-app'
-                                  ? `/app-guide/${subItem.id}`
-                                  : item.id === 'store-info'
-                                  ? `/store-info/${subItem.id}`
-                                  : item.id === 'management-support'
-                                  ? `/management-support/${subItem.id}`
-                                  : `/${subItem.id}`
-                              }
-                              className={`block w-full text-start px-4 py-3 text-white transition-all duration-200 ${
-                                currentPage === `/${subItem.id}` ||
-                                (item.id === 'hotel-laundry' &&
-                                  currentPage === `/hotel-laundry/${subItem.id}`) ||
-                                (item.id === 'smart-system' &&
-                                  currentPage === `/smart-system/${subItem.id}`) ||
-                                (item.id === 'startup-guide' &&
-                                  currentPage === `/startup-guide/${subItem.id}`) ||
-                                (item.id === 'equipment-intro' &&
-                                  currentPage === `/equipment/${subItem.id}`) ||
-                                (item.id === 'hotel-laundry-app' &&
-                                  currentPage === `/app-guide/${subItem.id}`) ||
-                                (item.id === 'store-info' &&
-                                  currentPage === `/store-info/${subItem.id}`) ||
-                                (item.id === 'management-support' &&
-                                  currentPage === `/management-support/${subItem.id}`)
-                                  ? 'underline decoration-underline underline-offset-[5px] font-bold'
-                                  : 'hover:underline decoration-underline underline-offset-[5px] hover:font-bold'
-                              }`}
-                            >
-                              {subItem.label}
-                            </Link>
+                            <div key={subItem.id} className="relative">
+                              {subItem.hasSubmenu ? (
+                                <>
+                                  <Link
+                                    to={`/startup-guide/${subItem.id}`}
+                                    className={`block w-full text-start px-4 py-3 text-white transition-all duration-200 ${
+                                      currentPage === `/startup-guide/${subItem.id}` ||
+                                      currentPage === `/startup-guide/${subItem.id}/store-progress`
+                                        ? 'underline decoration-underline underline-offset-[5px] font-bold'
+                                        : 'hover:underline decoration-underline underline-offset-[5px] hover:font-bold'
+                                    }`}
+                                    onMouseEnter={() => setHoveredSubmenu(subItem.id)}
+                                    onMouseLeave={() => setHoveredSubmenu(null)}
+                                  >
+                                    {subItem.label}
+                                  </Link>
+                                  {hoveredSubmenu === subItem.id && (
+                                    <div
+                                      className="bg-[#1a3a6b] shadow-lg z-[10000] border border-white border-t-1"
+                                      onMouseEnter={() => setHoveredSubmenu(subItem.id)}
+                                      onMouseLeave={() => setHoveredSubmenu(null)}
+                                    >
+                                      {subItem.submenu.map((subSubItem) => (
+                                        <Link
+                                          key={subSubItem.id}
+                                          to={`/startup-guide/${subItem.id}/${subSubItem.id}`}
+                                          className={`block w-full text-start px-4 py-3 text-white transition-all duration-200 ${
+                                            currentPage ===
+                                            `/startup-guide/${subItem.id}/${subSubItem.id}`
+                                              ? 'bg-blue-800 font-bold'
+                                              : 'hover:bg-blue-700'
+                                          }`}
+                                        >
+                                          {subSubItem.label}
+                                        </Link>
+                                      ))}
+                                    </div>
+                                  )}
+                                </>
+                              ) : (
+                                <Link
+                                  to={
+                                    item.id === 'hotel-laundry'
+                                      ? `/hotel-laundry/${subItem.id}`
+                                      : item.id === 'smart-system'
+                                      ? `/smart-system/${subItem.id}`
+                                      : item.id === 'startup-guide'
+                                      ? `/startup-guide/${subItem.id}`
+                                      : item.id === 'equipment-intro'
+                                      ? `/equipment/${subItem.id}`
+                                      : item.id === 'hotel-laundry-app'
+                                      ? `/app-guide/${subItem.id}`
+                                      : item.id === 'store-info'
+                                      ? `/store-info/${subItem.id}`
+                                      : item.id === 'management-support'
+                                      ? `/management-support/${subItem.id}`
+                                      : `/${subItem.id}`
+                                  }
+                                  className={`block w-full text-start px-4 py-3 text-white transition-all duration-200 ${
+                                    currentPage === `/${subItem.id}` ||
+                                    (item.id === 'hotel-laundry' &&
+                                      currentPage === `/hotel-laundry/${subItem.id}`) ||
+                                    (item.id === 'smart-system' &&
+                                      currentPage === `/smart-system/${subItem.id}`) ||
+                                    (item.id === 'startup-guide' &&
+                                      currentPage === `/startup-guide/${subItem.id}`) ||
+                                    (item.id === 'equipment-intro' &&
+                                      currentPage === `/equipment/${subItem.id}`) ||
+                                    (item.id === 'hotel-laundry-app' &&
+                                      currentPage === `/app-guide/${subItem.id}`) ||
+                                    (item.id === 'store-info' &&
+                                      currentPage === `/store-info/${subItem.id}`) ||
+                                    (item.id === 'management-support' &&
+                                      currentPage === `/management-support/${subItem.id}`)
+                                      ? 'underline decoration-underline underline-offset-[5px] font-bold'
+                                      : 'hover:underline decoration-underline underline-offset-[5px] hover:font-bold'
+                                  }`}
+                                >
+                                  {subItem.label}
+                                </Link>
+                              )}
+                            </div>
                           ))}
                         </div>
                       </>
@@ -274,55 +326,132 @@ const Header = () => {
                           <span>{item.label}</span>
                         </Link>
                       )}
-                      {item.hasSubmenu && expandedSubmenu === item.id && (
-                        <div className="bg-white mt-6 p-4 rounded-lg w-full">
-                          {item.submenu.map((subItem) => (
-                            <div key={subItem.id} className="mb-2 last:mb-0">
-                              <Link
-                                to={
-                                  item.id === 'hotel-laundry'
-                                    ? `/hotel-laundry/${subItem.id}`
-                                    : item.id === 'smart-system'
-                                    ? `/smart-system/${subItem.id}`
-                                    : item.id === 'startup-guide'
-                                    ? `/startup-guide/${subItem.id}`
-                                    : item.id === 'equipment-intro'
-                                    ? `/equipment/${subItem.id}`
-                                    : item.id === 'hotel-laundry-app'
-                                    ? `/app-guide/${subItem.id}`
-                                    : item.id === 'store-info'
-                                    ? `/store-info/${subItem.id}`
-                                    : item.id === 'management-support'
-                                    ? `/management-support/${subItem.id}`
-                                    : `/${subItem.id}`
-                                }
-                                onClick={handleMenuClose}
-                                className={`text-left w-full py-2 px-2 ${
-                                  currentPage === `/${subItem.id}` ||
-                                  (item.id === 'hotel-laundry' &&
-                                    currentPage === `/hotel-laundry/${subItem.id}`) ||
-                                  (item.id === 'smart-system' &&
-                                    currentPage === `/smart-system/${subItem.id}`) ||
-                                  (item.id === 'startup-guide' &&
-                                    currentPage === `/startup-guide/${subItem.id}`) ||
-                                  (item.id === 'equipment-intro' &&
-                                    currentPage === `/equipment/${subItem.id}`) ||
-                                  (item.id === 'hotel-laundry-app' &&
-                                    currentPage === `/app-guide/${subItem.id}`) ||
-                                  (item.id === 'store-info' &&
-                                    currentPage === `/store-info/${subItem.id}`) ||
-                                  (item.id === 'management-support' &&
-                                    currentPage === `/management-support/${subItem.id}`)
-                                    ? 'text-[#102254] underline decoration-underline underline-offset-[5px] font-bold'
-                                    : 'text-black hover:underline decoration-underline underline-offset-[5px] hover:font-bold'
-                                }`}
-                              >
-                                {subItem.label}
-                              </Link>
-                            </div>
-                          ))}
-                        </div>
-                      )}
+                      {item.hasSubmenu &&
+                        (expandedSubmenu === item.id ||
+                          (expandedSubmenu && expandedSubmenu.startsWith(`${item.id}-`))) && (
+                          <div className="bg-white mt-6 p-4 rounded-lg w-full">
+                            {item.submenu.map((subItem) => (
+                              <div key={subItem.id} className="mb-2 last:mb-0">
+                                {subItem.hasSubmenu ? (
+                                  <>
+                                    <div className="flex items-center justify-between">
+                                      <div className="flex-1">
+                                        <Link
+                                          to={`/startup-guide/${subItem.id}`}
+                                          onClick={(e) => {
+                                            console.log('소자본 창업 링크 클릭됨');
+                                            e.stopPropagation();
+                                            setIsMenuOpen(false);
+                                          }}
+                                          className="block text-left w-full py-2 px-2 text-black hover:underline decoration-underline underline-offset-[5px] hover:font-bold"
+                                        >
+                                          {subItem.label}
+                                        </Link>
+                                      </div>
+                                      <button
+                                        onClick={(e) => {
+                                          console.log('화살표 버튼 클릭됨');
+                                          e.preventDefault();
+                                          e.stopPropagation();
+                                          const newExpandedState =
+                                            expandedSubmenu === `${item.id}-${subItem.id}`
+                                              ? item.id // 2차 서브메뉴를 닫으면 1차 메뉴만 열어둠
+                                              : `${item.id}-${subItem.id}`; // 2차 서브메뉴 열기
+                                          console.log('현재 expandedSubmenu:', expandedSubmenu);
+                                          console.log('새로운 expandedSubmenu:', newExpandedState);
+                                          setExpandedSubmenu(newExpandedState);
+                                        }}
+                                        className="p-2 flex-shrink-0"
+                                      >
+                                        <svg
+                                          width="12"
+                                          height="8"
+                                          viewBox="0 0 12 8"
+                                          fill="none"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          className="text-black"
+                                        >
+                                          <path
+                                            d={
+                                              expandedSubmenu === `${item.id}-${subItem.id}`
+                                                ? 'M1 7L6 2L11 7'
+                                                : 'M1 1L6 6L11 1'
+                                            }
+                                            stroke="currentColor"
+                                            strokeWidth="2"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                          />
+                                        </svg>
+                                      </button>
+                                    </div>
+                                    {expandedSubmenu === `${item.id}-${subItem.id}` && (
+                                      <div className="bg-gray-50 mt-2 p-3 rounded-lg ml-4">
+                                        {subItem.submenu.map((subSubItem) => (
+                                          <Link
+                                            key={subSubItem.id}
+                                            to={`/startup-guide/${subItem.id}/${subSubItem.id}`}
+                                            onClick={handleMenuClose}
+                                            className={`block text-left w-full py-2 px-2 ${
+                                              currentPage ===
+                                              `/startup-guide/${subItem.id}/${subSubItem.id}`
+                                                ? 'text-[#102254] underline decoration-underline underline-offset-[5px] font-bold'
+                                                : 'text-gray-700 hover:underline decoration-underline underline-offset-[5px] hover:font-bold'
+                                            }`}
+                                          >
+                                            {subSubItem.label}
+                                          </Link>
+                                        ))}
+                                      </div>
+                                    )}
+                                  </>
+                                ) : (
+                                  <Link
+                                    to={
+                                      item.id === 'hotel-laundry'
+                                        ? `/hotel-laundry/${subItem.id}`
+                                        : item.id === 'smart-system'
+                                        ? `/smart-system/${subItem.id}`
+                                        : item.id === 'startup-guide'
+                                        ? `/startup-guide/${subItem.id}`
+                                        : item.id === 'equipment-intro'
+                                        ? `/equipment/${subItem.id}`
+                                        : item.id === 'hotel-laundry-app'
+                                        ? `/app-guide/${subItem.id}`
+                                        : item.id === 'store-info'
+                                        ? `/store-info/${subItem.id}`
+                                        : item.id === 'management-support'
+                                        ? `/management-support/${subItem.id}`
+                                        : `/${subItem.id}`
+                                    }
+                                    onClick={handleMenuClose}
+                                    className={`text-left w-full py-2 px-2 ${
+                                      currentPage === `/${subItem.id}` ||
+                                      (item.id === 'hotel-laundry' &&
+                                        currentPage === `/hotel-laundry/${subItem.id}`) ||
+                                      (item.id === 'smart-system' &&
+                                        currentPage === `/smart-system/${subItem.id}`) ||
+                                      (item.id === 'startup-guide' &&
+                                        currentPage === `/startup-guide/${subItem.id}`) ||
+                                      (item.id === 'equipment-intro' &&
+                                        currentPage === `/equipment/${subItem.id}`) ||
+                                      (item.id === 'hotel-laundry-app' &&
+                                        currentPage === `/app-guide/${subItem.id}`) ||
+                                      (item.id === 'store-info' &&
+                                        currentPage === `/store-info/${subItem.id}`) ||
+                                      (item.id === 'management-support' &&
+                                        currentPage === `/management-support/${subItem.id}`)
+                                        ? 'text-[#102254] underline decoration-underline underline-offset-[5px] font-bold'
+                                        : 'text-black hover:underline decoration-underline underline-offset-[5px] hover:font-bold'
+                                    }`}
+                                  >
+                                    {subItem.label}
+                                  </Link>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        )}
                     </div>
                   </li>
                 ))}

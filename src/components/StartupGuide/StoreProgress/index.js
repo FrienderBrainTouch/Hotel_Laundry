@@ -144,9 +144,9 @@ const StoreProgress = () => {
             </div>
 
             {/* 4 Benefits Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-16 max-w-[1400px] mx-auto">
+            <div className="grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-4 xs:gap-3 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-6 2xl:gap-8 mb-12 xs:mb-8 sm:mb-10 md:mb-12 lg:mb-14 xl:mb-16 2xl:mb-20 max-w-[1400px] mx-auto">
               {/* 초기 투자금 절감 */}
-              <div className="bg-[#F6F8FD] rounded-[10px] p-5 flex flex-col items-center text-center w-full h-[250px] justify-center gap-4">
+              <div className="bg-[#F6F8FD] rounded-[10px] p-3 xs:p-4 sm:p-4 md:p-5 lg:p-6 xl:p-6 2xl:p-8 flex flex-col items-center text-center w-full h-[200px] xs:h-[220px] sm:h-[240px] md:h-[250px] lg:h-[260px] xl:h-[270px] 2xl:h-[280px] justify-center gap-3 xs:gap-3 sm:gap-4 md:gap-4 lg:gap-5 xl:gap-5 2xl:gap-6">
                 <div className="w-20 h-20 bg-[#FAFAFA] rounded-full flex items-center justify-center shadow-[0px_3px_7px_0px_rgba(0,0,0,0.15)]">
                   <img
                     src="/images/store-progress/investment-icon.svg"
@@ -167,7 +167,7 @@ const StoreProgress = () => {
               </div>
 
               {/* 리스크 최소화 */}
-              <div className="bg-[#F6F8FD] rounded-[10px] p-6 flex flex-col items-center text-center w-full h-[250px] justify-center gap-4">
+              <div className="bg-[#F6F8FD] rounded-[10px] p-3 xs:p-4 sm:p-4 md:p-5 lg:p-6 xl:p-6 2xl:p-8 flex flex-col items-center text-center w-full h-[200px] xs:h-[220px] sm:h-[240px] md:h-[250px] lg:h-[260px] xl:h-[270px] 2xl:h-[280px] justify-center gap-3 xs:gap-3 sm:gap-4 md:gap-4 lg:gap-5 xl:gap-5 2xl:gap-6">
                 <div className="w-20 h-20 bg-[#FAFAFA] rounded-full flex items-center justify-center shadow-[0px_3px_7px_0px_rgba(0,0,0,0.15)]">
                   <img
                     src="/images/store-progress/risk-icon.svg"
@@ -188,7 +188,7 @@ const StoreProgress = () => {
               </div>
 
               {/* 안정적 운영 */}
-              <div className="bg-[#F6F8FD] rounded-[10px] p-6 flex flex-col items-center text-center w-full h-[250px] justify-center gap-4">
+              <div className="bg-[#F6F8FD] rounded-[10px] p-3 xs:p-4 sm:p-4 md:p-5 lg:p-6 xl:p-6 2xl:p-8 flex flex-col items-center text-center w-full h-[200px] xs:h-[220px] sm:h-[240px] md:h-[250px] lg:h-[260px] xl:h-[270px] 2xl:h-[280px] justify-center gap-3 xs:gap-3 sm:gap-4 md:gap-4 lg:gap-5 xl:gap-5 2xl:gap-6">
                 <div className="w-20 h-20 bg-[#FAFAFA] rounded-full flex items-center justify-center shadow-[0px_3px_7px_0px_rgba(0,0,0,0.15)]">
                   <img
                     src="/images/store-progress/operation-icon.svg"
@@ -247,10 +247,10 @@ const StoreProgress = () => {
 
             {/* Filter Buttons */}
             <div className="flex justify-end mb-8">
-              <div className="flex gap-6">
+              <div className="flex gap-3 xs:gap-4 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-6 2xl:gap-8">
                 <button
                   onClick={() => handleFilterChange('recruiting')}
-                  className={`px-12 py-3 rounded-lg text-[24px] font-bold leading-[1.54] tracking-[-0.02em] font-KoPubWorldDotum ${
+                  className={`px-6 py-2 xs:px-8 xs:py-2 sm:px-10 sm:py-3 md:px-12 md:py-3 lg:px-14 lg:py-3 xl:px-16 xl:py-4 2xl:px-20 2xl:py-4 rounded-lg text-[16px] xs:text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[24px] 2xl:text-[26px] font-bold leading-[1.54] tracking-[-0.02em] font-KoPubWorldDotum ${
                     activeFilter === 'recruiting'
                       ? 'bg-[rgba(164,198,224,0.2)] text-[#1C262B]'
                       : 'bg-[#F2F2F2] text-[#1C262B]'
@@ -260,7 +260,7 @@ const StoreProgress = () => {
                 </button>
                 <button
                   onClick={() => handleFilterChange('closed')}
-                  className={`px-12 py-3 rounded-lg text-[24px] font-medium leading-[1.54] tracking-[-0.02em] font-KoPubWorldDotum ${
+                  className={`px-6 py-2 xs:px-8 xs:py-2 sm:px-10 sm:py-3 md:px-12 md:py-3 lg:px-14 lg:py-3 xl:px-16 xl:py-4 2xl:px-20 2xl:py-4 rounded-lg text-[16px] xs:text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[24px] 2xl:text-[26px] font-medium leading-[1.54] tracking-[-0.02em] font-KoPubWorldDotum ${
                     activeFilter === 'closed'
                       ? 'bg-[rgba(164,198,224,0.2)] text-[#1C262B]'
                       : 'bg-[#F2F2F2] text-[#1C262B]'
@@ -272,7 +272,7 @@ const StoreProgress = () => {
             </div>
 
             {/* Store Cards Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-12 max-w-[1400px] mx-auto">
+            <div className="grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-4 xs:gap-3 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-6 2xl:gap-8 mb-8 xs:mb-6 sm:mb-8 md:mb-10 lg:mb-12 xl:mb-12 2xl:mb-16 max-w-[1400px] mx-auto">
               {currentStores.map((store) => (
                 <Link
                   key={store.id}
@@ -295,12 +295,12 @@ const StoreProgress = () => {
                     }`}
                   >
                     <div className="flex justify-between items-center mb-4 px-3 flex-shrink-0">
-                      <h3 className="text-[22px] font-bold leading-[1.54] tracking-[-0.02em] text-[#1C262B] font-KoPubWorldDotum truncate">
+                      <h3 className="text-[22px] font-bold leading-[1.54] tracking-[-0.02em] text-[#1C262B] font-KoPubWorldDotum truncate pt-1.5">
                         {store.location}
                       </h3>
-                      <span className="text-[22px] font-medium leading-[1.54] tracking-[-0.02em] text-[#1C262B] font-KoPubWorldDotum flex-shrink-0 ml-2">
+                      {/* <span className="text-[22px] font-medium leading-[1.54] tracking-[-0.02em] text-[#1C262B] font-KoPubWorldDotum flex-shrink-0 ml-2">
                         {store.recruited}
-                      </span>
+                      </span> */}
                     </div>
                     <div className="flex-1 flex items-center px-3">
                       <p className="text-[18px] font-medium leading-[1.3] tracking-[-0.02em] text-[#1C262B] font-KoPubWorldDotum whitespace-pre-line text-left">
