@@ -295,12 +295,12 @@ const StoreProgress = () => {
                     }`}
                   >
                     <div className="flex justify-between items-center mb-4 px-3 flex-shrink-0">
-                      <h3 className="text-[22px] font-bold leading-[1.54] tracking-[-0.02em] text-[#1C262B] font-KoPubWorldDotum truncate">
+                      <h3 className="text-[22px] font-bold leading-[1.54] tracking-[-0.02em] text-[#1C262B] font-KoPubWorldDotum truncate pt-1.5">
                         {store.location}
                       </h3>
-                      <span className="text-[22px] font-medium leading-[1.54] tracking-[-0.02em] text-[#1C262B] font-KoPubWorldDotum flex-shrink-0 ml-2">
+                      {/* <span className="text-[22px] font-medium leading-[1.54] tracking-[-0.02em] text-[#1C262B] font-KoPubWorldDotum flex-shrink-0 ml-2">
                         {store.recruited}
-                      </span>
+                      </span> */}
                     </div>
                     <div className="flex-1 flex items-center px-3">
                       <p className="text-[18px] font-medium leading-[1.3] tracking-[-0.02em] text-[#1C262B] font-KoPubWorldDotum whitespace-pre-line text-left">
