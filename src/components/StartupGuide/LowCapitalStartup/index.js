@@ -6,7 +6,7 @@ const LowCapitalStartup = () => {
     <section className="py-20 bg-white">
       <div className="flex justify-center">
         <div className="w-full xs:max-w-[355px] sm:max-w-[535px] md:max-w-[728px] lg:max-w-[924px] xl:max-w-[1200px] 2xl:max-w-[1400px] mx-auto">
-          <div className="mb-12">
+          {/* <div className="mb-12">
             <div className="w-full h-[800px] xs:h-[900px] sm:h-[1000px] md:h-[1200px] lg:h-[1400px] xl:h-[1600px] 2xl:h-[1800px] rounded-xl overflow-hidden border border-gray-200">
               <iframe
                 src="/landing/hotellun1/index.html"
@@ -15,13 +15,13 @@ const LowCapitalStartup = () => {
                 frameBorder="0"
               />
             </div>
-          </div>
+          </div> */}
 
           {/* 확대 버전 임베드 */}
           <div className="mb-12">
             <div
               className="relative w-full rounded-xl overflow-hidden border border-gray-200 bg-white"
-              style={{ minHeight: '1200px', height: 'auto' }}
+              style={{ height: 'auto' }}
             >
               <div
                 className="w-full flex justify-center items-start"
@@ -33,8 +33,9 @@ const LowCapitalStartup = () => {
                 <iframe
                   src="/landing/hotellun1/index.html"
                   title="업계최초 공유창업 셀프빨래방 랜딩(확대)"
-                  className="w-full h-full"
-                  style={{ height: '100vh' }}
+                  className="w-full"
+                  style={{ height: '10675px', border: 'none' }}
+                  scrolling="no"
                 />
               </div>
             </div>
