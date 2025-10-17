@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Pagination from '../../common/Pagination';
 
 const StoreProgress = () => {
-  const [activeFilter, setActiveFilter] = useState('recruiting');
+  const [activeFilter, setActiveFilter] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8; // 페이지당 아이템 수
 
@@ -209,7 +209,7 @@ const StoreProgress = () => {
               </div>
 
               {/* 확장성 */}
-              <div className="bg-[#F6F8FD] rounded-[10px] p-10 flex flex-col items-center text-center w-full h-[250px] justify-center gap-4">
+              <div className="bg-[#F6F8FD] rounded-[10px] p-3 xs:p-4 sm:p-4 md:p-5 lg:p-6 xl:p-6 2xl:p-8 flex flex-col items-center text-center w-full h-[200px] xs:h-[220px] sm:h-[240px] md:h-[250px] lg:h-[260px] xl:h-[270px] 2xl:h-[280px] justify-center gap-3 xs:gap-3 sm:gap-4 md:gap-4 lg:gap-5 xl:gap-5 2xl:gap-6">
                 <div className="w-20 h-20 bg-[#FAFAFA] rounded-full flex items-center justify-center shadow-[0px_3px_7px_0px_rgba(0,0,0,0.15)]">
                   <img
                     src="/images/store-progress/expansion-icon.svg"
@@ -246,11 +246,21 @@ const StoreProgress = () => {
             </div>
 
             {/* Filter Buttons */}
-            <div className="flex justify-end mb-8">
+            <div className="flex justify-center mb-8">
               <div className="flex gap-3 xs:gap-4 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-6 2xl:gap-8">
                 <button
+                  onClick={() => handleFilterChange('all')}
+                  className={`px-4 py-1.5 xs:px-5 xs:py-1.5 sm:px-6 sm:py-2 md:px-8 md:py-2 lg:px-10 lg:py-2 xl:px-12 xl:py-3 2xl:px-14 2xl:py-3 rounded-lg text-[12px] xs:text-[14px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[20px] 2xl:text-[22px] font-medium leading-[1.54] tracking-[-0.02em] font-KoPubWorldDotum ${
+                    activeFilter === 'all'
+                      ? 'bg-[rgba(164,198,224,0.2)] text-[#1C262B]'
+                      : 'bg-[#F2F2F2] text-[#1C262B]'
+                  }`}
+                >
+                  모두 보기
+                </button>
+                <button
                   onClick={() => handleFilterChange('recruiting')}
-                  className={`px-6 py-2 xs:px-8 xs:py-2 sm:px-10 sm:py-3 md:px-12 md:py-3 lg:px-14 lg:py-3 xl:px-16 xl:py-4 2xl:px-20 2xl:py-4 rounded-lg text-[16px] xs:text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[24px] 2xl:text-[26px] font-bold leading-[1.54] tracking-[-0.02em] font-KoPubWorldDotum ${
+                  className={`px-4 py-1.5 xs:px-5 xs:py-1.5 sm:px-6 sm:py-2 md:px-8 md:py-2 lg:px-10 lg:py-2 xl:px-12 xl:py-3 2xl:px-14 2xl:py-3 rounded-lg text-[12px] xs:text-[14px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[20px] 2xl:text-[22px] font-medium leading-[1.54] tracking-[-0.02em] font-KoPubWorldDotum ${
                     activeFilter === 'recruiting'
                       ? 'bg-[rgba(164,198,224,0.2)] text-[#1C262B]'
                       : 'bg-[#F2F2F2] text-[#1C262B]'
@@ -260,7 +270,7 @@ const StoreProgress = () => {
                 </button>
                 <button
                   onClick={() => handleFilterChange('closed')}
-                  className={`px-6 py-2 xs:px-8 xs:py-2 sm:px-10 sm:py-3 md:px-12 md:py-3 lg:px-14 lg:py-3 xl:px-16 xl:py-4 2xl:px-20 2xl:py-4 rounded-lg text-[16px] xs:text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[24px] 2xl:text-[26px] font-medium leading-[1.54] tracking-[-0.02em] font-KoPubWorldDotum ${
+                  className={`px-4 py-1.5 xs:px-5 xs:py-1.5 sm:px-6 sm:py-2 md:px-8 md:py-2 lg:px-10 lg:py-2 xl:px-12 xl:py-3 2xl:px-14 2xl:py-3 rounded-lg text-[12px] xs:text-[14px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[20px] 2xl:text-[22px] font-medium leading-[1.54] tracking-[-0.02em] font-KoPubWorldDotum ${
                     activeFilter === 'closed'
                       ? 'bg-[rgba(164,198,224,0.2)] text-[#1C262B]'
                       : 'bg-[#F2F2F2] text-[#1C262B]'
@@ -284,7 +294,9 @@ const StoreProgress = () => {
                     <img
                       src="/images/store-progress/store-image.png"
                       alt={`${store.location} 매장`}
-                      className="w-full h-full object-cover"
+                      className={`w-full h-full object-cover ${
+                        store.status === 'closed' ? 'grayscale' : ''
+                      }`}
                     />
                   </div>
 
