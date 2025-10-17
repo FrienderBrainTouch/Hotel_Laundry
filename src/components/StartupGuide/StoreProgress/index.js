@@ -287,7 +287,9 @@ const StoreProgress = () => {
                 <Link
                   key={store.id}
                   to={`/startup-guide/low-capital-startup/store-progress/${store.id}`}
-                  className="w-full max-w-[335px] mx-auto block hover:opacity-90 transition-opacity duration-200"
+                  className={`w-full max-w-[335px] mx-auto block transition-opacity duration-200 ${
+                    store.status === 'closed' ? 'opacity-60 hover:opacity-70' : 'hover:opacity-90'
+                  }`}
                 >
                   {/* Store Image */}
                   <div className="w-full h-[250px] rounded-t-2xl mb-0 overflow-hidden">
@@ -295,7 +297,7 @@ const StoreProgress = () => {
                       src="/images/store-progress/store-image.png"
                       alt={`${store.location} 매장`}
                       className={`w-full h-full object-cover ${
-                        store.status === 'closed' ? 'grayscale' : ''
+                        store.status === 'closed' ? 'grayscale brightness-75' : ''
                       }`}
                     />
                   </div>
