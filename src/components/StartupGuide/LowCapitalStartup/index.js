@@ -18,30 +18,27 @@ const LowCapitalStartup = () => {
           </div>
 
           {/* 확대 버전 임베드 */}
-          {/* <div className="mb-12">
+          <div className="mb-12">
             <div
               className="relative w-full rounded-xl overflow-hidden border border-gray-200 bg-white"
               style={{ minHeight: '1200px', height: 'auto' }}
             >
               <div
-                className="w-full"
+                className="w-full flex justify-center items-start"
                 style={{
-                  transform: 'scale(1.6)',
+                  transform: 'scale(1.7)',
                   transformOrigin: 'top center',
-                  height: 'calc(100vh * 1.6)',
                 }}
               >
                 <iframe
                   src="/landing/hotellun1/index.html"
                   title="업계최초 공유창업 셀프빨래방 랜딩(확대)"
                   className="w-full h-full"
-                  frameBorder="0"
-                  scrolling="no"
                   style={{ height: '100vh' }}
                 />
               </div>
             </div>
-          </div> */}
+          </div>
 
           {/* CTA 버튼 */}
           <div className="text-center mt-8 xs:mt-6 sm:mt-8 md:mt-10 lg:mt-12 xl:mt-14 2xl:mt-16">
