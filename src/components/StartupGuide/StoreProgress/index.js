@@ -14,7 +14,7 @@ const StoreProgress = () => {
       status: 'recruiting',
       recruited: '1/10명',
       details:
-        '2025년 9월 오픈 목표\n20평 / 세탁기 5대, 건조기 6대\n24시간 운영, 학생 밀집지역, 주차 편리',
+        '2025년 9월 오픈 목표\n20평 / 세탁기 5대, 건조기 6대\n24시간 운영, 학생 밀집지역',
     },
     {
       id: 2,
@@ -22,7 +22,7 @@ const StoreProgress = () => {
       status: 'recruiting',
       recruited: '1/10명',
       details:
-        '2025년 9월 오픈 목표\n20평 / 세탁기 5대, 건조기 6대\n24시간 운영, 학생 밀집지역, 주차 편리',
+        '2025년 9월 오픈 목표\n20평 / 세탁기 5대, 건조기 6대\n24시간 운영, 학생 밀집지역',
     },
     {
       id: 3,
@@ -30,7 +30,7 @@ const StoreProgress = () => {
       status: 'recruiting',
       recruited: '1/10명',
       details:
-        '2025년 9월 오픈 목표\n20평 / 세탁기 5대, 건조기 6대\n24시간 운영, 학생 밀집지역, 주차 편리',
+        '2025년 9월 오픈 목표\n20평 / 세탁기 5대, 건조기 6대\n24시간 운영, 학생 밀집지역',
     },
     {
       id: 4,
@@ -38,7 +38,7 @@ const StoreProgress = () => {
       status: 'recruiting',
       recruited: '1/10명',
       details:
-        '2025년 9월 오픈 목표\n20평 / 세탁기 5대, 건조기 6대\n24시간 운영, 학생 밀집지역, 주차 편리',
+        '2025년 9월 오픈 목표\n20평 / 세탁기 5대, 건조기 6대\n24시간 운영, 학생 밀집지역',
     },
     {
       id: 5,
@@ -46,7 +46,7 @@ const StoreProgress = () => {
       status: 'recruiting',
       recruited: '1/10명',
       details:
-        '2025년 9월 오픈 목표\n20평 / 세탁기 5대, 건조기 6대\n24시간 운영, 학생 밀집지역, 주차 편리',
+        '2025년 9월 오픈 목표\n20평 / 세탁기 5대, 건조기 6대\n24시간 운영, 학생 밀집지역',
     },
     {
       id: 6,
@@ -54,7 +54,7 @@ const StoreProgress = () => {
       status: 'recruiting',
       recruited: '1/10명',
       details:
-        '2025년 9월 오픈 목표\n20평 / 세탁기 5대, 건조기 6대\n24시간 운영, 학생 밀집지역, 주차 편리',
+        '2025년 9월 오픈 목표\n20평 / 세탁기 5대, 건조기 6대\n24시간 운영, 학생 밀집지역',
     },
     {
       id: 7,
@@ -62,7 +62,7 @@ const StoreProgress = () => {
       status: 'closed',
       recruited: '10/10명',
       details:
-        '2025년 9월 오픈 목표\n20평 / 세탁기 5대, 건조기 6대\n24시간 운영, 학생 밀집지역, 주차 편리',
+        '2025년 9월 오픈 목표\n20평 / 세탁기 5대, 건조기 6대\n24시간 운영, 학생 밀집지역',
     },
     {
       id: 8,
@@ -70,7 +70,7 @@ const StoreProgress = () => {
       status: 'closed',
       recruited: '10/10명',
       details:
-        '2025년 9월 오픈 목표\n20평 / 세탁기 5대, 건조기 6대\n24시간 운영, 학생 밀집지역, 주차 편리',
+        '2025년 9월 오픈 목표\n20평 / 세탁기 5대, 건조기 6대\n24시간 운영, 학생 밀집지역',
     },
     {
       id: 9,
@@ -78,7 +78,7 @@ const StoreProgress = () => {
       status: 'recruiting',
       recruited: '3/10명',
       details:
-        '2025년 10월 오픈 목표\n25평 / 세탁기 6대, 건조기 7대\n24시간 운영, 직장인 밀집지역, 주차 편리',
+        '2025년 10월 오픈 목표\n25평 / 세탁기 6대, 건조기 7대\n24시간 운영, 직장인 밀집지역',
     },
     {
       id: 10,
@@ -86,7 +86,7 @@ const StoreProgress = () => {
       status: 'recruiting',
       recruited: '2/10명',
       details:
-        '2025년 11월 오픈 목표\n22평 / 세탁기 5대, 건조기 6대\n24시간 운영, 대학가 근처, 주차 편리',
+        '2025년 11월 오픈 목표\n22평 / 세탁기 5대, 건조기 6대\n24시간 운영, 대학가 근처',
     },
     {
       id: 11,
@@ -94,7 +94,7 @@ const StoreProgress = () => {
       status: 'recruiting',
       recruited: '5/10명',
       details:
-        '2025년 12월 오픈 목표\n20평 / 세탁기 5대, 건조기 6대\n24시간 운영, 주거지역, 주차 편리',
+        '2025년 12월 오픈 목표\n20평 / 세탁기 5대, 건조기 6대\n24시간 운영, 주거지역',
     },
     {
       id: 12,
@@ -102,7 +102,7 @@ const StoreProgress = () => {
       status: 'closed',
       recruited: '10/10명',
       details:
-        '2025년 8월 오픈 목표\n18평 / 세탁기 4대, 건조기 5대\n24시간 운영, 신도시 지역, 주차 편리',
+        '2025년 8월 오픈 목표\n18평 / 세탁기 4대, 건조기 5대\n24시간 운영, 신도시 지역',
     },
   ];
 
@@ -316,10 +316,17 @@ const StoreProgress = () => {
                         {store.recruited}
                       </span> */}
                     </div>
-                    <div className="flex-1 flex items-center px-3">
-                      <p className="text-[18px] font-medium leading-[1.3] tracking-[-0.02em] text-[#1C262B] font-KoPubWorldDotum whitespace-pre-line text-left">
-                        {store.details}
-                      </p>
+                    <div className="flex-1 flex items-start px-3">
+                      <div className="flex flex-col gap-2">
+                        {store.details.split('\n').map((line, index) => (
+                          <div key={index} className="flex items-start gap-2">
+                            <div className="w-1.5 h-1.5 bg-[#1C262B] rounded-full mt-2 flex-shrink-0"></div>
+                            <p className="text-[18px] font-medium leading-[1.3] tracking-[-0.02em] text-[#1C262B] font-KoPubWorldDotum text-left">
+                              {line}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </Link>

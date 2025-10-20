@@ -257,6 +257,8 @@ const ContactForm = ({
   agree,
   setAgree,
   submitStatus,
+  inquiryType,
+  setInquiryType,
 }) => {
   // 입력 변경 핸들러
   const handleChange = (e) => {
@@ -272,12 +274,75 @@ const ContactForm = ({
   // 현재 선택된 시/도의 시/군/구 목록
   const currentDetailRegions = formData.region ? regionData[formData.region] || [] : [];
 
+  // 서울시 구 목록 (소자본 창업 문의용)
+  const seoulDistricts = [
+    '서울시 강남구',
+    '서울시 강동구',
+    '서울시 강북구',
+    '서울시 강서구',
+    '서울시 관악구',
+    '서울시 광진구',
+    '서울시 구로구',
+    '서울시 금천구',
+    '서울시 노원구',
+    '서울시 도봉구',
+    '서울시 동대문구',
+    '서울시 동작구',
+    '서울시 마포구',
+    '서울시 서대문구',
+    '서울시 서초구',
+    '서울시 성동구',
+    '서울시 성북구',
+    '서울시 송파구',
+    '서울시 양천구',
+    '서울시 영등포구',
+    '서울시 용산구',
+    '서울시 은평구',
+    '서울시 종로구',
+    '서울시 중구',
+    '서울시 중랑구',
+  ];
+
   return (
     <div className="max-w-4xl mx-auto bg-white p-8 my-10 font-pretendard">
       {/* 페이지 제목 */}
       <h1 className="text-hero-title font-bold text-center text-gray-800 pb-4 border-b-2 border-blue-800">
         창업문의
       </h1>
+
+      {/* 문의 유형 선택 */}
+      <div className="mt-8 mb-6 p-6 bg-gray-50 border border-gray-200 rounded">
+        <h2 className="text-24 font-bold text-gray-800 mb-4">문의 유형을 선택해주세요</h2>
+        <div className="flex items-center gap-8">
+          <label className="flex items-center text-24 cursor-pointer">
+            <input
+              type="radio"
+              name="inquiryType"
+              value="general"
+              checked={inquiryType === 'general'}
+              onChange={(e) => setInquiryType(e.target.value)}
+              className="mr-2 h-5 w-5"
+            />
+            일반 창업 문의
+          </label>
+          <label className="flex items-center text-24 cursor-pointer">
+            <input
+              type="radio"
+              name="inquiryType"
+              value="lowCapital"
+              checked={inquiryType === 'lowCapital'}
+              onChange={(e) => setInquiryType(e.target.value)}
+              className="mr-2 h-5 w-5"
+            />
+            소자본 창업 문의
+          </label>
+        </div>
+        <p className="text-18 text-gray-600 mt-3">
+          {inquiryType === 'general' 
+            ? '✓ 전국 지역에 대한 일반 창업 문의입니다.' 
+            : '✓ 서울시 소자본 창업 전용 문의입니다.'}
+        </p>
+      </div>
 
       <div className="mt-8">
         {/* 개인정보 동의 섹션 */}
@@ -340,7 +405,7 @@ const ContactForm = ({
             {/* 3. 두 번째 칸: '연령' 그룹 */}
             <div className="grid grid-cols-4 items-center">
               <label htmlFor="age" className="font-semibold text-24 text-gray-800 col-span-1">
-                연령<span className="text-red-500 ml-1">*</span>
+                연령
               </label>
               <div className="col-span-3">
                 <select
@@ -361,7 +426,7 @@ const ContactForm = ({
             </div>
           </div>
 
-          <FormRow label="성별" required>
+          <FormRow label="성별">
             <div className="flex items-center gap-4">
               <label className="text-24">
                 <input
@@ -412,7 +477,7 @@ const ContactForm = ({
             </div>
           </FormRow>
 
-          <FormRow label="이메일" required>
+          <FormRow label="이메일">
             <div className="flex items-center gap-2 flex-wrap">
               <input
                 type="text"
@@ -437,84 +502,147 @@ const ContactForm = ({
             </div>
           </FormRow>
 
-          {/* === 개설희망지역 - 상세지역 - 개설희망시기 한 줄 (수정된 부분) === */}
-          {/* 1. 전체를 3칸짜리 그리드로 만듭니다. (md:grid-cols-3) */}
-          <div className="grid grid-cols-1 md:grid-cols-3 py-4 border-b border-gray-200 items-start gap-x-8 gap-y-4">
-            {/* 2. 첫 번째 칸: '개설희망지역' 그룹 (세로 정렬) */}
-            <div className="flex flex-col gap-2">
-              <label className="font-semibold text-24 text-gray-800">
-                개설희망지역<span className="text-red-500 ml-1">*</span>
-              </label>
-              <select
-                name="region"
-                value={formData.region}
-                onChange={handleChange}
-                className="border border-gray-300 p-2 rounded-sm w-full text-24"
-              >
-                <option value="">시/도 선택</option>
-                <option value="서울">서울특별시</option>
-                <option value="부산">부산광역시</option>
-                <option value="대구">대구광역시</option>
-                <option value="인천">인천광역시</option>
-                <option value="광주">광주광역시</option>
-                <option value="대전">대전광역시</option>
-                <option value="울산">울산광역시</option>
-                <option value="세종">세종특별자치시</option>
-                <option value="경기">경기도</option>
-                <option value="강원">강원도</option>
-                <option value="충북">충청북도</option>
-                <option value="충남">충청남도</option>
-                <option value="전북">전라북도</option>
-                <option value="전남">전라남도</option>
-                <option value="경북">경상북도</option>
-                <option value="경남">경상남도</option>
-                <option value="제주">제주특별자치도</option>
-              </select>
-            </div>
+          {/* 지역 선택 - 문의 유형에 따라 다르게 표시 */}
+          {inquiryType === 'general' ? (
+            /* 일반 창업 문의: 개설희망지역 - 상세지역 - 개설희망시기 */
+            <div className="grid grid-cols-1 md:grid-cols-3 py-4 border-b border-gray-200 items-start gap-x-8 gap-y-4">
+              <div className="flex flex-col gap-2">
+                <label className="font-semibold text-24 text-gray-800">
+                  개설희망지역<span className="text-red-500 ml-1">*</span>
+                </label>
+                <select
+                  name="region"
+                  value={formData.region}
+                  onChange={handleChange}
+                  className="border border-gray-300 p-2 rounded-sm w-full text-24"
+                >
+                  <option value="">시/도 선택</option>
+                  <option value="서울">서울특별시</option>
+                  <option value="부산">부산광역시</option>
+                  <option value="대구">대구광역시</option>
+                  <option value="인천">인천광역시</option>
+                  <option value="광주">광주광역시</option>
+                  <option value="대전">대전광역시</option>
+                  <option value="울산">울산광역시</option>
+                  <option value="세종">세종특별자치시</option>
+                  <option value="경기">경기도</option>
+                  <option value="강원">강원도</option>
+                  <option value="충북">충청북도</option>
+                  <option value="충남">충청남도</option>
+                  <option value="전북">전라북도</option>
+                  <option value="전남">전라남도</option>
+                  <option value="경북">경상북도</option>
+                  <option value="경남">경상남도</option>
+                  <option value="제주">제주특별자치도</option>
+                </select>
+              </div>
 
-            {/* 3. 두 번째 칸: '상세지역' 그룹 (세로 정렬) */}
-            <div className="flex flex-col gap-2">
-              <label className="font-semibold text-24 text-gray-800">
-                상세지역<span className="text-red-500 ml-1">*</span>
-              </label>
-              <select
-                name="detailRegion"
-                value={formData.detailRegion}
-                onChange={handleChange}
-                className="border border-gray-300 p-2 rounded-sm w-full text-24"
-              >
-                <option value="">시/군/구 선택</option>
-                {currentDetailRegions.map((region, index) => (
-                  <option key={index} value={region}>
-                    {region}
-                  </option>
-                ))}
-              </select>
-            </div>
+              <div className="flex flex-col gap-2">
+                <label className="font-semibold text-24 text-gray-800">
+                  상세지역<span className="text-red-500 ml-1">*</span>
+                </label>
+                <select
+                  name="detailRegion"
+                  value={formData.detailRegion}
+                  onChange={handleChange}
+                  className="border border-gray-300 p-2 rounded-sm w-full text-24"
+                >
+                  <option value="">시/군/구 선택</option>
+                  {currentDetailRegions.map((region, index) => (
+                    <option key={index} value={region}>
+                      {region}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-            {/* 4. 세 번째 칸: '개설희망시기' 그룹 (세로 정렬) */}
-            <div className="flex flex-col gap-2">
-              <label className="font-semibold text-24 text-gray-800">
-                개설희망시기<span className="text-red-500 ml-1">*</span>
-              </label>
-              <select
-                name="openingTime"
-                value={formData.openingTime}
-                onChange={handleChange}
-                className="border border-gray-300 p-2 rounded-sm w-full text-24"
-              >
-                <option value="">선택하세요</option>
-                <option value="즉시">즉시</option>
-                <option value="1개월 이내">1개월 이내</option>
-                <option value="3개월 이내">3개월 이내</option>
-                <option value="6개월 이내">6개월 이내</option>
-                <option value="1년 이내">1년 이내</option>
-                <option value="1년 이상">1년 이상</option>
-              </select>
+              <div className="flex flex-col gap-2">
+                <label className="font-semibold text-24 text-gray-800">
+                  개설희망시기
+                </label>
+                <select
+                  name="openingTime"
+                  value={formData.openingTime}
+                  onChange={handleChange}
+                  className="border border-gray-300 p-2 rounded-sm w-full text-24"
+                >
+                  <option value="">선택하세요</option>
+                  <option value="즉시">즉시</option>
+                  <option value="1개월 이내">1개월 이내</option>
+                  <option value="3개월 이내">3개월 이내</option>
+                  <option value="6개월 이내">6개월 이내</option>
+                  <option value="1년 이내">1년 이내</option>
+                  <option value="1년 이상">1년 이상</option>
+                </select>
+              </div>
             </div>
-          </div>
+          ) : (
+            /* 소자본 창업 문의: 1지망 - 2지망 - 3지망 */
+            <div className="grid grid-cols-1 md:grid-cols-3 py-4 border-b border-gray-200 items-start gap-x-8 gap-y-4">
+              <div className="flex flex-col gap-2">
+                <label className="font-semibold text-24 text-gray-800">
+                  1지망
+                </label>
+                <select
+                  name="firstChoice"
+                  value={formData.firstChoice}
+                  onChange={handleChange}
+                  className="border border-gray-300 p-2 rounded-sm w-full text-24"
+                >
+                  <option value="">선택하세요</option>
+                  {seoulDistricts.map((district, index) => (
+                    <option key={index} value={district}>
+                      {district}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-          <FormRow label="투자가능비용" required>
+              <div className="flex flex-col gap-2">
+                <label className="font-semibold text-24 text-gray-800">2지망</label>
+                <select
+                  name="secondChoice"
+                  value={formData.secondChoice}
+                  onChange={handleChange}
+                  className="border border-gray-300 p-2 rounded-sm w-full text-24"
+                >
+                  <option value="">선택하세요</option>
+                  {seoulDistricts
+                    .filter((district) => district !== formData.firstChoice)
+                    .map((district, index) => (
+                      <option key={index} value={district}>
+                        {district}
+                      </option>
+                    ))}
+                </select>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label className="font-semibold text-24 text-gray-800">3지망</label>
+                <select
+                  name="thirdChoice"
+                  value={formData.thirdChoice}
+                  onChange={handleChange}
+                  className="border border-gray-300 p-2 rounded-sm w-full text-24"
+                >
+                  <option value="">선택하세요</option>
+                  {seoulDistricts
+                    .filter(
+                      (district) => 
+                        district !== formData.firstChoice && 
+                        district !== formData.secondChoice
+                    )
+                    .map((district, index) => (
+                      <option key={index} value={district}>
+                        {district}
+                      </option>
+                    ))}
+                </select>
+              </div>
+            </div>
+          )}
+
+          <FormRow label="투자가능비용">
             <div className="flex items-center gap-4 text-24 flex-wrap">
               <label>
                 <input
@@ -526,6 +654,17 @@ const ContactForm = ({
                   className="mr-1"
                 />{' '}
                 0~3천만원
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="investment"
+                  value="3천~5천만원"
+                  checked={formData.investment === '3천~5천만원'}
+                  onChange={handleChange}
+                  className="mr-1"
+                />{' '}
+                3천~5천만원
               </label>
               <label>
                 <input
@@ -585,7 +724,7 @@ const ContactForm = ({
             </div>
           </FormRow>
 
-          <FormRow label="빨래방 이용경험" required>
+          <FormRow label="빨래방 이용경험">
             <div className="flex items-center gap-4 text-24 flex-wrap">
               <label>
                 <input
@@ -612,7 +751,7 @@ const ContactForm = ({
             </div>
           </FormRow>
 
-          <FormRow label="건물소유/임대" required>
+          <FormRow label="건물소유/임대">
             <div className="flex items-center gap-4 text-24 flex-wrap">
               <label>
                 <input

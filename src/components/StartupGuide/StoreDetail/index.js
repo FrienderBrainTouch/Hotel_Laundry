@@ -26,28 +26,28 @@ const StoreDetail = () => {
       parking: '주차 가능 - 매장 앞 4대',
       size: '전용 52.99m2',
     },
-    description: {
-      title: '인근 주거 밀집 지역, 무인세탁방 창업 최적 입지',
-      content: `평수: 약 16평
-시설: 전기·급수·배수 설비 완비 (세탁장비 설치 즉시 영업 가능)
-입지: 대단지 아파트 단지와 학원가, 편의시설 인접 / 상시 이용 고객 확보에 유리`,
-      summary: `인근 주거 밀집 지역과 생활 편의시설이 결합된 안정적인 상권에 위치한 무인세탁방 매물로, 
-바로 영업이 가능하며 꾸준한 수익 창출이 기대되는 입지입니다.`,
+    marketAnalysis: {
+      title: '상권 분석',
+      items: [
+        '반경내 세대수',
+        '연령대',
+        '경쟁매장',
+        '입지분석',
+      ],
     },
   };
 
   const detailItems = [
-    { icon: '/images/store-detail/icons/location-icon.png', value: storeData.details.location },
-    { icon: '/images/store-detail/icons/floor-icon.png', value: storeData.details.floor },
-    { icon: '/images/store-detail/icons/size-icon.png', value: storeData.details.size },
-    { icon: '/images/store-detail/icons/rent-icon.png', value: storeData.details.rent },
-    { icon: '/images/store-detail/icons/deposit-icon.png', value: storeData.details.deposit },
-    { icon: '/images/store-detail/icons/interior-icon.png', value: storeData.details.interior },
+    { icon: '/images/store-detail/icons/location-icon.png', label: '주소', value: storeData.details.location },
+    { icon: '/images/store-detail/icons/floor-icon.png', label: '층수', value: storeData.details.floor },
+    { icon: '/images/store-detail/icons/size-icon.png', label: '면적', value: storeData.details.size },
+    { icon: '/images/store-detail/icons/rent-icon.png', label: '보증금/월세', value: storeData.details.rent },
+    { icon: '/images/store-detail/icons/deposit-icon.png', label: '권리금', value: storeData.details.deposit },
     {
       icon: '/images/store-detail/icons/startup-cost-icon.png',
+      label: '창업비용',
       value: storeData.details.startupCost,
     },
-    { icon: '/images/store-detail/icons/parking-icon.png', value: storeData.details.parking },
   ];
 
   return (
@@ -90,10 +90,19 @@ const StoreDetail = () => {
               </div>
             </div>
 
-            {/* Section Title */}
-            <h2 className="text-[20px] xs:text-[22px] sm:text-[24px] md:text-[26px] lg:text-[28px] xl:text-[30px] 2xl:text-[32px] font-bold leading-[1.54] tracking-[-0.02em] text-black font-KoPubWorldDotum mb-6 xs:mb-4 sm:mb-6 md:mb-6 lg:mb-8 xl:mb-8 2xl:mb-10">
-              세부 정보
-            </h2>
+            {/* Section Titles */}
+            <div className="flex flex-col lg:flex-row gap-4 xs:gap-3 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-8 2xl:gap-10 mb-6 xs:mb-4 sm:mb-6 md:mb-6 lg:mb-8 xl:mb-8 2xl:mb-10">
+              <div className="flex-1">
+                <h2 className="text-[20px] xs:text-[22px] sm:text-[24px] md:text-[26px] lg:text-[28px] xl:text-[30px] 2xl:text-[32px] font-bold leading-[1.54] tracking-[-0.02em] text-black font-KoPubWorldDotum">
+                  매장 정보
+                </h2>
+              </div>
+              <div className="flex-1">
+                <h2 className="text-[20px] xs:text-[22px] sm:text-[24px] md:text-[26px] lg:text-[28px] xl:text-[30px] 2xl:text-[32px] font-bold leading-[1.54] tracking-[-0.02em] text-black font-KoPubWorldDotum">
+                  {storeData.marketAnalysis.title}
+                </h2>
+              </div>
+            </div>
 
             {/* Details and Description Cards */}
             <div className="mb-12 xs:mb-8 sm:mb-10 md:mb-12 lg:mb-14 xl:mb-16 2xl:mb-20">
@@ -147,33 +156,20 @@ const StoreDetail = () => {
                   </div> */}
                 </div>
 
-                {/* Description Section */}
+                {/* Market Analysis Card */}
                 <div className="bg-[#F3F4F6] rounded-xl xs:rounded-2xl p-4 xs:p-6 sm:p-6 md:p-8 lg:p-8 xl:p-10 2xl:p-12 flex-1">
-                  <div className="mb-4 xs:mb-4 sm:mb-5 md:mb-5 lg:mb-6 xl:mb-6 2xl:mb-8">
-                    <h2 className="text-[16px] xs:text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[24px] 2xl:text-[26px] font-bold leading-[1.3] tracking-[-0.02em] text-black font-KoPubWorldDotum mb-3 xs:mb-3 sm:mb-4 md:mb-4 lg:mb-4 xl:mb-4 2xl:mb-5">
-                      {storeData.description.title}
-                    </h2>
-                    <div className="w-full h-px bg-black mb-3 xs:mb-3 sm:mb-4 md:mb-4 lg:mb-4 xl:mb-4 2xl:mb-5"></div>
-                  </div>
-
-                  <div className="space-y-4 xs:space-y-4 sm:space-y-5 md:space-y-5 lg:space-y-6 xl:space-y-6 2xl:space-y-8">
-                    <div className="flex flex-col gap-3 xs:gap-3 sm:gap-4 md:gap-4 lg:gap-4 xl:gap-4 2xl:gap-5">
-                      {storeData.description.content.split('\n').map((line, index) => (
-                        <div
-                          key={index}
-                          className="flex items-start gap-2 xs:gap-2 sm:gap-3 md:gap-3 lg:gap-3 xl:gap-3 2xl:gap-4"
-                        >
-                          <div className="w-1.5 h-1.5 bg-black rounded-full mt-2 xs:mt-2 sm:mt-2 md:mt-2 lg:mt-2 xl:mt-2 2xl:mt-3 flex-shrink-0"></div>
-                          <p className="text-[14px] xs:text-[16px] sm:text-[16px] md:text-[17px] lg:text-[18px] xl:text-[18px] 2xl:text-[19px] font-medium leading-[1.3] tracking-[-0.02em] text-black font-KoPubWorldDotum">
-                            {line}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-
-                    <p className="text-[15px] xs:text-[16px] sm:text-[17px] md:text-[18px] lg:text-[19px] xl:text-[20px] 2xl:text-[21px] font-medium leading-[1.3] tracking-[-0.02em] text-black font-KoPubWorldDotum">
-                      {storeData.description.summary}
-                    </p>
+                  <div className="flex flex-col gap-3 xs:gap-3 sm:gap-4 md:gap-4 lg:gap-5 xl:gap-5 2xl:gap-6">
+                    {storeData.marketAnalysis.items.map((item, index) => (
+                      <div
+                        key={index}
+                        className="flex items-start gap-2 xs:gap-2 sm:gap-3 md:gap-3 lg:gap-3 xl:gap-3 2xl:gap-4"
+                      >
+                        <div className="w-1.5 h-1.5 bg-black rounded-full mt-2 xs:mt-2 sm:mt-2 md:mt-3 lg:mt-3 xl:mt-3 2xl:mt-3 flex-shrink-0"></div>
+                        <p className="text-[14px] xs:text-[16px] sm:text-[18px] md:text-[18px] lg:text-[20px] xl:text-[20px] 2xl:text-[20px] font-medium leading-[1.54] tracking-[-0.02em] text-black font-KoPubWorldDotum">
+                          {item}
+                        </p>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -187,7 +183,7 @@ const StoreDetail = () => {
             {/* Contact Button */}
             <div className="flex justify-center mt-8 xs:mt-6 sm:mt-8 md:mt-8 lg:mt-10 xl:mt-10 2xl:mt-12">
               <Link
-                to={`/startup-guide/low-capital-startup/store-progress/${storeId}/inquiry`}
+                to="/contact?type=lowCapital"
                 className="bg-[rgba(164,198,224,0.2)] text-black px-6 py-3 xs:px-8 xs:py-4 sm:px-10 sm:py-4 md:px-12 md:py-4 lg:px-14 lg:py-5 xl:px-16 xl:py-5 2xl:px-20 2xl:py-6 rounded-lg text-[16px] xs:text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[24px] 2xl:text-[26px] font-bold font-KoPubWorldDotum hover:bg-[rgba(164,198,224,0.3)] transition-colors duration-200"
               >
                 문의하기
