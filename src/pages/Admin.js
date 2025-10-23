@@ -12,6 +12,7 @@ const Admin = () => {
         <Route path="/" element={<Dashboard />} />
         <Route path="/stores" element={<StoreManagement />} />
         <Route path="/inquiries" element={<InquiryManagement />} />
+        <Route path="/inquiries/:id" element={<InquiryManagement />} />
       </Routes>
     </AdminLayout>
   );
