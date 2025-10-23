@@ -14,6 +14,7 @@ import AppGuidePage from './pages/AppGuide';
 import StoreInfoPage from './pages/StoreInfo';
 import ManagementSupportPage from './pages/ManagementSupport';
 import ContactPage from './pages/Contact';
+import AdminPage from './pages/Admin';
 
 // 스크롤 초기화 컴포넌트
 function ScrollToTop() {
@@ -40,6 +41,15 @@ function ScrollToTop() {
 function Layout() {
   const location = useLocation();
   const currentPage = location.pathname;
+
+  // Admin 페이지는 별도 레이아웃 사용
+  if (currentPage.startsWith('/admin')) {
+    return (
+      <Routes>
+        <Route path="/admin/*" element={<AdminPage />} />
+      </Routes>
+    );
+  }
 
   return (
     <div className="w-full min-h-screen m-0 p-0">
