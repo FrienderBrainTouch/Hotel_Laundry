@@ -35,46 +35,85 @@ const InquiryDetail = ({ inquiry, onBack }) => {
               <div className="text-sm text-gray-900">{inquiry.name}</div>
             </div>
             <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">연령</label>
+              <div className="text-sm text-gray-900">{inquiry.age}</div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">성별</label>
+              <div className="text-sm text-gray-900">{inquiry.gender === 'male' ? '남' : '여'}</div>
+            </div>
+            <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">연락처</label>
-              <div className="text-sm text-gray-900">{inquiry.phone}</div>
+              <div className="text-sm text-gray-900">
+                010-{inquiry.phone2}-{inquiry.phone3}
+              </div>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">이메일</label>
-              <div className="text-sm text-gray-900">{inquiry.email}</div>
+              <div className="text-sm text-gray-900">
+                {inquiry.emailId}@{inquiry.emailDomain}
+              </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">관련 매장</label>
-              <div className="text-sm text-gray-900">{inquiry.store}</div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">투자 가능 비용</label>
+              <div className="text-sm text-gray-900">{inquiry.investmentRange}</div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                빨래방 이용 경험
+              </label>
+              <div className="text-sm text-gray-900">
+                {inquiry.laundryExperience ? '예' : '아니오'}
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">건물 소유/임대</label>
+              <div className="text-sm text-gray-900">{inquiry.buildingOwnership}</div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">알게된 경로</label>
+              <div className="text-sm text-gray-900">{inquiry.foundThrough}</div>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">등록일</label>
               <div className="text-sm text-gray-900">{inquiry.createdAt}</div>
             </div>
+          </div>
+        </div>
+
+        {/* 지역 선호도 */}
+        <div>
+          <h4 className="text-lg font-medium text-gray-900 mb-4">지역 선호도</h4>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">우선순위</label>
-              <div className="text-sm text-gray-900">
-                {inquiry.priority === 'high'
-                  ? '높음'
-                  : inquiry.priority === 'medium'
-                  ? '보통'
-                  : '낮음'}
+              <label className="block text-sm font-medium text-gray-700 mb-2">1지망</label>
+              <div className="text-sm text-gray-900 bg-gray-100 p-3 rounded-md">
+                {inquiry.firstChoice}
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">2지망</label>
+              <div className="text-sm text-gray-900 bg-gray-50 p-3 rounded-md">
+                {inquiry.secondChoice || '미선택'}
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">3지망</label>
+              <div className="text-sm text-gray-900 bg-gray-50 p-3 rounded-md">
+                {inquiry.thirdChoice || '미선택'}
               </div>
             </div>
           </div>
         </div>
 
-        {/* 문의 내용 */}
+        {/* 기타 문의사항 */}
         <div>
-          <h4 className="text-lg font-medium text-gray-900 mb-4">문의 내용</h4>
+          <h4 className="text-lg font-medium text-gray-900 mb-4">기타 문의사항</h4>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">제목</label>
-              <div className="text-sm text-gray-900">{inquiry.subject}</div>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">내용</label>
-              <div className="text-sm text-gray-900 bg-gray-50 p-4 rounded-lg">
-                {inquiry.content}
+              <label className="block text-sm font-medium text-gray-700 mb-2">문의 내용</label>
+              <div className="text-sm text-gray-900 bg-gray-50 p-4 rounded-lg min-h-[100px]">
+                {inquiry.message || '문의 내용이 없습니다.'}
               </div>
             </div>
           </div>
