@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 
-export default function useApi(baseUrl = process.env.REACT_APP_API_BASE_URL || '') {
+export default function useApi(baseUrl = process.env.REACT_APP_API_BASE_URL) {
   const request = useMemo(() => {
     return async function api(
       path,
-      { method = 'GET', headers = {}, query, body, signal, credentials = 'same-origin' } = {}
+      { method = 'GET', headers = {}, query, body, signal, credentials = 'omit' } = {}
     ) {
       const url = new URL((baseUrl || '') + path, window.location.origin);
       if (query && typeof query === 'object') {
