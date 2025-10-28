@@ -1,120 +1,43 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Pagination from '../../common/Pagination';
+import { useStoresList } from '../../../hooks/queries/useStores';
 
 const StoreProgress = () => {
   const [activeFilter, setActiveFilter] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8; // 페이지당 아이템 수
+  const itemsPerPage = 8; // 페이지당 아이템 수 (API size)
 
-  const storeData = [
-    {
-      id: 1,
-      location: '인천시 남동구',
-      status: 'recruiting',
-      recruited: '1/10명',
-      details:
-        '2025년 9월 오픈 목표\n20평 / 세탁기 5대, 건조기 6대\n24시간 운영, 학생 밀집지역',
-    },
-    {
-      id: 2,
-      location: '인천시 남동구',
-      status: 'recruiting',
-      recruited: '1/10명',
-      details:
-        '2025년 9월 오픈 목표\n20평 / 세탁기 5대, 건조기 6대\n24시간 운영, 학생 밀집지역',
-    },
-    {
-      id: 3,
-      location: '서울시 동작구',
-      status: 'recruiting',
-      recruited: '1/10명',
-      details:
-        '2025년 9월 오픈 목표\n20평 / 세탁기 5대, 건조기 6대\n24시간 운영, 학생 밀집지역',
-    },
-    {
-      id: 4,
-      location: '수원시 권선구',
-      status: 'recruiting',
-      recruited: '1/10명',
-      details:
-        '2025년 9월 오픈 목표\n20평 / 세탁기 5대, 건조기 6대\n24시간 운영, 학생 밀집지역',
-    },
-    {
-      id: 5,
-      location: '안산시 상록구',
-      status: 'recruiting',
-      recruited: '1/10명',
-      details:
-        '2025년 9월 오픈 목표\n20평 / 세탁기 5대, 건조기 6대\n24시간 운영, 학생 밀집지역',
-    },
-    {
-      id: 6,
-      location: '부천시 원미구',
-      status: 'recruiting',
-      recruited: '1/10명',
-      details:
-        '2025년 9월 오픈 목표\n20평 / 세탁기 5대, 건조기 6대\n24시간 운영, 학생 밀집지역',
-    },
-    {
-      id: 7,
-      location: '인천시 부평구',
-      status: 'closed',
-      recruited: '10/10명',
-      details:
-        '2025년 9월 오픈 목표\n20평 / 세탁기 5대, 건조기 6대\n24시간 운영, 학생 밀집지역',
-    },
-    {
-      id: 8,
-      location: '안양시 동안구',
-      status: 'closed',
-      recruited: '10/10명',
-      details:
-        '2025년 9월 오픈 목표\n20평 / 세탁기 5대, 건조기 6대\n24시간 운영, 학생 밀집지역',
-    },
-    {
-      id: 9,
-      location: '성남시 분당구',
-      status: 'recruiting',
-      recruited: '3/10명',
-      details:
-        '2025년 10월 오픈 목표\n25평 / 세탁기 6대, 건조기 7대\n24시간 운영, 직장인 밀집지역',
-    },
-    {
-      id: 10,
-      location: '용인시 기흥구',
-      status: 'recruiting',
-      recruited: '2/10명',
-      details:
-        '2025년 11월 오픈 목표\n22평 / 세탁기 5대, 건조기 6대\n24시간 운영, 대학가 근처',
-    },
-    {
-      id: 11,
-      location: '고양시 일산동구',
-      status: 'recruiting',
-      recruited: '5/10명',
-      details:
-        '2025년 12월 오픈 목표\n20평 / 세탁기 5대, 건조기 6대\n24시간 운영, 주거지역',
-    },
-    {
-      id: 12,
-      location: '화성시 동탄동',
-      status: 'closed',
-      recruited: '10/10명',
-      details:
-        '2025년 8월 오픈 목표\n18평 / 세탁기 4대, 건조기 5대\n24시간 운영, 신도시 지역',
-    },
-  ];
+  const statusParam = useMemo(() => {
+    if (activeFilter === 'recruiting') return 'RECRUITING';
+    if (activeFilter === 'closed') return 'CLOSED';
+    return null; // 모두 보기 → null (쿼리 전송 생략)
+  }, [activeFilter]);
 
-  const filteredStores = storeData.filter(
-    (store) => activeFilter === 'all' || store.status === activeFilter
-  );
+  const { data, isLoading, error } = useStoresList({
+    status: statusParam,
+    page: currentPage - 1, // API는 0-based
+    size: itemsPerPage,
+    sort: 'modifiedAt,desc',
+  });
 
-  // 페이지네이션 로직
-  const totalPages = Math.ceil(filteredStores.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentStores = filteredStores.slice(startIndex, endIndex);
+  const totalPages = data?.totalPages || 0;
+  const currentStores = useMemo(() => {
+    const list = data?.content || [];
+    return list.map((s) => {
+      const locationText = [s.location, s.detailLocation].filter(Boolean).join(' ');
+      const detailsLines = [
+        `${s.targetOpeningDate || ''} 오픈 목표`.trim(),
+        `${s.areaSqm || 0}평 / 세탁기 ${s.washingMachines || 0}대, 건조기 ${s.dryers || 0}대`,
+      ].filter(Boolean);
+      return {
+        id: s.storeId,
+        location: locationText,
+        status: activeFilter === 'closed' ? 'closed' : 'recruiting',
+        details: detailsLines.join('\n'),
+      };
+    });
+  }, [data, activeFilter]);
 
   // 필터 변경 시 첫 페이지로 이동
   const handleFilterChange = (filter) => {
@@ -283,64 +206,83 @@ const StoreProgress = () => {
 
             {/* Store Cards Grid */}
             <div className="grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-4 xs:gap-3 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-6 2xl:gap-8 mb-8 xs:mb-6 sm:mb-8 md:mb-10 lg:mb-12 xl:mb-12 2xl:mb-16 max-w-[1400px] mx-auto">
-              {currentStores.map((store) => (
-                <Link
-                  key={store.id}
-                  to={`/startup-guide/low-capital-startup/store-progress/${store.id}`}
-                  className={`w-full max-w-[335px] mx-auto block transition-opacity duration-200 ${
-                    store.status === 'closed' ? 'opacity-60 hover:opacity-70' : 'hover:opacity-90'
-                  }`}
-                >
-                  {/* Store Image */}
-                  <div className="w-full h-[250px] rounded-t-2xl mb-0 overflow-hidden">
-                    <img
-                      src="/images/store-progress/store-image.png"
-                      alt={`${store.location} 매장`}
-                      className={`w-full h-full object-cover ${
-                        store.status === 'closed' ? 'grayscale brightness-75' : ''
-                      }`}
-                    />
-                  </div>
-
-                  {/* Store Info */}
-                  <div
-                    className={`px-3 py-2 rounded-b-2xl h-[179px] flex flex-col ${
-                      store.status === 'recruiting' ? 'bg-[rgba(164,198,224,0.2)]' : 'bg-[#F2F2F2]'
+              {isLoading && (
+                <div className="col-span-full text-center text-gray-600">불러오는 중…</div>
+              )}
+              {error && (
+                <div className="col-span-full text-center text-red-600">
+                  목록을 불러오지 못했습니다.
+                </div>
+              )}
+              {!isLoading && !error && currentStores.length === 0 && (
+                <div className="col-span-full text-center text-gray-600">
+                  진행 중인 매장이 없습니다. 잠시만 기다려 주세요.
+                </div>
+              )}
+              {!isLoading &&
+                !error &&
+                currentStores.map((store) => (
+                  <Link
+                    key={store.id}
+                    to={`/startup-guide/low-capital-startup/store-progress/${store.id}`}
+                    className={`w-full max-w-[335px] mx-auto block transition-opacity duration-200 ${
+                      store.status === 'closed' ? 'opacity-60 hover:opacity-70' : 'hover:opacity-90'
                     }`}
                   >
-                    <div className="flex justify-between items-center mb-4 px-3 flex-shrink-0">
-                      <h3 className="text-[22px] font-bold leading-[1.54] tracking-[-0.02em] text-[#1C262B] font-KoPubWorldDotum truncate pt-1.5">
-                        {store.location}
-                      </h3>
-                      {/* <span className="text-[22px] font-medium leading-[1.54] tracking-[-0.02em] text-[#1C262B] font-KoPubWorldDotum flex-shrink-0 ml-2">
+                    {/* Store Image */}
+                    <div className="w-full h-[250px] rounded-t-2xl mb-0 overflow-hidden">
+                      <img
+                        src="/images/store-progress/store-image.png"
+                        alt={`${store.location} 매장`}
+                        className={`w-full h-full object-cover ${
+                          store.status === 'closed' ? 'grayscale brightness-75' : ''
+                        }`}
+                      />
+                    </div>
+
+                    {/* Store Info */}
+                    <div
+                      className={`px-3 py-2 rounded-b-2xl h-[179px] flex flex-col ${
+                        store.status === 'recruiting'
+                          ? 'bg-[rgba(164,198,224,0.2)]'
+                          : 'bg-[#F2F2F2]'
+                      }`}
+                    >
+                      <div className="flex justify-between items-center mb-4 px-3 flex-shrink-0">
+                        <h3 className="text-[22px] font-bold leading-[1.54] tracking-[-0.02em] text-[#1C262B] font-KoPubWorldDotum truncate pt-1.5">
+                          {store.location}
+                        </h3>
+                        {/* <span className="text-[22px] font-medium leading-[1.54] tracking-[-0.02em] text-[#1C262B] font-KoPubWorldDotum flex-shrink-0 ml-2">
                         {store.recruited}
                       </span> */}
-                    </div>
-                    <div className="flex-1 flex items-start px-3">
-                      <div className="flex flex-col gap-2">
-                        {store.details.split('\n').map((line, index) => (
-                          <div key={index} className="flex items-start gap-2">
-                            <div className="w-1.5 h-1.5 bg-[#1C262B] rounded-full mt-2 flex-shrink-0"></div>
-                            <p className="text-[18px] font-medium leading-[1.3] tracking-[-0.02em] text-[#1C262B] font-KoPubWorldDotum text-left">
-                              {line}
-                            </p>
-                          </div>
-                        ))}
+                      </div>
+                      <div className="flex-1 flex items-start px-3">
+                        <div className="flex flex-col gap-2">
+                          {store.details.split('\n').map((line, index) => (
+                            <div key={index} className="flex items-start gap-2">
+                              <div className="w-1.5 h-1.5 bg-[#1C262B] rounded-full mt-2 flex-shrink-0"></div>
+                              <p className="text-[18px] font-medium leading-[1.3] tracking-[-0.02em] text-[#1C262B] font-KoPubWorldDotum text-left">
+                                {line}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                ))}
             </div>
 
             {/* Pagination */}
-            <Pagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPageChange={handlePageChange}
-              showFirstLast={true}
-              maxVisiblePages={10}
-            />
+            {totalPages > 0 && (
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+                showFirstLast={true}
+                maxVisiblePages={10}
+              />
+            )}
           </div>
         </div>
       </section>
