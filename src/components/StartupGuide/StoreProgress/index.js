@@ -24,6 +24,12 @@ const StoreProgress = () => {
   const totalPages = data?.totalPages || 0;
   const currentStores = useMemo(() => {
     const list = data?.content || [];
+    const toImageUrl = (v) => {
+      if (!v) return '';
+      if (typeof v === 'string' && /^https?:\/\//i.test(v)) return v;
+      const base = process.env.REACT_APP_IMAGE_BASE_URL;
+      return `${base}${v}`;
+    };
     return list.map((s) => {
       const locationText = [s.location, s.detailLocation].filter(Boolean).join(' ');
       const detailsLines = [
@@ -35,6 +41,7 @@ const StoreProgress = () => {
         location: locationText,
         status: activeFilter === 'closed' ? 'closed' : 'recruiting',
         details: detailsLines.join('\n'),
+        thumbnail: toImageUrl(s.imageKey),
       };
     });
   }, [data, activeFilter]);
@@ -216,7 +223,7 @@ const StoreProgress = () => {
               )}
               {!isLoading && !error && currentStores.length === 0 && (
                 <div className="col-span-full text-center text-gray-600">
-                  진행 중인 매장이 없습니다. 잠시만 기다려 주세요.
+                  아직 진행 중인 매장이 없습니다. <br />곧 새로운 매장이 추가될 예정이에요 😊
                 </div>
               )}
               {!isLoading &&
@@ -232,7 +239,7 @@ const StoreProgress = () => {
                     {/* Store Image */}
                     <div className="w-full h-[250px] rounded-t-2xl mb-0 overflow-hidden">
                       <img
-                        src="/images/store-progress/store-image.png"
+                        src={store.thumbnail || '/images/store-progress/store-image.png'}
                         alt={`${store.location} 매장`}
                         className={`w-full h-full object-cover ${
                           store.status === 'closed' ? 'grayscale brightness-75' : ''
