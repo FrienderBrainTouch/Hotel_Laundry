@@ -106,3 +106,30 @@ export function useDeleteStore() {
     },
   });
 }
+
+// 매장 수 조회: GET /stores/counts
+export function useStoreCounts() {
+  const api = useApi();
+  return useQuery({
+    queryKey: [...STORES_KEY, 'counts'],
+    queryFn: () => api.get('/stores/counts'),
+    staleTime: 60 * 1000, // 1분
+  });
+}
+
+// 최근 업데이트된 매장 조회: GET /stores (modifiedAt 기준 정렬)
+export function useRecentStores(limit = 5) {
+  const api = useApi();
+  return useQuery({
+    queryKey: [...STORES_KEY, 'recent', limit],
+    queryFn: () =>
+      api.get('/stores', {
+        query: {
+          page: 0,
+          size: limit,
+          sort: 'modifiedAt,desc', // 최신 수정일 기준 내림차순
+        },
+      }),
+    staleTime: 60 * 1000, // 1분
+  });
+}
