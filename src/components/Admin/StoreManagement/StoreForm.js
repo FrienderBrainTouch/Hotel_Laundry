@@ -46,9 +46,15 @@ const StoreForm = ({ store, onBack, onSave }) => {
     locationAnalysis: store?.storeDescription?.locationAnalysis || '',
   });
 
-  const [images, setImages] = useState({
-    main: store?.mainImage || null,
-    gallery: store?.galleryImages || [],
+  const [images, setImages] = useState(() => {
+    // 편집 모드로 넘어온 기존 이미지가 배열로 제공되는 경우 처리
+    const incoming = Array.isArray(store?.images) ? store.images : [];
+    const mainFromIncoming = incoming.length > 0 ? incoming[0] : null; // 첫 이미지를 메인으로 가정
+    const galleryFromIncoming = incoming.length > 1 ? incoming.slice(1) : [];
+    return {
+      main: store?.mainImage ?? mainFromIncoming,
+      gallery: store?.galleryImages ?? galleryFromIncoming,
+    };
   });
 
   const handleInputChange = (e) => {
@@ -102,13 +108,52 @@ const StoreForm = ({ store, onBack, onSave }) => {
     formDataToSend.append('dto', JSON.stringify(dto));
 
     // 이미지 파일들 추가
-    if (images.main) {
+    if (images.main instanceof File) {
       formDataToSend.append('files', images.main);
     }
     if (images.gallery && images.gallery.length > 0) {
       images.gallery.forEach((image) => {
-        formDataToSend.append('files', image);
+        if (image instanceof File) {
+          formDataToSend.append('files', image);
+        }
       });
+    }
+
+    // 디버깅: 실제 전송 형식 확인
+    try {
+      const entries = [];
+      formDataToSend.forEach((value, key) => {
+        if (value instanceof File) {
+          entries.push({
+            key,
+            file: {
+              name: value.name,
+              type: value.type,
+              size: value.size,
+            },
+          });
+        } else {
+          let preview = String(value);
+          // dto는 JSON 문자열이므로 파싱 가능 여부 확인
+          if (key === 'dto') {
+            try {
+              const parsed = JSON.parse(preview);
+              preview = { parsed }; // 구조 미리보기
+            } catch (_) {
+              // 파싱 실패 시 원문 출력
+            }
+          }
+          entries.push({ key, value: preview });
+        }
+      });
+      console.group('\uD83D\uDDC3\uFE0F FormData Preview (about to send)');
+      console.log('Endpoint:', '/admin/stores');
+      console.table(entries);
+      const filesCount = entries.filter((e) => e.key === 'files').length;
+      console.log('files appended:', filesCount);
+      console.groupEnd();
+    } catch (e) {
+      console.warn('FormData preview failed:', e);
     }
 
     onSave(formDataToSend);

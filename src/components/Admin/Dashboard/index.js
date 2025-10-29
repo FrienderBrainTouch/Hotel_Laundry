@@ -2,7 +2,7 @@ import React from 'react';
 import TotalStoresCard from './TotalStoresCard';
 import StatusBreakdown from './StatusBreakdown';
 import RecentUpdates from './RecentUpdates';
-import InquiryRegionChart from './InquiryRegionChart';
+// import InquiryRegionChart from './InquiryRegionChart';
 import TopRegions from './TopRegions';
 import { useStoreCounts } from '../../../hooks/queries/useStores';
 
@@ -23,7 +23,7 @@ const Dashboard = () => {
         {/* 왼쪽: 요약/현황 중심 */}
         <div className="space-y-4 lg:space-y-6">
           {/* 상태별 매장 수 */}
-          <StatusBreakdown />
+          <StatusBreakdown storeCounts={storeCounts} isLoading={isLoading} />
 
           {/* 최근 업데이트된 매장 */}
           <div className="bg-white p-4 lg:p-6 rounded-lg shadow-sm border border-gray-200">
@@ -37,7 +37,7 @@ const Dashboard = () => {
         {/* 오른쪽: 분석/통계 중심 */}
         <div className="space-y-4 lg:space-y-6">
           {/* 지역별 문의 비율 */}
-          <InquiryRegionChart />
+          {/* <InquiryRegionChart /> */}
 
           {/* 1지망 Top 3 */}
           <TopRegions />

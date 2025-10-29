@@ -1,53 +1,39 @@
-import React from 'react';
-import { useStoresList } from '../../../hooks/queries/useStores';
+import React, { useMemo } from 'react';
 
-const StatusBreakdown = () => {
-  // 각 상태별로 API 호출
-  const { data: waitingData, isLoading: waitingLoading } = useStoresList({
-    status: 'WAITING',
-    page: 0,
-    size: 1,
-  });
-  const { data: recruitingData, isLoading: recruitingLoading } = useStoresList({
-    status: 'RECRUITING',
-    page: 0,
-    size: 1,
-  });
-  const { data: closedData, isLoading: closedLoading } = useStoresList({
-    status: 'CLOSED',
-    page: 0,
-    size: 1,
-  });
-  const { data: completeData, isLoading: completeLoading } = useStoresList({
-    status: 'COMPLETE',
-    page: 0,
-    size: 1,
-  });
-
-  const isLoading = waitingLoading || recruitingLoading || closedLoading || completeLoading;
+const StatusBreakdown = ({ storeCounts, isLoading }) => {
+  const countsByStatus = useMemo(() => {
+    const map = { WAITING: 0, RECRUITING: 0, CLOSED: 0, COMPLETE: 0 };
+    const list = storeCounts?.storeCountDto || [];
+    list.forEach((item) => {
+      if (item?.status && typeof item?.count === 'number') {
+        map[item.status] = item.count;
+      }
+    });
+    return map;
+  }, [storeCounts]);
 
   const statusData = [
     {
       status: '모집 중',
-      count: recruitingData?.totalElements || 0,
+      count: countsByStatus.RECRUITING,
       color: 'bg-green-100 text-green-800',
       bgColor: 'bg-green-50',
     },
     {
       status: '준비 중',
-      count: waitingData?.totalElements || 0,
+      count: countsByStatus.WAITING,
       color: 'bg-yellow-100 text-yellow-800',
       bgColor: 'bg-yellow-50',
     },
     {
       status: '모집 마감',
-      count: closedData?.totalElements || 0,
+      count: countsByStatus.CLOSED,
       color: 'bg-orange-100 text-orange-800',
       bgColor: 'bg-orange-50',
     },
     {
       status: '운영 완료',
-      count: completeData?.totalElements || 0,
+      count: countsByStatus.COMPLETE,
       color: 'bg-blue-100 text-blue-800',
       bgColor: 'bg-blue-50',
     },

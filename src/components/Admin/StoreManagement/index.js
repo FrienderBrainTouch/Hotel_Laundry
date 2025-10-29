@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import StoreList from './StoreList';
 import StoreForm from './StoreForm';
-import { useCreateStore, useUpdateStore } from '../../../hooks/queries/useStores';
+import { useCreateStore, useUpdateStore, useStoreDetail } from '../../../hooks/queries/useStores';
 
 const StoreManagement = () => {
   const [activeTab, setActiveTab] = useState('list');
@@ -55,6 +55,51 @@ const StoreManagement = () => {
     }
   };
 
+  // 편집 모드일 때 상세 데이터를 불러와 폼 초기값으로 변환
+  const detailQuery = useStoreDetail(selectedStore?.id || null);
+  const formInitial = useMemo(() => {
+    if (!selectedStore || !detailQuery?.data) return selectedStore; // 신규 등록 또는 로딩 중
+    const d = detailQuery.data;
+
+    // 이미지 키를 절대 URL로 변환(미리보기 용)
+    const imageBase = process.env.REACT_APP_IMAGE_BASE_URL || '';
+    const imageUrls = Array.isArray(d.images)
+      ? d.images.map((key) => (key ? `${imageBase}${key}` : key)).filter(Boolean)
+      : [];
+
+    return {
+      address: { address: d.address || '', detailAddress: d.detailAddress || '' },
+      storeBasicInfo: {
+        areaSqm: d.areaSqm ?? '',
+        targetRecruits: d.targetRecruits ?? '',
+        areaType: d.areaType || '',
+        storeName: d.storeName || '',
+        operatingHours: d.operatingHours || '',
+        washingMachines: d.washingMachines ?? '',
+        status: d.status || 'WAITING',
+        targetOpeningDate: d.targetOpeningDate || '',
+        dryers: d.dryers ?? '',
+      },
+      storeDetails: {
+        detailsLocation: d.detailsLocation || '',
+        detailsInterior: d.detailsInterior || '',
+        detailsFloor: d.detailsFloor || '',
+        detailsRent: d.detailsRent || '',
+        detailsDeposit: d.detailsDeposit || '',
+        detailsStartupCost: d.detailsStartupCost || '',
+        detailsParking: d.detailsParking || '',
+        detailsSize: d.detailsSize || '',
+      },
+      storeDescription: {
+        householdCountInRadius: d.householdCountInRadius || '',
+        populationByAgeGroup: d.populationByAgeGroup || '',
+        competitorStores: d.competitorStores || '',
+        locationAnalysis: d.locationAnalysis || '',
+      },
+      images: imageUrls,
+    };
+  }, [selectedStore, detailQuery?.data]);
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -84,7 +129,7 @@ const StoreManagement = () => {
               </div>
             </div>
           )}
-          <StoreForm store={selectedStore} onBack={handleBackToList} onSave={handleSaveStore} />
+          <StoreForm store={formInitial} onBack={handleBackToList} onSave={handleSaveStore} />
         </div>
       )}
     </div>

@@ -1,23 +1,63 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useAdminStoresList } from '../../../hooks/queries/useStores';
 
 const StoreList = ({ onEditStore }) => {
+  // 상태 텍스트/색상 헬퍼를 먼저 선언하여 초기화 전 참조 오류 방지
+  function getStatusText(status) {
+    const statusMap = {
+      WAITING: '준비 중',
+      RECRUITING: '모집 중',
+      CLOSED: '모집 마감',
+      COMPLETE: '운영 완료',
+    };
+    return statusMap[status] || status;
+  }
+
+  function getStatusColor(status) {
+    const colors = {
+      '모집 중': 'bg-green-100 text-green-800',
+      '준비 중': 'bg-yellow-100 text-yellow-800',
+      '모집 마감': 'bg-orange-100 text-orange-800',
+      '운영 완료': 'bg-blue-100 text-blue-800',
+    };
+    return colors[status] || 'bg-gray-100 text-gray-800';
+  }
+
+  // function formatYYYYMM(dateString) {
+  //   if (!dateString) return '';
+  //   const d = new Date(dateString);
+  //   if (Number.isNaN(d.getTime())) return '';
+  //   return d.toISOString().slice(0, 7);
+  // }
+
+  function formatDateKR(dateString) {
+    if (!dateString) return '';
+    const d = new Date(dateString);
+    if (Number.isNaN(d.getTime())) return '';
+    return d.toLocaleDateString('ko-KR');
+  }
+
   const [filters, setFilters] = useState({
-    status: '',
+    status: 'ALL', // 기본 ALL로 노출 및 전송
     region: '',
     search: '',
   });
   const [currentPage, setCurrentPage] = useState(0);
   const [pageSize] = useState(10);
 
-  const {
-    data: storesData,
-    isLoading,
-    error,
-  } = useAdminStoresList({
-    page: currentPage,
+  // 실제 API로 전송될 쿼리 파라미터 상태(초기 로드시 status=ALL 포함)
+  const [queryParams, setQueryParams] = useState({
+    page: 0,
     size: pageSize,
+    status: 'ALL',
   });
+
+  // 페이지가 바뀌면 현재 쿼리 파라미터에 페이지만 반영하여 재조회
+  useEffect(() => {
+    setQueryParams((prev) => ({ ...prev, page: currentPage }));
+  }, [currentPage]);
+
+  const { data: storesData, isLoading, error } = useAdminStoresList(queryParams);
 
   const stores = useMemo(() => {
     if (!storesData?.content) return [];
@@ -30,35 +70,14 @@ const StoreList = ({ onEditStore }) => {
       washingMachines: store.washingMachines,
       dryers: store.dryers,
       status: getStatusText(store.status),
-      targetMonth: store.targetOpeningDate
-        ? new Date(store.targetOpeningDate).toISOString().slice(0, 7)
-        : '',
+      // 서버에서 문자열로 내려오는 값을 그대로 노출
+      targetMonth: store.targetOpeningDate || '',
       targetRecruits: store.targetRecruits,
-      createdAt: new Date(store.createdAt).toLocaleDateString('ko-KR'),
-      modifiedAt: new Date(store.modifiedAt).toLocaleDateString('ko-KR'),
+      createdAt: formatDateKR(store.createdAt),
+      modifiedAt: formatDateKR(store.modifiedAt),
       imageKey: store.imageKey,
     }));
   }, [storesData]);
-
-  const getStatusText = (status) => {
-    const statusMap = {
-      WAITING: '준비 중',
-      RECRUITING: '모집 중',
-      CLOSED: '모집 마감',
-      COMPLETE: '운영 완료',
-    };
-    return statusMap[status] || status;
-  };
-
-  const getStatusColor = (status) => {
-    const colors = {
-      '모집 중': 'bg-green-100 text-green-800',
-      '준비 중': 'bg-yellow-100 text-yellow-800',
-      '모집 마감': 'bg-orange-100 text-orange-800',
-      '운영 완료': 'bg-blue-100 text-blue-800',
-    };
-    return colors[status] || 'bg-gray-100 text-gray-800';
-  };
 
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200">
@@ -72,11 +91,11 @@ const StoreList = ({ onEditStore }) => {
               onChange={(e) => setFilters({ ...filters, status: e.target.value })}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
             >
-              <option value="">전체</option>
-              <option value="모집 중">모집 중</option>
-              <option value="준비 중">준비 중</option>
-              <option value="모집 마감">모집 마감</option>
-              <option value="운영 완료">운영 완료</option>
+              <option value="ALL">전체</option>
+              <option value="RECRUITING">모집 중</option>
+              <option value="WAITING">준비 중</option>
+              <option value="CLOSED">모집 마감</option>
+              <option value="COMPLETE">운영 완료</option>
             </select>
           </div>
           <div>
@@ -104,7 +123,20 @@ const StoreList = ({ onEditStore }) => {
             />
           </div>
           <div className="flex items-end">
-            <button className="w-full bg-brand-blue hover:bg-brand-dark text-white px-4 py-2 rounded-md font-medium transition-colors">
+            <button
+              onClick={() => {
+                // 페이지를 0으로 리셋하고 현재 필터를 쿼리 파라미터로 전송
+                setCurrentPage(0);
+                setQueryParams({
+                  page: 0,
+                  size: pageSize,
+                  status: filters.status || 'ALL',
+                  region: filters.region || undefined,
+                  keyword: filters.search || undefined,
+                });
+              }}
+              className="w-full bg-brand-blue hover:bg-brand-dark text-white px-4 py-2 rounded-md font-medium transition-colors"
+            >
               필터 적용
             </button>
           </div>

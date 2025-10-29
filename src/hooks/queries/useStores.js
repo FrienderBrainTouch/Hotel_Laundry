@@ -7,21 +7,32 @@ const STORES_KEY = ['stores'];
 // params: { status, keyword, region, page, size, sort }
 export function useStoresList(params) {
   const api = useApi();
+  const buildQuery = (p = {}) => {
+    const q = {
+      page: p?.page ?? 0,
+      size: p?.size ?? 10,
+    };
+    // USER 조회: status는 RECRUITING | CLOSED 만 허용, 그 외/없음은 미전송
+    if (p?.status && (p.status === 'RECRUITING' || p.status === 'CLOSED')) {
+      q.status = p.status;
+    }
+    if (p?.region) q.region = p.region;
+    if (p?.keyword) q.keyword = p.keyword;
+    if (p?.sort) q.sort = p.sort;
+    return q;
+  };
   return useQuery({
-    queryKey: [...STORES_KEY, params],
+    queryKey: [...STORES_KEY, buildQuery(params)],
     queryFn: () =>
       api.get('/stores', {
-        query: {
-          status: params?.status, // WAITING | RECRUITING | CLOSED | COMPLETE | undefined(ALL)
-          page: params?.page ?? 0,
-          size: params?.size ?? 10,
-        },
+        query: buildQuery(params),
       }),
     staleTime: 60 * 1000,
     keepPreviousData: true,
   });
 }
 
+// 매장 상세 조회: GET /stores/{id}
 export function useStoreDetail(id) {
   const api = useApi();
   return useQuery({
@@ -73,13 +84,21 @@ export function useStoreDetail(id) {
   });
 }
 
+// 매장 생성: POST /admin/stores
 export function useCreateStore() {
   const api = useApi(process.env.REACT_APP_API_BASE_URL);
   const qc = useQueryClient();
 
   return useMutation({
-    mutationFn: (formData) => {
+    mutationKey: ['createStore'],
+    mutationFn: async (formData) => {
       console.log('🚀 Creating store with FormData...');
+      // 1) 세션 존재 여부 사전 체크 (가벼운 보호 리소스 호출)
+      await api.get('/stores', {
+        query: { page: 0, size: 1 },
+        credentials: 'include',
+      });
+      // 2) 통과 시 생성 호출
       return api.post('/admin/stores', formData, { credentials: 'include' });
     },
     onSuccess: () => {
@@ -87,11 +106,18 @@ export function useCreateStore() {
       qc.invalidateQueries({ queryKey: STORES_KEY });
     },
     onError: (error) => {
-      console.error('❌ Store creation failed:', error);
+      console.error('❌ Store creation failed:', {
+        name: error?.name,
+        message: error?.message,
+        status: error?.status,
+        url: error?.url,
+        body: error?.body ?? error?.data,
+      });
     },
   });
 }
 
+// 매장 수정: PATCH /stores/{id}
 export function useUpdateStore(id) {
   const api = useApi(process.env.REACT_APP_API_BASE_URL);
   const qc = useQueryClient();
@@ -135,7 +161,9 @@ export function useRecentStores(limit = 5) {
         query: {
           page: 0,
           size: limit,
-          sort: 'modifiedAt,desc', // 최신 수정일 기준 내림차순
+          // 서버 요구사항: status=ALL 포함, sort는 [modifiedAt, desc] 형태
+          status: 'ALL',
+          sort: ['modifiedAt', 'desc'],
         },
       }),
     staleTime: 60 * 1000, // 1분
@@ -145,19 +173,26 @@ export function useRecentStores(limit = 5) {
 // 관리자용 매장 목록 조회: GET /stores
 export function useAdminStoresList(params) {
   const api = useApi(process.env.REACT_APP_API_BASE_URL);
-  // console.log('API Base URL:', process.env.REACT_APP_API_BASE_URL);
-  //console.log('Current cookies:', document.cookie);
+
+  const buildAdminQuery = (p = {}) => {
+    const q = {
+      page: p?.page ?? 0,
+      size: p?.size ?? 10,
+    };
+    // ADMIN 조회: 기본값 ALL, 반드시 서버로 전송 (status=ALL 포함)
+    q.status = p?.status ?? 'ALL'; // WAITING | RECRUITING | CLOSED | COMPLETE | ALL
+    if (p?.region) q.region = p.region;
+    if (p?.keyword) q.keyword = p.keyword;
+    if (p?.sort) q.sort = p.sort;
+    return q;
+  };
 
   return useQuery({
-    queryKey: [...STORES_KEY, 'admin', params],
+    queryKey: [...STORES_KEY, 'admin', buildAdminQuery(params)],
     queryFn: () => {
       console.log('Making request to /stores with credentials: include');
       return api.get('/stores', {
-        query: {
-          page: params?.page ?? 0,
-          size: params?.size ?? 10,
-          sort: params?.sort,
-        },
+        query: buildAdminQuery(params),
         credentials: 'include', // 명시적으로 쿠키 포함
       });
     },

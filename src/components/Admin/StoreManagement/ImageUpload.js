@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 const ImageUpload = ({ images, setImages }) => {
   const [dragActive, setDragActive] = useState(false);
@@ -21,14 +21,10 @@ const ImageUpload = ({ images, setImages }) => {
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       const file = e.dataTransfer.files[0];
       if (file.type.startsWith('image/')) {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          setImages((prev) => ({
-            ...prev,
-            main: event.target.result,
-          }));
-        };
-        reader.readAsDataURL(file);
+        setImages((prev) => ({
+          ...prev,
+          main: file, // 파일 객체 자체 저장
+        }));
       }
     }
   };
@@ -37,14 +33,10 @@ const ImageUpload = ({ images, setImages }) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       if (file.type.startsWith('image/')) {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          setImages((prev) => ({
-            ...prev,
-            main: event.target.result,
-          }));
-        };
-        reader.readAsDataURL(file);
+        setImages((prev) => ({
+          ...prev,
+          main: file, // 파일 객체 자체 저장
+        }));
       }
     }
   };
@@ -55,24 +47,10 @@ const ImageUpload = ({ images, setImages }) => {
       const imageFiles = files.filter((file) => file.type.startsWith('image/'));
 
       if (imageFiles.length > 0) {
-        const newImages = [];
-        let loadedCount = 0;
-
-        imageFiles.forEach((file, index) => {
-          const reader = new FileReader();
-          reader.onload = (event) => {
-            newImages[index] = event.target.result;
-            loadedCount++;
-
-            if (loadedCount === imageFiles.length) {
-              setImages((prev) => ({
-                ...prev,
-                gallery: [...prev.gallery, ...newImages].slice(0, 10),
-              }));
-            }
-          };
-          reader.readAsDataURL(file);
-        });
+        setImages((prev) => ({
+          ...prev,
+          gallery: [...prev.gallery, ...imageFiles].slice(0, 10), // 파일 객체 배열 저장
+        }));
       }
     }
   };
@@ -83,6 +61,38 @@ const ImageUpload = ({ images, setImages }) => {
       gallery: prev.gallery.filter((_, i) => i !== index),
     }));
   };
+
+  // 미리보기 URL 생성 및 정리
+  const mainPreviewUrl = useMemo(() => {
+    if (!images.main) return null;
+    return images.main instanceof File ? URL.createObjectURL(images.main) : images.main;
+  }, [images.main]);
+
+  useEffect(() => {
+    return () => {
+      if (images.main instanceof File && mainPreviewUrl) {
+        URL.revokeObjectURL(mainPreviewUrl);
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mainPreviewUrl]);
+
+  const galleryPreviewUrls = useMemo(() => {
+    return (images.gallery || []).map((item) =>
+      item instanceof File ? URL.createObjectURL(item) : item
+    );
+  }, [images.gallery]);
+
+  useEffect(() => {
+    return () => {
+      (images.gallery || []).forEach((item, idx) => {
+        if (item instanceof File && galleryPreviewUrls[idx]) {
+          URL.revokeObjectURL(galleryPreviewUrls[idx]);
+        }
+      });
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [galleryPreviewUrls]);
 
   return (
     <div className="space-y-6">
@@ -102,7 +112,11 @@ const ImageUpload = ({ images, setImages }) => {
         >
           {images.main ? (
             <div className="space-y-4">
-              <img src={images.main} alt="메인 이미지" className="mx-auto max-h-48 rounded-lg" />
+              <img
+                src={mainPreviewUrl || ''}
+                alt="메인 이미지"
+                className="mx-auto max-h-48 rounded-lg"
+              />
               <button
                 onClick={() => setImages((prev) => ({ ...prev, main: null }))}
                 className="text-red-600 hover:text-red-800 text-sm"
@@ -152,10 +166,10 @@ const ImageUpload = ({ images, setImages }) => {
           갤러리 이미지 (최대 10장)
         </label>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {images.gallery.map((image, index) => (
+          {galleryPreviewUrls.map((url, index) => (
             <div key={index} className="relative">
               <img
-                src={image}
+                src={url}
                 alt={`갤러리 ${index + 1}`}
                 className="w-full h-24 object-cover rounded-lg"
               />

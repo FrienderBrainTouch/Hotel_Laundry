@@ -1,24 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AdminLogin from '../components/Admin/Auth/Login';
-import { useAdminLogin } from '../hooks/queries/useAdminAuth';
+import { useAdminLogin, useAdminSessionCheck } from '../hooks/queries/useAdminAuth';
 
 const AdminLoginPage = () => {
   const [isChecking, setIsChecking] = useState(true);
   const navigate = useNavigate();
   const loginMutation = useAdminLogin();
 
-  useEffect(() => {
-    // 이미 로그인된 상태인지 확인
-    const adminCookie = document.cookie.split('; ').find((row) => row.startsWith('admin_authed='));
+  const { isLoading: isSessionChecking, isSuccess } = useAdminSessionCheck(true);
 
-    if (adminCookie && adminCookie.split('=')[1] === '1') {
-      // 이미 로그인된 상태면 관리자 페이지로 리다이렉트
+  useEffect(() => {
+    if (isSessionChecking) return;
+    if (isSuccess) {
       navigate('/admin/dashboard');
     } else {
       setIsChecking(false);
     }
-  }, [navigate]);
+  }, [isSessionChecking, isSuccess, navigate]);
 
   const handleLogin = async (secretCode) => {
     try {

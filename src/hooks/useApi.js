@@ -69,13 +69,16 @@ export default function useApi(baseUrl = process.env.REACT_APP_API_BASE_URL) {
 
       if (!response.ok) {
         console.error('❌ API Error:', {
+          url: url.toString(),
+          method,
           status: response.status,
           statusText: response.statusText,
           data: data,
         });
-        const error = new Error('API_ERROR');
+        const error = new Error(`HTTP ${response.status} ${response.statusText}`);
         error.status = response.status;
-        error.data = data;
+        error.url = url.toString();
+        error.body = typeof data === 'string' ? data : JSON.stringify(data);
         throw error;
       }
 

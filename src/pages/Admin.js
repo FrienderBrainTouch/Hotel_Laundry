@@ -4,22 +4,22 @@ import AdminLayout from '../components/Admin/Layout/AdminLayout';
 import Dashboard from '../components/Admin/Dashboard';
 import StoreManagement from '../components/Admin/StoreManagement';
 import InquiryManagement from '../components/Admin/InquiryManagement';
+import { useAdminSessionCheck } from '../hooks/queries/useAdminAuth';
 
 const Admin = () => {
   const [isChecking, setIsChecking] = useState(true);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // 쿠키가 없으면 로그인 페이지로 리다이렉트
-    const adminCookie = document.cookie.split('; ').find((row) => row.startsWith('admin_authed='));
+  const { isLoading, isError } = useAdminSessionCheck(true);
 
-    if (!adminCookie || adminCookie.split('=')[1] !== '1') {
+  useEffect(() => {
+    if (isLoading) return;
+    if (isError) {
       navigate('/admin/login');
       return;
     }
-
     setIsChecking(false);
-  }, [navigate]);
+  }, [isLoading, isError, navigate]);
 
   if (isChecking) {
     return (
