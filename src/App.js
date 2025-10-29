@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 
 // layout
 import { Header, Footer, FloatingMenu } from './components/layout';
@@ -15,6 +15,7 @@ import StoreInfoPage from './pages/StoreInfo';
 import ManagementSupportPage from './pages/ManagementSupport';
 import ContactPage from './pages/Contact';
 import AdminPage from './pages/Admin';
+import AdminLoginPage from './pages/AdminLogin';
 
 // 스크롤 초기화 컴포넌트
 function ScrollToTop() {
@@ -46,6 +47,8 @@ function Layout() {
   if (currentPage.startsWith('/admin')) {
     return (
       <Routes>
+        <Route path="/admin/login" element={<AdminLoginPage />} />
+        <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
         <Route path="/admin/*" element={<AdminPage />} />
       </Routes>
     );
