@@ -4,8 +4,11 @@ import StatusBreakdown from './StatusBreakdown';
 import RecentUpdates from './RecentUpdates';
 import InquiryRegionChart from './InquiryRegionChart';
 import TopRegions from './TopRegions';
+import { useStoreCounts } from '../../../hooks/queries/useStores';
 
 const Dashboard = () => {
+  const { data: storeCounts, isLoading, error } = useStoreCounts();
+
   return (
     <div className="space-y-6">
       <div>
@@ -14,7 +17,7 @@ const Dashboard = () => {
       </div>
 
       {/* 전체 매장 수 - 강조 카드 */}
-      <TotalStoresCard />
+      <TotalStoresCard totalCount={storeCounts?.count || 0} isLoading={isLoading} error={error} />
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 lg:gap-6">
         {/* 왼쪽: 요약/현황 중심 */}
