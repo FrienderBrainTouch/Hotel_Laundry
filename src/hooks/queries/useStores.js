@@ -76,10 +76,18 @@ export function useStoreDetail(id) {
 export function useCreateStore() {
   const api = useApi(process.env.REACT_APP_API_BASE_URL);
   const qc = useQueryClient();
+
   return useMutation({
-    mutationFn: (payload) => api.post('/stores', payload),
+    mutationFn: (formData) => {
+      console.log('🚀 Creating store with FormData...');
+      return api.post('/admin/stores', formData, { credentials: 'include' });
+    },
     onSuccess: () => {
+      console.log('✅ Store created successfully');
       qc.invalidateQueries({ queryKey: STORES_KEY });
+    },
+    onError: (error) => {
+      console.error('❌ Store creation failed:', error);
     },
   });
 }
@@ -131,5 +139,29 @@ export function useRecentStores(limit = 5) {
         },
       }),
     staleTime: 60 * 1000, // 1분
+  });
+}
+
+// 관리자용 매장 목록 조회: GET /stores
+export function useAdminStoresList(params) {
+  const api = useApi(process.env.REACT_APP_API_BASE_URL);
+  // console.log('API Base URL:', process.env.REACT_APP_API_BASE_URL);
+  //console.log('Current cookies:', document.cookie);
+
+  return useQuery({
+    queryKey: [...STORES_KEY, 'admin', params],
+    queryFn: () => {
+      console.log('Making request to /stores with credentials: include');
+      return api.get('/stores', {
+        query: {
+          page: params?.page ?? 0,
+          size: params?.size ?? 10,
+          sort: params?.sort,
+        },
+        credentials: 'include', // 명시적으로 쿠키 포함
+      });
+    },
+    staleTime: 60 * 1000, // 1분
+    keepPreviousData: true,
   });
 }

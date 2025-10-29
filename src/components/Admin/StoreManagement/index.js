@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import StoreList from './StoreList';
 import StoreForm from './StoreForm';
+import { useCreateStore, useUpdateStore } from '../../../hooks/queries/useStores';
 
 const StoreManagement = () => {
   const [activeTab, setActiveTab] = useState('list');
   const [selectedStore, setSelectedStore] = useState(null);
+
+  // API 훅들
+  const createStoreMutation = useCreateStore();
+  const updateStoreMutation = useUpdateStore(selectedStore?.id);
 
   const handleEditStore = (store) => {
     setSelectedStore(store);
@@ -19,6 +24,35 @@ const StoreManagement = () => {
   const handleBackToList = () => {
     setActiveTab('list');
     setSelectedStore(null);
+  };
+
+  const handleSaveStore = async (formData) => {
+    try {
+      console.log('🚀 Starting store save process...', {
+        isEdit: !!selectedStore,
+        storeId: selectedStore?.id,
+        formData: formData,
+      });
+
+      if (selectedStore) {
+        // 수정
+        console.log('📝 Updating store...');
+        await updateStoreMutation.mutateAsync(formData);
+        console.log('✅ Store updated successfully');
+      } else {
+        // 등록
+        console.log('➕ Creating new store...');
+        await createStoreMutation.mutateAsync(formData);
+        console.log('✅ Store created successfully');
+      }
+
+      // 성공 시 목록으로 돌아가기
+      handleBackToList();
+    } catch (error) {
+      console.error('❌ Store save failed:', error);
+      // 에러 처리 (토스트 메시지 등)
+      alert('저장 중 오류가 발생했습니다. 다시 시도해주세요.');
+    }
   };
 
   return (
@@ -41,7 +75,17 @@ const StoreManagement = () => {
       {activeTab === 'list' ? (
         <StoreList onEditStore={handleEditStore} />
       ) : (
-        <StoreForm store={selectedStore} onBack={handleBackToList} onSave={handleBackToList} />
+        <div className="relative">
+          {(createStoreMutation.isPending || updateStoreMutation.isPending) && (
+            <div className="absolute inset-0 bg-white bg-opacity-75 flex items-center justify-center z-10">
+              <div className="text-center">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-blue mx-auto mb-2"></div>
+                <p className="text-gray-600">{selectedStore ? '수정 중...' : '등록 중...'}</p>
+              </div>
+            </div>
+          )}
+          <StoreForm store={selectedStore} onBack={handleBackToList} onSave={handleSaveStore} />
+        </div>
       )}
     </div>
   );
