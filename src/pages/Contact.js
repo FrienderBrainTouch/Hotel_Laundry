@@ -160,10 +160,15 @@ const Contact = () => {
 
       emailTemplateParams.message = message;
 
+      // 문의 유형에 따라 다른 템플릿 ID 사용
+      const templateId = inquiryType === 'lowCapital' 
+        ? process.env.REACT_APP_EMAILJS_TEMPLATE_ID_LOW_CAPITAL  // 소자본 템플릿
+        : process.env.REACT_APP_EMAILJS_TEMPLATE_ID;             // 일반 템플릿
+
       // EmailJS를 사용하여 이메일 전송
       await emailjs.send(
         process.env.REACT_APP_EMAILJS_SERVICE_ID,
-        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+        templateId,
         emailTemplateParams,
         process.env.REACT_APP_EMAILJS_PUBLIC_KEY
       );
