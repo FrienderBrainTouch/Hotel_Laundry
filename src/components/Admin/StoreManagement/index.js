@@ -88,6 +88,7 @@ const StoreManagement = () => {
     const imageUrls = existingImages.map((x) => x.url);
 
     return {
+      id: selectedStore.id, // 수정 모드 식별용
       address: { address: d.address || '', detailAddress: d.detailAddress || '' },
       storeBasicInfo: {
         areaSqm: d.areaSqm ?? '',

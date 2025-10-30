@@ -239,3 +239,14 @@ export function useAdminStoresList(params) {
     keepPreviousData: true,
   });
 }
+
+// 관리자용 1지망 지역 목록 조회: GET /stores/admin/1st-region
+export function useAdminFirstRegions() {
+  const api = useApi(process.env.REACT_APP_API_BASE_URL);
+  
+  return useQuery({
+    queryKey: [...STORES_KEY, 'admin', '1st-region'],
+    queryFn: () => api.get('/stores/admin/1st-region'),
+    staleTime: 5 * 60 * 1000, // 5분
+  });
+}

@@ -1,10 +1,11 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { useAdminContactsList } from '../../../hooks/queries/useContacts';
+import { useAdminFirstRegions } from '../../../hooks/queries/useStores';
 
 const InquiryList = ({ onViewInquiry, filters, setFilters }) => {
   const [contactType, setContactType] = useState('GENERAL');
   const [page, setPage] = useState(0);
-  const [size, setSize] = useState(10);
+  const [size] = useState(10);
 
   // 필터가 변경되면 페이지를 0으로 리셋
   useEffect(() => {
@@ -19,6 +20,10 @@ const InquiryList = ({ onViewInquiry, filters, setFilters }) => {
     contactStatus: filters?.status,
     keyword: filters?.search,
   });
+
+  // 1지망 지역 목록 조회 (소규모 문의용)
+  const { data: regionsData } = useAdminFirstRegions();
+  const regions = useMemo(() => regionsData || [], [regionsData]);
 
   const inquiries = useMemo(() => data?.content || [], [data]);
   const isLowCapital = contactType === 'LOW_CAPITAL';
@@ -50,15 +55,6 @@ const InquiryList = ({ onViewInquiry, filters, setFilters }) => {
       삭제됨: 'bg-gray-100 text-gray-600',
     };
     return colors[label] || 'bg-gray-100 text-gray-800';
-  };
-
-  const getPriorityColor = (priority) => {
-    const colors = {
-      high: 'bg-red-100 text-red-800',
-      medium: 'bg-yellow-100 text-yellow-800',
-      low: 'bg-green-100 text-green-800',
-    };
-    return colors[priority] || 'bg-gray-100 text-gray-800';
   };
 
   return (
@@ -93,23 +89,11 @@ const InquiryList = ({ onViewInquiry, filters, setFilters }) => {
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               >
                 <option value="">전체 지역</option>
-                <option value="서울시">서울시</option>
-                <option value="부산광역시">부산광역시</option>
-                <option value="대구광역시">대구광역시</option>
-                <option value="인천광역시">인천광역시</option>
-                <option value="광주광역시">광주광역시</option>
-                <option value="대전광역시">대전광역시</option>
-                <option value="울산광역시">울산광역시</option>
-                <option value="세종특별자치시">세종특별자치시</option>
-                <option value="경기도">경기도</option>
-                <option value="강원도">강원도</option>
-                <option value="충청북도">충청북도</option>
-                <option value="충청남도">충청남도</option>
-                <option value="전라북도">전라북도</option>
-                <option value="전라남도">전라남도</option>
-                <option value="경상북도">경상북도</option>
-                <option value="경상남도">경상남도</option>
-                <option value="제주특별자치도">제주특별자치도</option>
+                {regions.map((item, index) => (
+                  <option key={index} value={item.region}>
+                    {item.region}
+                  </option>
+                ))}
               </select>
             </div>
           )}

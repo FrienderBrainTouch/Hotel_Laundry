@@ -74,14 +74,22 @@ const ImageUpload = ({ images, setImages, newFiles, setNewFiles }) => {
   };
 
   const removeGalleryImage = (index) => {
+    // 제거할 항목 가져오기 (URL string 또는 File 객체)
+    const itemToRemove = images.gallery[index];
+    
+    // images에서 제거
     setImages((prev) => ({
       ...prev,
       gallery: prev.gallery.filter((_, i) => i !== index),
     }));
-    safeSetNewFiles((prev) => ({
-      ...prev,
-      gallery: prev.gallery.filter((_, i) => i !== index),
-    }));
+    
+    // 제거할 항목이 File 객체인 경우에만 newFiles에서도 제거
+    if (itemToRemove instanceof File) {
+      safeSetNewFiles((prev) => ({
+        ...prev,
+        gallery: (prev.gallery || []).filter((file) => file !== itemToRemove),
+      }));
+    }
   };
 
   // 미리보기 URL은 이미 images에 저장됨

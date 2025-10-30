@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import ImageUpload from './ImageUpload';
 // 중복 import 제거
 import {
@@ -113,16 +113,6 @@ const StoreForm = ({ store, onBack, onSave }) => {
     setNewFiles({ main: null, gallery: [] });
   }, [store]);
 
-  // 기존 이미지 id 매핑 (url -> imageId)
-  const existingUrlToId = useMemo(() => {
-    const map = new Map();
-    const list = Array.isArray(store?.existingImages) ? store.existingImages : [];
-    for (const item of list) {
-      if (item?.url && item?.id != null) map.set(item.url, item.id);
-    }
-    return map;
-  }, [store?.existingImages]);
-
   console.log('🔍 StoreForm render - images state:', {
     main: images.main,
     gallery: images.gallery,
@@ -179,7 +169,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
       },
     };
 
-    // 수정 모드: 기존 이미지 id는 existingImageIdsInOrder로, 새 파일만 files에 첨부
+    // 수정 모드: 남아있는 기존 이미지의 id 추출 + 새 파일 수집
     const filesToAppend = [];
     const seenFiles = new Set();
     const addFileUnique = (file) => {
@@ -191,47 +181,44 @@ const StoreForm = ({ store, onBack, onSave }) => {
       }
     };
 
-    const orderedItems = [
+    // 현재 남아있는 모든 항목 (URL string 또는 File)
+    const allItems = [
       images.main,
       ...(Array.isArray(images.gallery) ? images.gallery : []),
-    ].filter((item) => {
-      if (item instanceof File) return true;
-      if (typeof item === 'string') return item.trim() !== '';
-      return false;
-    });
+    ].filter(Boolean);
 
-    // 남아 있는 기존 이미지 id를 URL/키 기준으로 안정적으로 계산
-    const urlStrings = orderedItems.filter((v) => typeof v === 'string');
-    const extractKey = (url) => {
-      try {
-        const u = new URL(url, window.location.origin);
-        return u.searchParams.get('key') || null;
-      } catch (_) {
-        return null;
-      }
-    };
-    const remainingUrlSet = new Set(urlStrings);
-    const remainingKeySet = new Set(urlStrings.map((u) => extractKey(u)).filter(Boolean));
+    // 1. 현재 남아있는 URL들의 Set 생성 (빠른 조회용)
+    const remainingUrlSet = new Set(
+      allItems
+        .filter((item) => typeof item === 'string' && item.trim() !== '')
+    );
 
+    // 2. 원래 순서(store.existingImages)를 유지하면서, 남아있는 것만 필터링
     const existingImageIdsInOrder = Array.isArray(store?.existingImages)
       ? store.existingImages
-          .filter((img) => {
-            const url = img?.url;
-            const key = img?.key || extractKey(url || '');
-            return (url && remainingUrlSet.has(url)) || (key && remainingKeySet.has(String(key)));
-          })
+          .filter((img) => img?.url && remainingUrlSet.has(img.url))
           .map((img) => img.id)
+          .filter((id) => id != null)
       : [];
 
-    // 파일 수집 (주문 유지)
-    for (const item of orderedItems) {
-      if (item instanceof File) addFileUnique(item);
+    // 3. 새 파일 수집
+    // 3-1. newFiles에서 실제 File 객체 수집 (생성/수정 모드 공통)
+    if (newFiles?.main instanceof File) {
+      addFileUnique(newFiles.main);
     }
-
-    // 새로 업로드된 갤러리 파일 추가
-    if (newFiles?.main instanceof File) addFileUnique(newFiles.main);
     if (Array.isArray(newFiles?.gallery)) {
-      for (const f of newFiles.gallery) addFileUnique(f);
+      newFiles.gallery.forEach((file) => {
+        if (file instanceof File) {
+          addFileUnique(file);
+        }
+      });
+    }
+    
+    // 3-2. images에서 File 객체 수집 (드물지만 직접 File이 있을 수 있음)
+    for (const item of allItems) {
+      if (item instanceof File) {
+        addFileUnique(item);
+      }
     }
 
     // DTO에 existing ids 포함 (수정 모드에서만 의미 있음)
@@ -239,24 +226,23 @@ const StoreForm = ({ store, onBack, onSave }) => {
       dto.existingImageIdsInOrder = existingImageIdsInOrder;
     }
 
-    // files 먼저 첨부, dto는 마지막에 첨부해 가장 최신 상태를 보장
+    // files 첨부
     if (filesToAppend.length > 0) {
       filesToAppend.forEach((f) => formDataToSend.append('files', f));
     } else {
-      // 서버 요구사항: 새 파일이 없을 때도 files=null로 명시적으로 전송
-      // multipart/form-data에서 null 표현: 문자열 'null'을 전송하여 서버에서 null로 파싱하도록 함
-      formDataToSend.append('files', new Blob(['null'], { type: 'text/plain' }));
+      // 파일이 없을 때는 null을 명시적으로 전송 (생성/수정 모두)
+      formDataToSend.append('files', new Blob([], { type: 'application/octet-stream' }));
     }
+    
+    // dto 추가
     formDataToSend.append('dto', JSON.stringify(dto));
 
     // 디버깅: 파일 수집 상태 확인
     console.log('🔍 File Collection Debug:', {
-      newFilesMain: newFiles?.main,
-      newFilesGallery: newFiles?.gallery,
-      imagesMain: images.main,
-      imagesGallery: images.gallery,
-      existingImageIdsInOrder,
-      filesToAppend: filesToAppend.map((f) => ({
+      mode: store ? '수정' : '생성',
+      existingImageIdsInOrder: store ? existingImageIdsInOrder : '(생성 모드)',
+      newFilesCount: filesToAppend.length,
+      newFiles: filesToAppend.map((f) => ({
         name: f.name,
         type: f.type,
         size: f.size,
@@ -291,15 +277,13 @@ const StoreForm = ({ store, onBack, onSave }) => {
         }
       });
       console.group('\uD83D\uDDC3\uFE0F FormData Preview (about to send)');
-      console.log('Endpoint:', '/admin/stores');
+      console.log('Endpoint:', store ? `PATCH /admin/stores/${store.id}` : 'POST /admin/stores');
       console.table(entries);
-      const filesCount = entries.filter((e) => e.key === 'files').length;
-      console.log(
-        'files appended:',
-        filesCount,
-        filesCount === 0 ? '(omitted -> server sees null)' : ''
-      );
-      console.log('dto.existingImageIdsInOrder:', dto.existingImageIdsInOrder);
+      const filesCount = entries.filter((e) => e.key === 'files' && e.file).length;
+      console.log('files appended:', filesCount, filesCount === 0 ? '(null로 전송)' : '');
+      if (store) {
+        console.log('dto.existingImageIdsInOrder:', dto.existingImageIdsInOrder);
+      }
       console.groupEnd();
     } catch (e) {
       console.warn('FormData preview failed:', e);
