@@ -18,7 +18,7 @@ const AdminLoginPage = () => {
       setIsChecking(false);
       return;
     }
-    
+
     if (isSessionChecking) return;
     if (isSuccess) {
       // 이미 로그인되어 있으면 대시보드로
@@ -35,7 +35,7 @@ const AdminLoginPage = () => {
       await loginMutation.mutateAsync(secretCode);
       navigate('/admin/dashboard');
     } catch (error) {
-      alert('로그인에 실패했습니다. 비밀번호를 확인해주세요.');
+      alert('로그인에 실패했습니다. 비밀번호를 확인해 주세요.');
     }
   };
 

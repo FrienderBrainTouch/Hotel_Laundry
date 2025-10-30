@@ -312,7 +312,7 @@ const ContactForm = ({
 
       {/* 문의 유형 선택 */}
       <div className="mt-8 mb-6 p-6 bg-gray-50 border border-gray-200 rounded">
-        <h2 className="text-24 font-bold text-gray-800 mb-4">문의 유형을 선택해주세요</h2>
+        <h2 className="text-24 font-bold text-gray-800 mb-4">문의 유형을 선택해 주세요</h2>
         <div className="flex items-center gap-8">
           <label className="flex items-center text-24 cursor-pointer">
             <input
@@ -338,8 +338,8 @@ const ContactForm = ({
           </label>
         </div>
         <p className="text-18 text-gray-600 mt-3">
-          {inquiryType === 'general' 
-            ? '✓ 전국 지역에 대한 일반 창업 문의입니다.' 
+          {inquiryType === 'general'
+            ? '✓ 전국 지역에 대한 일반 창업 문의입니다.'
             : '✓ 서울시 소자본 창업 전용 문의입니다.'}
         </p>
       </div>
@@ -494,10 +494,24 @@ const ContactForm = ({
                 onChange={handleChange}
                 className="border border-gray-300 p-2 w-32 rounded-sm text-24"
               />
-              <select className="border border-gray-300 p-2 rounded-sm text-24">
-                <option>직접 입력</option>
-                <option>naver.com</option>
-                <option>gmail.com</option>
+              <select
+                className="border border-gray-300 p-2 rounded-sm text-24"
+                value={
+                  ['naver.com', 'gmail.com'].includes(formData.emailDomain)
+                    ? formData.emailDomain
+                    : 'custom'
+                }
+                onChange={(e) => {
+                  const v = e.target.value;
+                  setFormData((prev) => ({
+                    ...prev,
+                    emailDomain: v === 'custom' ? '' : v,
+                  }));
+                }}
+              >
+                <option value="custom">직접 입력</option>
+                <option value="naver.com">naver.com</option>
+                <option value="gmail.com">gmail.com</option>
               </select>
             </div>
           </FormRow>
@@ -557,9 +571,7 @@ const ContactForm = ({
               </div>
 
               <div className="flex flex-col gap-2">
-                <label className="font-semibold text-24 text-gray-800">
-                  개설희망시기
-                </label>
+                <label className="font-semibold text-24 text-gray-800">개설희망시기</label>
                 <select
                   name="openingTime"
                   value={formData.openingTime}
@@ -580,9 +592,7 @@ const ContactForm = ({
             /* 소자본 창업 문의: 1지망 - 2지망 - 3지망 */
             <div className="grid grid-cols-1 md:grid-cols-3 py-4 border-b border-gray-200 items-start gap-x-8 gap-y-4">
               <div className="flex flex-col gap-2">
-                <label className="font-semibold text-24 text-gray-800">
-                  1지망
-                </label>
+                <label className="font-semibold text-24 text-gray-800">1지망</label>
                 <select
                   name="firstChoice"
                   value={formData.firstChoice}
@@ -628,9 +638,8 @@ const ContactForm = ({
                   <option value="">선택하세요</option>
                   {seoulDistricts
                     .filter(
-                      (district) => 
-                        district !== formData.firstChoice && 
-                        district !== formData.secondChoice
+                      (district) =>
+                        district !== formData.firstChoice && district !== formData.secondChoice
                     )
                     .map((district, index) => (
                       <option key={index} value={district}>

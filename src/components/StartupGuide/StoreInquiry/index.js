@@ -112,12 +112,12 @@ const StoreInquiry = () => {
     const missingFields = requiredFields.filter((field) => !formData[field]);
 
     if (missingFields.length > 0) {
-      alert('필수 항목을 모두 입력해주세요.');
+      alert('필수 항목을 모두 입력해 주세요.');
       return;
     }
 
     if (!formData.privacyAgreement) {
-      alert('개인정보 수집 및 이용에 동의해주세요.');
+      alert('개인정보 수집 및 이용에 동의해 주세요.');
       return;
     }
 
