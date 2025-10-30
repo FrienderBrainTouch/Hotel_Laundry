@@ -17,11 +17,13 @@ export default function useApi(baseUrl = process.env.REACT_APP_API_BASE_URL) {
       // JWT 토큰을 로컬스토리지에서 가져오기
       const accessToken = localStorage.getItem('accessToken');
 
+      const isPublicPath =
+        typeof path === 'string' && (path === '/contacts' || path.startsWith('/contacts/'));
       const init = {
         method,
         headers: {
           ...(isJsonBody ? { 'Content-Type': 'application/json' } : {}),
-          ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
+          ...(!isPublicPath && accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
           'X-Requested-With': 'XMLHttpRequest',
           ...headers,
         },

@@ -45,6 +45,9 @@ const Contact = () => {
     firstChoice: '',
     secondChoice: '',
     thirdChoice: '',
+    firstChoiceId: null,
+    secondChoiceId: null,
+    thirdChoiceId: null,
     // 공통 필드
     investment: '',
     hasExperience: '',
@@ -102,74 +105,52 @@ const Contact = () => {
     try {
       // 1) 서버 문의 저장 API 호출
       const contactType = inquiryType === 'lowCapital' ? 'LOW_CAPITAL' : 'GENERAL';
-      const buildPhone = () => `010-${formData.phone2}-${formData.phone3}`;
+      const buildPhone = () =>
+        `010-${String(formData.phone2 || '')}-${String(formData.phone3 || '')}`;
       const buildEmail = () =>
         formData.emailId && formData.emailDomain
           ? `${formData.emailId}@${formData.emailDomain}`
           : '';
-
-      const seoulDistricts = [
-        '서울시 강남구',
-        '서울시 강동구',
-        '서울시 강북구',
-        '서울시 강서구',
-        '서울시 관악구',
-        '서울시 광진구',
-        '서울시 구로구',
-        '서울시 금천구',
-        '서울시 노원구',
-        '서울시 도봉구',
-        '서울시 동대문구',
-        '서울시 동작구',
-        '서울시 마포구',
-        '서울시 서대문구',
-        '서울시 서초구',
-        '서울시 성동구',
-        '서울시 성북구',
-        '서울시 송파구',
-        '서울시 양천구',
-        '서울시 영등포구',
-        '서울시 용산구',
-        '서울시 은평구',
-        '서울시 종로구',
-        '서울시 중구',
-        '서울시 중랑구',
-      ];
-      const idxOf = (label) => {
-        const i = seoulDistricts.indexOf(label || '');
-        return i >= 0 ? i : 0;
-      };
+      const toNull = (v) => (v === '' || v === undefined ? null : v);
 
       const payload = {
         createUserDto: {
-          userName: formData.name,
+          userName: toNull(formData.name),
           phone: buildPhone(),
-          age: formData.age || '',
-          gender: formData.gender || '',
-          email: buildEmail(),
+          age: toNull(formData.age),
+          gender: toNull(formData.gender),
+          email: toNull(buildEmail()),
         },
         contactType,
         generalContact:
           contactType === 'GENERAL'
             ? {
-                region: formData.region || '',
-                detailRegion: formData.detailRegion || '',
-                openingTime: formData.openingTime || '',
+                region: toNull(formData.region),
+                detailRegion: toNull(formData.detailRegion),
+                openingTime: toNull(formData.openingTime),
               }
-            : null,
+            : {
+                region: null,
+                detailRegion: null,
+                openingTime: null,
+              },
         lowCapitalContact:
           contactType === 'LOW_CAPITAL'
             ? {
-                firstChoice: idxOf(formData.firstChoice),
-                secondChoice: idxOf(formData.secondChoice),
-                thirdChoice: idxOf(formData.thirdChoice),
+                firstChoice: formData.firstChoiceId ?? null,
+                secondChoice: formData.secondChoiceId ?? null,
+                thirdChoice: formData.thirdChoiceId ?? null,
               }
-            : null,
-        investment: formData.investment || '',
-        hasExperience: formData.hasExperience === 'yes',
-        buildingType: formData.buildingType === 'own',
-        knowPath: formData.knowPath || '',
-        etc: formData.etc || '',
+            : {
+                firstChoice: null,
+                secondChoice: null,
+                thirdChoice: null,
+              },
+        investment: toNull(formData.investment),
+        hasExperience: formData.hasExperience === '' ? null : formData.hasExperience === 'yes',
+        buildingType: formData.buildingType === '' ? null : formData.buildingType === 'own',
+        knowPath: toNull(formData.knowPath),
+        etc: toNull(formData.etc),
       };
 
       console.log('📤 Contact payload:', payload);
@@ -281,6 +262,9 @@ const Contact = () => {
         firstChoice: '',
         secondChoice: '',
         thirdChoice: '',
+        firstChoiceId: null,
+        secondChoiceId: null,
+        thirdChoiceId: null,
         investment: '',
         hasExperience: '',
         buildingType: '',

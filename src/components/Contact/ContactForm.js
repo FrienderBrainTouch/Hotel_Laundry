@@ -594,7 +594,11 @@ const ContactForm = ({
                     const id = Number(e.target.value) || null;
                     setFirstChoiceId(id);
                     const found = recruitingStores.find((s) => s.storeId === id);
-                    setFormData((prev) => ({ ...prev, firstChoice: found?.name || '' }));
+                    setFormData((prev) => ({
+                      ...prev,
+                      firstChoice: found?.name || '',
+                      firstChoiceId: id,
+                    }));
                   }}
                   className="border border-gray-300 p-2 rounded-sm w-full text-24"
                 >
@@ -616,7 +620,11 @@ const ContactForm = ({
                     const id = Number(e.target.value) || null;
                     setSecondChoiceId(id);
                     const found = recruitingStores.find((s) => s.storeId === id);
-                    setFormData((prev) => ({ ...prev, secondChoice: found?.name || '' }));
+                    setFormData((prev) => ({
+                      ...prev,
+                      secondChoice: found?.name || '',
+                      secondChoiceId: id,
+                    }));
                   }}
                   className="border border-gray-300 p-2 rounded-sm w-full text-24"
                 >
@@ -640,7 +648,11 @@ const ContactForm = ({
                     const id = Number(e.target.value) || null;
                     setThirdChoiceId(id);
                     const found = recruitingStores.find((s) => s.storeId === id);
-                    setFormData((prev) => ({ ...prev, thirdChoice: found?.name || '' }));
+                    setFormData((prev) => ({
+                      ...prev,
+                      thirdChoice: found?.name || '',
+                      thirdChoiceId: id,
+                    }));
                   }}
                   className="border border-gray-300 p-2 rounded-sm w-full text-24"
                 >
