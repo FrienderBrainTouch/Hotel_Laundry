@@ -8,39 +8,68 @@ const StoreDetail = () => {
 
   const storeData = useMemo(() => {
     if (!data) return null;
-    const location = [data.address, data.detailAddress].filter(Boolean).join(' ').trim();
+
+    // 훅에서 select로 평탄화된 필드와 원본(raw)을 함께 제공하므로, 원본을 우선 사용
+    const src = data.raw ?? data;
+
+    // 새 응답 스키마: { storeId, images:[{imageId,key}], address:{address,detailAddress}, basicInfo:{...}, details:{...}, description:{...} }
+    const addressObj = src.address || {};
+    const location = [addressObj.address, addressObj.detailAddress]
+      .filter(Boolean)
+      .join(' ')
+      .trim();
+
     const toImageUrl = (v) => {
       if (!v) return '';
       if (typeof v === 'string' && /^https?:\/\//i.test(v)) return v;
       const base = process.env.REACT_APP_IMAGE_BASE_URL;
       return `${base}${v}`;
     };
-    const images = Array.isArray(data.images) ? data.images.map(toImageUrl) : [];
+    const imageKeys = Array.isArray(src.images)
+      ? src.images.map((img) => (typeof img === 'string' ? img : img?.key)).filter(Boolean)
+      : [];
+    const images = imageKeys.map(toImageUrl);
     const mainImage = images[0] || '/images/store-detail/store-main-image.png';
     const galleryImages = images.slice(1);
 
+    const basicInfo = src.basicInfo || {};
+    const details = src.details || {};
+    const description = src.description || {};
+
     return {
-      id: data.storeId,
+      id: src.storeId,
       location,
+      title: basicInfo.storeName || location,
       mainImage,
       galleryImages,
+      basicInfo: {
+        storeName: basicInfo.storeName,
+        status: basicInfo.status,
+        targetRecruits: basicInfo.targetRecruits,
+        targetOpeningDate: basicInfo.targetOpeningDate,
+        areaSqm: basicInfo.areaSqm,
+        washingMachines: basicInfo.washingMachines,
+        dryers: basicInfo.dryers,
+        operatingHours: basicInfo.operatingHours,
+        areaType: basicInfo.areaType,
+      },
       details: {
         location,
-        interior: data.detailsInterior,
-        floor: data.detailsFloor,
-        rent: data.detailsRent,
-        deposit: data.detailsDeposit,
-        startupCost: data.detailsStartupCost,
-        parking: data.detailsParking,
-        size: data.detailsSize,
+        interior: details.detailsInterior,
+        floor: details.detailsFloor,
+        rent: details.detailsRent,
+        deposit: details.detailsDeposit,
+        startupCost: details.detailsStartupCost,
+        parking: details.detailsParking,
+        size: details.detailsSize,
       },
       marketAnalysis: {
         title: '상권 분석',
         items: [
-          `반경내 세대수: ${data.householdCountInRadius || '-'}`,
-          `연령대: ${data.populationByAgeGroup || '-'}`,
-          `경쟁매장: ${data.competitorStores || '-'}`,
-          `입지분석: ${data.locationAnalysis || '-'}`,
+          `반경내 세대수: ${description.householdCountInRadius || '-'}`,
+          `연령대: ${description.populationByAgeGroup || '-'}`,
+          `경쟁매장: ${description.competitorStores || '-'}`,
+          `입지분석: ${description.locationAnalysis || '-'}`,
         ],
       },
     };
@@ -56,28 +85,78 @@ const StoreDetail = () => {
       },
       {
         icon: '/images/store-detail/icons/floor-icon.png',
+        label: '매장명',
+        value: storeData?.basicInfo?.storeName || '-',
+      },
+      {
+        icon: '/images/store-detail/icons/floor-icon.png',
+        label: '상태',
+        value: storeData?.basicInfo?.status || '-',
+      },
+      {
+        icon: '/images/store-detail/icons/size-icon.png',
+        label: '목표 모집 인원',
+        value: storeData?.basicInfo?.targetRecruits ?? '-',
+      },
+      {
+        icon: '/images/store-detail/icons/size-icon.png',
+        label: '목표 오픈 시기',
+        value: storeData?.basicInfo?.targetOpeningDate || '-',
+      },
+      {
+        icon: '/images/store-detail/icons/size-icon.png',
+        label: '면적(㎡)',
+        value: storeData?.basicInfo?.areaSqm ?? '-',
+      },
+      {
+        icon: '/images/store-detail/icons/rent-icon.png',
+        label: '세탁기 대수',
+        value: storeData?.basicInfo?.washingMachines ?? '-',
+      },
+      {
+        icon: '/images/store-detail/icons/rent-icon.png',
+        label: '건조기 대수',
+        value: storeData?.basicInfo?.dryers ?? '-',
+      },
+      {
+        icon: '/images/store-detail/icons/startup-cost-icon.png',
+        label: '운영시간',
+        value: storeData?.basicInfo?.operatingHours || '-',
+      },
+      {
+        icon: '/images/store-detail/icons/startup-cost-icon.png',
+        label: '지역 특성',
+        value: storeData?.basicInfo?.areaType || '-',
+      },
+      {
+        icon: '/images/store-detail/icons/floor-icon.png',
         label: '층수',
-        value: storeData?.details?.floor || '',
+        value: storeData?.details?.floor || '-',
       },
       {
         icon: '/images/store-detail/icons/size-icon.png',
         label: '면적',
-        value: storeData?.details?.size || '',
+        value: storeData?.details?.size || '-',
       },
       {
         icon: '/images/store-detail/icons/rent-icon.png',
         label: '보증금/월세',
-        value: storeData?.details?.rent || '',
+        value: storeData?.details?.rent || '- / -',
       },
       {
         icon: '/images/store-detail/icons/deposit-icon.png',
         label: '권리금',
-        value: storeData?.details?.deposit || '',
+        value: storeData?.details?.deposit || '-',
       },
       {
         icon: '/images/store-detail/icons/startup-cost-icon.png',
         label: '창업비용',
-        value: storeData?.details?.startupCost || '',
+        value: storeData?.details?.startupCost || '-',
+      },
+      {
+        icon: '/images/store-detail/icons/location-icon.png',
+        label: '주차',
+        value: storeData?.details?.parking || '-',
       },
     ];
   }, [storeData]);
@@ -100,7 +179,7 @@ const StoreDetail = () => {
                 </h1>
               ) : (
                 <h1 className="text-[20px] xs:text-[22px] sm:text-[24px] md:text-[26px] lg:text-[28px] xl:text-[30px] 2xl:text-[32px] font-bold leading-[1.54] tracking-[-0.02em] text-black font-KoPubWorldDotum mb-6 xs:mb-4 sm:mb-6 md:mb-6 lg:mb-8 xl:mb-8 2xl:mb-10">
-                  {storeData?.location || ''}
+                  {storeData?.title || ''}
                 </h1>
               )}
 
@@ -132,41 +211,34 @@ const StoreDetail = () => {
               </div>
             </div>
 
-            {/* Section Titles */}
-            <div className="flex flex-col lg:flex-row gap-4 xs:gap-3 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-8 2xl:gap-10 mb-6 xs:mb-4 sm:mb-6 md:mb-6 lg:mb-8 xl:mb-8 2xl:mb-10">
-              <div className="flex-1">
-                <h2 className="text-[20px] xs:text-[22px] sm:text-[24px] md:text-[26px] lg:text-[28px] xl:text-[30px] 2xl:text-[32px] font-bold leading-[1.54] tracking-[-0.02em] text-black font-KoPubWorldDotum">
-                  매장 정보
-                </h2>
-              </div>
-              <div className="flex-1">
-                <h2 className="text-[20px] xs:text-[22px] sm:text-[24px] md:text-[26px] lg:text-[28px] xl:text-[30px] 2xl:text-[32px] font-bold leading-[1.54] tracking-[-0.02em] text-black font-KoPubWorldDotum">
-                  {storeData?.marketAnalysis?.title || '상권 분석'}
-                </h2>
-              </div>
+            {/* Store Info Title */}
+            <div className="mb-6 xs:mb-4 sm:mb-6 md:mb-6 lg:mb-8 xl:mb-8 2xl:mb-10">
+              <h2 className="text-[20px] xs:text-[22px] sm:text-[24px] md:text-[26px] lg:text-[28px] xl:text-[30px] 2xl:text-[32px] font-bold leading-[1.54] tracking-[-0.02em] text-black font-KoPubWorldDotum">
+                매장 정보
+              </h2>
             </div>
 
-            {/* Details and Description Cards */}
+            {/* Store Details Card */}
             <div className="mb-12 xs:mb-8 sm:mb-10 md:mb-12 lg:mb-14 xl:mb-16 2xl:mb-20">
-              <div className="flex flex-col lg:flex-row gap-4 xs:gap-3 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-8 2xl:gap-10 mb-6 xs:mb-4 sm:mb-6 md:mb-6 lg:mb-8 xl:mb-8 2xl:mb-10">
-                {/* Store Details Card */}
-                <div className="bg-white rounded-xl xs:rounded-2xl shadow-[0px_1px_13px_0px_rgba(17,17,17,0.1)] p-4 xs:p-6 sm:p-6 md:p-8 lg:p-8 xl:p-10 2xl:p-12 flex-1">
-                  <div className="flex flex-col gap-3 xs:gap-3 sm:gap-4 md:gap-4 lg:gap-5 xl:gap-5 2xl:gap-6">
-                    {detailItems.map((item, index) => (
-                      <div
-                        key={index}
-                        className="flex items-start gap-2 xs:gap-2 sm:gap-3 md:gap-3 lg:gap-3 xl:gap-3 2xl:gap-4"
-                      >
-                        <div className="w-1.5 h-1.5 bg-black rounded-full mt-2 xs:mt-2 sm:mt-2 md:mt-3 lg:mt-3 xl:mt-3 2xl:mt-3 flex-shrink-0"></div>
-                        <p className="text-[14px] xs:text-[16px] sm:text-[18px] md:text-[18px] lg:text-[20px] xl:text-[20px] 2xl:text-[20px] font-medium leading-[1.54] tracking-[-0.02em] text-black font-KoPubWorldDotum">
+              <div className="bg-white rounded-xl xs:rounded-2xl shadow-[0px_1px_13px_0px_rgba(17,17,17,0.1)] p-4 xs:p-6 sm:p-6 md:p-8 lg:p-8 xl:p-10 2xl:p-12">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3 xs:gap-y-3 sm:gap-y-4 md:gap-y-4 lg:gap-y-5">
+                  {detailItems.map((item, index) => (
+                    <div key={index} className="flex items-start gap-2">
+                      <div className="w-1.5 h-1.5 bg-black rounded-full mt-2 flex-shrink-0"></div>
+                      <div className="min-w-0 flex-1">
+                        <div className="text-[13px] xs:text-[14px] sm:text-[15px] md:text-[16px] lg:text-[16px] xl:text-[16px] 2xl:text-[16px] text-gray-600 font-KoPubWorldDotum mb-1 break-words">
+                          {item.label}
+                        </div>
+                        <div className="text-[14px] xs:text-[16px] sm:text-[18px] md:text-[18px] lg:text-[20px] xl:text-[20px] 2xl:text-[20px] font-medium leading-[1.54] tracking-[-0.02em] text-black font-KoPubWorldDotum break-words whitespace-pre-wrap">
                           {item.value}
-                        </p>
+                        </div>
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
+                </div>
 
-                  {/* Icons Column - 주석 처리 */}
-                  {/* <div className="flex gap-8">
+                {/* Icons Column - 주석 처리 */}
+                {/* <div className="flex gap-8">
                     <div className="flex flex-col gap-6 w-[42px] flex-shrink-0">
                       {detailItems.map((item, index) => (
                         <div key={index} className="flex items-center justify-center">
@@ -196,32 +268,39 @@ const StoreDetail = () => {
                       ))}
                     </div>
                   </div> */}
-                </div>
-
-                {/* Market Analysis Card */}
-                <div className="bg-[#F3F4F6] rounded-xl xs:rounded-2xl p-4 xs:p-6 sm:p-6 md:p-8 lg:p-8 xl:p-10 2xl:p-12 flex-1">
-                  <div className="flex flex-col gap-3 xs:gap-3 sm:gap-4 md:gap-4 lg:gap-5 xl:gap-5 2xl:gap-6">
-                    {(storeData?.marketAnalysis?.items || []).map((item, index) => (
-                      <div
-                        key={index}
-                        className="flex items-start gap-2 xs:gap-2 sm:gap-3 md:gap-3 lg:gap-3 xl:gap-3 2xl:gap-4"
-                      >
-                        <div className="w-1.5 h-1.5 bg-black rounded-full mt-2 xs:mt-2 sm:mt-2 md:mt-3 lg:mt-3 xl:mt-3 2xl:mt-3 flex-shrink-0"></div>
-                        <p className="text-[14px] xs:text-[16px] sm:text-[18px] md:text-[18px] lg:text-[20px] xl:text-[20px] 2xl:text-[20px] font-medium leading-[1.54] tracking-[-0.02em] text-black font-KoPubWorldDotum">
-                          {item}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
               </div>
-
-              {/* Disclaimer */}
-              <p className="text-[12px] xs:text-[14px] sm:text-[16px] md:text-[17px] lg:text-[18px] xl:text-[18px] 2xl:text-[19px] font-medium leading-[1.3] tracking-[-0.02em] text-black font-KoPubWorldDotum text-left">
-                ※ 본 문구는 이해를 돕기 위한 것으로, 최종 계약 조건과는 차이가 있을 수 있습니다.
-              </p>
             </div>
 
+            {/* Market Analysis Title */}
+            <div className="mb-6 xs:mb-4 sm:mb-6 md:mb-6 lg:mb-8 xl:mb-8 2xl:mb-10">
+              <h2 className="text-[20px] xs:text-[22px] sm:text-[24px] md:text-[26px] lg:text-[28px] xl:text-[30px] 2xl:text-[32px] font-bold leading-[1.54] tracking-[-0.02em] text-black font-KoPubWorldDotum">
+                {storeData?.marketAnalysis?.title || '상권 분석'}
+              </h2>
+            </div>
+
+            {/* Market Analysis Card */}
+            <div className="mb-12 xs:mb-8 sm:mb-10 md:mb-12 lg:mb-14 xl:mb-16 2xl:mb-20">
+              <div className="bg-[#F3F4F6] rounded-xl xs:rounded-2xl p-4 xs:p-6 sm:p-6 md:p-8 lg:p-8 xl:p-10 2xl:p-12">
+                <div className="flex flex-col gap-3 xs:gap-3 sm:gap-4 md:gap-4 lg:gap-5 xl:gap-5 2xl:gap-6">
+                  {(storeData?.marketAnalysis?.items || []).map((item, index) => (
+                    <div
+                      key={index}
+                      className="flex items-start gap-2 xs:gap-2 sm:gap-3 md:gap-3 lg:gap-3 xl:gap-3 2xl:gap-4"
+                    >
+                      <div className="w-1.5 h-1.5 bg-black rounded-full mt-2 xs:mt-2 sm:mt-2 md:mt-3 lg:mt-3 xl:mt-3 2xl:mt-3 flex-shrink-0"></div>
+                      <p className="text-[14px] xs:text-[16px] sm:text-[18px] md:text-[18px] lg:text-[20px] xl:text-[20px] 2xl:text-[20px] font-medium leading-[1.54] tracking-[-0.02em] text-black font-KoPubWorldDotum">
+                        {item}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Disclaimer */}
+            <p className="text-[12px] xs:text-[14px] sm:text-[16px] md:text-[17px] lg:text-[18px] xl:text-[18px] 2xl:text-[19px] font-medium leading-[1.3] tracking-[-0.02em] text-black font-KoPubWorldDotum text-left">
+              ※ 본 문구는 이해를 돕기 위한 것으로, 최종 계약 조건과는 차이가 있을 수 있습니다.
+            </p>
             {/* Contact Button */}
             <div className="flex justify-center mt-8 xs:mt-6 sm:mt-8 md:mt-8 lg:mt-10 xl:mt-10 2xl:mt-12">
               <Link
