@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { useAdminStoresList } from '../../../hooks/queries/useStores';
+import { useAdminStoresList, useDeleteStore } from '../../../hooks/queries/useStores';
 
 const StoreList = ({ onEditStore }) => {
   // 상태 텍스트/색상 헬퍼를 먼저 선언하여 초기화 전 참조 오류 방지
@@ -58,6 +58,28 @@ const StoreList = ({ onEditStore }) => {
   }, [currentPage]);
 
   const { data: storesData, isLoading, error } = useAdminStoresList(queryParams);
+
+  // 삭제 모달 상태
+  const [deleteTarget, setDeleteTarget] = useState(null); // { id, name }
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const { mutate: deleteStore, isLoading: isDeleting } = useDeleteStore();
+
+  const openDeleteModal = (store) => {
+    setDeleteTarget({ id: store.id, name: store.name });
+    setIsDeleteOpen(true);
+  };
+
+  const closeDeleteModal = () => {
+    setIsDeleteOpen(false);
+    setDeleteTarget(null);
+  };
+
+  const confirmDelete = () => {
+    if (!deleteTarget?.id) return;
+    deleteStore(deleteTarget.id, {
+      onSettled: () => closeDeleteModal(),
+    });
+  };
 
   const stores = useMemo(() => {
     if (!storesData?.content) return [];
@@ -224,7 +246,12 @@ const StoreList = ({ onEditStore }) => {
                       >
                         수정
                       </button>
-                      <button className="text-red-600 hover:text-red-900">삭제</button>
+                      <button
+                        onClick={() => openDeleteModal(store)}
+                        className="text-red-600 hover:text-red-900"
+                      >
+                        삭제
+                      </button>
                     </div>
                   </td>
                 </tr>
@@ -261,6 +288,33 @@ const StoreList = ({ onEditStore }) => {
                 className="px-3 py-1 text-sm border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 다음
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* 삭제 확인 모달 */}
+      {isDeleteOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30">
+          <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
+            <h3 className="text-lg font-medium text-gray-900 mb-2">매장 삭제</h3>
+            <p className="text-sm text-gray-600 mb-6">
+              {deleteTarget?.name} 을(를) 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.
+            </p>
+            <div className="flex justify-end space-x-3">
+              <button
+                onClick={closeDeleteModal}
+                disabled={isDeleting}
+                className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 disabled:opacity-50"
+              >
+                취소
+              </button>
+              <button
+                onClick={confirmDelete}
+                disabled={isDeleting}
+                className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md disabled:opacity-50"
+              >
+                {isDeleting ? '삭제 중...' : '삭제'}
               </button>
             </div>
           </div>

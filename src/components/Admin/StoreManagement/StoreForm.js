@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ImageUpload from './ImageUpload';
 import {
   statusOptions,
@@ -57,6 +57,158 @@ const StoreForm = ({ store, onBack, onSave }) => {
     };
   });
 
+  // 새로 업로드된 파일들을 별도로 관리
+  const [newFiles, setNewFiles] = useState({
+    main: null,
+    gallery: [],
+  });
+
+  // 상세 데이터 도착 시 폼/이미지 상태 동기화
+  useEffect(() => {
+    if (!store) return;
+    setFormData({
+      // address
+      address: store?.address?.address || '',
+      detailAddress: store?.address?.detailAddress || '',
+
+      // storeBasicInfo
+      storeName: store?.storeBasicInfo?.storeName || '',
+      status: store?.storeBasicInfo?.status || 'WAITING',
+      targetRecruits: store?.storeBasicInfo?.targetRecruits || '',
+      targetOpeningDate: store?.storeBasicInfo?.targetOpeningDate || '',
+      areaSqm: store?.storeBasicInfo?.areaSqm || '',
+      washingMachines: store?.storeBasicInfo?.washingMachines || '',
+      dryers: store?.storeBasicInfo?.dryers || '',
+      operatingHours: store?.storeBasicInfo?.operatingHours || '',
+      areaType: store?.storeBasicInfo?.areaType || '',
+
+      // storeDetails
+      detailsLocation: store?.storeDetails?.detailsLocation || '',
+      detailsInterior: store?.storeDetails?.detailsInterior || '',
+      detailsFloor: store?.storeDetails?.detailsFloor || '',
+      detailsRent: store?.storeDetails?.detailsRent || '',
+      detailsDeposit: store?.storeDetails?.detailsDeposit || '',
+      detailsStartupCost: store?.storeDetails?.detailsStartupCost || '',
+      detailsParking: store?.storeDetails?.detailsParking || '',
+      detailsSize: store?.storeDetails?.detailsSize || '',
+
+      // storeDescription
+      householdCountInRadius: store?.storeDescription?.householdCountInRadius || '',
+      populationByAgeGroup: store?.storeDescription?.populationByAgeGroup || '',
+      competitorStores: store?.storeDescription?.competitorStores || '',
+      locationAnalysis: store?.storeDescription?.locationAnalysis || '',
+    });
+
+    // 이미지 동기화 (URL 또는 File)
+    const incoming = Array.isArray(store?.images) ? store.images : [];
+    const mainFromIncoming = incoming.length > 0 ? incoming[0] : null;
+    const galleryFromIncoming = incoming.length > 1 ? incoming.slice(1) : [];
+    setImages({
+      main: store?.mainImage ?? mainFromIncoming,
+      gallery: store?.galleryImages ?? galleryFromIncoming,
+    });
+
+    // 새 파일 캐시 초기화
+    setNewFiles({ main: null, gallery: [] });
+  }, [store]);
+
+  // 수정 진입 시 기존 이미지(URL)를 Blob->File로 미리 캐싱해두기
+  const [existingMainFile, setExistingMainFile] = useState(null);
+  const [existingGalleryFiles, setExistingGalleryFiles] = useState({}); // url -> File
+
+  console.log('🔍 StoreForm render - images state:', {
+    main: images.main,
+    gallery: images.gallery,
+    mainType: typeof images.main,
+    galleryLength: images.gallery?.length,
+  });
+
+  useEffect(() => {
+    console.log('🎯 useEffect triggered!', {
+      store: !!store,
+      imagesMain: images.main,
+      imagesGallery: images.gallery,
+    });
+
+    // store가 없으면 기존 파일 캐시 초기화
+    if (!store) {
+      setExistingMainFile(null);
+      setExistingGalleryFiles({});
+      return;
+    }
+
+    let isCancelled = false;
+
+    const urlToFile = async (url) => {
+      try {
+        console.log('🔄 Converting URL to File:', url);
+        const res = await fetch(url, {
+          mode: 'cors',
+          credentials: 'omit', // CORS 문제 해결을 위해 credentials 제거
+        });
+        if (!res.ok) {
+          console.warn('❌ Failed to fetch image:', res.status, res.statusText);
+          return null;
+        }
+        const blob = await res.blob();
+        const nameFromUrl = (url.split('/')?.pop() || 'image').split('?')[0];
+        const fileName = nameFromUrl || 'image.jpg';
+        const file = new File([blob], fileName, { type: blob.type || 'application/octet-stream' });
+        console.log('✅ Successfully converted to File:', file.name, file.size, 'bytes');
+        return file;
+      } catch (error) {
+        console.error('❌ Error converting URL to File:', error);
+        return null;
+      }
+    };
+
+    const run = async () => {
+      console.log('🚀 Starting image conversion process...', {
+        imagesMain: images.main,
+        imagesGallery: images.gallery,
+        isCancelled,
+      });
+
+      const updates = {};
+
+      // 메인 이미지 캐싱
+      if (typeof images.main === 'string' && images.main && !images.main.startsWith('blob:')) {
+        console.log('📸 Converting main image:', images.main);
+        const f = await urlToFile(images.main);
+        console.log('📸 Main image conversion result:', f);
+        if (!isCancelled) setExistingMainFile(f);
+      } else {
+        console.log('📸 Skipping main image conversion:', {
+          type: typeof images.main,
+          value: images.main,
+          isBlob: images.main?.startsWith('blob:'),
+        });
+        if (!isCancelled) setExistingMainFile(null);
+      }
+
+      // 갤러리 이미지 캐싱 (URL만)
+      const gallery = Array.isArray(images.gallery) ? images.gallery : [];
+      console.log('🖼️ Processing gallery images:', gallery);
+      for (const item of gallery) {
+        if (typeof item === 'string' && item && !item.startsWith('blob:')) {
+          console.log('🖼️ Converting gallery image:', item);
+          const f = await urlToFile(item);
+          if (f) {
+            updates[item] = f;
+            console.log('🖼️ Gallery image converted:', f.name);
+          }
+        }
+      }
+      console.log('🖼️ Final gallery updates:', updates);
+      if (!isCancelled) setExistingGalleryFiles(updates);
+    };
+
+    run();
+    return () => {
+      isCancelled = true;
+    };
+  }, [store?.storeId, images.main, images.gallery]);
+
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
@@ -65,7 +217,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // FormData 생성 - 스웨거 방식
@@ -107,17 +259,80 @@ const StoreForm = ({ store, onBack, onSave }) => {
 
     formDataToSend.append('dto', JSON.stringify(dto));
 
-    // 이미지 파일들 추가
-    if (images.main instanceof File) {
-      formDataToSend.append('files', images.main);
-    }
-    if (images.gallery && images.gallery.length > 0) {
-      images.gallery.forEach((image) => {
-        if (image instanceof File) {
-          formDataToSend.append('files', image);
+    // URL을 File로 변환하는 헬퍼 함수
+    const urlToFile = async (url) => {
+      try {
+        console.log('🔄 Converting URL to File:', url);
+        const res = await fetch(url, {
+          mode: 'cors',
+          credentials: 'omit',
+        });
+        if (!res.ok) {
+          console.warn('❌ Failed to fetch image:', res.status, res.statusText);
+          return null;
         }
-      });
+        const blob = await res.blob();
+        const nameFromUrl = (url.split('/')?.pop() || 'image').split('?')[0];
+        const fileName = nameFromUrl || 'image.jpg';
+        const file = new File([blob], fileName, { type: blob.type || 'application/octet-stream' });
+        console.log('✅ Successfully converted to File:', file.name, file.size, 'bytes');
+        return file;
+      } catch (error) {
+        console.error('❌ Error converting URL to File:', error);
+        return null;
+      }
+    };
+
+    // 수정 모드: 기존 이미지 + 새로 업로드한 파일을 합쳐 전송
+    const filesToAppend = [];
+
+    // 메인 이미지 처리
+    if (newFiles?.main instanceof File) {
+      // 새로 업로드한 파일이 있으면 그것을 사용
+      filesToAppend.push(newFiles.main);
+    } else if (images.main instanceof File) {
+      // 이미 File 객체면 그대로 사용
+      filesToAppend.push(images.main);
+    } else if (typeof images.main === 'string' && !images.main.startsWith('blob:')) {
+      // URL이면 File로 변환
+      const f = await urlToFile(images.main);
+      if (f) filesToAppend.push(f);
     }
+
+    // 갤러리 이미지 처리
+    const galleryList = Array.isArray(images.gallery) ? images.gallery : [];
+    for (const item of galleryList) {
+      if (item instanceof File) {
+        filesToAppend.push(item);
+      } else if (typeof item === 'string' && !item.startsWith('blob:')) {
+        const f = await urlToFile(item);
+        if (f) filesToAppend.push(f);
+      }
+    }
+
+    // 새로 업로드된 갤러리 파일 추가
+    if (newFiles?.gallery && newFiles.gallery.length > 0) {
+      for (const file of newFiles.gallery) {
+        if (file instanceof File) filesToAppend.push(file);
+      }
+    }
+
+    filesToAppend.forEach((f) => formDataToSend.append('files', f));
+
+    // 디버깅: 파일 수집 상태 확인
+    console.log('🔍 File Collection Debug:', {
+      newFilesMain: newFiles?.main,
+      newFilesGallery: newFiles?.gallery,
+      imagesMain: images.main,
+      imagesGallery: images.gallery,
+      existingMainFile: existingMainFile,
+      existingGalleryFiles: existingGalleryFiles,
+      filesToAppend: filesToAppend.map((f) => ({
+        name: f.name,
+        type: f.type,
+        size: f.size,
+      })),
+    });
 
     // 디버깅: 실제 전송 형식 확인
     try {
@@ -531,7 +746,12 @@ const StoreForm = ({ store, onBack, onSave }) => {
                 </span>
               </label>
             </div>
-            <ImageUpload images={images} setImages={setImages} />
+            <ImageUpload
+              images={images}
+              setImages={setImages}
+              newFiles={newFiles}
+              setNewFiles={setNewFiles}
+            />
           </div>
         </div>
 

@@ -2,10 +2,7 @@ import { useMemo } from 'react';
 
 export default function useApi(baseUrl = process.env.REACT_APP_API_BASE_URL) {
   const request = useMemo(() => {
-    return async function api(
-      path,
-      { method = 'GET', headers = {}, query, body, signal } = {}
-    ) {
+    return async function api(path, { method = 'GET', headers = {}, query, body, signal } = {}) {
       const url = new URL((baseUrl || '') + path, window.location.origin);
       if (query && typeof query === 'object') {
         Object.entries(query).forEach(([key, value]) => {
@@ -24,7 +21,7 @@ export default function useApi(baseUrl = process.env.REACT_APP_API_BASE_URL) {
         method,
         headers: {
           ...(isJsonBody ? { 'Content-Type': 'application/json' } : {}),
-          ...(accessToken ? { 'Authorization': `Bearer ${accessToken}` } : {}),
+          ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
           'X-Requested-With': 'XMLHttpRequest',
           ...headers,
         },
@@ -60,6 +57,11 @@ export default function useApi(baseUrl = process.env.REACT_APP_API_BASE_URL) {
           statusText: response.statusText,
           data: data,
         });
+        // 401/403이면 토큰 삭제 + 로그인 페이지로 리다이렉트
+        if (response.status === 401 || response.status === 403) {
+          localStorage.removeItem('accessToken');
+          window.location.href = '/admin/login';
+        }
         const error = new Error(`HTTP ${response.status} ${response.statusText}`);
         error.status = response.status;
         error.url = url.toString();

@@ -112,26 +112,49 @@ export function useCreateStore() {
   });
 }
 
-// 매장 수정: PATCH /stores/{id}
+// 매장 수정: PATCH /admin/stores/{id}
 export function useUpdateStore(id) {
   const api = useApi(process.env.REACT_APP_API_BASE_URL);
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (payload) => api.put(`/stores/${id}`, payload),
+    mutationKey: ['updateStore', id],
+    mutationFn: (formData) => api.patch(`/admin/stores/${id}`, formData),
     onSuccess: () => {
+      console.log('✅ Store updated successfully');
       qc.invalidateQueries({ queryKey: STORES_KEY });
       qc.invalidateQueries({ queryKey: [...STORES_KEY, id] });
+    },
+    onError: (error) => {
+      console.error('❌ Store update failed:', {
+        name: error?.name,
+        message: error?.message,
+        status: error?.status,
+        url: error?.url,
+        body: error?.body ?? error?.data,
+      });
     },
   });
 }
 
+// 매장 삭제: DELETE /admin/stores/{id}
 export function useDeleteStore() {
   const api = useApi(process.env.REACT_APP_API_BASE_URL);
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (id) => api.del(`/stores/${id}`),
+    mutationKey: ['deleteStore'],
+    mutationFn: (id) => api.del(`/admin/stores/${id}`),
     onSuccess: () => {
+      console.log('✅ Store deleted successfully');
       qc.invalidateQueries({ queryKey: STORES_KEY });
+    },
+    onError: (error) => {
+      console.error('❌ Store deletion failed:', {
+        name: error?.name,
+        message: error?.message,
+        status: error?.status,
+        url: error?.url,
+        body: error?.body ?? error?.data,
+      });
     },
   });
 }

@@ -1,6 +1,9 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-const ImageUpload = ({ images, setImages }) => {
+const ImageUpload = ({ images, setImages, newFiles, setNewFiles }) => {
+  // newFiles가 없으면 기본값으로 초기화
+  // const safeNewFiles = newFiles || { main: null, gallery: [] };
+  const safeSetNewFiles = setNewFiles || (() => {});
   const [dragActive, setDragActive] = useState(false);
 
   const handleDrag = (e) => {
@@ -21,9 +24,14 @@ const ImageUpload = ({ images, setImages }) => {
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       const file = e.dataTransfer.files[0];
       if (file.type.startsWith('image/')) {
+        const objectUrl = URL.createObjectURL(file);
         setImages((prev) => ({
           ...prev,
-          main: file, // 파일 객체 자체 저장
+          main: objectUrl, // 미리보기용 URL
+        }));
+        safeSetNewFiles((prev) => ({
+          ...prev,
+          main: file, // 실제 전송할 파일
         }));
       }
     }
@@ -33,9 +41,14 @@ const ImageUpload = ({ images, setImages }) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       if (file.type.startsWith('image/')) {
+        const objectUrl = URL.createObjectURL(file);
         setImages((prev) => ({
           ...prev,
-          main: file, // 파일 객체 자체 저장
+          main: objectUrl, // 미리보기용 URL
+        }));
+        safeSetNewFiles((prev) => ({
+          ...prev,
+          main: file, // 실제 전송할 파일
         }));
       }
     }
@@ -47,9 +60,14 @@ const ImageUpload = ({ images, setImages }) => {
       const imageFiles = files.filter((file) => file.type.startsWith('image/'));
 
       if (imageFiles.length > 0) {
+        const objectUrls = imageFiles.map((file) => URL.createObjectURL(file));
         setImages((prev) => ({
           ...prev,
-          gallery: [...prev.gallery, ...imageFiles].slice(0, 10), // 파일 객체 배열 저장
+          gallery: [...prev.gallery, ...objectUrls].slice(0, 10), // 미리보기용 URL
+        }));
+        safeSetNewFiles((prev) => ({
+          ...prev,
+          gallery: [...(prev.gallery || []), ...imageFiles].slice(0, 10), // 실제 전송할 파일
         }));
       }
     }
@@ -60,39 +78,31 @@ const ImageUpload = ({ images, setImages }) => {
       ...prev,
       gallery: prev.gallery.filter((_, i) => i !== index),
     }));
+    safeSetNewFiles((prev) => ({
+      ...prev,
+      gallery: prev.gallery.filter((_, i) => i !== index),
+    }));
   };
 
-  // 미리보기 URL 생성 및 정리
-  const mainPreviewUrl = useMemo(() => {
-    if (!images.main) return null;
-    return images.main instanceof File ? URL.createObjectURL(images.main) : images.main;
-  }, [images.main]);
+  // 미리보기 URL은 이미 images에 저장됨
+  const mainPreviewUrl = images.main;
+  const galleryPreviewUrls = images.gallery || [];
 
+  // URL 정리 (새로 생성된 object URL만 정리)
   useEffect(() => {
     return () => {
-      if (images.main instanceof File && mainPreviewUrl) {
-        URL.revokeObjectURL(mainPreviewUrl);
+      // images.main이 File 객체였다면 URL.revokeObjectURL 호출
+      if (images.main && typeof images.main === 'string' && images.main.startsWith('blob:')) {
+        URL.revokeObjectURL(images.main);
       }
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mainPreviewUrl]);
-
-  const galleryPreviewUrls = useMemo(() => {
-    return (images.gallery || []).map((item) =>
-      item instanceof File ? URL.createObjectURL(item) : item
-    );
-  }, [images.gallery]);
-
-  useEffect(() => {
-    return () => {
-      (images.gallery || []).forEach((item, idx) => {
-        if (item instanceof File && galleryPreviewUrls[idx]) {
-          URL.revokeObjectURL(galleryPreviewUrls[idx]);
+      // gallery에서 File 객체였던 것들 정리
+      (images.gallery || []).forEach((item) => {
+        if (typeof item === 'string' && item.startsWith('blob:')) {
+          URL.revokeObjectURL(item);
         }
       });
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [galleryPreviewUrls]);
+  }, [images.main, images.gallery]);
 
   return (
     <div className="space-y-6">
