@@ -7,14 +7,15 @@ export function useAdminLogin() {
 
   return useMutation({
     mutationFn: async (secretCode) => {
-      const response = await api.post('/api/auth', { secretCode });
+      const response = await api.post('/api/auth', { secretCode }, { credentials: 'include' });
       return response;
     },
     onSuccess: (data) => {
       // 로그인 성공 시 쿠키 설정 (7일 만료)
       const expires = new Date();
       expires.setTime(expires.getTime() + 7 * 24 * 60 * 60 * 1000);
-      document.cookie = `admin_authed=1; expires=${expires.toUTCString()}; path=/`;
+      document.cookie = `admin_authed=1; expires=${expires.toUTCString()}; path=/; SameSite=Lax`;
+      console.log('쿠키 설정 완료:', document.cookie);
     },
     onError: (error) => {
       console.error('로그인 실패:', error);
