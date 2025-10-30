@@ -8,16 +8,27 @@ const AdminLoginPage = () => {
   const navigate = useNavigate();
   const loginMutation = useAdminLogin();
 
-  const { isLoading: isSessionChecking, isSuccess } = useAdminSessionCheck(true);
+  // 토큰이 있으면 세션 체크
+  const hasToken = !!localStorage.getItem('accessToken');
+  const { isLoading: isSessionChecking, isSuccess } = useAdminSessionCheck(hasToken);
 
   useEffect(() => {
+    if (!hasToken) {
+      // 토큰이 없으면 로그인 화면 표시
+      setIsChecking(false);
+      return;
+    }
+    
     if (isSessionChecking) return;
     if (isSuccess) {
+      // 이미 로그인되어 있으면 대시보드로
       navigate('/admin/dashboard');
     } else {
+      // 토큰은 있지만 유효하지 않으면 제거하고 로그인 화면
+      localStorage.removeItem('accessToken');
       setIsChecking(false);
     }
-  }, [isSessionChecking, isSuccess, navigate]);
+  }, [hasToken, isSessionChecking, isSuccess, navigate]);
 
   const handleLogin = async (secretCode) => {
     try {

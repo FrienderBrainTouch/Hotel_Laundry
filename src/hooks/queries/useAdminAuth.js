@@ -8,12 +8,17 @@ export function useAdminLogin() {
   return useMutation({
     mutationKey: ['adminLogin'],
     mutationFn: async (secretCode) => {
-      // 서버가 Set-Cookie를 내려주어야 하며, 크로스사이트 수신을 위해 credentials가 반드시 필요
-      return api.post('/api/auth', { secretCode }, { credentials: 'include' });
+      // JWT 토큰을 ResponseEntity에서 받음
+      return api.post('/api/auth', { secretCode });
     },
-    onSuccess: () => {
-      // 쿠키 속성(SameSite/Domain/Secure)은 서버가 제어해야 함. 클라이언트에서 임의로 로컬 쿠키를 만들지 않음.
-      console.log('✅ 관리자 로그인 성공');
+    onSuccess: (data) => {
+      // accessToken을 로컬스토리지에 저장
+      if (data?.accessToken) {
+        localStorage.setItem('accessToken', data.accessToken);
+        console.log('✅ 관리자 로그인 성공 - JWT 토큰 저장됨');
+      } else {
+        console.error('❌ accessToken이 응답에 없습니다:', data);
+      }
     },
     onError: (error) => {
       console.error('❌ 관리자 로그인 실패:', {
@@ -25,34 +30,30 @@ export function useAdminLogin() {
   });
 }
 
-// 관리자 로그아웃 (쿠키 삭제)
+// 관리자 로그아웃 (JWT 토큰 제거)
 export function useAdminLogout() {
-  const api = useApi(process.env.REACT_APP_API_BASE_URL);
   return useMutation({
     mutationKey: ['adminLogout'],
     mutationFn: async () => {
-      // 서버 세션/쿠키 무효화 (서버가 Set-Cookie로 세션 쿠키 삭제)
-      return api.del('/api/auth', { credentials: 'include' });
-    },
-    onSettled: () => {
-      // 혹시 남아있을 수 있는 클라이언트 표시용 쿠키 제거(무해하지만 정리)
-      document.cookie = 'admin_authed=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      // 서버 호출 없이 클라이언트에서 토큰만 제거
+      localStorage.removeItem('accessToken');
+      console.log('✅ 로그아웃 - JWT 토큰 제거됨');
+      return { success: true };
     },
   });
 }
 
-// 관리자 세션 확인: 서버 보호 리소스에 가벼운 요청을 보내 세션/권한을 확인한다.
+// 관리자 세션 확인: JWT 토큰의 유효성을 확인
 // 응답이 200이면 로그인 상태, 401/403이면 비로그인/권한없음으로 판단
 export function useAdminSessionCheck(enabled = true) {
   const api = useApi(process.env.REACT_APP_API_BASE_URL);
   return useQuery({
     queryKey: ['admin', 'sessionCheck'],
-    enabled,
+    enabled: enabled && !!localStorage.getItem('accessToken'), // JWT가 있을 때만 체크
     queryFn: async () => {
-      // 가장 가벼운 보호 리소스를 호출. 없으면 소형 목록 1건만 조회
+      // 가장 가벼운 보호 리소스를 호출하여 JWT 유효성 확인
       return api.get('/stores', {
         query: { page: 0, size: 1 },
-        credentials: 'include',
       });
     },
     retry: false,

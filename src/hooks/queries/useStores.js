@@ -93,13 +93,8 @@ export function useCreateStore() {
     mutationKey: ['createStore'],
     mutationFn: async (formData) => {
       console.log('🚀 Creating store with FormData...');
-      // 1) 세션 존재 여부 사전 체크 (가벼운 보호 리소스 호출)
-      await api.get('/stores', {
-        query: { page: 0, size: 1 },
-        credentials: 'include',
-      });
-      // 2) 통과 시 생성 호출
-      return api.post('/admin/stores', formData, { credentials: 'include' });
+      // JWT 토큰이 Authorization 헤더에 자동으로 포함됨
+      return api.post('/admin/stores', formData);
     },
     onSuccess: () => {
       console.log('✅ Store created successfully');
@@ -190,10 +185,10 @@ export function useAdminStoresList(params) {
   return useQuery({
     queryKey: [...STORES_KEY, 'admin', buildAdminQuery(params)],
     queryFn: () => {
-      console.log('Making request to /stores with credentials: include');
+      console.log('Making request to /stores with JWT Authorization header');
+      // JWT 토큰이 Authorization 헤더에 자동으로 포함됨
       return api.get('/stores', {
         query: buildAdminQuery(params),
-        credentials: 'include', // 명시적으로 쿠키 포함
       });
     },
     staleTime: 60 * 1000, // 1분

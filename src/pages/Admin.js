@@ -10,16 +10,29 @@ const Admin = () => {
   const [isChecking, setIsChecking] = useState(true);
   const navigate = useNavigate();
 
-  const { isLoading, isError } = useAdminSessionCheck(true);
+  // 토큰이 없으면 즉시 로그인 페이지로
+  const hasToken = !!localStorage.getItem('accessToken');
+  
+  useEffect(() => {
+    if (!hasToken) {
+      navigate('/admin/login');
+      return;
+    }
+  }, [hasToken, navigate]);
+
+  const { isLoading, isError } = useAdminSessionCheck(hasToken);
 
   useEffect(() => {
+    if (!hasToken) return;
     if (isLoading) return;
     if (isError) {
+      // JWT가 유효하지 않으면 토큰 제거하고 로그인 페이지로
+      localStorage.removeItem('accessToken');
       navigate('/admin/login');
       return;
     }
     setIsChecking(false);
-  }, [isLoading, isError, navigate]);
+  }, [hasToken, isLoading, isError, navigate]);
 
   if (isChecking) {
     return (
