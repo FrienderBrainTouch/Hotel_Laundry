@@ -86,7 +86,11 @@ const ImageUpload = ({ images, setImages, newFiles, setNewFiles }) => {
 
   // 미리보기 URL은 이미 images에 저장됨
   const mainPreviewUrl = images.main;
-  const galleryPreviewUrls = images.gallery || [];
+  const galleryPreviewUrls = Array.isArray(images.gallery)
+    ? images.gallery.filter((v) =>
+        typeof v === 'string' ? v && v.trim() !== '' : v instanceof File
+      )
+    : [];
 
   // URL 정리 (새로 생성된 object URL만 정리)
   useEffect(() => {
@@ -128,7 +132,11 @@ const ImageUpload = ({ images, setImages, newFiles, setNewFiles }) => {
                 className="mx-auto max-h-48 rounded-lg"
               />
               <button
-                onClick={() => setImages((prev) => ({ ...prev, main: null }))}
+                type="button"
+                onClick={() => {
+                  setImages((prev) => ({ ...prev, main: null }));
+                  safeSetNewFiles((prev) => ({ ...prev, main: null }));
+                }}
                 className="text-red-600 hover:text-red-800 text-sm"
               >
                 이미지 제거
@@ -184,6 +192,7 @@ const ImageUpload = ({ images, setImages, newFiles, setNewFiles }) => {
                 className="w-full h-24 object-cover rounded-lg"
               />
               <button
+                type="button"
                 onClick={() => removeGalleryImage(index)}
                 className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600"
               >

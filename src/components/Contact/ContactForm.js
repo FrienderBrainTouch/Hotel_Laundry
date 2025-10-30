@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
+import { useRecruitingStores } from '../../hooks/queries/useStores';
 
 // 시/도별 시/군/구 데이터
 const regionData = {
@@ -260,6 +261,26 @@ const ContactForm = ({
   inquiryType,
   setInquiryType,
 }) => {
+  const { data: recruitingRaw } = useRecruitingStores(inquiryType === 'lowCapital');
+  const recruitingStores = useMemo(() => {
+    const arr = Array.isArray(recruitingRaw) ? recruitingRaw : [];
+    return arr
+      .map((v) => ({ storeId: Number(v?.storeId), name: v?.name }))
+      .filter((x) => Number.isFinite(x.storeId) && x.name);
+  }, [recruitingRaw]);
+
+  // 소규모 문의 선택값을 id로 관리하고, 제출 payload에는 name을 유지
+  const [firstChoiceId, setFirstChoiceId] = useState(null);
+  const [secondChoiceId, setSecondChoiceId] = useState(null);
+  const [thirdChoiceId, setThirdChoiceId] = useState(null);
+
+  // 목록이 바뀌면 선택 유효성 재검사
+  useEffect(() => {
+    const idSet = new Set(recruitingStores.map((s) => s.storeId));
+    if (firstChoiceId && !idSet.has(firstChoiceId)) setFirstChoiceId(null);
+    if (secondChoiceId && !idSet.has(secondChoiceId)) setSecondChoiceId(null);
+    if (thirdChoiceId && !idSet.has(thirdChoiceId)) setThirdChoiceId(null);
+  }, [recruitingStores]);
   // 입력 변경 핸들러
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -274,34 +295,7 @@ const ContactForm = ({
   // 현재 선택된 시/도의 시/군/구 목록
   const currentDetailRegions = formData.region ? regionData[formData.region] || [] : [];
 
-  // 서울시 구 목록 (소자본 창업 문의용)
-  const seoulDistricts = [
-    '서울시 강남구',
-    '서울시 강동구',
-    '서울시 강북구',
-    '서울시 강서구',
-    '서울시 관악구',
-    '서울시 광진구',
-    '서울시 구로구',
-    '서울시 금천구',
-    '서울시 노원구',
-    '서울시 도봉구',
-    '서울시 동대문구',
-    '서울시 동작구',
-    '서울시 마포구',
-    '서울시 서대문구',
-    '서울시 서초구',
-    '서울시 성동구',
-    '서울시 성북구',
-    '서울시 송파구',
-    '서울시 양천구',
-    '서울시 영등포구',
-    '서울시 용산구',
-    '서울시 은평구',
-    '서울시 종로구',
-    '서울시 중구',
-    '서울시 중랑구',
-  ];
+  // 서버 데이터만 사용. 없으면 '-'만 표기
 
   return (
     <div className="max-w-4xl mx-auto bg-white p-8 my-10 font-pretendard">
@@ -595,14 +589,19 @@ const ContactForm = ({
                 <label className="font-semibold text-24 text-gray-800">1지망</label>
                 <select
                   name="firstChoice"
-                  value={formData.firstChoice}
-                  onChange={handleChange}
+                  value={firstChoiceId ?? ''}
+                  onChange={(e) => {
+                    const id = Number(e.target.value) || null;
+                    setFirstChoiceId(id);
+                    const found = recruitingStores.find((s) => s.storeId === id);
+                    setFormData((prev) => ({ ...prev, firstChoice: found?.name || '' }));
+                  }}
                   className="border border-gray-300 p-2 rounded-sm w-full text-24"
                 >
-                  <option value="">선택하세요</option>
-                  {seoulDistricts.map((district, index) => (
-                    <option key={index} value={district}>
-                      {district}
+                  <option value="">{recruitingStores.length > 0 ? '선택하세요' : '-'}</option>
+                  {recruitingStores.map((s) => (
+                    <option key={s.storeId} value={s.storeId}>
+                      {s.name}
                     </option>
                   ))}
                 </select>
@@ -612,16 +611,21 @@ const ContactForm = ({
                 <label className="font-semibold text-24 text-gray-800">2지망</label>
                 <select
                   name="secondChoice"
-                  value={formData.secondChoice}
-                  onChange={handleChange}
+                  value={secondChoiceId ?? ''}
+                  onChange={(e) => {
+                    const id = Number(e.target.value) || null;
+                    setSecondChoiceId(id);
+                    const found = recruitingStores.find((s) => s.storeId === id);
+                    setFormData((prev) => ({ ...prev, secondChoice: found?.name || '' }));
+                  }}
                   className="border border-gray-300 p-2 rounded-sm w-full text-24"
                 >
-                  <option value="">선택하세요</option>
-                  {seoulDistricts
-                    .filter((district) => district !== formData.firstChoice)
-                    .map((district, index) => (
-                      <option key={index} value={district}>
-                        {district}
+                  <option value="">{recruitingStores.length > 1 ? '선택하세요' : '-'}</option>
+                  {recruitingStores
+                    .filter((s) => s.storeId !== firstChoiceId)
+                    .map((s) => (
+                      <option key={s.storeId} value={s.storeId}>
+                        {s.name}
                       </option>
                     ))}
                 </select>
@@ -631,19 +635,21 @@ const ContactForm = ({
                 <label className="font-semibold text-24 text-gray-800">3지망</label>
                 <select
                   name="thirdChoice"
-                  value={formData.thirdChoice}
-                  onChange={handleChange}
+                  value={thirdChoiceId ?? ''}
+                  onChange={(e) => {
+                    const id = Number(e.target.value) || null;
+                    setThirdChoiceId(id);
+                    const found = recruitingStores.find((s) => s.storeId === id);
+                    setFormData((prev) => ({ ...prev, thirdChoice: found?.name || '' }));
+                  }}
                   className="border border-gray-300 p-2 rounded-sm w-full text-24"
                 >
-                  <option value="">선택하세요</option>
-                  {seoulDistricts
-                    .filter(
-                      (district) =>
-                        district !== formData.firstChoice && district !== formData.secondChoice
-                    )
-                    .map((district, index) => (
-                      <option key={index} value={district}>
-                        {district}
+                  <option value="">{recruitingStores.length > 2 ? '선택하세요' : '-'}</option>
+                  {recruitingStores
+                    .filter((s) => s.storeId !== firstChoiceId && s.storeId !== secondChoiceId)
+                    .map((s) => (
+                      <option key={s.storeId} value={s.storeId}>
+                        {s.name}
                       </option>
                     ))}
                 </select>

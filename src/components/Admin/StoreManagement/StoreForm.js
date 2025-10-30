@@ -191,16 +191,41 @@ const StoreForm = ({ store, onBack, onSave }) => {
       }
     };
 
-    const orderedItems = [images.main, ...(Array.isArray(images.gallery) ? images.gallery : [])];
-    const existingImageIdsInOrder = [];
+    const orderedItems = [
+      images.main,
+      ...(Array.isArray(images.gallery) ? images.gallery : []),
+    ].filter((item) => {
+      if (item instanceof File) return true;
+      if (typeof item === 'string') return item.trim() !== '';
+      return false;
+    });
 
-    for (const item of orderedItems) {
-      if (item instanceof File) {
-        addFileUnique(item);
-      } else if (typeof item === 'string') {
-        const id = existingUrlToId.get(item);
-        if (id != null) existingImageIdsInOrder.push(id);
+    // 남아 있는 기존 이미지 id를 URL/키 기준으로 안정적으로 계산
+    const urlStrings = orderedItems.filter((v) => typeof v === 'string');
+    const extractKey = (url) => {
+      try {
+        const u = new URL(url, window.location.origin);
+        return u.searchParams.get('key') || null;
+      } catch (_) {
+        return null;
       }
+    };
+    const remainingUrlSet = new Set(urlStrings);
+    const remainingKeySet = new Set(urlStrings.map((u) => extractKey(u)).filter(Boolean));
+
+    const existingImageIdsInOrder = Array.isArray(store?.existingImages)
+      ? store.existingImages
+          .filter((img) => {
+            const url = img?.url;
+            const key = img?.key || extractKey(url || '');
+            return (url && remainingUrlSet.has(url)) || (key && remainingKeySet.has(String(key)));
+          })
+          .map((img) => img.id)
+      : [];
+
+    // 파일 수집 (주문 유지)
+    for (const item of orderedItems) {
+      if (item instanceof File) addFileUnique(item);
     }
 
     // 새로 업로드된 갤러리 파일 추가
