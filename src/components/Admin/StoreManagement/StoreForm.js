@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import ImageUpload from './ImageUpload';
 // 중복 import 제거
 import {
@@ -113,9 +113,15 @@ const StoreForm = ({ store, onBack, onSave }) => {
     setNewFiles({ main: null, gallery: [] });
   }, [store]);
 
-  // 수정 진입 시 기존 이미지(URL)를 Blob->File로 미리 캐싱해두기
-  const [existingMainFile, setExistingMainFile] = useState(null);
-  const [existingGalleryFiles, setExistingGalleryFiles] = useState({}); // url -> File
+  // 기존 이미지 id 매핑 (url -> imageId)
+  const existingUrlToId = useMemo(() => {
+    const map = new Map();
+    const list = Array.isArray(store?.existingImages) ? store.existingImages : [];
+    for (const item of list) {
+      if (item?.url && item?.id != null) map.set(item.url, item.id);
+    }
+    return map;
+  }, [store?.existingImages]);
 
   console.log('🔍 StoreForm render - images state:', {
     main: images.main,
@@ -124,92 +130,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
     galleryLength: images.gallery?.length,
   });
 
-  useEffect(() => {
-    console.log('🎯 useEffect triggered!', {
-      store: !!store,
-      imagesMain: images.main,
-      imagesGallery: images.gallery,
-    });
-
-    // store가 없으면 기존 파일 캐시 초기화
-    if (!store) {
-      setExistingMainFile(null);
-      setExistingGalleryFiles({});
-      return;
-    }
-
-    let isCancelled = false;
-
-    const urlToFile = async (url) => {
-      try {
-        console.log('🔄 Converting URL to File:', url);
-        const res = await fetch(url, {
-          mode: 'cors',
-          credentials: 'omit', // CORS 문제 해결을 위해 credentials 제거
-        });
-        if (!res.ok) {
-          console.warn('❌ Failed to fetch image:', res.status, res.statusText);
-          return null;
-        }
-        const blob = await res.blob();
-        const nameFromUrl = (url.split('/')?.pop() || 'image').split('?')[0];
-        const fileName = nameFromUrl || 'image.jpg';
-        const file = new File([blob], fileName, { type: blob.type || 'application/octet-stream' });
-        console.log('✅ Successfully converted to File:', file.name, file.size, 'bytes');
-        return file;
-      } catch (error) {
-        console.error('❌ Error converting URL to File:', error);
-        return null;
-      }
-    };
-
-    const run = async () => {
-      console.log('🚀 Starting image conversion process...', {
-        imagesMain: images.main,
-        imagesGallery: images.gallery,
-        isCancelled,
-      });
-
-      const updates = {};
-
-      // 메인 이미지 캐싱
-      if (typeof images.main === 'string' && images.main && !images.main.startsWith('blob:')) {
-        console.log('📸 Converting main image:', images.main);
-        const f = await urlToFile(images.main);
-        console.log('📸 Main image conversion result:', f);
-        if (!isCancelled) setExistingMainFile(f);
-      } else {
-        console.log('📸 Skipping main image conversion:', {
-          type: typeof images.main,
-          value: images.main,
-          isBlob: images.main?.startsWith('blob:'),
-        });
-        if (!isCancelled) setExistingMainFile(null);
-      }
-
-      // 갤러리 이미지 캐싱 (URL만)
-      const gallery = Array.isArray(images.gallery) ? images.gallery : [];
-      console.log('🖼️ Processing gallery images:', gallery);
-      for (const item of gallery) {
-        if (typeof item === 'string' && item && !item.startsWith('blob:')) {
-          console.log('🖼️ Converting gallery image:', item);
-          const f = await urlToFile(item);
-          if (f) {
-            updates[item] = f;
-            console.log('🖼️ Gallery image converted:', f.name);
-          }
-        }
-      }
-      console.log('🖼️ Final gallery updates:', updates);
-      if (!isCancelled) setExistingGalleryFiles(updates);
-    };
-
-    run();
-    return () => {
-      isCancelled = true;
-    };
-  }, [store, images.main, images.gallery]);
-
+  // 기존 URL->File 선변환 로직 제거 (서버가 existingImageIdsInOrder를 받음)
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
@@ -258,67 +179,50 @@ const StoreForm = ({ store, onBack, onSave }) => {
       },
     };
 
-    formDataToSend.append('dto', JSON.stringify(dto));
-
-    // URL을 File로 변환하는 헬퍼 함수
-    const urlToFile = async (url) => {
-      try {
-        console.log('🔄 Converting URL to File:', url);
-        const res = await fetch(url, {
-          mode: 'cors',
-          credentials: 'omit',
-        });
-        if (!res.ok) {
-          console.warn('❌ Failed to fetch image:', res.status, res.statusText);
-          return null;
-        }
-        const blob = await res.blob();
-        const nameFromUrl = (url.split('/')?.pop() || 'image').split('?')[0];
-        const fileName = nameFromUrl || 'image.jpg';
-        const file = new File([blob], fileName, { type: blob.type || 'application/octet-stream' });
-        console.log('✅ Successfully converted to File:', file.name, file.size, 'bytes');
-        return file;
-      } catch (error) {
-        console.error('❌ Error converting URL to File:', error);
-        return null;
+    // 수정 모드: 기존 이미지 id는 existingImageIdsInOrder로, 새 파일만 files에 첨부
+    const filesToAppend = [];
+    const seenFiles = new Set();
+    const addFileUnique = (file) => {
+      if (!(file instanceof File)) return;
+      const key = `${file.name}:${file.size}:${file.type}`;
+      if (!seenFiles.has(key)) {
+        seenFiles.add(key);
+        filesToAppend.push(file);
       }
     };
 
-    // 수정 모드: 기존 이미지 + 새로 업로드한 파일을 합쳐 전송
-    const filesToAppend = [];
+    const orderedItems = [images.main, ...(Array.isArray(images.gallery) ? images.gallery : [])];
+    const existingImageIdsInOrder = [];
 
-    // 메인 이미지 처리
-    if (newFiles?.main instanceof File) {
-      // 새로 업로드한 파일이 있으면 그것을 사용
-      filesToAppend.push(newFiles.main);
-    } else if (images.main instanceof File) {
-      // 이미 File 객체면 그대로 사용
-      filesToAppend.push(images.main);
-    } else if (typeof images.main === 'string' && !images.main.startsWith('blob:')) {
-      // URL이면 File로 변환
-      const f = await urlToFile(images.main);
-      if (f) filesToAppend.push(f);
-    }
-
-    // 갤러리 이미지 처리
-    const galleryList = Array.isArray(images.gallery) ? images.gallery : [];
-    for (const item of galleryList) {
+    for (const item of orderedItems) {
       if (item instanceof File) {
-        filesToAppend.push(item);
-      } else if (typeof item === 'string' && !item.startsWith('blob:')) {
-        const f = await urlToFile(item);
-        if (f) filesToAppend.push(f);
+        addFileUnique(item);
+      } else if (typeof item === 'string') {
+        const id = existingUrlToId.get(item);
+        if (id != null) existingImageIdsInOrder.push(id);
       }
     }
 
     // 새로 업로드된 갤러리 파일 추가
-    if (newFiles?.gallery && newFiles.gallery.length > 0) {
-      for (const file of newFiles.gallery) {
-        if (file instanceof File) filesToAppend.push(file);
-      }
+    if (newFiles?.main instanceof File) addFileUnique(newFiles.main);
+    if (Array.isArray(newFiles?.gallery)) {
+      for (const f of newFiles.gallery) addFileUnique(f);
     }
 
-    filesToAppend.forEach((f) => formDataToSend.append('files', f));
+    // DTO에 existing ids 포함 (수정 모드에서만 의미 있음)
+    if (store) {
+      dto.existingImageIdsInOrder = existingImageIdsInOrder;
+    }
+
+    // files 먼저 첨부, dto는 마지막에 첨부해 가장 최신 상태를 보장
+    if (filesToAppend.length > 0) {
+      filesToAppend.forEach((f) => formDataToSend.append('files', f));
+    } else {
+      // 서버 요구사항: 새 파일이 없을 때도 files=null로 명시적으로 전송
+      // multipart/form-data에서 null 표현: 문자열 'null'을 전송하여 서버에서 null로 파싱하도록 함
+      formDataToSend.append('files', new Blob(['null'], { type: 'text/plain' }));
+    }
+    formDataToSend.append('dto', JSON.stringify(dto));
 
     // 디버깅: 파일 수집 상태 확인
     console.log('🔍 File Collection Debug:', {
@@ -326,8 +230,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
       newFilesGallery: newFiles?.gallery,
       imagesMain: images.main,
       imagesGallery: images.gallery,
-      existingMainFile: existingMainFile,
-      existingGalleryFiles: existingGalleryFiles,
+      existingImageIdsInOrder,
       filesToAppend: filesToAppend.map((f) => ({
         name: f.name,
         type: f.type,
@@ -366,7 +269,12 @@ const StoreForm = ({ store, onBack, onSave }) => {
       console.log('Endpoint:', '/admin/stores');
       console.table(entries);
       const filesCount = entries.filter((e) => e.key === 'files').length;
-      console.log('files appended:', filesCount);
+      console.log(
+        'files appended:',
+        filesCount,
+        filesCount === 0 ? '(omitted -> server sees null)' : ''
+      );
+      console.log('dto.existingImageIdsInOrder:', dto.existingImageIdsInOrder);
       console.groupEnd();
     } catch (e) {
       console.warn('FormData preview failed:', e);
