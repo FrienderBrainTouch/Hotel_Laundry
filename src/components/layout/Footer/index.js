@@ -8,18 +8,18 @@ const Footer = () => {
     link.href = '/documents/hotel-laundry-catalog.pdf';
     link.download = 'hotel-laundry-catalog.pdf';
     link.target = '_blank';
-    
+
     // 파일 존재 여부 확인 후 다운로드
     fetch('/documents/hotel-laundry-catalog.pdf')
-      .then(response => {
+      .then((response) => {
         if (response.ok) {
           link.click();
         } else {
           // 파일이 없을 경우 사용자에게 알림
-          alert('카탈로그 파일을 준비 중입니다. 잠시 후 다시 시도해주세요.');
+          alert('카탈로그 파일을 준비 중입니다. 잠시 후 다시 시도해 주세요.');
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('카탈로그 다운로드 오류:', error);
         alert('카탈로그 다운로드 중 오류가 발생했습니다.');
       });
@@ -35,44 +35,62 @@ const Footer = () => {
           <div className="flex flex-col">
             {/* 로고 */}
             <div className="flex items-center mb-4">
-              <img src="/images/logo.svg" alt="Hotel Laundry Logo" className="w-[71px] h-[44px] sm:w-[71px] sm:h-[44px] md:w-[71px] md:h-[44px] lg:w-[109px] lg:h-[68px] xl:w-[122px] xl:h-[76px] 2xl:w-[122px] 2xl:h-[76px]" />
+              <img
+                src="/images/logo.svg"
+                alt="Hotel Laundry Logo"
+                className="w-[71px] h-[44px] sm:w-[71px] sm:h-[44px] md:w-[71px] md:h-[44px] lg:w-[109px] lg:h-[68px] xl:w-[122px] xl:h-[76px] 2xl:w-[122px] 2xl:h-[76px]"
+              />
             </div>
 
             {/* 개인정보처리방침 및 이메일무단수집거부 */}
             <div className="text-white font-KoPubWorldDotum text-[15px] sm:text-[15px] md:text-[16px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px] font-medium leading-normal mb-4">
               {/* xs: 개인정보와 이메일무단만 같은 줄 */}
               <div className="flex gap-4 sm:hidden">
-                <p className="cursor-pointer hover:opacity-80 transition-opacity">개인정보처리방침</p>
-                <p className="cursor-pointer hover:opacity-80 transition-opacity">이메일무단수집거부</p>
+                <p className="cursor-pointer hover:opacity-80 transition-opacity">
+                  개인정보처리방침
+                </p>
+                <p className="cursor-pointer hover:opacity-80 transition-opacity">
+                  이메일무단수집거부
+                </p>
               </div>
               {/* sm: 개인정보, 이메일무단, 다운로드 같은 줄 */}
               <div className="hidden gap-4 sm:flex md:hidden lg:hidden xl:hidden">
-                <p className="cursor-pointer hover:opacity-80 transition-opacity">개인정보처리방침</p>
-                <p className="cursor-pointer hover:opacity-80 transition-opacity">이메일무단수집거부</p>
+                <p className="cursor-pointer hover:opacity-80 transition-opacity">
+                  개인정보처리방침
+                </p>
+                <p className="cursor-pointer hover:opacity-80 transition-opacity">
+                  이메일무단수집거부
+                </p>
                 <button
                   className="text-white font-KoPubWorldDotum text-[16px] sm:text-[16px] md:text-[16px] lg:text-[18px] xl:text-[24px] 2xl:text-[24px] font-bold leading-normal underline decoration-solid underline-offset-8 cursor-pointer hover:opacity-80 transition-opacity flex items-center gap-2"
                   onClick={handleCatalogDownload}
                 >
-                  ⬇
-                  Download Catalog
+                  ⬇ Download Catalog
                 </button>
               </div>
               {/* md, lg: 개인정보, 이메일무단, 다운로드 같은 줄 */}
               <div className="hidden gap-4 md:flex lg:flex xl:hidden">
-                <p className="cursor-pointer hover:opacity-80 transition-opacity">개인정보처리방침</p>
-                <p className="cursor-pointer hover:opacity-80 transition-opacity">이메일무단수집거부</p>
+                <p className="cursor-pointer hover:opacity-80 transition-opacity">
+                  개인정보처리방침
+                </p>
+                <p className="cursor-pointer hover:opacity-80 transition-opacity">
+                  이메일무단수집거부
+                </p>
                 <button
                   className="text-white font-KoPubWorldDotum text-[16px] sm:text-[16px] md:text-[16px] lg:text-[18px] xl:text-[24px] 2xl:text-[24px] font-bold leading-normal underline decoration-solid underline-offset-8 cursor-pointer hover:opacity-80 transition-opacity flex items-center gap-2"
                   onClick={handleCatalogDownload}
                 >
-                  ⬇
-                  Download Catalog
+                  ⬇ Download Catalog
                 </button>
               </div>
               {/* xl, 2xl: 개인정보와 이메일무단만 표시 (다운로드는 오른쪽에 별도 배치) */}
               <div className="hidden xl:flex 2xl:flex gap-4">
-                <p className="cursor-pointer hover:opacity-80 transition-opacity">개인정보처리방침</p>
-                <p className="cursor-pointer hover:opacity-80 transition-opacity">이메일무단수집거부</p>
+                <p className="cursor-pointer hover:opacity-80 transition-opacity">
+                  개인정보처리방침
+                </p>
+                <p className="cursor-pointer hover:opacity-80 transition-opacity">
+                  이메일무단수집거부
+                </p>
               </div>
             </div>
 
@@ -82,8 +100,7 @@ const Footer = () => {
                 className="text-white font-KoPubWorldDotum text-[16px] sm:text-[16px] md:text-[16px] lg:text-[18px] xl:text-[24px] 2xl:text-[24px] font-bold leading-normal underline decoration-solid underline-offset-8 cursor-pointer hover:opacity-80 transition-opacity flex items-center gap-2"
                 onClick={handleCatalogDownload}
               >
-                ⬇
-                Download Catalog
+                ⬇ Download Catalog
               </button>
             </div>
 
@@ -91,19 +108,36 @@ const Footer = () => {
             <div className="text-white font-KoPubWorldDotum text-[15px] sm:text-[15px] md:text-[16px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px] font-medium leading-normal">
               {/* xs: 각각 별도 줄로 표시 */}
               <div className="block sm:hidden">
-                <p><span className="font-bold">제휴문의</span> hotellaundry@naver.com</p>
-                <p><span className="font-bold">대표번호</span> 02-1577-2657</p>
-                <p><span className="font-bold">팩스번호</span> 02-6455-6425</p>
+                <p>
+                  <span className="font-bold">제휴문의</span> hotellaundry@naver.com
+                </p>
+                <p>
+                  <span className="font-bold">대표번호</span> 02-1577-2657
+                </p>
+                <p>
+                  <span className="font-bold">팩스번호</span> 02-6455-6425
+                </p>
               </div>
               {/* sm: 각각 별도 줄로 표시 */}
               <div className="hidden xs:hidden sm:block md:hidden">
-                <p><span className="font-bold">제휴문의</span> hotellaundry@naver.com</p>
-                <p><span className="font-bold">대표번호</span> 02-1577-2657</p>
-                <p><span className="font-bold">팩스번호</span> 02-6455-6425</p>
+                <p>
+                  <span className="font-bold">제휴문의</span> hotellaundry@naver.com
+                </p>
+                <p>
+                  <span className="font-bold">대표번호</span> 02-1577-2657
+                </p>
+                <p>
+                  <span className="font-bold">팩스번호</span> 02-6455-6425
+                </p>
               </div>
               {/* md 이상: 가로 배치 */}
               <div className="hidden xs:hidden sm:hidden md:block">
-                <p><span className="font-bold">제휴문의</span> hotellaundry@naver.com&nbsp;&nbsp;&nbsp;&nbsp;<span className="font-bold">대표번호</span> 02-1577-2657&nbsp;&nbsp;&nbsp;&nbsp;<span className="font-bold">팩스번호</span> 02-6455-6425</p>
+                <p>
+                  <span className="font-bold">제휴문의</span>{' '}
+                  hotellaundry@naver.com&nbsp;&nbsp;&nbsp;&nbsp;
+                  <span className="font-bold">대표번호</span> 02-1577-2657&nbsp;&nbsp;&nbsp;&nbsp;
+                  <span className="font-bold">팩스번호</span> 02-6455-6425
+                </p>
               </div>
             </div>
           </div>
@@ -114,8 +148,7 @@ const Footer = () => {
               className="text-white font-KoPubWorldDotum text-[16px] sm:text-[16px] md:text-[16px] lg:text-[18px] xl:text-[24px] 2xl:text-[24px] font-bold leading-normal underline decoration-solid underline-offset-8 cursor-pointer hover:opacity-80 transition-opacity flex items-center gap-2"
               onClick={handleCatalogDownload}
             >
-              ⬇
-              Download Catalog
+              ⬇ Download Catalog
             </button>
           </div>
         </div>
@@ -131,19 +164,26 @@ const Footer = () => {
           <div className="text-right">
             {/* 회사 정보 */}
             <p className="text-[#1C262B] font-KoPubWorldDotum text-[15px] sm:text-[15px] md:text-[16px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px] font-medium leading-normal mb-2">
-              <span className="font-bold">주식회사</span> <span className="font-bold">워시업코리아</span>
+              <span className="font-bold">주식회사</span>{' '}
+              <span className="font-bold">워시업코리아</span>
             </p>
             <div className="text-[#1C262B] font-KoPubWorldDotum text-[15px] sm:text-[15px] md:text-[16px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px] font-medium leading-normal mb-2">
               <div className="xs:hidden">
-                <p className="mb-2"><span className="font-bold">사업자등록번호</span> 529-86-01519</p>
-                <p><span className="font-bold">대표자</span> 안용찬</p>
+                <p className="mb-2">
+                  <span className="font-bold">사업자등록번호</span> 529-86-01519
+                </p>
+                <p>
+                  <span className="font-bold">대표자</span> 안용찬
+                </p>
               </div>
               <div className="hidden xs:block">
-                <span className="font-bold">사업자등록번호</span> 529-86-01519&nbsp;&nbsp;&nbsp;&nbsp;<span className="font-bold">대표자</span> 안용찬
+                <span className="font-bold">사업자등록번호</span>{' '}
+                529-86-01519&nbsp;&nbsp;&nbsp;&nbsp;<span className="font-bold">대표자</span> 안용찬
               </div>
             </div>
             <p className="text-[#1C262B] font-KoPubWorldDotum text-[15px] sm:text-[15px] md:text-[16px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px] font-medium leading-normal mb-4">
-              <span className="font-bold">주소</span> 서울특별시 금천구 가산디지털2로 43-14 한화비즈메트로2차 619호
+              <span className="font-bold">주소</span> 서울특별시 금천구 가산디지털2로 43-14
+              한화비즈메트로2차 619호
             </p>
 
             {/* 카피라이트 */}
@@ -157,4 +197,4 @@ const Footer = () => {
   );
 };
 
-export default Footer; 
+export default Footer;

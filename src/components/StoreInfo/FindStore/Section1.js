@@ -14,7 +14,7 @@ const Section1 = ({ searchKeyword, setSearchKeyword, handleSearch }) => {
 
             {/* 부제목 */}
             <div className="text-center mx-auto text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] font-light leading-normal text-[#1C262B] font-KoPubWorldDotum tracking-[-0.32px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px]">
-              <p>지역명 또는 매장명을 검색해주세요</p>
+              <p>지역명 또는 매장명을 검색해 주세요.</p>
             </div>
           </div>
 

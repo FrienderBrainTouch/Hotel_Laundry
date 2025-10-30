@@ -3,6 +3,7 @@ import { Routes, Route, useSearchParams } from 'react-router-dom';
 import ContactForm from '../components/Contact/ContactForm';
 import emailjs from '@emailjs/browser';
 import { useMetaTags } from '../hooks/useMetaTags';
+import useApi from '../hooks/useApi';
 
 const Contact = () => {
   // 문의 페이지 전용 메타태그 설정 (기본값 사용)
@@ -55,37 +56,43 @@ const Contact = () => {
   const [agree, setAgree] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState('');
+  const api = useApi();
 
   // 폼 제출 핸들러
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!agree) {
-      alert('개인정보 수집 및 이용에 동의해주세요.');
+      alert('개인정보 수집 및 이용에 동의해 주세요.');
       return;
     }
 
     // 필수 필드 검증 - 문의 유형에 따라 다름
-    // 공통 필수 항목: 이름, 연락처
-    let requiredFields = [
-      'name',
-      'phone2',
-      'phone3',
-    ];
-
-    // 일반 창업 문의인 경우: 개설희망지역, 상세지역 필수
+    // 공통 필수: 이름, 연락처(중간/끝)
+    let requiredFields = ['name', 'phone2', 'phone3'];
     if (inquiryType === 'general') {
+      // 일반 창업: 지역, 상세지역 필수
       requiredFields = [...requiredFields, 'region', 'detailRegion'];
-    } 
-    // 소자본 창업 문의인 경우: 추가 필수 항목 없음 (1지망, 2지망, 3지망 모두 선택사항)
-    // else if (inquiryType === 'lowCapital') {
-    //   // 지역 선택 모두 선택사항
-    // }
+    }
+
+    // 이메일 입력 유효성: 한쪽만 채우면 오류로 간주
+    const emailHalfFilled =
+      (!!formData.emailId && !formData.emailDomain) ||
+      (!formData.emailId && !!formData.emailDomain);
 
     const missingFields = requiredFields.filter((field) => !formData[field]);
 
-    if (missingFields.length > 0) {
-      alert('필수 항목을 모두 입력해주세요.');
+    if (missingFields.length > 0 || emailHalfFilled) {
+      const labels = {
+        name: '이름',
+        phone2: '연락처 가운데',
+        phone3: '연락처 끝자리',
+        region: '개설희망지역',
+        detailRegion: '상세지역',
+      };
+      const missingLabelList = missingFields.map((f) => labels[f] || f).join(', ');
+      const emailMsg = emailHalfFilled ? (missingLabelList ? ', 이메일' : '이메일') : '';
+      alert(`다음 필수 항목을 입력해 주세요: ${missingLabelList}${emailMsg}`);
       return;
     }
 
@@ -93,7 +100,82 @@ const Contact = () => {
     setSubmitStatus('');
 
     try {
-      // 이메일 템플릿 데이터 준비
+      // 1) 서버 문의 저장 API 호출
+      const contactType = inquiryType === 'lowCapital' ? 'LOW_CAPITAL' : 'GENERAL';
+      const buildPhone = () => `010-${formData.phone2}-${formData.phone3}`;
+      const buildEmail = () =>
+        formData.emailId && formData.emailDomain
+          ? `${formData.emailId}@${formData.emailDomain}`
+          : '';
+
+      const seoulDistricts = [
+        '서울시 강남구',
+        '서울시 강동구',
+        '서울시 강북구',
+        '서울시 강서구',
+        '서울시 관악구',
+        '서울시 광진구',
+        '서울시 구로구',
+        '서울시 금천구',
+        '서울시 노원구',
+        '서울시 도봉구',
+        '서울시 동대문구',
+        '서울시 동작구',
+        '서울시 마포구',
+        '서울시 서대문구',
+        '서울시 서초구',
+        '서울시 성동구',
+        '서울시 성북구',
+        '서울시 송파구',
+        '서울시 양천구',
+        '서울시 영등포구',
+        '서울시 용산구',
+        '서울시 은평구',
+        '서울시 종로구',
+        '서울시 중구',
+        '서울시 중랑구',
+      ];
+      const idxOf = (label) => {
+        const i = seoulDistricts.indexOf(label || '');
+        return i >= 0 ? i : 0;
+      };
+
+      const payload = {
+        createUserDto: {
+          userName: formData.name,
+          phone: buildPhone(),
+          age: formData.age || '',
+          gender: formData.gender || '',
+          email: buildEmail(),
+        },
+        contactType,
+        generalContact:
+          contactType === 'GENERAL'
+            ? {
+                region: formData.region || '',
+                detailRegion: formData.detailRegion || '',
+                openingTime: formData.openingTime || '',
+              }
+            : null,
+        lowCapitalContact:
+          contactType === 'LOW_CAPITAL'
+            ? {
+                firstChoice: idxOf(formData.firstChoice),
+                secondChoice: idxOf(formData.secondChoice),
+                thirdChoice: idxOf(formData.thirdChoice),
+              }
+            : null,
+        investment: formData.investment || '',
+        hasExperience: formData.hasExperience === 'yes',
+        buildingType: formData.buildingType === 'own',
+        knowPath: formData.knowPath || '',
+        etc: formData.etc || '',
+      };
+
+      console.log('📤 Contact payload:', payload);
+      await api.post('/contacts', payload);
+
+      // 2) 이메일 템플릿 데이터 준비
       const emailTemplateParams = {
         to_name: '담당자',
         from_name: formData.name,
@@ -115,7 +197,7 @@ const Contact = () => {
         emailTemplateParams.from_region = formData.region;
         emailTemplateParams.from_detail_region = formData.detailRegion;
         emailTemplateParams.from_opening_time = formData.openingTime;
-        
+
         message = `
 일반 창업 문의가 접수되었습니다.
 
@@ -137,7 +219,7 @@ const Contact = () => {
         emailTemplateParams.from_first_choice = formData.firstChoice;
         emailTemplateParams.from_second_choice = formData.secondChoice || '미선택';
         emailTemplateParams.from_third_choice = formData.thirdChoice || '미선택';
-        
+
         message = `
 소자본 창업 문의가 접수되었습니다.
 
@@ -161,17 +243,24 @@ const Contact = () => {
       emailTemplateParams.message = message;
 
       // 문의 유형에 따라 다른 템플릿 ID 사용
-      const templateId = inquiryType === 'lowCapital' 
-        ? process.env.REACT_APP_EMAILJS_TEMPLATE_ID_LOW_CAPITAL  // 소자본 템플릿
-        : process.env.REACT_APP_EMAILJS_TEMPLATE_ID;             // 일반 템플릿
+      const templateId =
+        inquiryType === 'lowCapital'
+          ? process.env.REACT_APP_EMAILJS_TEMPLATE_ID_LOW_CAPITAL // 소자본 템플릿
+          : process.env.REACT_APP_EMAILJS_TEMPLATE_ID; // 일반 템플릿
 
-      // EmailJS를 사용하여 이메일 전송
-      await emailjs.send(
-        process.env.REACT_APP_EMAILJS_SERVICE_ID,
-        templateId,
-        emailTemplateParams,
-        process.env.REACT_APP_EMAILJS_PUBLIC_KEY
-      );
+      // EmailJS 전송 (환경변수 없으면 스킵, 실패해도 폼 제출은 성공 처리)
+      const PUBLIC_KEY = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
+      const SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
+      if (PUBLIC_KEY && SERVICE_ID && templateId) {
+        try {
+          await emailjs.send(SERVICE_ID, templateId, emailTemplateParams, PUBLIC_KEY);
+          console.log('📧 EmailJS sent');
+        } catch (err) {
+          console.warn('이메일 전송 실패(무시):', err);
+        }
+      } else {
+        console.warn('이메일 전송 건너뜀: EmailJS 환경변수 미설정');
+      }
 
       setSubmitStatus('success');
       alert('문의가 성공적으로 접수되었습니다.');
@@ -202,7 +291,7 @@ const Contact = () => {
     } catch (error) {
       console.error('이메일 전송 실패:', error);
       setSubmitStatus('error');
-      alert('문의 접수에 실패했습니다. 다시 시도해주세요.');
+      alert('문의 접수에 실패했습니다. 다시 시도해 주세요.');
     } finally {
       setIsSubmitting(false);
     }

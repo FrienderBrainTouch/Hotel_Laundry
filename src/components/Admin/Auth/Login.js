@@ -9,7 +9,7 @@ const AdminLogin = ({ onSubmit, isLoading = false }) => {
     e.preventDefault();
     setError('');
     if (!password.trim()) {
-      setError('비밀번호를 입력해주세요.');
+      setError('비밀번호를 입력해 주세요.');
       return;
     }
     if (onSubmit) {
