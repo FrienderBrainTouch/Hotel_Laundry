@@ -49,6 +49,13 @@ export default function useApi(baseUrl = process.env.REACT_APP_API_BASE_URL) {
         data: data,
       });
 
+      console.log('📡 API Response:', {
+        status: response.status,
+        statusText: response.statusText,
+        headers: Object.fromEntries(response.headers.entries()),
+        data: data,
+      });
+
       if (!response.ok) {
         console.error('❌ API Error:', {
           url: url.toString(),

@@ -98,6 +98,7 @@ export function useCreateStore() {
     },
     onSuccess: () => {
       console.log('✅ Store created successfully');
+      console.log('✅ Store created successfully');
       qc.invalidateQueries({ queryKey: STORES_KEY });
     },
     onError: (error) => {

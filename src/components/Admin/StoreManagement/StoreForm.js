@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ImageUpload from './ImageUpload';
+// 중복 import 제거
 import {
   statusOptions,
   targetRecruitsOptions,
@@ -207,7 +208,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
     return () => {
       isCancelled = true;
     };
-  }, [store?.storeId, images.main, images.gallery]);
+  }, [store, images.main, images.gallery]);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
