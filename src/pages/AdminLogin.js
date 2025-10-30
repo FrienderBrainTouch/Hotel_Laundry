@@ -1,24 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AdminLogin from '../components/Admin/Auth/Login';
-import { useAdminLogin } from '../hooks/queries/useAdminAuth';
+import { useAdminLogin, useAdminSessionCheck } from '../hooks/queries/useAdminAuth';
 
 const AdminLoginPage = () => {
   const [isChecking, setIsChecking] = useState(true);
   const navigate = useNavigate();
   const loginMutation = useAdminLogin();
 
-  useEffect(() => {
-    // 이미 로그인된 상태인지 확인
-    const adminCookie = document.cookie.split('; ').find((row) => row.startsWith('admin_authed='));
+  // 토큰이 있으면 세션 체크
+  const hasToken = !!localStorage.getItem('accessToken');
+  const { isLoading: isSessionChecking, isSuccess } = useAdminSessionCheck(hasToken);
 
-    if (adminCookie && adminCookie.split('=')[1] === '1') {
-      // 이미 로그인된 상태면 관리자 페이지로 리다이렉트
+  useEffect(() => {
+    if (!hasToken) {
+      // 토큰이 없으면 로그인 화면 표시
+      setIsChecking(false);
+      return;
+    }
+    
+    if (isSessionChecking) return;
+    if (isSuccess) {
+      // 이미 로그인되어 있으면 대시보드로
       navigate('/admin/dashboard');
     } else {
+      // 토큰은 있지만 유효하지 않으면 제거하고 로그인 화면
+      localStorage.removeItem('accessToken');
       setIsChecking(false);
     }
-  }, [navigate]);
+  }, [hasToken, isSessionChecking, isSuccess, navigate]);
 
   const handleLogin = async (secretCode) => {
     try {

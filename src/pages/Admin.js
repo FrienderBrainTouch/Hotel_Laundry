@@ -4,22 +4,35 @@ import AdminLayout from '../components/Admin/Layout/AdminLayout';
 import Dashboard from '../components/Admin/Dashboard';
 import StoreManagement from '../components/Admin/StoreManagement';
 import InquiryManagement from '../components/Admin/InquiryManagement';
+import { useAdminSessionCheck } from '../hooks/queries/useAdminAuth';
 
 const Admin = () => {
   const [isChecking, setIsChecking] = useState(true);
   const navigate = useNavigate();
 
+  // 토큰이 없으면 즉시 로그인 페이지로
+  const hasToken = !!localStorage.getItem('accessToken');
+  
   useEffect(() => {
-    // 쿠키가 없으면 로그인 페이지로 리다이렉트
-    const adminCookie = document.cookie.split('; ').find((row) => row.startsWith('admin_authed='));
-
-    if (!adminCookie || adminCookie.split('=')[1] !== '1') {
+    if (!hasToken) {
       navigate('/admin/login');
       return;
     }
+  }, [hasToken, navigate]);
 
+  const { isLoading, isError } = useAdminSessionCheck(hasToken);
+
+  useEffect(() => {
+    if (!hasToken) return;
+    if (isLoading) return;
+    if (isError) {
+      // JWT가 유효하지 않으면 토큰 제거하고 로그인 페이지로
+      localStorage.removeItem('accessToken');
+      navigate('/admin/login');
+      return;
+    }
     setIsChecking(false);
-  }, [navigate]);
+  }, [hasToken, isLoading, isError, navigate]);
 
   if (isChecking) {
     return (

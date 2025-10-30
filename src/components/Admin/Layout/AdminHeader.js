@@ -5,12 +5,15 @@ import logoKr from '../../../image/logo-kr.png';
 
 const AdminHeader = ({ onMenuClick }) => {
   const navigate = useNavigate();
-  const { logout } = useAdminLogout();
+  const { mutate: logout } = useAdminLogout();
 
   const handleLogout = () => {
-    logout();
-    // 로그인 페이지로 리다이렉트
-    navigate('/admin/login');
+    logout(undefined, {
+      onSuccess: () => {
+        // 토큰 제거 후 로그인 페이지로 리다이렉트 및 새로고침
+        window.location.href = '/admin/login';
+      },
+    });
   };
 
   return (

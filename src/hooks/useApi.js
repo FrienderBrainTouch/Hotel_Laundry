@@ -2,10 +2,7 @@ import { useMemo } from 'react';
 
 export default function useApi(baseUrl = process.env.REACT_APP_API_BASE_URL) {
   const request = useMemo(() => {
-    return async function api(
-      path,
-      { method = 'GET', headers = {}, query, body, signal, credentials = 'include' } = {}
-    ) {
+    return async function api(path, { method = 'GET', headers = {}, query, body, signal } = {}) {
       const url = new URL((baseUrl || '') + path, window.location.origin);
       if (query && typeof query === 'object') {
         Object.entries(query).forEach(([key, value]) => {
@@ -17,40 +14,25 @@ export default function useApi(baseUrl = process.env.REACT_APP_API_BASE_URL) {
 
       const isJsonBody = body && !(body instanceof FormData);
 
-      // CSRF 토큰(예: Spring Security의 XSRF-TOKEN)을 쿠키에서 읽어 헤더에 추가
-      const parsedCookies = document.cookie
-        .split(';')
-        .map((c) => c.trim())
-        .filter(Boolean)
-        .reduce((acc, c) => {
-          const idx = c.indexOf('=');
-          if (idx > -1) {
-            const k = c.slice(0, idx);
-            const v = c.slice(idx + 1);
-            acc[k] = decodeURIComponent(v);
-          }
-          return acc;
-        }, {});
-      const xsrfToken = parsedCookies['XSRF-TOKEN'] || parsedCookies['CSRF-TOKEN'];
+      // JWT 토큰을 로컬스토리지에서 가져오기
+      const accessToken = localStorage.getItem('accessToken');
 
       const init = {
         method,
         headers: {
           ...(isJsonBody ? { 'Content-Type': 'application/json' } : {}),
-          ...(xsrfToken ? { 'X-XSRF-TOKEN': xsrfToken } : {}),
+          ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
           'X-Requested-With': 'XMLHttpRequest',
           ...headers,
         },
         body: isJsonBody ? JSON.stringify(body) : body,
         signal,
-        credentials,
       };
 
       console.log('🚀 API Request:', {
         url: url.toString(),
         method,
         headers: init.headers,
-        credentials: init.credentials,
         body: init.body instanceof FormData ? 'FormData' : init.body,
       });
 
@@ -67,15 +49,30 @@ export default function useApi(baseUrl = process.env.REACT_APP_API_BASE_URL) {
         data: data,
       });
 
+      console.log('📡 API Response:', {
+        status: response.status,
+        statusText: response.statusText,
+        headers: Object.fromEntries(response.headers.entries()),
+        data: data,
+      });
+
       if (!response.ok) {
         console.error('❌ API Error:', {
+          url: url.toString(),
+          method,
           status: response.status,
           statusText: response.statusText,
           data: data,
         });
-        const error = new Error('API_ERROR');
+        // 401/403이면 토큰 삭제 + 로그인 페이지로 리다이렉트
+        if (response.status === 401 || response.status === 403) {
+          localStorage.removeItem('accessToken');
+          window.location.href = '/admin/login';
+        }
+        const error = new Error(`HTTP ${response.status} ${response.statusText}`);
         error.status = response.status;
-        error.data = data;
+        error.url = url.toString();
+        error.body = typeof data === 'string' ? data : JSON.stringify(data);
         throw error;
       }
 
