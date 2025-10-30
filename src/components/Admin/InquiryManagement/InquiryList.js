@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useAdminContactsList } from '../../../hooks/queries/useContacts';
 
 const InquiryList = ({ onViewInquiry, filters, setFilters }) => {
@@ -6,13 +6,18 @@ const InquiryList = ({ onViewInquiry, filters, setFilters }) => {
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(10);
 
+  // 필터가 변경되면 페이지를 0으로 리셋
+  useEffect(() => {
+    setPage(0);
+  }, [filters?.region, filters?.status, filters?.search]);
+
   const { data, isLoading, error } = useAdminContactsList({
     contactType,
     page,
     size,
-    // region: filters?.region,
-    // contactStatus: filters?.status,
-    // keyword: filters?.search,
+    region: filters?.region,
+    contactStatus: filters?.status,
+    keyword: filters?.search,
   });
 
   const inquiries = useMemo(() => data?.content || [], [data]);
@@ -60,7 +65,7 @@ const InquiryList = ({ onViewInquiry, filters, setFilters }) => {
     <div className="bg-white rounded-lg shadow-sm border border-gray-200">
       {/* 필터 */}
       <div className="p-6 border-b border-gray-200">
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">문의 유형</label>
             <select
@@ -68,6 +73,10 @@ const InquiryList = ({ onViewInquiry, filters, setFilters }) => {
               onChange={(e) => {
                 setContactType(e.target.value);
                 setPage(0);
+                // 일반 문의로 변경 시 지역 필터 초기화
+                if (e.target.value === 'GENERAL') {
+                  setFilters({ ...filters, region: '' });
+                }
               }}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
             >
@@ -75,33 +84,35 @@ const InquiryList = ({ onViewInquiry, filters, setFilters }) => {
               <option value="LOW_CAPITAL">소규모 문의</option>
             </select>
           </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">지역 (1지망)</label>
-            <select
-              value={filters.region}
-              onChange={(e) => setFilters({ ...filters, region: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
-            >
-              <option value="">전체 지역</option>
-              <option value="서울시">서울시</option>
-              <option value="부산광역시">부산광역시</option>
-              <option value="대구광역시">대구광역시</option>
-              <option value="인천광역시">인천광역시</option>
-              <option value="광주광역시">광주광역시</option>
-              <option value="대전광역시">대전광역시</option>
-              <option value="울산광역시">울산광역시</option>
-              <option value="세종특별자치시">세종특별자치시</option>
-              <option value="경기도">경기도</option>
-              <option value="강원도">강원도</option>
-              <option value="충청북도">충청북도</option>
-              <option value="충청남도">충청남도</option>
-              <option value="전라북도">전라북도</option>
-              <option value="전라남도">전라남도</option>
-              <option value="경상북도">경상북도</option>
-              <option value="경상남도">경상남도</option>
-              <option value="제주특별자치도">제주특별자치도</option>
-            </select>
-          </div>
+          {isLowCapital && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">지역 (1지망)</label>
+              <select
+                value={filters.region}
+                onChange={(e) => setFilters({ ...filters, region: e.target.value })}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
+              >
+                <option value="">전체 지역</option>
+                <option value="서울시">서울시</option>
+                <option value="부산광역시">부산광역시</option>
+                <option value="대구광역시">대구광역시</option>
+                <option value="인천광역시">인천광역시</option>
+                <option value="광주광역시">광주광역시</option>
+                <option value="대전광역시">대전광역시</option>
+                <option value="울산광역시">울산광역시</option>
+                <option value="세종특별자치시">세종특별자치시</option>
+                <option value="경기도">경기도</option>
+                <option value="강원도">강원도</option>
+                <option value="충청북도">충청북도</option>
+                <option value="충청남도">충청남도</option>
+                <option value="전라북도">전라북도</option>
+                <option value="전라남도">전라남도</option>
+                <option value="경상북도">경상북도</option>
+                <option value="경상남도">경상남도</option>
+                <option value="제주특별자치도">제주특별자치도</option>
+              </select>
+            </div>
+          )}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">상태</label>
             <select
@@ -110,21 +121,9 @@ const InquiryList = ({ onViewInquiry, filters, setFilters }) => {
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
             >
               <option value="">전체</option>
-              <option value="미확인">미확인</option>
-              <option value="처리중">처리중</option>
-              <option value="완료">완료</option>
-            </select>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">매장 상태</label>
-            <select
-              value={filters.storeStatus}
-              onChange={(e) => setFilters({ ...filters, storeStatus: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
-            >
-              <option value="">전체</option>
-              <option value="active">활성 매장</option>
-              <option value="deleted">삭제된 매장</option>
+              <option value="UNCHECKED">미확인</option>
+              <option value="COMPLETE">완료</option>
+              <option value="DELETED">삭제됨</option>
             </select>
           </div>
           <div>
@@ -136,11 +135,6 @@ const InquiryList = ({ onViewInquiry, filters, setFilters }) => {
               onChange={(e) => setFilters({ ...filters, search: e.target.value })}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
             />
-          </div>
-          <div className="flex items-end">
-            <button className="w-full bg-brand-blue hover:bg-brand-dark text-white px-4 py-2 rounded-md font-medium transition-colors">
-              필터 적용
-            </button>
           </div>
         </div>
       </div>
@@ -204,8 +198,15 @@ const InquiryList = ({ onViewInquiry, filters, setFilters }) => {
                         )}
                       </div>
                     ) : (
-                      <div className="text-sm font-medium text-gray-900">
-                        {inquiry.firstChoiceStore || '-'}
+                      <div>
+                        <div className="text-sm font-medium text-gray-900">
+                          {inquiry.region || '-'}
+                        </div>
+                        {inquiry.detailRegion && (
+                          <div className="text-xs text-gray-500">
+                            {inquiry.detailRegion}
+                          </div>
+                        )}
                       </div>
                     )}
                   </td>

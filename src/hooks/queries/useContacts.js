@@ -41,3 +41,15 @@ export function useAdminContactsList(params = {}) {
     staleTime: 60 * 1000,
   });
 }
+
+// 관리자용 문의 상세 조회: GET /contacts/admin/detail/{contactId}
+export function useAdminContactDetail(contactId) {
+  const api = useApi(process.env.REACT_APP_API_BASE_URL);
+
+  return useQuery({
+    queryKey: [...CONTACTS_KEY, 'admin', 'detail', contactId],
+    queryFn: () => api.get(`/contacts/admin/detail/${contactId}`),
+    enabled: !!contactId,
+    staleTime: 60 * 1000,
+  });
+}
