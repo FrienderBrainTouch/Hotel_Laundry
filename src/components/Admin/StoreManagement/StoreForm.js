@@ -281,6 +281,24 @@ const StoreForm = ({ store, onBack, onSave }) => {
       }
     }
 
+    // 파일 용량 제한 검사 (단일 30MB, 총합 500MB)
+    const MAX_SINGLE = 30 * 1024 * 1024; // 30MB
+    const MAX_TOTAL = 500 * 1024 * 1024; // 500MB
+
+    const calcTotalSize = (arr) => arr.reduce((sum, f) => sum + (f?.size || 0), 0);
+
+    const oversizeFile = filesToAppend.find((f) => f.size > MAX_SINGLE);
+    if (oversizeFile) {
+      alert(`이미지 파일 크기는 최대 30MB까지 가능합니다.\n문제 파일: ${oversizeFile.name}`);
+      return;
+    }
+
+    const totalSize = calcTotalSize(filesToAppend);
+    if (totalSize > MAX_TOTAL) {
+      alert('이미지 총 용량은 최대 500MB까지 가능합니다.');
+      return;
+    }
+
     // DTO에 existing ids 포함 (수정 모드에서만 의미 있음)
     if (store) {
       dto.existingImageIdsInOrder = existingImageIdsInOrder;
