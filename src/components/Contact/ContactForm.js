@@ -332,11 +332,6 @@ const ContactForm = ({
             소자본 창업 문의
           </label>
         </div>
-        <p className="text-18 text-gray-600 mt-3">
-          {inquiryType === 'general'
-            ? '✓ 전국 지역에 대한 일반 창업 문의입니다.'
-            : '✓ 서울시 소자본 창업 전용 문의입니다.'}
-        </p>
       </div>
 
       <div className="mt-8">

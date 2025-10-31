@@ -132,6 +132,49 @@ const StoreForm = ({ store, onBack, onSave }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // 필수 필드 검증
+    const requiredFields = [
+      { key: 'address', label: '매장 위치' },
+      { key: 'detailAddress', label: '상세 주소' },
+      { key: 'storeName', label: '매장명' },
+      { key: 'status', label: '상태' },
+      { key: 'targetRecruits', label: '목표 모집 인원' },
+      { key: 'targetOpeningDate', label: '목표 오픈 시기' },
+      { key: 'areaSqm', label: '평수' },
+      { key: 'washingMachines', label: '세탁기 대수' },
+      { key: 'dryers', label: '건조기 대수' },
+      { key: 'operatingHours', label: '운영시간' },
+      { key: 'areaType', label: '지역 특성' },
+      { key: 'detailsLocation', label: '상세 위치 정보' },
+      { key: 'detailsInterior', label: '인테리어 상태' },
+      { key: 'detailsFloor', label: '층수' },
+      { key: 'detailsRent', label: '월세 정보' },
+      { key: 'detailsDeposit', label: '보증금 정보' },
+      { key: 'detailsStartupCost', label: '창업 비용 정보' },
+      { key: 'detailsParking', label: '주차 정보' },
+      { key: 'detailsSize', label: '규모 정보' },
+      { key: 'householdCountInRadius', label: '반경 내 가구수' },
+      { key: 'populationByAgeGroup', label: '연령대별 인구' },
+      { key: 'competitorStores', label: '경쟁 매장 수' },
+      { key: 'locationAnalysis', label: '입지 분석' },
+    ];
+
+    const missingFields = requiredFields.filter(
+      (field) => !formData[field.key] || String(formData[field.key]).trim() === ''
+    );
+
+    // 메인 이미지 검증 (갤러리는 선택)
+    if (!images.main) {
+      alert('메인 이미지를 등록해 주세요.');
+      return;
+    }
+
+    if (missingFields.length > 0) {
+      const missingLabels = missingFields.map((field) => field.label).join(', ');
+      alert(`다음 필수 항목을 입력해 주세요:\n${missingLabels}`);
+      return;
+    }
+
     // FormData 생성 - 스웨거 방식
     const formDataToSend = new FormData();
 
@@ -294,9 +337,13 @@ const StoreForm = ({ store, onBack, onSave }) => {
     <div className="bg-white rounded-lg shadow-sm border border-gray-200">
       <div className="px-6 py-4 border-b border-gray-200">
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-medium text-gray-900">
-            {store ? '매장 수정' : '새 매장 등록'}
-          </h3>
+          <div>
+            <h3 className="text-lg font-medium text-gray-900">
+              {store ? '매장 수정' : '새 매장 등록'}
+            </h3>
+            <p className="text-gray-500 text-sm">* 필수 입력 항목 / 미정 선택 시 미정으로 저장</p>
+          </div>
+
           <button
             type="button"
             onClick={onBack}
@@ -337,12 +384,13 @@ const StoreForm = ({ store, onBack, onSave }) => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">상세 주소</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">상세 주소 *</label>
               <input
                 type="text"
                 name="detailAddress"
                 value={formData.detailAddress || ''}
                 onChange={handleInputChange}
+                required
                 placeholder="구월동 123-45"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               />
@@ -356,6 +404,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               >
+                {/* <option value="UNDECIDED">미정</option> */}
                 {statusOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -375,6 +424,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               >
                 <option value="">선택하세요</option>
+                <option value="UNDECIDED">미정</option>
                 {targetRecruitsOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -383,12 +433,15 @@ const StoreForm = ({ store, onBack, onSave }) => {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">목표 오픈 시기</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                목표 오픈 시기 *
+              </label>
               <input
                 type="text"
                 name="targetOpeningDate"
                 value={formData.targetOpeningDate || ''}
                 onChange={handleInputChange}
+                required
                 placeholder="2025년 9월 오픈 목표"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               />
@@ -410,6 +463,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               >
                 <option value="">선택하세요</option>
+                <option value="UNDECIDED">미정</option>
                 {sizeOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -427,6 +481,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               >
                 <option value="">선택하세요</option>
+                <option value="UNDECIDED">미정</option>
                 {washingMachineOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -444,6 +499,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               >
                 <option value="">선택하세요</option>
+                <option value="UNDECIDED">미정</option>
                 {dryerOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -452,14 +508,16 @@ const StoreForm = ({ store, onBack, onSave }) => {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">운영시간</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">운영시간 *</label>
               <select
                 name="operatingHours"
                 value={formData.operatingHours || ''}
                 onChange={handleInputChange}
+                required
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               >
                 <option value="">선택하세요</option>
+                <option value="UNDECIDED">미정</option>
                 {operatingHoursOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -468,14 +526,16 @@ const StoreForm = ({ store, onBack, onSave }) => {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">지역 특성</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">지역 특성 *</label>
               <select
                 name="areaType"
                 value={formData.areaType || ''}
                 onChange={handleInputChange}
+                required
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               >
                 <option value="">선택하세요</option>
+                <option value="UNDECIDED">미정</option>
                 {areaTypeOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -491,25 +551,32 @@ const StoreForm = ({ store, onBack, onSave }) => {
           <h4 className="text-lg font-medium text-gray-900 mb-4">상세 정보</h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">상세 위치 정보</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                상세 위치 정보 *
+              </label>
               <input
                 type="text"
                 name="detailsLocation"
                 value={formData.detailsLocation}
                 onChange={handleInputChange}
+                required
                 placeholder="서울시 동작구 상도동"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">인테리어 상태</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                인테리어 상태 *
+              </label>
               <select
                 name="detailsInterior"
                 value={formData.detailsInterior}
                 onChange={handleInputChange}
+                required
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               >
                 <option value="">선택하세요</option>
+                <option value="UNDECIDED">미정</option>
                 {interiorOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -518,14 +585,16 @@ const StoreForm = ({ store, onBack, onSave }) => {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">층수</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">층수 *</label>
               <select
                 name="detailsFloor"
                 value={formData.detailsFloor}
                 onChange={handleInputChange}
+                required
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               >
                 <option value="">선택하세요</option>
+                <option value="UNDECIDED">미정</option>
                 {floorOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -534,56 +603,61 @@ const StoreForm = ({ store, onBack, onSave }) => {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">월세 정보</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">월세 정보 *</label>
               <input
                 type="text"
                 name="detailsRent"
                 value={formData.detailsRent}
                 onChange={handleInputChange}
+                required
                 placeholder="월세 4,000/350 (관리비 포함)"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">권리금</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">권리금 *</label>
               <input
                 type="text"
                 name="detailsDeposit"
                 value={formData.detailsDeposit}
                 onChange={handleInputChange}
+                required
                 placeholder="권리금 3,500"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">창업비용</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">창업비용 *</label>
               <input
                 type="text"
                 name="detailsStartupCost"
                 value={formData.detailsStartupCost}
                 onChange={handleInputChange}
+                required
                 placeholder="창업비용 3000만원"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">주차 상세</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">주차 상세 *</label>
               <input
                 type="text"
                 name="detailsParking"
                 value={formData.detailsParking}
                 onChange={handleInputChange}
+                required
                 placeholder="주차 가능 - 매장 앞 4대"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">면적</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">면적 *</label>
               <input
                 type="text"
                 name="detailsSize"
                 value={formData.detailsSize}
                 onChange={handleInputChange}
+                required
                 placeholder="전용 52.99m²"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               />
@@ -597,46 +671,54 @@ const StoreForm = ({ store, onBack, onSave }) => {
           <div className="space-y-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                반경 내 가구 수
+                반경 내 가구 수 *
               </label>
               <input
                 type="text"
                 name="householdCountInRadius"
                 value={formData.householdCountInRadius}
                 onChange={handleInputChange}
+                required
                 placeholder="반경 500m 내 약 1,200가구"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">연령대별 인구</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                연령대별 인구 *
+              </label>
               <input
                 type="text"
                 name="populationByAgeGroup"
                 value={formData.populationByAgeGroup}
                 onChange={handleInputChange}
+                required
                 placeholder="20-30대 40%, 30-40대 35%, 40-50대 25%"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">경쟁업체 현황</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                경쟁업체 현황 *
+              </label>
               <input
                 type="text"
                 name="competitorStores"
                 value={formData.competitorStores}
                 onChange={handleInputChange}
+                required
                 placeholder="반경 1km 내 세탁소 2개소, 무인세탁방 1개소"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">입지 분석</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">입지 분석 *</label>
               <textarea
                 name="locationAnalysis"
                 value={formData.locationAnalysis}
                 onChange={handleInputChange}
                 rows={4}
+                required
                 placeholder="인근 주거 밀집 지역과 생활 편의시설이 결합된 안정적인 상권에 위치한 무인세탁방 매물로, 바로 영업이 가능하며 꾸준한 수익 창출이 기대되는 입지입니다."
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               />
