@@ -16,6 +16,17 @@ const ImageUpload = ({ images, setImages, newFiles, setNewFiles }) => {
     }
   };
 
+  const MAX_SINGLE = 30 * 1024 * 1024; // 30MB
+  const MAX_TOTAL = 500 * 1024 * 1024; // 500MB
+
+  const currentNewFilesTotal = () => {
+    const mainSize = newFiles?.main instanceof File ? newFiles.main.size : 0;
+    const gallerySize = Array.isArray(newFiles?.gallery)
+      ? newFiles.gallery.reduce((s, f) => s + (f?.size || 0), 0)
+      : 0;
+    return mainSize + gallerySize;
+  };
+
   const handleDrop = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -24,6 +35,14 @@ const ImageUpload = ({ images, setImages, newFiles, setNewFiles }) => {
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       const file = e.dataTransfer.files[0];
       if (file.type.startsWith('image/')) {
+        if (file.size > MAX_SINGLE) {
+          alert('이미지 파일 크기는 최대 30MB까지 가능합니다.');
+          return;
+        }
+        if (currentNewFilesTotal() + file.size > MAX_TOTAL) {
+          alert('이미지 총 용량은 최대 500MB까지 가능합니다.');
+          return;
+        }
         const objectUrl = URL.createObjectURL(file);
         setImages((prev) => ({
           ...prev,
@@ -41,6 +60,14 @@ const ImageUpload = ({ images, setImages, newFiles, setNewFiles }) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       if (file.type.startsWith('image/')) {
+        if (file.size > MAX_SINGLE) {
+          alert('이미지 파일 크기는 최대 30MB까지 가능합니다.');
+          return;
+        }
+        if (currentNewFilesTotal() + file.size > MAX_TOTAL) {
+          alert('이미지 총 용량은 최대 500MB까지 가능합니다.');
+          return;
+        }
         const objectUrl = URL.createObjectURL(file);
         setImages((prev) => ({
           ...prev,
@@ -58,6 +85,20 @@ const ImageUpload = ({ images, setImages, newFiles, setNewFiles }) => {
     if (e.target.files) {
       const files = Array.from(e.target.files);
       const imageFiles = files.filter((file) => file.type.startsWith('image/'));
+
+      // 단일 파일 검증
+      const oversize = imageFiles.find((f) => f.size > MAX_SINGLE);
+      if (oversize) {
+        alert('이미지 파일 크기는 최대 30MB까지 가능합니다.');
+        return;
+      }
+
+      // 총합 검증
+      const incomingTotal = imageFiles.reduce((s, f) => s + (f?.size || 0), 0);
+      if (currentNewFilesTotal() + incomingTotal > MAX_TOTAL) {
+        alert('이미지 총 용량은 최대 500MB까지 가능합니다.');
+        return;
+      }
 
       if (imageFiles.length > 0) {
         const objectUrls = imageFiles.map((file) => URL.createObjectURL(file));

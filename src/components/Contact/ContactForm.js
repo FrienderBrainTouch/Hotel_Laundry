@@ -831,8 +831,12 @@ const ContactForm = ({
               value={formData.etc}
               onChange={handleChange}
               rows="5"
+              maxLength={500}
               className="border border-gray-300 p-2 w-full rounded-sm text-24"
             ></textarea>
+            <div className="mt-1 text-16 text-gray-500">
+              최대 500자까지 입력할 수 있습니다. ({formData.etc ? formData.etc.length : 0} / 500)
+            </div>
           </FormRow>
         </form>
       </div>

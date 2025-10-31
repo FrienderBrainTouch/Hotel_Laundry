@@ -13,6 +13,25 @@ import {
   areaTypeOptions,
 } from './constants';
 
+// ----- helpers (module scope: stable across renders) -----
+// '미정' 처리 통일: 0 | '0' | 'undecided' (대소문자 구분 없음) -> 'undecided'
+const isUndecidedValue = (value) => {
+  if (value === 0 || value === '0') return true;
+  if (typeof value === 'string' && value.trim().toLowerCase() === 'undecided') return true;
+  return false;
+};
+
+const normalizeSelect = (value) => {
+  if (isUndecidedValue(value)) return 'undecided';
+  return value ?? '';
+};
+
+const toNumberOrZero = (value) => {
+  if (isUndecidedValue(value)) return 0;
+  const n = parseInt(value, 10);
+  return Number.isNaN(n) ? 0 : n;
+};
+
 const StoreForm = ({ store, onBack, onSave }) => {
   const [formData, setFormData] = useState({
     // address
@@ -22,18 +41,18 @@ const StoreForm = ({ store, onBack, onSave }) => {
     // storeBasicInfo
     storeName: store?.storeBasicInfo?.storeName || '',
     status: store?.storeBasicInfo?.status || 'WAITING',
-    targetRecruits: store?.storeBasicInfo?.targetRecruits || '',
+    targetRecruits: normalizeSelect(store?.storeBasicInfo?.targetRecruits),
     targetOpeningDate: store?.storeBasicInfo?.targetOpeningDate || '',
-    areaSqm: store?.storeBasicInfo?.areaSqm || '',
-    washingMachines: store?.storeBasicInfo?.washingMachines || '',
-    dryers: store?.storeBasicInfo?.dryers || '',
-    operatingHours: store?.storeBasicInfo?.operatingHours || '',
-    areaType: store?.storeBasicInfo?.areaType || '',
+    areaSqm: normalizeSelect(store?.storeBasicInfo?.areaSqm),
+    washingMachines: normalizeSelect(store?.storeBasicInfo?.washingMachines),
+    dryers: normalizeSelect(store?.storeBasicInfo?.dryers),
+    operatingHours: normalizeSelect(store?.storeBasicInfo?.operatingHours),
+    areaType: normalizeSelect(store?.storeBasicInfo?.areaType),
 
     // storeDetails
     detailsLocation: store?.storeDetails?.detailsLocation || '',
-    detailsInterior: store?.storeDetails?.detailsInterior || '',
-    detailsFloor: store?.storeDetails?.detailsFloor || '',
+    detailsInterior: normalizeSelect(store?.storeDetails?.detailsInterior),
+    detailsFloor: normalizeSelect(store?.storeDetails?.detailsFloor),
     detailsRent: store?.storeDetails?.detailsRent || '',
     detailsDeposit: store?.storeDetails?.detailsDeposit || '',
     detailsStartupCost: store?.storeDetails?.detailsStartupCost || '',
@@ -75,18 +94,18 @@ const StoreForm = ({ store, onBack, onSave }) => {
       // storeBasicInfo
       storeName: store?.storeBasicInfo?.storeName || '',
       status: store?.storeBasicInfo?.status || 'WAITING',
-      targetRecruits: store?.storeBasicInfo?.targetRecruits || '',
+      targetRecruits: normalizeSelect(store?.storeBasicInfo?.targetRecruits),
       targetOpeningDate: store?.storeBasicInfo?.targetOpeningDate || '',
-      areaSqm: store?.storeBasicInfo?.areaSqm || '',
-      washingMachines: store?.storeBasicInfo?.washingMachines || '',
-      dryers: store?.storeBasicInfo?.dryers || '',
-      operatingHours: store?.storeBasicInfo?.operatingHours || '',
-      areaType: store?.storeBasicInfo?.areaType || '',
+      areaSqm: normalizeSelect(store?.storeBasicInfo?.areaSqm),
+      washingMachines: normalizeSelect(store?.storeBasicInfo?.washingMachines),
+      dryers: normalizeSelect(store?.storeBasicInfo?.dryers),
+      operatingHours: normalizeSelect(store?.storeBasicInfo?.operatingHours),
+      areaType: normalizeSelect(store?.storeBasicInfo?.areaType),
 
       // storeDetails
       detailsLocation: store?.storeDetails?.detailsLocation || '',
-      detailsInterior: store?.storeDetails?.detailsInterior || '',
-      detailsFloor: store?.storeDetails?.detailsFloor || '',
+      detailsInterior: normalizeSelect(store?.storeDetails?.detailsInterior),
+      detailsFloor: normalizeSelect(store?.storeDetails?.detailsFloor),
       detailsRent: store?.storeDetails?.detailsRent || '',
       detailsDeposit: store?.storeDetails?.detailsDeposit || '',
       detailsStartupCost: store?.storeDetails?.detailsStartupCost || '',
@@ -184,20 +203,20 @@ const StoreForm = ({ store, onBack, onSave }) => {
         detailAddress: formData.detailAddress,
       },
       storeBasicInfo: {
-        areaSqm: parseInt(formData.areaSqm) || 0,
-        targetRecruits: parseInt(formData.targetRecruits) || 0,
-        areaType: formData.areaType,
+        areaSqm: toNumberOrZero(formData.areaSqm),
+        targetRecruits: toNumberOrZero(formData.targetRecruits),
+        areaType: normalizeSelect(formData.areaType),
         storeName: formData.storeName,
-        operatingHours: formData.operatingHours,
-        washingMachines: parseInt(formData.washingMachines) || 0,
+        operatingHours: normalizeSelect(formData.operatingHours),
+        washingMachines: toNumberOrZero(formData.washingMachines),
         status: formData.status,
         targetOpeningDate: formData.targetOpeningDate,
-        dryers: parseInt(formData.dryers) || 0,
+        dryers: toNumberOrZero(formData.dryers),
       },
       storeDetails: {
         detailsLocation: formData.detailsLocation,
-        detailsInterior: formData.detailsInterior,
-        detailsFloor: formData.detailsFloor,
+        detailsInterior: normalizeSelect(formData.detailsInterior),
+        detailsFloor: normalizeSelect(formData.detailsFloor),
         detailsRent: formData.detailsRent,
         detailsDeposit: formData.detailsDeposit,
         detailsStartupCost: formData.detailsStartupCost,
@@ -262,6 +281,24 @@ const StoreForm = ({ store, onBack, onSave }) => {
       }
     }
 
+    // 파일 용량 제한 검사 (단일 30MB, 총합 500MB)
+    const MAX_SINGLE = 30 * 1024 * 1024; // 30MB
+    const MAX_TOTAL = 500 * 1024 * 1024; // 500MB
+
+    const calcTotalSize = (arr) => arr.reduce((sum, f) => sum + (f?.size || 0), 0);
+
+    const oversizeFile = filesToAppend.find((f) => f.size > MAX_SINGLE);
+    if (oversizeFile) {
+      alert(`이미지 파일 크기는 최대 30MB까지 가능합니다.\n문제 파일: ${oversizeFile.name}`);
+      return;
+    }
+
+    const totalSize = calcTotalSize(filesToAppend);
+    if (totalSize > MAX_TOTAL) {
+      alert('이미지 총 용량은 최대 500MB까지 가능합니다.');
+      return;
+    }
+
     // DTO에 existing ids 포함 (수정 모드에서만 의미 있음)
     if (store) {
       dto.existingImageIdsInOrder = existingImageIdsInOrder;
@@ -271,8 +308,8 @@ const StoreForm = ({ store, onBack, onSave }) => {
     if (filesToAppend.length > 0) {
       filesToAppend.forEach((f) => formDataToSend.append('files', f));
     } else {
-      // 파일이 없을 때는 null 문자열로 전송
-      formDataToSend.append('files', 'null');
+      // 서버가 MultipartFile 파트를 필수로 요구하므로, 빈 파일로 파트 존재를 보장
+      formDataToSend.append('files', new Blob([], { type: 'application/octet-stream' }), 'empty');
     }
 
     // dto 추가
@@ -424,7 +461,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               >
                 <option value="">선택하세요</option>
-                <option value="UNDECIDED">미정</option>
+                <option value="undecided">미정</option>
                 {targetRecruitsOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -463,7 +500,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               >
                 <option value="">선택하세요</option>
-                <option value="UNDECIDED">미정</option>
+                <option value="undecided">미정</option>
                 {sizeOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -481,7 +518,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               >
                 <option value="">선택하세요</option>
-                <option value="UNDECIDED">미정</option>
+                <option value="undecided">미정</option>
                 {washingMachineOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -499,7 +536,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               >
                 <option value="">선택하세요</option>
-                <option value="UNDECIDED">미정</option>
+                <option value="undecided">미정</option>
                 {dryerOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -517,7 +554,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               >
                 <option value="">선택하세요</option>
-                <option value="UNDECIDED">미정</option>
+                <option value="undecided">미정</option>
                 {operatingHoursOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -535,7 +572,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               >
                 <option value="">선택하세요</option>
-                <option value="UNDECIDED">미정</option>
+                <option value="undecided">미정</option>
                 {areaTypeOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -576,7 +613,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               >
                 <option value="">선택하세요</option>
-                <option value="UNDECIDED">미정</option>
+                <option value="undecided">미정</option>
                 {interiorOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -594,7 +631,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               >
                 <option value="">선택하세요</option>
-                <option value="UNDECIDED">미정</option>
+                <option value="undecided">미정</option>
                 {floorOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}

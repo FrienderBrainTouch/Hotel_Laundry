@@ -216,7 +216,6 @@ const InquiryList = ({ onViewInquiry, filters, setFilters }) => {
                 <tr key={inquiry.contactId} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm font-medium text-gray-900">{inquiry.userName}</div>
-                    <div className="text-xs text-gray-500">{inquiry.contactType}</div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm text-gray-900">{inquiry.phone}</div>
