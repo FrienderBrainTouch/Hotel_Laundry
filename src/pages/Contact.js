@@ -154,7 +154,11 @@ const Contact = () => {
       };
 
       console.log('📤 Contact payload:', payload);
-      await api.post('/contacts', payload);
+      const saveRes = await api.post('/contacts', payload);
+      console.log('✅ /contacts 저장 성공:', {
+        status: saveRes?.status,
+        data: saveRes?.data,
+      });
 
       // 2) 이메일 템플릿 데이터 준비
       const emailTemplateParams = {
@@ -235,8 +239,13 @@ const Contact = () => {
       const SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
       if (PUBLIC_KEY && SERVICE_ID && templateId) {
         try {
-          await emailjs.send(SERVICE_ID, templateId, emailTemplateParams, PUBLIC_KEY);
-          console.log('📧 EmailJS 전송 성공');
+          const emailRes = await emailjs.send(
+            SERVICE_ID,
+            templateId,
+            emailTemplateParams,
+            PUBLIC_KEY
+          );
+          console.log('📧 EmailJS 전송 성공:', emailRes);
         } catch (err) {
           // EmailJS 실패는 무시 (서버에 이미 저장되었으므로)
           console.warn('⚠️ EmailJS 전송 실패 (무시됨):', err);
