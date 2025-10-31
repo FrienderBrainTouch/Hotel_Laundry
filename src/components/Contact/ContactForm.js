@@ -281,6 +281,7 @@ const ContactForm = ({
     if (secondChoiceId && !idSet.has(secondChoiceId)) setSecondChoiceId(null);
     if (thirdChoiceId && !idSet.has(thirdChoiceId)) setThirdChoiceId(null);
   }, [recruitingStores]);
+
   // 입력 변경 핸들러
   const handleChange = (e) => {
     const { name, value } = e.target;

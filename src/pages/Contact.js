@@ -230,17 +230,19 @@ const Contact = () => {
           : process.env.REACT_APP_EMAILJS_TEMPLATE_ID; // 일반 템플릿
 
       // EmailJS 전송 (환경변수 없으면 스킵, 실패해도 폼 제출은 성공 처리)
+      // 참고: EmailJS 실패는 전체 제출 성공 여부에 영향을 주지 않음
       const PUBLIC_KEY = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
       const SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
       if (PUBLIC_KEY && SERVICE_ID && templateId) {
         try {
           await emailjs.send(SERVICE_ID, templateId, emailTemplateParams, PUBLIC_KEY);
-          console.log('📧 EmailJS sent');
+          console.log('📧 EmailJS 전송 성공');
         } catch (err) {
-          console.warn('이메일 전송 실패(무시):', err);
+          // EmailJS 실패는 무시 (서버에 이미 저장되었으므로)
+          console.warn('⚠️ EmailJS 전송 실패 (무시됨):', err);
         }
       } else {
-        console.warn('이메일 전송 건너뜀: EmailJS 환경변수 미설정');
+        console.warn('⚠️ EmailJS 전송 건너뜀: EmailJS 환경변수 미설정');
       }
 
       setSubmitStatus('success');
@@ -273,8 +275,9 @@ const Contact = () => {
       });
       setAgree(false);
     } catch (error) {
-      console.error('이메일 전송 실패:', error);
+      console.error('❌ 문의 접수 실패:', error);
       setSubmitStatus('error');
+      // HTTP 요청 실패 시에만 여기 도달
       alert('문의 접수에 실패했습니다. 다시 시도해 주세요.');
     } finally {
       setIsSubmitting(false);

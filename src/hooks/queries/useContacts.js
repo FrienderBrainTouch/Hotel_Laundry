@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import useApi from '../useApi';
 
 const CONTACTS_KEY = ['contacts'];
@@ -51,5 +51,38 @@ export function useAdminContactDetail(contactId) {
     queryFn: () => api.get(`/contacts/admin/detail/${contactId}`),
     enabled: !!contactId,
     staleTime: 60 * 1000,
+  });
+}
+
+// 관리자용 문의 상태 변경: POST /contacts/admin/update/{contactId}?status={status}
+export function useUpdateContactStatus() {
+  const api = useApi(process.env.REACT_APP_API_BASE_URL);
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ['updateContactStatus'],
+    mutationFn: async ({ contactId, status }) => {
+      return api.post(`/contacts/admin/update/${contactId}`, null, {
+        query: { status },
+      });
+    },
+    onSuccess: (_, variables) => {
+      // 상세 조회 쿼리 무효화
+      queryClient.invalidateQueries({
+        queryKey: [...CONTACTS_KEY, 'admin', 'detail', variables.contactId],
+      });
+      // 목록 쿼리도 무효화하여 목록에 반영
+      queryClient.invalidateQueries({
+        queryKey: [...CONTACTS_KEY, 'admin'],
+      });
+      console.log('✅ 문의 상태 업데이트 성공');
+    },
+    onError: (error) => {
+      console.error('❌ 문의 상태 업데이트 실패:', {
+        status: error?.status,
+        message: error?.message,
+        body: error?.body ?? error?.data,
+      });
+    },
   });
 }

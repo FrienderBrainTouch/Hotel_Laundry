@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useAdminContactDetail } from '../../../hooks/queries/useContacts';
+import { useAdminContactDetail, useUpdateContactStatus } from '../../../hooks/queries/useContacts';
 
 const InquiryDetail = ({ inquiry, onBack }) => {
   const { data, isLoading, error } = useAdminContactDetail(inquiry?.contactId);
+  const updateStatusMutation = useUpdateContactStatus();
   const [status, setStatus] = useState('UNCHECKED');
+  const [isSaving, setIsSaving] = useState(false);
 
   // 데이터 로딩 후 상태 초기화
   useEffect(() => {
@@ -16,19 +18,41 @@ const InquiryDetail = ({ inquiry, onBack }) => {
     setStatus(newStatus);
   };
 
-  const handleSave = () => {
-    console.log('Status updated:', status);
-    onBack();
+  const handleSave = async () => {
+    if (!inquiry?.contactId) {
+      alert('문의 ID가 없습니다.');
+      return;
+    }
+
+    // 상태가 변경되지 않았으면 저장하지 않음
+    if (status === data?.contactStatus) {
+      onBack();
+      return;
+    }
+
+    setIsSaving(true);
+    try {
+      await updateStatusMutation.mutateAsync({
+        contactId: inquiry.contactId,
+        status,
+      });
+      alert('문의 상태가 업데이트되었습니다.');
+      onBack();
+    } catch (error) {
+      alert('문의 상태 업데이트에 실패했습니다. 다시 시도해 주세요.');
+    } finally {
+      setIsSaving(false);
+    }
   };
 
-  const getStatusLabel = (status) => {
-    const map = {
-      UNCHECKED: '미확인',
-      COMPLETE: '완료',
-      DELETED: '삭제됨',
-    };
-    return map[status] || status || '미확인';
-  };
+  // const getStatusLabel = (status) => {
+  //   const map = {
+  //     UNCHECKED: '미확인',
+  //     COMPLETE: '완료',
+  //     DELETED: '삭제됨',
+  //   };
+  //   return map[status] || status || '미확인';
+  // };
 
   // 로딩 중
   if (isLoading) {
@@ -45,10 +69,7 @@ const InquiryDetail = ({ inquiry, onBack }) => {
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
         <div className="text-center text-red-600">상세 정보를 불러오지 못했습니다.</div>
         <div className="text-center mt-4">
-          <button
-            onClick={onBack}
-            className="px-6 py-2 bg-gray-100 hover:bg-gray-200 rounded-md"
-          >
+          <button onClick={onBack} className="px-6 py-2 bg-gray-100 hover:bg-gray-200 rounded-md">
             목록으로
           </button>
         </div>
@@ -60,9 +81,7 @@ const InquiryDetail = ({ inquiry, onBack }) => {
 
   // getStoreInfo를 wishCount로 정렬하여 1순위, 2순위, 3순위 생성
   const sortedStores = isLowCapital
-    ? [...(data.getStoreInfo || [])]
-        .sort((a, b) => a.wishCount - b.wishCount)
-        .slice(0, 3)
+    ? [...(data.getStoreInfo || [])].sort((a, b) => a.wishCount - b.wishCount).slice(0, 3)
     : [];
 
   return (
@@ -239,9 +258,10 @@ const InquiryDetail = ({ inquiry, onBack }) => {
           </button>
           <button
             onClick={handleSave}
-            className="px-6 py-2 bg-brand-blue hover:bg-brand-dark text-white rounded-md font-medium transition-colors"
+            disabled={isSaving || updateStatusMutation.isPending}
+            className="px-6 py-2 bg-brand-blue hover:bg-brand-dark text-white rounded-md font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            저장
+            {isSaving || updateStatusMutation.isPending ? '저장 중...' : '저장'}
           </button>
         </div>
       </div>
