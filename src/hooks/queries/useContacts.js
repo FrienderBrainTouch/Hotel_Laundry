@@ -13,8 +13,60 @@ export function useTop3Regions() {
   });
 }
 
-// 관리자용 문의 목록 조회: GET /contacts/admin
-// params: { contactType=GENERAL, region?, contactStatus?, keyword?, page=0, size=10, sort? }
+// 관리자용 일반 문의 목록 조회: GET /contacts/admin/general
+// params: { contactStatus?, keyword?, page=0, size=10 }
+export function useAdminGeneralContacts(params = {}) {
+  const api = useApi(process.env.REACT_APP_API_BASE_URL);
+
+  const buildQuery = (p = {}) => {
+    const q = {
+      page: p?.page ?? 0,
+      size: p?.size ?? 10,
+    };
+    if (p?.contactStatus) q.contactStatus = p.contactStatus; // UNCHECKED | COMPLETE | DELETED
+    if (p?.keyword) q.keyword = p.keyword;
+    return q;
+  };
+
+  return useQuery({
+    queryKey: [...CONTACTS_KEY, 'admin', 'general', buildQuery(params)],
+    queryFn: () =>
+      api.get('/contacts/admin/general', {
+        query: buildQuery(params),
+      }),
+    keepPreviousData: true,
+    staleTime: 60 * 1000,
+  });
+}
+
+// 관리자용 소규모 창업 문의 목록 조회: GET /contacts/admin/low-capital
+// params: { region?, contactStatus?, keyword?, page=0, size=10 }
+export function useAdminLowCapitalContacts(params = {}) {
+  const api = useApi(process.env.REACT_APP_API_BASE_URL);
+
+  const buildQuery = (p = {}) => {
+    const q = {
+      page: p?.page ?? 0,
+      size: p?.size ?? 10,
+    };
+    if (p?.region) q.region = p.region;
+    if (p?.contactStatus) q.contactStatus = p.contactStatus; // UNCHECKED | COMPLETE | DELETED
+    if (p?.keyword) q.keyword = p.keyword;
+    return q;
+  };
+
+  return useQuery({
+    queryKey: [...CONTACTS_KEY, 'admin', 'low-capital', buildQuery(params)],
+    queryFn: () =>
+      api.get('/contacts/admin/low-capital', {
+        query: buildQuery(params),
+      }),
+    keepPreviousData: true,
+    staleTime: 60 * 1000,
+  });
+}
+
+// [DEPRECATED] 관리자용 문의 목록 조회 (하위 호환성을 위해 유지)
 export function useAdminContactsList(params = {}) {
   const api = useApi(process.env.REACT_APP_API_BASE_URL);
 

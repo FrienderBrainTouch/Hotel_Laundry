@@ -1,5 +1,8 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import { useAdminContactsList } from '../../../hooks/queries/useContacts';
+import {
+  useAdminGeneralContacts,
+  useAdminLowCapitalContacts,
+} from '../../../hooks/queries/useContacts';
 import { useAdminFirstRegions } from '../../../hooks/queries/useStores';
 
 const InquiryList = ({ onViewInquiry, filters, setFilters }) => {
@@ -9,7 +12,6 @@ const InquiryList = ({ onViewInquiry, filters, setFilters }) => {
 
   // 실제 API로 전송될 쿼리 파라미터 상태
   const [queryParams, setQueryParams] = useState({
-    contactType: 'GENERAL',
     page: 0,
     size: 10,
   });
@@ -17,14 +19,17 @@ const InquiryList = ({ onViewInquiry, filters, setFilters }) => {
   // 문의 유형이 변경되면 자동으로 API 호출 (페이지도 0으로 리셋)
   useEffect(() => {
     setPage(0);
-    setQueryParams({
-      contactType,
+    const newParams = {
       page: 0,
       size,
-      ...(filters.region && { region: filters.region }),
       ...(filters.status && { contactStatus: filters.status }),
       ...(filters.search && { keyword: filters.search }),
-    });
+    };
+    // 소규모 창업 문의인 경우에만 region 파라미터 추가
+    if (contactType === 'LOW_CAPITAL' && filters.region) {
+      newParams.region = filters.region;
+    }
+    setQueryParams(newParams);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contactType]);
 
@@ -33,7 +38,15 @@ const InquiryList = ({ onViewInquiry, filters, setFilters }) => {
     setQueryParams((prev) => ({ ...prev, page }));
   }, [page]);
 
-  const { data, isLoading, error } = useAdminContactsList(queryParams);
+  // contactType에 따라 다른 API 훅 사용
+  const isLowCapital = contactType === 'LOW_CAPITAL';
+  const generalQuery = useAdminGeneralContacts(isLowCapital ? { page: 0, size: 0 } : queryParams);
+  const lowCapitalQuery = useAdminLowCapitalContacts(
+    !isLowCapital ? { page: 0, size: 0 } : queryParams
+  );
+
+  // 현재 contactType에 맞는 쿼리 결과 사용
+  const { data, isLoading, error } = isLowCapital ? lowCapitalQuery : generalQuery;
 
   // 1지망 지역 목록 조회 (소규모 문의용)
   const { data: regionsData } = useAdminFirstRegions();
@@ -42,18 +55,20 @@ const InquiryList = ({ onViewInquiry, filters, setFilters }) => {
   // 필터 적용 버튼 클릭 핸들러
   const handleApplyFilters = () => {
     setPage(0);
-    setQueryParams({
-      contactType,
+    const newParams = {
       page: 0,
       size,
-      ...(filters.region && { region: filters.region }),
       ...(filters.status && { contactStatus: filters.status }),
       ...(filters.search && { keyword: filters.search }),
-    });
+    };
+    // 소규모 창업 문의인 경우에만 region 파라미터 추가
+    if (isLowCapital && filters.region) {
+      newParams.region = filters.region;
+    }
+    setQueryParams(newParams);
   };
 
   const inquiries = useMemo(() => data?.content || [], [data]);
-  const isLowCapital = contactType === 'LOW_CAPITAL';
 
   const formatYYMMDD = (iso) => {
     if (!iso) return '-';
