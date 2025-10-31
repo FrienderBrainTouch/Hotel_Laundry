@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 
 const ImageUpload = ({ images, setImages, newFiles, setNewFiles }) => {
   // newFiles가 없으면 기본값으로 초기화
@@ -74,47 +74,61 @@ const ImageUpload = ({ images, setImages, newFiles, setNewFiles }) => {
   };
 
   const removeGalleryImage = (index) => {
-    // 제거할 항목 가져오기 (URL string 또는 File 객체)
-    const itemToRemove = images.gallery[index];
-    
-    // images에서 제거
+    // images에서 제거 (인덱스 기반)
     setImages((prev) => ({
       ...prev,
       gallery: prev.gallery.filter((_, i) => i !== index),
     }));
-    
-    // 제거할 항목이 File 객체인 경우에만 newFiles에서도 제거
-    if (itemToRemove instanceof File) {
-      safeSetNewFiles((prev) => ({
-        ...prev,
-        gallery: (prev.gallery || []).filter((file) => file !== itemToRemove),
-      }));
-    }
+
+    // newFiles.gallery에서도 동일한 인덱스로 제거
+    // images.gallery와 newFiles.gallery는 같은 순서로 유지되어야 함
+    safeSetNewFiles((prev) => ({
+      ...prev,
+      gallery: (prev.gallery || []).filter((_, i) => i !== index),
+    }));
   };
 
-  // 미리보기 URL은 이미 images에 저장됨
-  const mainPreviewUrl = images.main;
-  const galleryPreviewUrls = Array.isArray(images.gallery)
-    ? images.gallery.filter((v) =>
-        typeof v === 'string' ? v && v.trim() !== '' : v instanceof File
-      )
-    : [];
+  // 미리보기 URL 처리 - File 객체는 object URL로 변환
+  const mainPreviewUrl = useMemo(() => {
+    if (!images.main) return null;
+    if (images.main instanceof File) {
+      return URL.createObjectURL(images.main);
+    }
+    return typeof images.main === 'string' && images.main.trim() ? images.main : null;
+  }, [images.main]);
+
+  const galleryPreviewUrls = useMemo(() => {
+    if (!Array.isArray(images.gallery)) return [];
+    return images.gallery
+      .filter((v) => v != null)
+      .map((item) => {
+        if (item instanceof File) {
+          return URL.createObjectURL(item);
+        }
+        return typeof item === 'string' && item.trim() ? item : null;
+      })
+      .filter((v) => v != null);
+  }, [images.gallery]);
 
   // URL 정리 (새로 생성된 object URL만 정리)
   useEffect(() => {
     return () => {
-      // images.main이 File 객체였다면 URL.revokeObjectURL 호출
-      if (images.main && typeof images.main === 'string' && images.main.startsWith('blob:')) {
-        URL.revokeObjectURL(images.main);
+      // mainPreviewUrl이 blob URL이면 정리
+      if (
+        mainPreviewUrl &&
+        typeof mainPreviewUrl === 'string' &&
+        mainPreviewUrl.startsWith('blob:')
+      ) {
+        URL.revokeObjectURL(mainPreviewUrl);
       }
-      // gallery에서 File 객체였던 것들 정리
-      (images.gallery || []).forEach((item) => {
-        if (typeof item === 'string' && item.startsWith('blob:')) {
-          URL.revokeObjectURL(item);
+      // galleryPreviewUrls에서 blob URL 정리
+      galleryPreviewUrls.forEach((url) => {
+        if (typeof url === 'string' && url.startsWith('blob:')) {
+          URL.revokeObjectURL(url);
         }
       });
     };
-  }, [images.main, images.gallery]);
+  }, [mainPreviewUrl, galleryPreviewUrls]);
 
   return (
     <div className="space-y-6">
@@ -138,6 +152,9 @@ const ImageUpload = ({ images, setImages, newFiles, setNewFiles }) => {
                 src={mainPreviewUrl || ''}
                 alt="메인 이미지"
                 className="mx-auto max-h-48 rounded-lg"
+                onError={(e) => {
+                  console.warn('메인 이미지 로드 실패:', images.main);
+                }}
               />
               <button
                 type="button"
@@ -195,9 +212,13 @@ const ImageUpload = ({ images, setImages, newFiles, setNewFiles }) => {
           {galleryPreviewUrls.map((url, index) => (
             <div key={index} className="relative">
               <img
-                src={url}
+                src={url || ''}
                 alt={`갤러리 ${index + 1}`}
                 className="w-full h-24 object-cover rounded-lg"
+                onError={(e) => {
+                  console.warn('갤러리 이미지 로드 실패:', url);
+                  e.target.style.display = 'none';
+                }}
               />
               <button
                 type="button"

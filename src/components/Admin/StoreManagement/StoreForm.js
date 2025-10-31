@@ -182,15 +182,13 @@ const StoreForm = ({ store, onBack, onSave }) => {
     };
 
     // 현재 남아있는 모든 항목 (URL string 또는 File)
-    const allItems = [
-      images.main,
-      ...(Array.isArray(images.gallery) ? images.gallery : []),
-    ].filter(Boolean);
+    const allItems = [images.main, ...(Array.isArray(images.gallery) ? images.gallery : [])].filter(
+      Boolean
+    );
 
     // 1. 현재 남아있는 URL들의 Set 생성 (빠른 조회용)
     const remainingUrlSet = new Set(
-      allItems
-        .filter((item) => typeof item === 'string' && item.trim() !== '')
+      allItems.filter((item) => typeof item === 'string' && item.trim() !== '')
     );
 
     // 2. 원래 순서(store.existingImages)를 유지하면서, 남아있는 것만 필터링
@@ -213,7 +211,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
         }
       });
     }
-    
+
     // 3-2. images에서 File 객체 수집 (드물지만 직접 File이 있을 수 있음)
     for (const item of allItems) {
       if (item instanceof File) {
@@ -230,10 +228,10 @@ const StoreForm = ({ store, onBack, onSave }) => {
     if (filesToAppend.length > 0) {
       filesToAppend.forEach((f) => formDataToSend.append('files', f));
     } else {
-      // 파일이 없을 때는 null을 명시적으로 전송 (생성/수정 모두)
-      formDataToSend.append('files', new Blob([], { type: 'application/octet-stream' }));
+      // 파일이 없을 때는 null 문자열로 전송
+      formDataToSend.append('files', 'null');
     }
-    
+
     // dto 추가
     formDataToSend.append('dto', JSON.stringify(dto));
 

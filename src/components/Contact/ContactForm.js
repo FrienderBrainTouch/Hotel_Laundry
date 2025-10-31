@@ -280,7 +280,7 @@ const ContactForm = ({
     if (firstChoiceId && !idSet.has(firstChoiceId)) setFirstChoiceId(null);
     if (secondChoiceId && !idSet.has(secondChoiceId)) setSecondChoiceId(null);
     if (thirdChoiceId && !idSet.has(thirdChoiceId)) setThirdChoiceId(null);
-  }, [recruitingStores]);
+  }, [recruitingStores, firstChoiceId, secondChoiceId, thirdChoiceId]);
 
   // 입력 변경 핸들러
   const handleChange = (e) => {
