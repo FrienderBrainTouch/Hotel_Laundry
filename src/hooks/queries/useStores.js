@@ -32,6 +32,26 @@ export function useStoresList(params) {
   });
 }
 
+// 모집중 매장 조회: GET /stores/recruting
+// 응답은 문자열 배열 또는 객체 배열일 수 있음 → 라벨 추출 함수로 가공
+export function useRecruitingStores(enabled = true) {
+  const api = useApi();
+  return useQuery({
+    queryKey: [...STORES_KEY, 'recruting'],
+    queryFn: () => api.get('/stores/recruiting'),
+    select: (res) => {
+      if (!res) return [];
+      if (Array.isArray(res)) return res;
+      if (Array.isArray(res?.content)) return res.content;
+      return [];
+    },
+    enabled,
+    staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+  });
+}
+
 // 매장 상세 조회: GET /stores/{id}
 export function useStoreDetail(id) {
   const api = useApi();
@@ -217,5 +237,16 @@ export function useAdminStoresList(params) {
     },
     staleTime: 60 * 1000, // 1분
     keepPreviousData: true,
+  });
+}
+
+// 관리자용 1지망 지역 목록 조회: GET /stores/admin/1st-region
+export function useAdminFirstRegions() {
+  const api = useApi(process.env.REACT_APP_API_BASE_URL);
+  
+  return useQuery({
+    queryKey: [...STORES_KEY, 'admin', '1st-region'],
+    queryFn: () => api.get('/stores/admin/1st-region'),
+    staleTime: 5 * 60 * 1000, // 5분
   });
 }

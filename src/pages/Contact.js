@@ -45,6 +45,9 @@ const Contact = () => {
     firstChoice: '',
     secondChoice: '',
     thirdChoice: '',
+    firstChoiceId: null,
+    secondChoiceId: null,
+    thirdChoiceId: null,
     // 공통 필드
     investment: '',
     hasExperience: '',
@@ -102,74 +105,52 @@ const Contact = () => {
     try {
       // 1) 서버 문의 저장 API 호출
       const contactType = inquiryType === 'lowCapital' ? 'LOW_CAPITAL' : 'GENERAL';
-      const buildPhone = () => `010-${formData.phone2}-${formData.phone3}`;
+      const buildPhone = () =>
+        `010-${String(formData.phone2 || '')}-${String(formData.phone3 || '')}`;
       const buildEmail = () =>
         formData.emailId && formData.emailDomain
           ? `${formData.emailId}@${formData.emailDomain}`
           : '';
-
-      const seoulDistricts = [
-        '서울시 강남구',
-        '서울시 강동구',
-        '서울시 강북구',
-        '서울시 강서구',
-        '서울시 관악구',
-        '서울시 광진구',
-        '서울시 구로구',
-        '서울시 금천구',
-        '서울시 노원구',
-        '서울시 도봉구',
-        '서울시 동대문구',
-        '서울시 동작구',
-        '서울시 마포구',
-        '서울시 서대문구',
-        '서울시 서초구',
-        '서울시 성동구',
-        '서울시 성북구',
-        '서울시 송파구',
-        '서울시 양천구',
-        '서울시 영등포구',
-        '서울시 용산구',
-        '서울시 은평구',
-        '서울시 종로구',
-        '서울시 중구',
-        '서울시 중랑구',
-      ];
-      const idxOf = (label) => {
-        const i = seoulDistricts.indexOf(label || '');
-        return i >= 0 ? i : 0;
-      };
+      const toNull = (v) => (v === '' || v === undefined ? null : v);
 
       const payload = {
         createUserDto: {
-          userName: formData.name,
+          userName: toNull(formData.name),
           phone: buildPhone(),
-          age: formData.age || '',
-          gender: formData.gender || '',
-          email: buildEmail(),
+          age: toNull(formData.age),
+          gender: toNull(formData.gender),
+          email: toNull(buildEmail()),
         },
         contactType,
         generalContact:
           contactType === 'GENERAL'
             ? {
-                region: formData.region || '',
-                detailRegion: formData.detailRegion || '',
-                openingTime: formData.openingTime || '',
+                region: toNull(formData.region),
+                detailRegion: toNull(formData.detailRegion),
+                openingTime: toNull(formData.openingTime),
               }
-            : null,
+            : {
+                region: null,
+                detailRegion: null,
+                openingTime: null,
+              },
         lowCapitalContact:
           contactType === 'LOW_CAPITAL'
             ? {
-                firstChoice: idxOf(formData.firstChoice),
-                secondChoice: idxOf(formData.secondChoice),
-                thirdChoice: idxOf(formData.thirdChoice),
+                firstChoice: formData.firstChoiceId ?? null,
+                secondChoice: formData.secondChoiceId ?? null,
+                thirdChoice: formData.thirdChoiceId ?? null,
               }
-            : null,
-        investment: formData.investment || '',
-        hasExperience: formData.hasExperience === 'yes',
-        buildingType: formData.buildingType === 'own',
-        knowPath: formData.knowPath || '',
-        etc: formData.etc || '',
+            : {
+                firstChoice: null,
+                secondChoice: null,
+                thirdChoice: null,
+              },
+        investment: toNull(formData.investment),
+        hasExperience: formData.hasExperience === '' ? null : formData.hasExperience === 'yes',
+        buildingType: formData.buildingType === '' ? null : formData.buildingType === 'own',
+        knowPath: toNull(formData.knowPath),
+        etc: toNull(formData.etc),
       };
 
       console.log('📤 Contact payload:', payload);
@@ -249,17 +230,19 @@ const Contact = () => {
           : process.env.REACT_APP_EMAILJS_TEMPLATE_ID; // 일반 템플릿
 
       // EmailJS 전송 (환경변수 없으면 스킵, 실패해도 폼 제출은 성공 처리)
+      // 참고: EmailJS 실패는 전체 제출 성공 여부에 영향을 주지 않음
       const PUBLIC_KEY = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
       const SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
       if (PUBLIC_KEY && SERVICE_ID && templateId) {
         try {
           await emailjs.send(SERVICE_ID, templateId, emailTemplateParams, PUBLIC_KEY);
-          console.log('📧 EmailJS sent');
+          console.log('📧 EmailJS 전송 성공');
         } catch (err) {
-          console.warn('이메일 전송 실패(무시):', err);
+          // EmailJS 실패는 무시 (서버에 이미 저장되었으므로)
+          console.warn('⚠️ EmailJS 전송 실패 (무시됨):', err);
         }
       } else {
-        console.warn('이메일 전송 건너뜀: EmailJS 환경변수 미설정');
+        console.warn('⚠️ EmailJS 전송 건너뜀: EmailJS 환경변수 미설정');
       }
 
       setSubmitStatus('success');
@@ -281,6 +264,9 @@ const Contact = () => {
         firstChoice: '',
         secondChoice: '',
         thirdChoice: '',
+        firstChoiceId: null,
+        secondChoiceId: null,
+        thirdChoiceId: null,
         investment: '',
         hasExperience: '',
         buildingType: '',
@@ -289,8 +275,9 @@ const Contact = () => {
       });
       setAgree(false);
     } catch (error) {
-      console.error('이메일 전송 실패:', error);
+      console.error('❌ 문의 접수 실패:', error);
       setSubmitStatus('error');
+      // HTTP 요청 실패 시에만 여기 도달
       alert('문의 접수에 실패했습니다. 다시 시도해 주세요.');
     } finally {
       setIsSubmitting(false);

@@ -113,10 +113,6 @@ const StoreForm = ({ store, onBack, onSave }) => {
     setNewFiles({ main: null, gallery: [] });
   }, [store]);
 
-  // 수정 진입 시 기존 이미지(URL)를 Blob->File로 미리 캐싱해두기
-  const [existingMainFile, setExistingMainFile] = useState(null);
-  const [existingGalleryFiles, setExistingGalleryFiles] = useState({}); // url -> File
-
   console.log('🔍 StoreForm render - images state:', {
     main: images.main,
     gallery: images.gallery,
@@ -124,92 +120,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
     galleryLength: images.gallery?.length,
   });
 
-  useEffect(() => {
-    console.log('🎯 useEffect triggered!', {
-      store: !!store,
-      imagesMain: images.main,
-      imagesGallery: images.gallery,
-    });
-
-    // store가 없으면 기존 파일 캐시 초기화
-    if (!store) {
-      setExistingMainFile(null);
-      setExistingGalleryFiles({});
-      return;
-    }
-
-    let isCancelled = false;
-
-    const urlToFile = async (url) => {
-      try {
-        console.log('🔄 Converting URL to File:', url);
-        const res = await fetch(url, {
-          mode: 'cors',
-          credentials: 'omit', // CORS 문제 해결을 위해 credentials 제거
-        });
-        if (!res.ok) {
-          console.warn('❌ Failed to fetch image:', res.status, res.statusText);
-          return null;
-        }
-        const blob = await res.blob();
-        const nameFromUrl = (url.split('/')?.pop() || 'image').split('?')[0];
-        const fileName = nameFromUrl || 'image.jpg';
-        const file = new File([blob], fileName, { type: blob.type || 'application/octet-stream' });
-        console.log('✅ Successfully converted to File:', file.name, file.size, 'bytes');
-        return file;
-      } catch (error) {
-        console.error('❌ Error converting URL to File:', error);
-        return null;
-      }
-    };
-
-    const run = async () => {
-      console.log('🚀 Starting image conversion process...', {
-        imagesMain: images.main,
-        imagesGallery: images.gallery,
-        isCancelled,
-      });
-
-      const updates = {};
-
-      // 메인 이미지 캐싱
-      if (typeof images.main === 'string' && images.main && !images.main.startsWith('blob:')) {
-        console.log('📸 Converting main image:', images.main);
-        const f = await urlToFile(images.main);
-        console.log('📸 Main image conversion result:', f);
-        if (!isCancelled) setExistingMainFile(f);
-      } else {
-        console.log('📸 Skipping main image conversion:', {
-          type: typeof images.main,
-          value: images.main,
-          isBlob: images.main?.startsWith('blob:'),
-        });
-        if (!isCancelled) setExistingMainFile(null);
-      }
-
-      // 갤러리 이미지 캐싱 (URL만)
-      const gallery = Array.isArray(images.gallery) ? images.gallery : [];
-      console.log('🖼️ Processing gallery images:', gallery);
-      for (const item of gallery) {
-        if (typeof item === 'string' && item && !item.startsWith('blob:')) {
-          console.log('🖼️ Converting gallery image:', item);
-          const f = await urlToFile(item);
-          if (f) {
-            updates[item] = f;
-            console.log('🖼️ Gallery image converted:', f.name);
-          }
-        }
-      }
-      console.log('🖼️ Final gallery updates:', updates);
-      if (!isCancelled) setExistingGalleryFiles(updates);
-    };
-
-    run();
-    return () => {
-      isCancelled = true;
-    };
-  }, [store, images.main, images.gallery]);
-
+  // 기존 URL->File 선변환 로직 제거 (서버가 existingImageIdsInOrder를 받음)
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
@@ -220,6 +131,49 @@ const StoreForm = ({ store, onBack, onSave }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // 필수 필드 검증
+    const requiredFields = [
+      { key: 'address', label: '매장 위치' },
+      { key: 'detailAddress', label: '상세 주소' },
+      { key: 'storeName', label: '매장명' },
+      { key: 'status', label: '상태' },
+      { key: 'targetRecruits', label: '목표 모집 인원' },
+      { key: 'targetOpeningDate', label: '목표 오픈 시기' },
+      { key: 'areaSqm', label: '평수' },
+      { key: 'washingMachines', label: '세탁기 대수' },
+      { key: 'dryers', label: '건조기 대수' },
+      { key: 'operatingHours', label: '운영시간' },
+      { key: 'areaType', label: '지역 특성' },
+      { key: 'detailsLocation', label: '상세 위치 정보' },
+      { key: 'detailsInterior', label: '인테리어 상태' },
+      { key: 'detailsFloor', label: '층수' },
+      { key: 'detailsRent', label: '월세 정보' },
+      { key: 'detailsDeposit', label: '보증금 정보' },
+      { key: 'detailsStartupCost', label: '창업 비용 정보' },
+      { key: 'detailsParking', label: '주차 정보' },
+      { key: 'detailsSize', label: '규모 정보' },
+      { key: 'householdCountInRadius', label: '반경 내 가구수' },
+      { key: 'populationByAgeGroup', label: '연령대별 인구' },
+      { key: 'competitorStores', label: '경쟁 매장 수' },
+      { key: 'locationAnalysis', label: '입지 분석' },
+    ];
+
+    const missingFields = requiredFields.filter(
+      (field) => !formData[field.key] || String(formData[field.key]).trim() === ''
+    );
+
+    // 메인 이미지 검증 (갤러리는 선택)
+    if (!images.main) {
+      alert('메인 이미지를 등록해 주세요.');
+      return;
+    }
+
+    if (missingFields.length > 0) {
+      const missingLabels = missingFields.map((field) => field.label).join(', ');
+      alert(`다음 필수 항목을 입력해 주세요:\n${missingLabels}`);
+      return;
+    }
 
     // FormData 생성 - 스웨거 방식
     const formDataToSend = new FormData();
@@ -258,77 +212,78 @@ const StoreForm = ({ store, onBack, onSave }) => {
       },
     };
 
-    formDataToSend.append('dto', JSON.stringify(dto));
-
-    // URL을 File로 변환하는 헬퍼 함수
-    const urlToFile = async (url) => {
-      try {
-        console.log('🔄 Converting URL to File:', url);
-        const res = await fetch(url, {
-          mode: 'cors',
-          credentials: 'omit',
-        });
-        if (!res.ok) {
-          console.warn('❌ Failed to fetch image:', res.status, res.statusText);
-          return null;
-        }
-        const blob = await res.blob();
-        const nameFromUrl = (url.split('/')?.pop() || 'image').split('?')[0];
-        const fileName = nameFromUrl || 'image.jpg';
-        const file = new File([blob], fileName, { type: blob.type || 'application/octet-stream' });
-        console.log('✅ Successfully converted to File:', file.name, file.size, 'bytes');
-        return file;
-      } catch (error) {
-        console.error('❌ Error converting URL to File:', error);
-        return null;
+    // 수정 모드: 남아있는 기존 이미지의 id 추출 + 새 파일 수집
+    const filesToAppend = [];
+    const seenFiles = new Set();
+    const addFileUnique = (file) => {
+      if (!(file instanceof File)) return;
+      const key = `${file.name}:${file.size}:${file.type}`;
+      if (!seenFiles.has(key)) {
+        seenFiles.add(key);
+        filesToAppend.push(file);
       }
     };
 
-    // 수정 모드: 기존 이미지 + 새로 업로드한 파일을 합쳐 전송
-    const filesToAppend = [];
+    // 현재 남아있는 모든 항목 (URL string 또는 File)
+    const allItems = [images.main, ...(Array.isArray(images.gallery) ? images.gallery : [])].filter(
+      Boolean
+    );
 
-    // 메인 이미지 처리
+    // 1. 현재 남아있는 URL들의 Set 생성 (빠른 조회용)
+    const remainingUrlSet = new Set(
+      allItems.filter((item) => typeof item === 'string' && item.trim() !== '')
+    );
+
+    // 2. 원래 순서(store.existingImages)를 유지하면서, 남아있는 것만 필터링
+    const existingImageIdsInOrder = Array.isArray(store?.existingImages)
+      ? store.existingImages
+          .filter((img) => img?.url && remainingUrlSet.has(img.url))
+          .map((img) => img.id)
+          .filter((id) => id != null)
+      : [];
+
+    // 3. 새 파일 수집
+    // 3-1. newFiles에서 실제 File 객체 수집 (생성/수정 모드 공통)
     if (newFiles?.main instanceof File) {
-      // 새로 업로드한 파일이 있으면 그것을 사용
-      filesToAppend.push(newFiles.main);
-    } else if (images.main instanceof File) {
-      // 이미 File 객체면 그대로 사용
-      filesToAppend.push(images.main);
-    } else if (typeof images.main === 'string' && !images.main.startsWith('blob:')) {
-      // URL이면 File로 변환
-      const f = await urlToFile(images.main);
-      if (f) filesToAppend.push(f);
+      addFileUnique(newFiles.main);
+    }
+    if (Array.isArray(newFiles?.gallery)) {
+      newFiles.gallery.forEach((file) => {
+        if (file instanceof File) {
+          addFileUnique(file);
+        }
+      });
     }
 
-    // 갤러리 이미지 처리
-    const galleryList = Array.isArray(images.gallery) ? images.gallery : [];
-    for (const item of galleryList) {
+    // 3-2. images에서 File 객체 수집 (드물지만 직접 File이 있을 수 있음)
+    for (const item of allItems) {
       if (item instanceof File) {
-        filesToAppend.push(item);
-      } else if (typeof item === 'string' && !item.startsWith('blob:')) {
-        const f = await urlToFile(item);
-        if (f) filesToAppend.push(f);
+        addFileUnique(item);
       }
     }
 
-    // 새로 업로드된 갤러리 파일 추가
-    if (newFiles?.gallery && newFiles.gallery.length > 0) {
-      for (const file of newFiles.gallery) {
-        if (file instanceof File) filesToAppend.push(file);
-      }
+    // DTO에 existing ids 포함 (수정 모드에서만 의미 있음)
+    if (store) {
+      dto.existingImageIdsInOrder = existingImageIdsInOrder;
     }
 
-    filesToAppend.forEach((f) => formDataToSend.append('files', f));
+    // files 첨부
+    if (filesToAppend.length > 0) {
+      filesToAppend.forEach((f) => formDataToSend.append('files', f));
+    } else {
+      // 파일이 없을 때는 null 문자열로 전송
+      formDataToSend.append('files', 'null');
+    }
+
+    // dto 추가
+    formDataToSend.append('dto', JSON.stringify(dto));
 
     // 디버깅: 파일 수집 상태 확인
     console.log('🔍 File Collection Debug:', {
-      newFilesMain: newFiles?.main,
-      newFilesGallery: newFiles?.gallery,
-      imagesMain: images.main,
-      imagesGallery: images.gallery,
-      existingMainFile: existingMainFile,
-      existingGalleryFiles: existingGalleryFiles,
-      filesToAppend: filesToAppend.map((f) => ({
+      mode: store ? '수정' : '생성',
+      existingImageIdsInOrder: store ? existingImageIdsInOrder : '(생성 모드)',
+      newFilesCount: filesToAppend.length,
+      newFiles: filesToAppend.map((f) => ({
         name: f.name,
         type: f.type,
         size: f.size,
@@ -363,10 +318,13 @@ const StoreForm = ({ store, onBack, onSave }) => {
         }
       });
       console.group('\uD83D\uDDC3\uFE0F FormData Preview (about to send)');
-      console.log('Endpoint:', '/admin/stores');
+      console.log('Endpoint:', store ? `PATCH /admin/stores/${store.id}` : 'POST /admin/stores');
       console.table(entries);
-      const filesCount = entries.filter((e) => e.key === 'files').length;
-      console.log('files appended:', filesCount);
+      const filesCount = entries.filter((e) => e.key === 'files' && e.file).length;
+      console.log('files appended:', filesCount, filesCount === 0 ? '(null로 전송)' : '');
+      if (store) {
+        console.log('dto.existingImageIdsInOrder:', dto.existingImageIdsInOrder);
+      }
       console.groupEnd();
     } catch (e) {
       console.warn('FormData preview failed:', e);
@@ -379,9 +337,13 @@ const StoreForm = ({ store, onBack, onSave }) => {
     <div className="bg-white rounded-lg shadow-sm border border-gray-200">
       <div className="px-6 py-4 border-b border-gray-200">
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-medium text-gray-900">
-            {store ? '매장 수정' : '새 매장 등록'}
-          </h3>
+          <div>
+            <h3 className="text-lg font-medium text-gray-900">
+              {store ? '매장 수정' : '새 매장 등록'}
+            </h3>
+            <p className="text-gray-500 text-sm">* 필수 입력 항목 / 미정 선택 시 미정으로 저장</p>
+          </div>
+
           <button
             type="button"
             onClick={onBack}
@@ -422,12 +384,13 @@ const StoreForm = ({ store, onBack, onSave }) => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">상세 주소</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">상세 주소 *</label>
               <input
                 type="text"
                 name="detailAddress"
                 value={formData.detailAddress || ''}
                 onChange={handleInputChange}
+                required
                 placeholder="구월동 123-45"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               />
@@ -441,6 +404,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               >
+                {/* <option value="UNDECIDED">미정</option> */}
                 {statusOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -460,6 +424,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               >
                 <option value="">선택하세요</option>
+                <option value="UNDECIDED">미정</option>
                 {targetRecruitsOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -468,12 +433,15 @@ const StoreForm = ({ store, onBack, onSave }) => {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">목표 오픈 시기</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                목표 오픈 시기 *
+              </label>
               <input
                 type="text"
                 name="targetOpeningDate"
                 value={formData.targetOpeningDate || ''}
                 onChange={handleInputChange}
+                required
                 placeholder="2025년 9월 오픈 목표"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               />
@@ -495,6 +463,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               >
                 <option value="">선택하세요</option>
+                <option value="UNDECIDED">미정</option>
                 {sizeOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -512,6 +481,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               >
                 <option value="">선택하세요</option>
+                <option value="UNDECIDED">미정</option>
                 {washingMachineOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -529,6 +499,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               >
                 <option value="">선택하세요</option>
+                <option value="UNDECIDED">미정</option>
                 {dryerOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -537,14 +508,16 @@ const StoreForm = ({ store, onBack, onSave }) => {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">운영시간</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">운영시간 *</label>
               <select
                 name="operatingHours"
                 value={formData.operatingHours || ''}
                 onChange={handleInputChange}
+                required
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               >
                 <option value="">선택하세요</option>
+                <option value="UNDECIDED">미정</option>
                 {operatingHoursOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -553,14 +526,16 @@ const StoreForm = ({ store, onBack, onSave }) => {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">지역 특성</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">지역 특성 *</label>
               <select
                 name="areaType"
                 value={formData.areaType || ''}
                 onChange={handleInputChange}
+                required
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               >
                 <option value="">선택하세요</option>
+                <option value="UNDECIDED">미정</option>
                 {areaTypeOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -576,25 +551,32 @@ const StoreForm = ({ store, onBack, onSave }) => {
           <h4 className="text-lg font-medium text-gray-900 mb-4">상세 정보</h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">상세 위치 정보</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                상세 위치 정보 *
+              </label>
               <input
                 type="text"
                 name="detailsLocation"
                 value={formData.detailsLocation}
                 onChange={handleInputChange}
+                required
                 placeholder="서울시 동작구 상도동"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">인테리어 상태</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                인테리어 상태 *
+              </label>
               <select
                 name="detailsInterior"
                 value={formData.detailsInterior}
                 onChange={handleInputChange}
+                required
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               >
                 <option value="">선택하세요</option>
+                <option value="UNDECIDED">미정</option>
                 {interiorOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -603,14 +585,16 @@ const StoreForm = ({ store, onBack, onSave }) => {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">층수</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">층수 *</label>
               <select
                 name="detailsFloor"
                 value={formData.detailsFloor}
                 onChange={handleInputChange}
+                required
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               >
                 <option value="">선택하세요</option>
+                <option value="UNDECIDED">미정</option>
                 {floorOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -619,56 +603,61 @@ const StoreForm = ({ store, onBack, onSave }) => {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">월세 정보</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">월세 정보 *</label>
               <input
                 type="text"
                 name="detailsRent"
                 value={formData.detailsRent}
                 onChange={handleInputChange}
+                required
                 placeholder="월세 4,000/350 (관리비 포함)"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">권리금</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">권리금 *</label>
               <input
                 type="text"
                 name="detailsDeposit"
                 value={formData.detailsDeposit}
                 onChange={handleInputChange}
+                required
                 placeholder="권리금 3,500"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">창업비용</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">창업비용 *</label>
               <input
                 type="text"
                 name="detailsStartupCost"
                 value={formData.detailsStartupCost}
                 onChange={handleInputChange}
+                required
                 placeholder="창업비용 3000만원"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">주차 상세</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">주차 상세 *</label>
               <input
                 type="text"
                 name="detailsParking"
                 value={formData.detailsParking}
                 onChange={handleInputChange}
+                required
                 placeholder="주차 가능 - 매장 앞 4대"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">면적</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">면적 *</label>
               <input
                 type="text"
                 name="detailsSize"
                 value={formData.detailsSize}
                 onChange={handleInputChange}
+                required
                 placeholder="전용 52.99m²"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               />
@@ -682,46 +671,54 @@ const StoreForm = ({ store, onBack, onSave }) => {
           <div className="space-y-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                반경 내 가구 수
+                반경 내 가구 수 *
               </label>
               <input
                 type="text"
                 name="householdCountInRadius"
                 value={formData.householdCountInRadius}
                 onChange={handleInputChange}
+                required
                 placeholder="반경 500m 내 약 1,200가구"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">연령대별 인구</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                연령대별 인구 *
+              </label>
               <input
                 type="text"
                 name="populationByAgeGroup"
                 value={formData.populationByAgeGroup}
                 onChange={handleInputChange}
+                required
                 placeholder="20-30대 40%, 30-40대 35%, 40-50대 25%"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">경쟁업체 현황</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                경쟁업체 현황 *
+              </label>
               <input
                 type="text"
                 name="competitorStores"
                 value={formData.competitorStores}
                 onChange={handleInputChange}
+                required
                 placeholder="반경 1km 내 세탁소 2개소, 무인세탁방 1개소"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">입지 분석</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">입지 분석 *</label>
               <textarea
                 name="locationAnalysis"
                 value={formData.locationAnalysis}
                 onChange={handleInputChange}
                 rows={4}
+                required
                 placeholder="인근 주거 밀집 지역과 생활 편의시설이 결합된 안정적인 상권에 위치한 무인세탁방 매물로, 바로 영업이 가능하며 꾸준한 수익 창출이 기대되는 입지입니다."
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               />

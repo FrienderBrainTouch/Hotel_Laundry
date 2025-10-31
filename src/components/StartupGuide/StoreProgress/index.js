@@ -18,8 +18,19 @@ const StoreProgress = () => {
     status: statusParam,
     page: currentPage - 1, // API는 0-based
     size: itemsPerPage,
-    sort: 'modifiedAt,desc',
+    // sort: 'modifiedAt,desc',
   });
+
+  const getStatusPill = (status) => {
+    const map = {
+      WAITING: { text: '대기', cls: 'bg-gray-100 text-gray-800' },
+      RECRUITING: { text: '모집중', cls: 'bg-blue-100 text-blue-800' },
+      CLOSED: { text: '모집마감', cls: 'bg-gray-200 text-gray-800' },
+      COMPLETE: { text: '완료', cls: 'bg-green-100 text-green-800' },
+    };
+    const { text, cls } = map[status] || { text: status || '-', cls: 'bg-gray-100 text-gray-800' };
+    return { text, cls };
+  };
 
   const totalPages = data?.totalPages || 0;
   const currentStores = useMemo(() => {
@@ -39,12 +50,12 @@ const StoreProgress = () => {
       return {
         id: s.storeId,
         location: locationText,
-        status: activeFilter === 'closed' ? 'closed' : 'recruiting',
+        status: s.status || null,
         details: detailsLines.join('\n'),
         thumbnail: toImageUrl(s.imageKey),
       };
     });
-  }, [data, activeFilter]);
+  }, [data]);
 
   // 필터 변경 시 첫 페이지로 이동
   const handleFilterChange = (filter) => {
@@ -233,24 +244,36 @@ const StoreProgress = () => {
                     key={store.id}
                     to={`/startup-guide/low-capital-startup/store-progress/${store.id}`}
                     className={`w-full max-w-[335px] mx-auto block transition-opacity duration-200 ${
-                      store.status === 'closed' ? 'opacity-60 hover:opacity-70' : 'hover:opacity-90'
+                      store.status === 'CLOSED' ? 'opacity-60 hover:opacity-70' : 'hover:opacity-90'
                     }`}
                   >
                     {/* Store Image */}
-                    <div className="w-full h-[250px] rounded-t-2xl mb-0 overflow-hidden">
+                    <div className="w-full h-[250px] rounded-t-2xl mb-0 overflow-hidden relative">
                       <img
                         src={store.thumbnail || '/images/store-progress/store-image.png'}
                         alt={`${store.location} 매장`}
                         className={`w-full h-full object-cover ${
-                          store.status === 'closed' ? 'grayscale brightness-75' : ''
+                          store.status === 'CLOSED' ? 'grayscale brightness-75' : ''
                         }`}
                       />
+                      {store.status
+                        ? (() => {
+                            const { text, cls } = getStatusPill(store.status);
+                            return (
+                              <span
+                                className={`absolute top-3 right-3 px-2.5 py-1 rounded-full text-xs font-semibold ${cls}`}
+                              >
+                                {text}
+                              </span>
+                            );
+                          })()
+                        : null}
                     </div>
 
                     {/* Store Info */}
                     <div
                       className={`px-3 py-2 rounded-b-2xl h-[179px] flex flex-col ${
-                        store.status === 'recruiting'
+                        store.status === 'RECRUITING'
                           ? 'bg-[rgba(164,198,224,0.2)]'
                           : 'bg-[#F2F2F2]'
                       }`}

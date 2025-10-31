@@ -61,13 +61,34 @@ const StoreManagement = () => {
     if (!selectedStore || !detailQuery?.data) return selectedStore; // 신규 등록 또는 로딩 중
     const d = detailQuery.data;
 
-    // 이미지 키를 절대 URL로 변환(미리보기 용)
+    // 이미지 키를 절대 URL로 변환(미리보기 용) - 변경된 DTO(images: [{imageId, key}]) 대응
     const imageBase = process.env.REACT_APP_IMAGE_BASE_URL || '';
-    const imageUrls = Array.isArray(d.images)
-      ? d.images.map((key) => (key ? `${imageBase}${key}` : key)).filter(Boolean)
+    const buildImageUrl = (base, key) => {
+      if (!key) return '';
+      if (/^https?:\/\//i.test(key)) return key; // already absolute
+      if (base.includes('key=')) return `${base}${encodeURIComponent(key)}`; // e.g., ...?key=
+      if (/\?$/.test(base)) return `${base}key=${encodeURIComponent(key)}`; // ends with ?
+      if (base.includes('?')) return `${base}&key=${encodeURIComponent(key)}`; // has other params
+      if (/\/$/.test(base)) return `${base}${key}`; // path join fallback
+      return `${base}?key=${encodeURIComponent(key)}`; // default query style
+    };
+    const rawImages = d?.raw?.images || d.images || [];
+    const existingImages = Array.isArray(rawImages)
+      ? rawImages
+          .map((img) => {
+            if (!img) return null;
+            const key = typeof img === 'string' ? img : img.key;
+            const id = typeof img === 'string' ? undefined : img.imageId;
+            if (!key) return null;
+            const url = buildImageUrl(imageBase, key);
+            return { id, url };
+          })
+          .filter(Boolean)
       : [];
+    const imageUrls = existingImages.map((x) => x.url);
 
     return {
+      id: selectedStore.id, // 수정 모드 식별용
       address: { address: d.address || '', detailAddress: d.detailAddress || '' },
       storeBasicInfo: {
         areaSqm: d.areaSqm ?? '',
@@ -97,6 +118,7 @@ const StoreManagement = () => {
         locationAnalysis: d.locationAnalysis || '',
       },
       images: imageUrls,
+      existingImages, // [{ id, url }]
     };
   }, [selectedStore, detailQuery?.data]);
 

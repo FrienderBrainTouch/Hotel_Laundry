@@ -25,13 +25,8 @@ const Dashboard = () => {
           {/* 상태별 매장 수 */}
           <StatusBreakdown storeCounts={storeCounts} isLoading={isLoading} />
 
-          {/* 최근 업데이트된 매장 */}
-          <div className="bg-white p-4 lg:p-6 rounded-lg shadow-sm border border-gray-200">
-            <h3 className="text-base lg:text-lg font-semibold text-gray-900 mb-3 lg:mb-4">
-              최근 업데이트된 매장
-            </h3>
-            <RecentUpdates />
-          </div>
+          {/* 1지망 Top 3 */}
+          <TopRegions />
         </div>
 
         {/* 오른쪽: 분석/통계 중심 */}
@@ -39,8 +34,13 @@ const Dashboard = () => {
           {/* 지역별 문의 비율 */}
           {/* <InquiryRegionChart /> */}
 
-          {/* 1지망 Top 3 */}
-          <TopRegions />
+          {/* 최근 업데이트된 매장 */}
+          <div className="bg-white p-4 lg:p-6 rounded-lg shadow-sm border border-gray-200">
+            <h3 className="text-base lg:text-lg font-semibold text-gray-900 mb-3 lg:mb-4">
+              최근 업데이트된 매장
+            </h3>
+            <RecentUpdates />
+          </div>
         </div>
       </div>
     </div>

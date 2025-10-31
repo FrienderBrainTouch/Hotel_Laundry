@@ -1,136 +1,146 @@
-import React from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
+import {
+  useAdminGeneralContacts,
+  useAdminLowCapitalContacts,
+} from '../../../hooks/queries/useContacts';
+import { useAdminFirstRegions } from '../../../hooks/queries/useStores';
 
 const InquiryList = ({ onViewInquiry, filters, setFilters }) => {
-  // 지역별 문의 데이터 (실제로는 API에서 가져올 데이터)
-  const inquiries = [
-    {
-      id: 1,
-      name: '김창업',
-      age: '30대',
-      gender: 'male',
-      phone2: '1234',
-      phone3: '5678',
-      emailId: 'kim',
-      emailDomain: 'example.com',
-      investmentAmount: '5천~3천만원',
-      laundryExperience: 'yes',
-      buildingOwnership: 'rent',
-      discoveryPath: '인터넷 검색',
-      firstChoice: '서울시 강남구',
-      secondChoice: '서울시 서초구',
-      thirdChoice: '서울시 송파구',
-      inquiryContent:
-        '강남구 세탁소 창업에 대해 문의드립니다. 초기 비용과 수익성에 대해 알고 싶습니다.',
-      status: '미확인',
-      createdAt: '2024-01-15 14:30',
-      priority: 'high',
-      storeId: 1,
-      storeName: '강남구 세탁소',
-      storeStatus: 'active',
-    },
-    {
-      id: 2,
-      name: '이사업',
-      age: '40대',
-      gender: 'female',
-      phone2: '2345',
-      phone3: '6789',
-      emailId: 'lee',
-      emailDomain: 'gmail.com',
-      investmentAmount: '7천~1억',
-      laundryExperience: 'no',
-      buildingOwnership: 'own',
-      discoveryPath: '지인 소개',
-      firstChoice: '부산광역시 해운대구',
-      secondChoice: '부산광역시 부산진구',
-      thirdChoice: '',
-      inquiryContent:
-        '부산 해운대점 운영에 대해 문의드립니다. 일일 매출과 고객 수에 대해 궁금합니다.',
-      status: '처리중',
-      createdAt: '2024-01-14 09:15',
-      priority: 'medium',
-      storeId: 2,
-      storeName: '부산 해운대점',
-      storeStatus: 'deleted',
-    },
-    {
-      id: 3,
-      name: '박투자',
-      age: '50대',
-      gender: 'male',
-      phone2: '3456',
-      phone3: '7890',
-      emailId: 'park',
-      emailDomain: 'naver.com',
-      investmentAmount: '1억~1억5천',
-      laundryExperience: 'yes',
-      buildingOwnership: 'rent',
-      discoveryPath: '온라인 광고',
-      firstChoice: '대구광역시 중구',
-      secondChoice: '대구광역시 동구',
-      thirdChoice: '대구광역시 서구',
-      inquiryContent:
-        '대구 중구점 투자에 대해 문의드립니다. 투자 금액과 수익률에 대해 알고 싶습니다.',
-      status: '완료',
-      createdAt: '2024-01-13 16:45',
-      priority: 'low',
-      storeId: 3,
-      storeName: '대구 중구점',
-      storeStatus: 'active',
-    },
-  ];
+  const [contactType, setContactType] = useState('GENERAL');
+  const [page, setPage] = useState(0);
+  const [size] = useState(10);
+
+  // 실제 API로 전송될 쿼리 파라미터 상태
+  const [queryParams, setQueryParams] = useState({
+    page: 0,
+    size: 10,
+  });
+
+  // 문의 유형이 변경되면 자동으로 API 호출 (페이지도 0으로 리셋)
+  useEffect(() => {
+    setPage(0);
+    const newParams = {
+      page: 0,
+      size,
+      ...(filters.status && { contactStatus: filters.status }),
+      ...(filters.search && { keyword: filters.search }),
+    };
+    // 소규모 창업 문의인 경우에만 region 파라미터 추가
+    if (contactType === 'LOW_CAPITAL' && filters.region) {
+      newParams.region = filters.region;
+    }
+    setQueryParams(newParams);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [contactType]);
+
+  // 페이지가 바뀌면 현재 쿼리 파라미터에 페이지만 반영하여 재조회
+  useEffect(() => {
+    setQueryParams((prev) => ({ ...prev, page }));
+  }, [page]);
+
+  // contactType에 따라 다른 API 훅 사용
+  const isLowCapital = contactType === 'LOW_CAPITAL';
+  const generalQuery = useAdminGeneralContacts(isLowCapital ? { page: 0, size: 0 } : queryParams);
+  const lowCapitalQuery = useAdminLowCapitalContacts(
+    !isLowCapital ? { page: 0, size: 0 } : queryParams
+  );
+
+  // 현재 contactType에 맞는 쿼리 결과 사용
+  const { data, isLoading, error } = isLowCapital ? lowCapitalQuery : generalQuery;
+
+  // 1지망 지역 목록 조회 (소규모 문의용)
+  const { data: regionsData } = useAdminFirstRegions();
+  const regions = useMemo(() => regionsData || [], [regionsData]);
+
+  // 필터 적용 버튼 클릭 핸들러
+  const handleApplyFilters = () => {
+    setPage(0);
+    const newParams = {
+      page: 0,
+      size,
+      ...(filters.status && { contactStatus: filters.status }),
+      ...(filters.search && { keyword: filters.search }),
+    };
+    // 소규모 창업 문의인 경우에만 region 파라미터 추가
+    if (isLowCapital && filters.region) {
+      newParams.region = filters.region;
+    }
+    setQueryParams(newParams);
+  };
+
+  const inquiries = useMemo(() => data?.content || [], [data]);
+
+  const formatYYMMDD = (iso) => {
+    if (!iso) return '-';
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return '-';
+    const yy = String(d.getFullYear()).slice(-2);
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    return `${yy}.${mm}.${dd}`;
+  };
+
+  const getStatusLabel = (status) => {
+    const map = {
+      UNCHECKED: '미확인',
+      COMPLETE: '완료',
+      DELETED: '삭제됨',
+    };
+    return map[status] || status || '-';
+  };
 
   const getStatusColor = (status) => {
+    const label = getStatusLabel(status);
     const colors = {
       미확인: 'bg-red-100 text-red-800',
-      처리중: 'bg-yellow-100 text-yellow-800',
       완료: 'bg-green-100 text-green-800',
       삭제됨: 'bg-gray-100 text-gray-600',
     };
-    return colors[status] || 'bg-gray-100 text-gray-800';
-  };
-
-  const getPriorityColor = (priority) => {
-    const colors = {
-      high: 'bg-red-100 text-red-800',
-      medium: 'bg-yellow-100 text-yellow-800',
-      low: 'bg-green-100 text-green-800',
-    };
-    return colors[priority] || 'bg-gray-100 text-gray-800';
+    return colors[label] || 'bg-gray-100 text-gray-800';
   };
 
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200">
       {/* 필터 */}
       <div className="p-6 border-b border-gray-200">
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+        <div
+          className={`grid grid-cols-1 gap-4 ${isLowCapital ? 'md:grid-cols-5' : 'md:grid-cols-4'}`}
+        >
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">지역 (1지망)</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">문의 유형</label>
             <select
-              value={filters.region}
-              onChange={(e) => setFilters({ ...filters, region: e.target.value })}
+              value={contactType}
+              onChange={(e) => {
+                setContactType(e.target.value);
+                // 일반 문의로 변경 시 지역 필터 초기화
+                if (e.target.value === 'GENERAL') {
+                  setFilters({ ...filters, region: '' });
+                }
+              }}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
             >
-              <option value="">전체 지역</option>
-              <option value="서울시">서울시</option>
-              <option value="부산광역시">부산광역시</option>
-              <option value="대구광역시">대구광역시</option>
-              <option value="인천광역시">인천광역시</option>
-              <option value="광주광역시">광주광역시</option>
-              <option value="대전광역시">대전광역시</option>
-              <option value="울산광역시">울산광역시</option>
-              <option value="세종특별자치시">세종특별자치시</option>
-              <option value="경기도">경기도</option>
-              <option value="강원도">강원도</option>
-              <option value="충청북도">충청북도</option>
-              <option value="충청남도">충청남도</option>
-              <option value="전라북도">전라북도</option>
-              <option value="전라남도">전라남도</option>
-              <option value="경상북도">경상북도</option>
-              <option value="경상남도">경상남도</option>
-              <option value="제주특별자치도">제주특별자치도</option>
+              {/* 문의 유형 변경 시 자동으로 API 호출됨 */}
+              <option value="GENERAL">일반 문의</option>
+              <option value="LOW_CAPITAL">소규모 문의</option>
             </select>
           </div>
+          {isLowCapital && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">지역 (1지망)</label>
+              <select
+                value={filters.region}
+                onChange={(e) => setFilters({ ...filters, region: e.target.value })}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
+              >
+                <option value="">전체 지역</option>
+                {regions.map((item, index) => (
+                  <option key={index} value={item.region}>
+                    {item.region}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">상태</label>
             <select
@@ -139,21 +149,9 @@ const InquiryList = ({ onViewInquiry, filters, setFilters }) => {
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
             >
               <option value="">전체</option>
-              <option value="미확인">미확인</option>
-              <option value="처리중">처리중</option>
-              <option value="완료">완료</option>
-            </select>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">매장 상태</label>
-            <select
-              value={filters.storeStatus}
-              onChange={(e) => setFilters({ ...filters, storeStatus: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
-            >
-              <option value="">전체</option>
-              <option value="active">활성 매장</option>
-              <option value="deleted">삭제된 매장</option>
+              <option value="UNCHECKED">미확인</option>
+              <option value="COMPLETE">완료</option>
+              <option value="DELETED">삭제됨</option>
             </select>
           </div>
           <div>
@@ -163,11 +161,20 @@ const InquiryList = ({ onViewInquiry, filters, setFilters }) => {
               placeholder="이름, 연락처, 문의내용"
               value={filters.search}
               onChange={(e) => setFilters({ ...filters, search: e.target.value })}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  handleApplyFilters();
+                }
+              }}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
             />
           </div>
           <div className="flex items-end">
-            <button className="w-full bg-brand-blue hover:bg-brand-dark text-white px-4 py-2 rounded-md font-medium transition-colors">
+            <button
+              onClick={handleApplyFilters}
+              className="w-full px-4 py-2 bg-brand-blue hover:bg-brand-dark text-white rounded-md font-medium transition-colors"
+            >
               필터 적용
             </button>
           </div>
@@ -186,7 +193,7 @@ const InquiryList = ({ onViewInquiry, filters, setFilters }) => {
                 연락처
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                1지망 지역
+                {isLowCapital ? '1지망 지역' : '지역'}
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 투자 가능 비용
@@ -195,77 +202,93 @@ const InquiryList = ({ onViewInquiry, filters, setFilters }) => {
                 상태
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                우선순위
+                문의 날짜
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                등록일
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                작업
+                상세
               </th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {inquiries.map((inquiry) => (
-              <tr key={inquiry.id} className="hover:bg-gray-50">
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm font-medium text-gray-900">{inquiry.name}</div>
-                  <div className="text-sm text-gray-500">
-                    {inquiry.age} {inquiry.gender === 'male' ? '남' : '여'}
-                  </div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">
-                    010-{inquiry.phone2}-{inquiry.phone3}
-                  </div>
-                  <div className="text-sm text-gray-500">
-                    {inquiry.emailId}@{inquiry.emailDomain}
-                  </div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm font-medium text-gray-900">{inquiry.firstChoice}</div>
-                  {inquiry.secondChoice && (
-                    <div className="text-sm text-gray-500">2지망: {inquiry.secondChoice}</div>
-                  )}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">{inquiry.investmentAmount}</div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span
-                    className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(
-                      inquiry.storeStatus === 'deleted' ? '삭제됨' : inquiry.status
-                    )}`}
-                  >
-                    {inquiry.storeStatus === 'deleted' ? '삭제됨' : inquiry.status}
-                  </span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span
-                    className={`px-2 py-1 rounded-full text-xs font-medium ${getPriorityColor(
-                      inquiry.priority
-                    )}`}
-                  >
-                    {inquiry.priority === 'high'
-                      ? '높음'
-                      : inquiry.priority === 'medium'
-                      ? '보통'
-                      : '낮음'}
-                  </span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">{inquiry.createdAt}</div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                  <button
-                    onClick={() => onViewInquiry(inquiry)}
-                    className="text-blue-600 hover:text-blue-900"
-                  >
-                    상세보기
-                  </button>
+            {!isLoading &&
+              !error &&
+              inquiries.map((inquiry) => (
+                <tr key={inquiry.contactId} className="hover:bg-gray-50">
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm font-medium text-gray-900">{inquiry.userName}</div>
+                    <div className="text-xs text-gray-500">{inquiry.contactType}</div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm text-gray-900">{inquiry.phone}</div>
+                    <div className="text-sm text-gray-500">{inquiry.email}</div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    {isLowCapital ? (
+                      <div>
+                        <div className="text-sm font-medium text-gray-900">
+                          {inquiry.firstChoiceStore}
+                        </div>
+                        {inquiry.secondChoiceStore && (
+                          <div className="text-sm text-gray-500">
+                            2지망: {inquiry.secondChoiceStore}
+                          </div>
+                        )}
+                        {inquiry.thirdChoiceStore && (
+                          <div className="text-sm text-gray-500">
+                            3지망: {inquiry.thirdChoiceStore}
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <div>
+                        <div className="text-sm font-medium text-gray-900">
+                          {inquiry.region || '-'}
+                        </div>
+                        {inquiry.detailRegion && (
+                          <div className="text-xs text-gray-500">{inquiry.detailRegion}</div>
+                        )}
+                      </div>
+                    )}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm text-gray-900">{inquiry.investment}</div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <span
+                      className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(
+                        inquiry.contactStatus
+                      )}`}
+                    >
+                      {getStatusLabel(inquiry.contactStatus)}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm text-gray-900">{formatYYMMDD(inquiry.createdAt)}</div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <button
+                      onClick={() => onViewInquiry(inquiry)}
+                      className="text-blue-600 hover:text-blue-900"
+                    >
+                      상세보기
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            {isLoading && (
+              <tr>
+                <td className="px-6 py-6 text-center text-gray-500" colSpan={8}>
+                  불러오는 중…
                 </td>
               </tr>
-            ))}
+            )}
+            {error && (
+              <tr>
+                <td className="px-6 py-6 text-center text-red-600" colSpan={8}>
+                  목록을 불러오지 못했습니다.
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
@@ -274,14 +297,24 @@ const InquiryList = ({ onViewInquiry, filters, setFilters }) => {
       <div className="px-6 py-4 border-t border-gray-200">
         <div className="flex items-center justify-between">
           <div className="text-sm text-gray-700">
-            총 <span className="font-medium">3</span>개 문의
+            총 <span className="font-medium">{data?.totalElements ?? 0}</span>개 문의
           </div>
           <div className="flex space-x-2">
-            <button className="px-3 py-1 text-sm border border-gray-300 rounded-md hover:bg-gray-50">
+            <button
+              className="px-3 py-1 text-sm border border-gray-300 rounded-md hover:bg-gray-50"
+              disabled={page <= 0}
+              onClick={() => setPage((p) => Math.max(0, p - 1))}
+            >
               이전
             </button>
-            <button className="px-3 py-1 text-sm bg-brand-blue text-white rounded-md">1</button>
-            <button className="px-3 py-1 text-sm border border-gray-300 rounded-md hover:bg-gray-50">
+            <span className="px-3 py-1 text-sm">
+              {(data?.number ?? page) + 1} / {data?.totalPages ?? 1}
+            </span>
+            <button
+              className="px-3 py-1 text-sm border border-gray-300 rounded-md hover:bg-gray-50"
+              disabled={data?.last}
+              onClick={() => setPage((p) => p + 1)}
+            >
               다음
             </button>
           </div>
