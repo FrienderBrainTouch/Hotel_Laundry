@@ -11,11 +11,11 @@ const RecentUpdates = () => {
       case 'RECRUITING':
         return { text: '모집 중', color: 'bg-green-100 text-green-800' };
       case 'WAITING':
-        return { text: '준비 중', color: 'bg-yellow-100 text-yellow-800' };
+        return { text: '오픈 대기 중', color: 'bg-yellow-100 text-yellow-800' };
       case 'CLOSED':
         return { text: '모집 마감', color: 'bg-orange-100 text-orange-800' };
       case 'COMPLETE':
-        return { text: '운영 완료', color: 'bg-blue-100 text-blue-800' };
+        return { text: '모집 완료', color: 'bg-blue-100 text-blue-800' };
       default:
         return { text: status, color: 'bg-gray-100 text-gray-800' };
     }

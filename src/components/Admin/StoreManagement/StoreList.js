@@ -5,10 +5,10 @@ const StoreList = ({ onEditStore }) => {
   // 상태 텍스트/색상 헬퍼를 먼저 선언하여 초기화 전 참조 오류 방지
   function getStatusText(status) {
     const statusMap = {
-      WAITING: '준비 중',
+      WAITING: '오픈 대기 중',
       RECRUITING: '모집 중',
       CLOSED: '모집 마감',
-      COMPLETE: '운영 완료',
+      COMPLETE: '모집 완료',
     };
     return statusMap[status] || status;
   }
@@ -16,9 +16,9 @@ const StoreList = ({ onEditStore }) => {
   function getStatusColor(status) {
     const colors = {
       '모집 중': 'bg-green-100 text-green-800',
-      '준비 중': 'bg-yellow-100 text-yellow-800',
+      '오픈 대기 중': 'bg-yellow-100 text-yellow-800',
       '모집 마감': 'bg-orange-100 text-orange-800',
-      '운영 완료': 'bg-blue-100 text-blue-800',
+      '모집 완료': 'bg-blue-100 text-blue-800',
     };
     return colors[status] || 'bg-gray-100 text-gray-800';
   }
