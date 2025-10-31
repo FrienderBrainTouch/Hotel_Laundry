@@ -2,6 +2,25 @@ import React, { useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useStoreDetail } from '../../../hooks/queries/useStores';
 
+// 매장 상태를 한글로 변환하는 함수
+const getStoreStatusLabel = (status) => {
+  const statusMap = {
+    WAITING: '오픈 대기 중',
+    RECRUITING: '모집 중',
+    CLOSED: '모집 마감',
+    COMPLETE: '모집 완료',
+  };
+  return statusMap[status] || '미정';
+};
+
+// 빈 값을 "미정"으로 변환하는 함수
+const getDisplayValue = (value) => {
+  if (value === null || value === undefined || value === '') {
+    return '미정';
+  }
+  return value;
+};
+
 const StoreDetail = () => {
   const { storeId } = useParams();
   const { data, isLoading, error } = useStoreDetail(storeId);
@@ -66,10 +85,10 @@ const StoreDetail = () => {
       marketAnalysis: {
         title: '상권 분석',
         items: [
-          `반경내 세대수: ${description.householdCountInRadius || '-'}`,
-          `연령대: ${description.populationByAgeGroup || '-'}`,
-          `경쟁매장: ${description.competitorStores || '-'}`,
-          `입지분석: ${description.locationAnalysis || '-'}`,
+          `반경내 세대수: ${getDisplayValue(description.householdCountInRadius)}`,
+          `연령대: ${getDisplayValue(description.populationByAgeGroup)}`,
+          `경쟁매장: ${getDisplayValue(description.competitorStores)}`,
+          `입지분석: ${getDisplayValue(description.locationAnalysis)}`,
         ],
       },
     };
@@ -81,82 +100,82 @@ const StoreDetail = () => {
       {
         icon: '/images/store-detail/icons/location-icon.png',
         label: '주소',
-        value: storeData?.details?.location || '',
+        value: getDisplayValue(storeData?.details?.location),
       },
       {
         icon: '/images/store-detail/icons/floor-icon.png',
         label: '매장명',
-        value: storeData?.basicInfo?.storeName || '-',
+        value: getDisplayValue(storeData?.basicInfo?.storeName),
       },
       {
         icon: '/images/store-detail/icons/floor-icon.png',
         label: '상태',
-        value: storeData?.basicInfo?.status || '-',
+        value: getStoreStatusLabel(storeData?.basicInfo?.status),
       },
       {
         icon: '/images/store-detail/icons/size-icon.png',
         label: '목표 모집 인원',
-        value: storeData?.basicInfo?.targetRecruits ?? '-',
+        value: getDisplayValue(storeData?.basicInfo?.targetRecruits),
       },
       {
         icon: '/images/store-detail/icons/size-icon.png',
         label: '목표 오픈 시기',
-        value: storeData?.basicInfo?.targetOpeningDate || '-',
+        value: getDisplayValue(storeData?.basicInfo?.targetOpeningDate),
       },
       {
         icon: '/images/store-detail/icons/size-icon.png',
         label: '면적(㎡)',
-        value: storeData?.basicInfo?.areaSqm ?? '-',
+        value: getDisplayValue(storeData?.basicInfo?.areaSqm),
       },
       {
         icon: '/images/store-detail/icons/rent-icon.png',
         label: '세탁기 대수',
-        value: storeData?.basicInfo?.washingMachines ?? '-',
+        value: getDisplayValue(storeData?.basicInfo?.washingMachines),
       },
       {
         icon: '/images/store-detail/icons/rent-icon.png',
         label: '건조기 대수',
-        value: storeData?.basicInfo?.dryers ?? '-',
+        value: getDisplayValue(storeData?.basicInfo?.dryers),
       },
       {
         icon: '/images/store-detail/icons/startup-cost-icon.png',
         label: '운영시간',
-        value: storeData?.basicInfo?.operatingHours || '-',
+        value: getDisplayValue(storeData?.basicInfo?.operatingHours),
       },
       {
         icon: '/images/store-detail/icons/startup-cost-icon.png',
         label: '지역 특성',
-        value: storeData?.basicInfo?.areaType || '-',
+        value: getDisplayValue(storeData?.basicInfo?.areaType),
       },
       {
         icon: '/images/store-detail/icons/floor-icon.png',
         label: '층수',
-        value: storeData?.details?.floor || '-',
+        value: getDisplayValue(storeData?.details?.floor),
       },
       {
         icon: '/images/store-detail/icons/size-icon.png',
         label: '면적',
-        value: storeData?.details?.size || '-',
+        value: getDisplayValue(storeData?.details?.size),
       },
       {
         icon: '/images/store-detail/icons/rent-icon.png',
         label: '보증금/월세',
-        value: storeData?.details?.rent || '- / -',
+        value: getDisplayValue(storeData?.details?.rent),
       },
       {
         icon: '/images/store-detail/icons/deposit-icon.png',
         label: '권리금',
-        value: storeData?.details?.deposit || '-',
+        value: getDisplayValue(storeData?.details?.deposit),
       },
       {
         icon: '/images/store-detail/icons/startup-cost-icon.png',
         label: '창업비용',
-        value: storeData?.details?.startupCost || '-',
+        value: getDisplayValue(storeData?.details?.startupCost),
       },
       {
         icon: '/images/store-detail/icons/location-icon.png',
         label: '주차',
-        value: storeData?.details?.parking || '-',
+        value: getDisplayValue(storeData?.details?.parking),
       },
     ];
   }, [storeData]);

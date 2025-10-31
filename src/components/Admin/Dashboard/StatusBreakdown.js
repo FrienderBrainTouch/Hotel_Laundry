@@ -20,7 +20,7 @@ const StatusBreakdown = ({ storeCounts, isLoading }) => {
       bgColor: 'bg-green-50',
     },
     {
-      status: '준비 중',
+      status: '오픈 대기 중',
       count: countsByStatus.WAITING,
       color: 'bg-yellow-100 text-yellow-800',
       bgColor: 'bg-yellow-50',
@@ -32,7 +32,7 @@ const StatusBreakdown = ({ storeCounts, isLoading }) => {
       bgColor: 'bg-orange-50',
     },
     {
-      status: '운영 완료',
+      status: '모집 완료',
       count: countsByStatus.COMPLETE,
       color: 'bg-blue-100 text-blue-800',
       bgColor: 'bg-blue-50',

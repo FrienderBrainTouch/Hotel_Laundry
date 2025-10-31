@@ -1,9 +1,9 @@
 // 매장 상태 옵션
 export const statusOptions = [
-  { value: 'WAITING', label: '준비 중' },
+  { value: 'WAITING', label: '오픈 대기 중' },
   { value: 'RECRUITING', label: '모집 중' },
   { value: 'CLOSED', label: '모집 마감' },
-  { value: 'COMPLETE', label: '운영 완료' },
+  { value: 'COMPLETE', label: '모집 완료' },
 ];
 
 // 목표 모집 인원 옵션

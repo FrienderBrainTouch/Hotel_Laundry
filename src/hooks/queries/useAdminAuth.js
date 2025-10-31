@@ -9,7 +9,7 @@ export function useAdminLogin() {
     mutationKey: ['adminLogin'],
     mutationFn: async (secretCode) => {
       // JWT 토큰을 ResponseEntity에서 받음
-      return api.post('/api/auth', { secretCode });
+      return api.post('/auth', { secretCode });
     },
     onSuccess: (data) => {
       // accessToken을 로컬스토리지에 저장
