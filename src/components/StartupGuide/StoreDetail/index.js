@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useStoreDetail } from '../../../hooks/queries/useStores';
 
@@ -24,6 +24,27 @@ const getDisplayValue = (value) => {
 const StoreDetail = () => {
   const { storeId } = useParams();
   const { data, isLoading, error } = useStoreDetail(storeId);
+
+  // 이미지 모달 상태 관리
+  const [selectedImageIndex, setSelectedImageIndex] = useState(null);
+  const isModalOpen = selectedImageIndex !== null;
+
+  // ESC 키로 모달 닫기
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape' && isModalOpen) {
+        setSelectedImageIndex(null);
+      }
+    };
+    if (isModalOpen) {
+      document.addEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'hidden'; // 스크롤 방지
+    }
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isModalOpen]);
 
   const storeData = useMemo(() => {
     if (!data) return null;
@@ -218,7 +239,8 @@ const StoreDetail = () => {
                 {(storeData?.galleryImages || []).map((image, index) => (
                   <div
                     key={index}
-                    className="flex-shrink-0 w-[180px] h-[180px] xs:w-[200px] xs:h-[200px] sm:w-[220px] sm:h-[220px] md:w-[240px] md:h-[240px] lg:w-[250px] lg:h-[250px] xl:w-[260px] xl:h-[260px] 2xl:w-[264px] 2xl:h-[264px] rounded-lg xs:rounded-xl overflow-hidden"
+                    onClick={() => setSelectedImageIndex(index)}
+                    className="flex-shrink-0 w-[180px] h-[180px] xs:w-[200px] xs:h-[200px] sm:w-[220px] sm:h-[220px] md:w-[240px] md:h-[240px] lg:w-[250px] lg:h-[250px] xl:w-[260px] xl:h-[260px] 2xl:w-[264px] 2xl:h-[264px] rounded-lg xs:rounded-xl overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
                   >
                     <img
                       src={image}
@@ -229,6 +251,107 @@ const StoreDetail = () => {
                 ))}
               </div>
             </div>
+
+            {/* Image Modal */}
+            {isModalOpen && storeData?.galleryImages && (
+              <div
+                className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90"
+                onClick={() => setSelectedImageIndex(null)}
+              >
+                {/* Close Button */}
+                <button
+                  onClick={() => setSelectedImageIndex(null)}
+                  className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors z-10"
+                  aria-label="닫기"
+                >
+                  <svg
+                    className="w-8 h-8 xs:w-10 xs:h-10 sm:w-12 sm:h-12"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+
+                {/* Previous Button */}
+                {storeData.galleryImages.length > 1 && selectedImageIndex > 0 && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedImageIndex(selectedImageIndex - 1);
+                    }}
+                    className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 transition-colors z-10 bg-black bg-opacity-50 rounded-full p-2"
+                    aria-label="이전 이미지"
+                  >
+                    <svg
+                      className="w-6 h-6 xs:w-8 xs:h-8 sm:w-10 sm:h-10"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 19l-7-7 7-7"
+                      />
+                    </svg>
+                  </button>
+                )}
+
+                {/* Next Button */}
+                {storeData.galleryImages.length > 1 &&
+                  selectedImageIndex < storeData.galleryImages.length - 1 && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedImageIndex(selectedImageIndex + 1);
+                      }}
+                      className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 transition-colors z-10 bg-black bg-opacity-50 rounded-full p-2"
+                      aria-label="다음 이미지"
+                    >
+                      <svg
+                        className="w-6 h-6 xs:w-8 xs:h-8 sm:w-10 sm:h-10"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 5l7 7-7 7"
+                        />
+                      </svg>
+                    </button>
+                  )}
+
+                {/* Image */}
+                <div
+                  onClick={(e) => e.stopPropagation()}
+                  className="max-w-[90vw] max-h-[90vh] flex items-center justify-center"
+                >
+                  <img
+                    src={storeData.galleryImages[selectedImageIndex]}
+                    alt={`${storeData?.location || ''} 갤러리 ${selectedImageIndex + 1}`}
+                    className="max-w-full max-h-[90vh] object-contain rounded-lg"
+                  />
+                </div>
+
+                {/* Image Counter */}
+                {storeData.galleryImages.length > 1 && (
+                  <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white bg-black bg-opacity-50 rounded-full px-4 py-2 text-sm xs:text-base sm:text-lg">
+                    {selectedImageIndex + 1} / {storeData.galleryImages.length}
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* Store Info Title */}
             <div className="mb-6 xs:mb-4 sm:mb-6 md:mb-6 lg:mb-8 xl:mb-8 2xl:mb-10">
