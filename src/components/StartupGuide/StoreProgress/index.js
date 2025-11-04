@@ -43,10 +43,28 @@ const StoreProgress = () => {
     };
     return list.map((s) => {
       const locationText = [s.location, s.detailLocation].filter(Boolean).join(' ');
+
+      // 데이터 정리
+      const recruitsText =
+        s.currentRecruits != null && s.targetRecruits != null
+          ? `${s.currentRecruits}/${s.targetRecruits}`
+          : null;
+      const storeName = s.storeName || null;
+      const location = locationText || null;
+      const targetOpeningDate = s.targetOpeningDate || null;
+      const monthlyFee = s.monthlyFee || null;
+      const areaSqm = s.areaSqm || null;
+
       const detailsLines = [
-        `${s.targetOpeningDate || ''} 오픈 목표`.trim(),
-        `${s.areaSqm || 0}평 / 세탁기 ${s.washingMachines || 0}대, 건조기 ${s.dryers || 0}대`,
+        location || '',
+        targetOpeningDate ? `${targetOpeningDate} 오픈 목표` : '',
+        monthlyFee && areaSqm
+          ? `보증금/월세: ${monthlyFee} (${areaSqm}평) `
+          : monthlyFee
+          ? `보증금/월세: ${monthlyFee}`
+          : '',
       ].filter(Boolean);
+
       return {
         id: s.storeId,
         location: locationText,
@@ -54,6 +72,13 @@ const StoreProgress = () => {
         details: detailsLines.join('\n'),
         thumbnail: toImageUrl(s.imageKey),
         targetRecruits: s.targetRecruits || null,
+        // 정리된 데이터
+        recruitsText, // "5/8" 형식
+        storeName,
+        location,
+        targetOpeningDate,
+        monthlyFee,
+        areaSqm, // 필요시 주석 해제
       };
     });
   }, [data]);
@@ -242,9 +267,9 @@ const StoreProgress = () => {
                 !error &&
                 currentStores.map((store) => {
                   const cardContent = (
-                    <>
+                    <div className="flex flex-col h-full">
                       {/* Store Image */}
-                      <div className="w-full h-[250px] rounded-t-2xl mb-0 overflow-hidden relative">
+                      <div className="w-full h-[250px] rounded-t-2xl mb-0 overflow-hidden relative flex-shrink-0">
                         <img
                           src={store.thumbnail || '/images/store-progress/store-image.png'}
                           alt={`${store.location} 매장`}
@@ -264,18 +289,16 @@ const StoreProgress = () => {
                               );
                             })()
                           : null}
-                        {/* 목표 모집 인원 - 우측 하단 */}
-                        {/* TODO: api 수정되면 연동 필요, value만 바꾸면 됨, targetRecruits을 {원하는필드명}으로 변경 */}
                         {store.targetRecruits && store.status !== 'CLOSED' && (
                           <div className="absolute bottom-3 right-3 bg-black bg-opacity-70 text-white px-2.5 py-1 rounded-lg text-xs xs:text-sm font-semibold">
-                            {store.targetRecruits}
+                            {store.recruitsText}
                           </div>
                         )}
                       </div>
 
                       {/* Store Info */}
                       <div
-                        className={`px-3 py-2 rounded-b-2xl h-[179px] flex flex-col ${
+                        className={`px-3 py-2 rounded-b-2xl flex flex-col flex-1 ${
                           store.status === 'RECRUITING'
                             ? 'bg-[rgba(164,198,224,0.2)]'
                             : 'bg-[#F2F2F2]'
@@ -283,13 +306,13 @@ const StoreProgress = () => {
                       >
                         <div className="flex justify-between items-center mb-4 px-3 flex-shrink-0">
                           <h3 className="text-[22px] font-bold leading-[1.54] tracking-[-0.02em] text-[#1C262B] font-KoPubWorldDotum truncate pt-1.5">
-                            {store.location}
+                            {store.storeName}
                           </h3>
                           {/* <span className="text-[22px] font-medium leading-[1.54] tracking-[-0.02em] text-[#1C262B] font-KoPubWorldDotum flex-shrink-0 ml-2">
                           {store.recruited}
                         </span> */}
                         </div>
-                        <div className="flex-1 flex items-start px-3">
+                        <div className="flex items-start px-3 pb-2">
                           <div className="flex flex-col gap-2">
                             {store.details.split('\n').map((line, index) => (
                               <div key={index} className="flex items-start gap-2">
@@ -302,14 +325,14 @@ const StoreProgress = () => {
                           </div>
                         </div>
                       </div>
-                    </>
+                    </div>
                   );
 
                   if (store.status === 'CLOSED') {
                     return (
                       <div
                         key={store.id}
-                        className="w-full max-w-[335px] mx-auto block transition-opacity duration-200 opacity-60 cursor-not-allowed"
+                        className="w-full max-w-[335px] mx-auto h-full flex flex-col transition-opacity duration-200 opacity-60 cursor-not-allowed"
                       >
                         {cardContent}
                       </div>
@@ -320,7 +343,7 @@ const StoreProgress = () => {
                     <Link
                       key={store.id}
                       to={`/startup-guide/low-capital-startup/store-progress/${store.id}`}
-                      className="w-full max-w-[335px] mx-auto block transition-opacity duration-200 hover:opacity-90"
+                      className="w-full max-w-[335px] mx-auto h-full flex flex-col transition-opacity duration-200 hover:opacity-90"
                     >
                       {cardContent}
                     </Link>
