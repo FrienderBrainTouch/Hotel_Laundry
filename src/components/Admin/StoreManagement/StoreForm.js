@@ -44,6 +44,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
     targetRecruits: store?.storeBasicInfo?.targetRecruits || '',
     currentRecruits: store?.storeBasicInfo?.currentRecruits || '',
     targetOpeningDate: store?.storeBasicInfo?.targetOpeningDate || '',
+    areaSqm: store?.storeBasicInfo?.areaSqm || '',
 
     // storeDetails - 월세, 권리금만 유지
     detailsRent: store?.storeDetails?.detailsRent || '',
@@ -84,6 +85,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
       targetRecruits: store?.storeBasicInfo?.targetRecruits || '',
       currentRecruits: store?.storeBasicInfo?.currentRecruits || '',
       targetOpeningDate: store?.storeBasicInfo?.targetOpeningDate || '',
+      areaSqm: store?.storeBasicInfo?.areaSqm || '',
 
       // storeDetails - 월세, 권리금만 유지
       detailsRent: store?.storeDetails?.detailsRent || '',
@@ -167,6 +169,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
       { key: 'targetRecruits', label: '목표 모집 인원' },
       { key: 'currentRecruits', label: '현재 모집 인원' },
       { key: 'targetOpeningDate', label: '목표 오픈 시기' },
+      { key: 'areaSqm', label: '매장 면적' },
       { key: 'detailsRent', label: '월세 정보' },
       { key: 'detailsDeposit', label: '권리금' },
       { key: 'locationAnalysis', label: '상권 정보' },
@@ -202,6 +205,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
         currentRecruits: toNumberOrZero(formData.currentRecruits),
         targetRecruits: toNumberOrZero(formData.targetRecruits),
         targetOpeningDate: formData.targetOpeningDate,
+        areaSqm: formData.areaSqm,
       },
       storeDetails: {
         detailsRent: formData.detailsRent,
@@ -491,6 +495,20 @@ const StoreForm = ({ store, onBack, onSave }) => {
                 onChange={handleInputChange}
                 required
                 placeholder="2025년 9월 오픈 목표"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                매장 면적 *
+              </label>
+              <input
+                type="text"
+                name="areaSqm"
+                value={formData.areaSqm || ''}
+                onChange={handleInputChange}
+                required
+                placeholder="약 30평 (100㎡)"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               />
             </div>
