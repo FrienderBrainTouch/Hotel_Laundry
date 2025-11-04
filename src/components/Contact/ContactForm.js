@@ -274,6 +274,33 @@ const ContactForm = ({
   const [secondChoiceId, setSecondChoiceId] = useState(null);
   const [thirdChoiceId, setThirdChoiceId] = useState(null);
 
+  // 문의 유형 변경 시 선택 상태 초기화
+  useEffect(() => {
+    if (inquiryType === 'general') {
+      // 일반 창업으로 변경 시 소자본 선택 초기화
+      setFirstChoiceId(null);
+      setSecondChoiceId(null);
+      setThirdChoiceId(null);
+      setFormData((prev) => ({
+        ...prev,
+        firstChoice: '',
+        secondChoice: '',
+        thirdChoice: '',
+        firstChoiceId: null,
+        secondChoiceId: null,
+        thirdChoiceId: null,
+      }));
+    } else if (inquiryType === 'lowCapital') {
+      // 소자본 창업으로 변경 시 일반 창업 필드 초기화
+      setFormData((prev) => ({
+        ...prev,
+        region: '',
+        detailRegion: '',
+        openingTime: '',
+      }));
+    }
+  }, [inquiryType, setFormData]);
+
   // 목록이 바뀌면 선택 유효성 재검사
   useEffect(() => {
     const idSet = new Set(recruitingStores.map((s) => s.storeId));
