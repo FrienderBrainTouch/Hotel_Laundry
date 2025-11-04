@@ -83,7 +83,7 @@ const StoreDetail = () => {
 
     const basicInfo = src.basicInfo || {};
     const details = src.details || {};
-    // const description = src.description || {};
+    const description = src.description || {};
 
     return {
       id: src.storeId,
@@ -114,13 +114,11 @@ const StoreDetail = () => {
         parking: details.detailsParking,
         size: details.detailsSize,
       },
-      // 더미데이터
       marketAnalysis: {
         title: '상권 분석',
         text: getDisplayValue(
-          // description.locationAnalysis ||
-          //   description.marketAnalysis ||
-          '반경내 세대수: 약 5,000세대\n연령대: 20-40대 직장인 비중 65%\n경쟁매장: 주변 세탁소 2개, 세탁물 수거함 3곳\n입지분석: 지하철역 도보 5분, 버스정류장 인접\n주변 상권: 상가밀집지역, 오피스빌딩 다수'
+          description.locationAnalysis ||
+            '반경내 세대수: 약 5,000세대\n연령대: 20-40대 직장인 비중 65%\n경쟁매장: 주변 세탁소 2개, 세탁물 수거함 3곳\n입지분석: 지하철역 도보 5분, 버스정류장 인접\n주변 상권: 상가밀집지역, 오피스빌딩 다수'
         ),
       },
     };
