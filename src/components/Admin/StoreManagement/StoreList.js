@@ -89,8 +89,6 @@ const StoreList = ({ onEditStore }) => {
       name: `호텔런드리 ${store.location}점`,
       location: [store.location, store.detailLocation].filter(Boolean).join(' '),
       area: `${store.areaSqm}평`,
-      washingMachines: store.washingMachines,
-      dryers: store.dryers,
       status: getStatusText(store.status),
       // 서버에서 문자열로 내려오는 값을 그대로 노출
       targetMonth: store.targetOpeningDate || '',
@@ -190,9 +188,6 @@ const StoreList = ({ onEditStore }) => {
                   평수
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  세탁기/건조기
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   상태
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -217,11 +212,6 @@ const StoreList = ({ onEditStore }) => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm text-gray-900">{store.area}</div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900">
-                      {store.washingMachines}/{store.dryers}
-                    </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span

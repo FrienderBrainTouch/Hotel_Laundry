@@ -67,7 +67,6 @@ const StoreProgress = () => {
 
       return {
         id: s.storeId,
-        location: locationText,
         status: s.status || null,
         details: detailsLines.join('\n'),
         thumbnail: toImageUrl(s.imageKey),

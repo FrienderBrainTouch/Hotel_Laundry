@@ -134,8 +134,8 @@ const InquiryList = ({ onViewInquiry, filters, setFilters }) => {
               >
                 <option value="">전체 지역</option>
                 {regions.map((item, index) => (
-                  <option key={index} value={item.region}>
-                    {item.region}
+                  <option key={index} value={item.storeName}>
+                    {item.storeName}
                   </option>
                 ))}
               </select>
