@@ -74,7 +74,7 @@ const getStoreNameBySerial = (serialNumber) => {
 // API 호출 함수
 const fetchMachineData = async (serialNumber) => {
   try {
-    const baseUrl = process.env.REACT_APP_API_BASE_URL;
+    const baseUrl = process.env.REACT_APP_HOTEL_BASE_URL;
     const response = await fetch(`${baseUrl}/kiosk/machine/machines-by-store/${serialNumber}`);
     const result = await response.json();
 
