@@ -182,7 +182,7 @@ const StoreProgress = () => {
                 모집 현황 안내
               </h2>
               <p className="text-[24px] sm:text-[28px] md:text-[30px] lg:text-[32px] xl:text-[32px] 2xl:text-[32px] font-medium leading-[1.54] tracking-[-0.02em] text-black font-KoPubWorldDotum">
-                지역별로 진행되는 공동창업 모집 현황을 투명하게 공개합니다.
+                지역별로 진행되는 창업 모집 현황을 투명하게 공개합니다.
               </p>
             </div>
 
