@@ -3,14 +3,14 @@ import ImageUpload from './ImageUpload';
 // 중복 import 제거
 import {
   statusOptions,
-  targetRecruitsOptions,
-  interiorOptions,
-  floorOptions,
-  sizeOptions,
-  washingMachineOptions,
-  dryerOptions,
-  operatingHoursOptions,
-  areaTypeOptions,
+  // targetRecruitsOptions,
+  // interiorOptions,
+  // floorOptions,
+  // sizeOptions,
+  // washingMachineOptions,
+  // dryerOptions,
+  // operatingHoursOptions,
+  // areaTypeOptions,
 } from './constants';
 
 // ----- helpers (module scope: stable across renders) -----
@@ -21,10 +21,10 @@ const isUndecidedValue = (value) => {
   return false;
 };
 
-const normalizeSelect = (value) => {
-  if (isUndecidedValue(value)) return 'undecided';
-  return value ?? '';
-};
+// const normalizeSelect = (value) => {
+//   if (isUndecidedValue(value)) return 'undecided';
+//   return value ?? '';
+// };
 
 const toNumberOrZero = (value) => {
   if (isUndecidedValue(value)) return 0;

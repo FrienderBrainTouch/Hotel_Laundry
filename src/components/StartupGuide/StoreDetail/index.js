@@ -74,7 +74,7 @@ const StoreDetail = () => {
 
     const basicInfo = src.basicInfo || {};
     const details = src.details || {};
-    const description = src.description || {};
+    // const description = src.description || {};
 
     return {
       id: src.storeId,
