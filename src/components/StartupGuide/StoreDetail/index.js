@@ -51,14 +51,35 @@ const StoreDetail = () => {
       ? src.images.map((img) => (typeof img === 'string' ? img : img?.key)).filter(Boolean)
       : [];
     const images = imageKeys.map(toImageUrl);
-    const mainImage = images[0] || '/images/store-detail/store-main-image.png';
-    const galleryImages = images.slice(1);
+    const originalMainImage = images[0] || '/images/store-detail/store-main-image.png';
+    const originalGalleryImages = images.slice(1);
 
-    // 선택된 갤러리 이미지가 있으면 해당 이미지를 메인으로 표시
-    const displayMainImage =
-      selectedImageIndex !== null && galleryImages[selectedImageIndex]
-        ? galleryImages[selectedImageIndex]
-        : mainImage;
+    // 선택된 갤러리 이미지가 있으면 메인과 갤러리 이미지 교체
+    let displayMainImage = originalMainImage;
+    let displayGalleryImages = originalGalleryImages;
+
+    if (selectedImageIndex !== null && originalGalleryImages[selectedImageIndex]) {
+      // 선택된 갤러리 이미지를 메인으로
+      displayMainImage = originalGalleryImages[selectedImageIndex];
+      // 원래 메인 이미지를 갤러리 첫 번째로, 선택된 이미지는 제외
+      displayGalleryImages = [
+        originalMainImage,
+        ...originalGalleryImages.filter((_, idx) => idx !== selectedImageIndex),
+      ];
+    }
+
+    // 교체 후 갤러리에서 원래 갤러리 인덱스를 찾기 위한 맵핑 생성
+    const galleryIndexMap = displayGalleryImages.map((img, idx) => {
+      if (idx === 0 && selectedImageIndex !== null) {
+        return null; // 원래 메인 이미지
+      }
+      if (selectedImageIndex !== null && idx > 0) {
+        // 원래 갤러리에서 인덱스 찾기
+        const originalIdx = originalGalleryImages.findIndex((origImg) => origImg === img);
+        return originalIdx >= 0 ? originalIdx : null;
+      }
+      return idx; // 교체 전 상태
+    });
 
     const basicInfo = src.basicInfo || {};
     const details = src.details || {};
@@ -68,9 +89,10 @@ const StoreDetail = () => {
       id: src.storeId,
       location,
       title: basicInfo.storeName || location,
-      mainImage,
-      displayMainImage,
-      galleryImages,
+      mainImage: displayMainImage,
+      galleryImages: displayGalleryImages,
+      originalMainImage, // 원래 메인 이미지 (복원용)
+      galleryIndexMap, // 갤러리 인덱스 맵핑 (원래 갤러리 인덱스 찾기용)
       basicInfo: {
         storeName: basicInfo.storeName,
         status: basicInfo.status,
@@ -169,11 +191,7 @@ const StoreDetail = () => {
               {/* Main Store Image */}
               <div className="w-full h-[200px] xs:h-[250px] sm:h-[300px] md:h-[350px] lg:h-[400px] xl:h-[450px] 2xl:h-[500px] rounded-xl xs:rounded-2xl overflow-hidden mb-8 xs:mb-6 sm:mb-8 md:mb-10 lg:mb-12 xl:mb-12 2xl:mb-16">
                 <img
-                  src={
-                    storeData?.displayMainImage ||
-                    storeData?.mainImage ||
-                    '/images/store-detail/store-main-image.png'
-                  }
+                  src={storeData?.mainImage || '/images/store-detail/store-main-image.png'}
                   alt={`${storeData?.location || ''} 매장`}
                   className="w-full h-full object-cover"
                 />
@@ -183,21 +201,42 @@ const StoreDetail = () => {
             {/* Gallery Images */}
             <div className="mb-12 xs:mb-8 sm:mb-10 md:mb-12 lg:mb-14 xl:mb-16 2xl:mb-20">
               <div className="flex gap-3 xs:gap-4 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-6 2xl:gap-8 overflow-x-auto pb-4">
-                {(storeData?.galleryImages || []).map((image, index) => (
-                  <div
-                    key={index}
-                    onClick={() => setSelectedImageIndex(index)}
-                    className={`flex-shrink-0 w-[180px] h-[180px] xs:w-[200px] xs:h-[200px] sm:w-[220px] sm:h-[220px] md:w-[240px] md:h-[240px] lg:w-[250px] lg:h-[250px] xl:w-[260px] xl:h-[260px] 2xl:w-[264px] 2xl:h-[264px] rounded-lg xs:rounded-xl overflow-hidden cursor-pointer hover:opacity-90 transition-opacity ${
-                      selectedImageIndex === index ? 'ring-2 ring-blue-500' : ''
-                    }`}
-                  >
-                    <img
-                      src={image}
-                      alt={`${storeData?.location || ''} 갤러리 ${index + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                ))}
+                {(storeData?.galleryImages || []).map((image, index) => {
+                  // 원래 메인 이미지가 갤러리 첫 번째로 왔는지 확인
+                  const isOriginalMain =
+                    selectedImageIndex !== null &&
+                    index === 0 &&
+                    image === storeData?.originalMainImage;
+                  // 현재 갤러리 인덱스에 해당하는 원래 갤러리 인덱스
+                  const originalGalleryIndex = storeData?.galleryIndexMap?.[index];
+
+                  return (
+                    <div
+                      key={index}
+                      onClick={() => {
+                        if (isOriginalMain) {
+                          // 원래 메인 이미지 클릭 시 원래 상태로 복원
+                          setSelectedImageIndex(null);
+                        } else if (
+                          originalGalleryIndex !== null &&
+                          originalGalleryIndex !== undefined
+                        ) {
+                          // 갤러리 이미지 클릭 시 해당 원래 인덱스로 교체
+                          setSelectedImageIndex(originalGalleryIndex);
+                        }
+                      }}
+                      className={`flex-shrink-0 w-[180px] h-[180px] xs:w-[200px] xs:h-[200px] sm:w-[220px] sm:h-[220px] md:w-[240px] md:h-[240px] lg:w-[250px] lg:h-[250px] xl:w-[260px] xl:h-[260px] 2xl:w-[264px] 2xl:h-[264px] rounded-lg xs:rounded-xl overflow-hidden cursor-pointer hover:opacity-90 transition-opacity ${
+                        selectedImageIndex === originalGalleryIndex ? 'ring-2 ring-blue-500' : ''
+                      }`}
+                    >
+                      <img
+                        src={image}
+                        alt={`${storeData?.location || ''} 갤러리 ${index + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  );
+                })}
               </div>
             </div>
 
