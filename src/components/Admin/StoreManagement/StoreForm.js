@@ -127,10 +127,31 @@ const StoreForm = ({ store, onBack, onSave }) => {
     const { name, value } = e.target;
     // 숫자만 허용 (빈 문자열도 허용)
     if (value === '' || /^\d+$/.test(value)) {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
+      setFormData((prev) => {
+        const newData = { ...prev, [name]: value };
+
+        // 현재 모집 인원이 목표 모집 인원보다 클 수 없음
+        if (name === 'currentRecruits' && value !== '') {
+          const targetValue = parseInt(prev.targetRecruits || '0', 10);
+          const currentValue = parseInt(value, 10);
+          if (targetValue > 0 && currentValue > targetValue) {
+            // 목표보다 크면 목표 값으로 제한
+            newData.currentRecruits = targetValue.toString();
+          }
+        }
+
+        // 목표 모집 인원이 변경되면 현재 모집 인원도 조정
+        if (name === 'targetRecruits' && value !== '') {
+          const targetValue = parseInt(value, 10);
+          const currentValue = parseInt(prev.currentRecruits || '0', 10);
+          if (currentValue > targetValue) {
+            // 현재가 목표보다 크면 목표 값으로 조정
+            newData.currentRecruits = targetValue.toString();
+          }
+        }
+
+        return newData;
+      });
     }
   };
 
@@ -430,7 +451,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
                   }
                 }}
                 required
-                placeholder="5"
+                placeholder="숫자만 입력 가능합니다."
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               />
             </div>
@@ -455,7 +476,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
                   }
                 }}
                 required
-                placeholder="8"
+                placeholder="숫자만 입력 가능합니다."
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               />
             </div>
