@@ -7,7 +7,6 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [hoveredMenu, setHoveredMenu] = useState(null);
-  const [hoveredSubmenu, setHoveredSubmenu] = useState(null);
   const [expandedSubmenu, setExpandedSubmenu] = useState(null);
 
   useEffect(() => {
@@ -62,7 +61,7 @@ const Header = () => {
           id: 'low-capital-startup',
           label: '소자본 창업',
           hasSubmenu: true,
-          submenu: [{ id: 'store-progress', label: '진행 매장' }],
+          submenu: [{ id: 'store-progress', label: 'ㄴ 진행 매장' }],
         },
         { id: 'store-owner-interview', label: '점주 인터뷰' },
         { id: 'solo-startup', label: '단독 창업' },
@@ -186,7 +185,8 @@ const Header = () => {
                           {item.submenu.map((subItem) => (
                             <div key={subItem.id} className="relative">
                               {subItem.hasSubmenu ? (
-                                <>
+                                <div>
+                                  {/* 부모 메뉴 항목 */}
                                   <Link
                                     to={`/startup-guide/${subItem.id}`}
                                     className={`block w-full text-start px-4 py-3 text-white transition-all duration-200 ${
@@ -195,34 +195,25 @@ const Header = () => {
                                         ? 'underline decoration-underline underline-offset-[5px] font-bold'
                                         : 'hover:underline decoration-underline underline-offset-[5px] hover:font-bold'
                                     }`}
-                                    onMouseEnter={() => setHoveredSubmenu(subItem.id)}
-                                    onMouseLeave={() => setHoveredSubmenu(null)}
                                   >
                                     {subItem.label}
                                   </Link>
-                                  {hoveredSubmenu === subItem.id && (
-                                    <div
-                                      className="bg-[#1a3a6b] shadow-lg z-[10000] border border-white border-t-1"
-                                      onMouseEnter={() => setHoveredSubmenu(subItem.id)}
-                                      onMouseLeave={() => setHoveredSubmenu(null)}
+                                  {/* 하위 메뉴 항목들 - 바로 아래에 들여쓰기하여 표시 */}
+                                  {subItem.submenu.map((subSubItem) => (
+                                    <Link
+                                      key={subSubItem.id}
+                                      to={`/startup-guide/${subItem.id}/${subSubItem.id}`}
+                                      className={`block w-full text-start px-4 py-3 pl-6 text-white transition-all duration-200 ${
+                                        currentPage ===
+                                        `/startup-guide/${subItem.id}/${subSubItem.id}`
+                                          ? 'underline decoration-underline underline-offset-[5px] font-bold'
+                                          : 'hover:underline decoration-underline underline-offset-[5px] hover:font-bold'
+                                      }`}
                                     >
-                                      {subItem.submenu.map((subSubItem) => (
-                                        <Link
-                                          key={subSubItem.id}
-                                          to={`/startup-guide/${subItem.id}/${subSubItem.id}`}
-                                          className={`block w-full text-start px-4 py-3 text-white transition-all duration-200 ${
-                                            currentPage ===
-                                            `/startup-guide/${subItem.id}/${subSubItem.id}`
-                                              ? 'bg-blue-800 font-bold'
-                                              : 'hover:bg-blue-700'
-                                          }`}
-                                        >
-                                          {subSubItem.label}
-                                        </Link>
-                                      ))}
-                                    </div>
-                                  )}
-                                </>
+                                      {subSubItem.label}
+                                    </Link>
+                                  ))}
+                                </div>
                               ) : (
                                 <Link
                                   to={
@@ -333,78 +324,38 @@ const Header = () => {
                             {item.submenu.map((subItem) => (
                               <div key={subItem.id} className="mb-2 last:mb-0">
                                 {subItem.hasSubmenu ? (
-                                  <>
-                                    <div className="flex items-center justify-between">
-                                      <div className="flex-1">
-                                        <Link
-                                          to={`/startup-guide/${subItem.id}`}
-                                          onClick={(e) => {
-                                            console.log('소자본 창업 링크 클릭됨');
-                                            e.stopPropagation();
-                                            setIsMenuOpen(false);
-                                          }}
-                                          className="block text-left w-full py-2 px-2 text-black hover:underline decoration-underline underline-offset-[5px] hover:font-bold"
-                                        >
-                                          {subItem.label}
-                                        </Link>
-                                      </div>
-                                      <button
-                                        onClick={(e) => {
-                                          console.log('화살표 버튼 클릭됨');
-                                          e.preventDefault();
-                                          e.stopPropagation();
-                                          const newExpandedState =
-                                            expandedSubmenu === `${item.id}-${subItem.id}`
-                                              ? item.id // 2차 서브메뉴를 닫으면 1차 메뉴만 열어둠
-                                              : `${item.id}-${subItem.id}`; // 2차 서브메뉴 열기
-                                          console.log('현재 expandedSubmenu:', expandedSubmenu);
-                                          console.log('새로운 expandedSubmenu:', newExpandedState);
-                                          setExpandedSubmenu(newExpandedState);
-                                        }}
-                                        className="p-2 flex-shrink-0"
+                                  <div>
+                                    {/* 부모 메뉴 항목 */}
+                                    <Link
+                                      to={`/startup-guide/${subItem.id}`}
+                                      onClick={handleMenuClose}
+                                      className={`block text-left w-full py-2 px-2 text-black hover:underline decoration-underline underline-offset-[5px] hover:font-bold ${
+                                        currentPage === `/startup-guide/${subItem.id}` ||
+                                        currentPage ===
+                                          `/startup-guide/${subItem.id}/store-progress`
+                                          ? 'text-[#102254] underline decoration-underline underline-offset-[5px] font-bold'
+                                          : ''
+                                      }`}
+                                    >
+                                      {subItem.label}
+                                    </Link>
+                                    {/* 하위 메뉴 항목들 - 바로 아래에 들여쓰기하여 표시 */}
+                                    {subItem.submenu.map((subSubItem) => (
+                                      <Link
+                                        key={subSubItem.id}
+                                        to={`/startup-guide/${subItem.id}/${subSubItem.id}`}
+                                        onClick={handleMenuClose}
+                                        className={`block text-left w-full py-2 px-2 pl-6 text-gray-700 hover:underline decoration-underline underline-offset-[5px] hover:font-bold ${
+                                          currentPage ===
+                                          `/startup-guide/${subItem.id}/${subSubItem.id}`
+                                            ? 'text-[#102254] underline decoration-underline underline-offset-[5px] font-bold'
+                                            : ''
+                                        }`}
                                       >
-                                        <svg
-                                          width="12"
-                                          height="8"
-                                          viewBox="0 0 12 8"
-                                          fill="none"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          className="text-black"
-                                        >
-                                          <path
-                                            d={
-                                              expandedSubmenu === `${item.id}-${subItem.id}`
-                                                ? 'M1 7L6 2L11 7'
-                                                : 'M1 1L6 6L11 1'
-                                            }
-                                            stroke="currentColor"
-                                            strokeWidth="2"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                          />
-                                        </svg>
-                                      </button>
-                                    </div>
-                                    {expandedSubmenu === `${item.id}-${subItem.id}` && (
-                                      <div className="bg-gray-50 mt-2 p-3 rounded-lg ml-4">
-                                        {subItem.submenu.map((subSubItem) => (
-                                          <Link
-                                            key={subSubItem.id}
-                                            to={`/startup-guide/${subItem.id}/${subSubItem.id}`}
-                                            onClick={handleMenuClose}
-                                            className={`block text-left w-full py-2 px-2 ${
-                                              currentPage ===
-                                              `/startup-guide/${subItem.id}/${subSubItem.id}`
-                                                ? 'text-[#102254] underline decoration-underline underline-offset-[5px] font-bold'
-                                                : 'text-gray-700 hover:underline decoration-underline underline-offset-[5px] hover:font-bold'
-                                            }`}
-                                          >
-                                            {subSubItem.label}
-                                          </Link>
-                                        ))}
-                                      </div>
-                                    )}
-                                  </>
+                                        {subSubItem.label}
+                                      </Link>
+                                    ))}
+                                  </div>
                                 ) : (
                                   <Link
                                     to={
