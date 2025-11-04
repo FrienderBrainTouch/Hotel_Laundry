@@ -1,37 +1,43 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+// import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const LowCapitalStartup = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const slides = [
-    '/images/LowcapitalStartup/lowCap3-slide1.png',
-    '/images/LowcapitalStartup/lowCap3-slide2.png',
-    '/images/LowcapitalStartup/lowCap3-slide3.png',
-  ];
+  // const [currentSlide, setCurrentSlide] = useState(0);
+  // const slides = [
+  //   '/images/LowcapitalStartup/lowCap3-slide1.png',
+  //   '/images/LowcapitalStartup/lowCap3-slide2.png',
+  //   '/images/LowcapitalStartup/lowCap3-slide3.png',
+  // ];
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
-  };
+  // const nextSlide = () => {
+  //   setCurrentSlide((prev) => (prev + 1) % slides.length);
+  // };
 
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-  };
+  // const prevSlide = () => {
+  //   setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  // };
 
-  // 자동 슬라이드
-  useEffect(() => {
-    const autoSlide = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 2000); // 2초마다 자동 슬라이드
+  // // 자동 슬라이드
+  // useEffect(() => {
+  //   const autoSlide = setInterval(() => {
+  //     setCurrentSlide((prev) => (prev + 1) % slides.length);
+  //   }, 2000); // 2초마다 자동 슬라이드
 
-    return () => clearInterval(autoSlide); // cleanup
-  }, [slides.length]);
+  //   return () => clearInterval(autoSlide); // cleanup
+  // }, [slides.length]);
 
   return (
     <section className="py-20 bg-white">
       <div className="flex justify-center">
         <div className="w-[70%] mx-auto">
-          {/* 이미지 섹션 */}
+          {/* 새 이미지 */}
           <div className="space-y-0">
+            <img src="/images/low-capital-final.png" alt="소자본창업" className="w-full" />
+          </div>
+
+          {/* 기존 코드 주석 처리 */}
+          {/* <div className="space-y-0">
             <img
               src="/images/LowcapitalStartup/lowCap1.png"
               alt="소자본창업 1"
@@ -43,9 +49,7 @@ const LowCapitalStartup = () => {
               className="w-full"
             />
 
-            {/* 슬라이드 섹션 */}
             <div className="relative w-full bg-[#e1e7f3] pt-[70px] pb-[30px] text-center">
-              {/* 제목 섹션 */}
               <div className="mb-5">
                 <p
                   className="text-[#6e8aa9] text-[16px] xs:text-[18px] sm:text-[22px] md:text-[26px] lg:text-[28px] xl:text-[30px] 2xl:text-[32px] font-semibold pb-3 xs:pb-4 sm:pb-5"
@@ -62,7 +66,6 @@ const LowCapitalStartup = () => {
                 </div>
               </div>
 
-              {/* 슬라이드 이미지 */}
               <div className="relative overflow-hidden">
                 <img
                   src={slides[currentSlide]}
@@ -71,7 +74,6 @@ const LowCapitalStartup = () => {
                 />
               </div>
 
-              {/* 이전/다음 버튼 */}
               <button
                 onClick={prevSlide}
                 className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full shadow-lg transition-all z-10"
@@ -111,7 +113,6 @@ const LowCapitalStartup = () => {
                 </svg>
               </button>
 
-              {/* 인디케이터 */}
               <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
                 {slides.map((_, index) => (
                   <button
@@ -156,7 +157,7 @@ const LowCapitalStartup = () => {
               alt="소자본창업 9"
               className="w-full"
             />
-          </div>
+          </div> */}
 
           {/* CTA 버튼 */}
           <div className="text-center mt-8 xs:mt-6 sm:mt-8 md:mt-10 lg:mt-12 xl:mt-14 2xl:mt-16">
