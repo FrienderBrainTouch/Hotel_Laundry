@@ -189,12 +189,7 @@ const Header = () => {
                                   {/* 부모 메뉴 항목 */}
                                   <Link
                                     to={`/startup-guide/${subItem.id}`}
-                                    className={`block w-full text-start px-4 py-3 text-white transition-all duration-200 ${
-                                      currentPage === `/startup-guide/${subItem.id}` ||
-                                      currentPage === `/startup-guide/${subItem.id}/store-progress`
-                                        ? 'underline decoration-underline underline-offset-[5px] font-bold'
-                                        : 'hover:underline decoration-underline underline-offset-[5px] hover:font-bold'
-                                    }`}
+                                    className="block w-full text-start px-4 py-3 text-white transition-all duration-200 hover:underline decoration-underline underline-offset-[5px] hover:font-bold"
                                   >
                                     {subItem.label}
                                   </Link>
@@ -203,12 +198,7 @@ const Header = () => {
                                     <Link
                                       key={subSubItem.id}
                                       to={`/startup-guide/${subItem.id}/${subSubItem.id}`}
-                                      className={`block w-full text-start px-4 py-3 pl-6 text-white transition-all duration-200 ${
-                                        currentPage ===
-                                        `/startup-guide/${subItem.id}/${subSubItem.id}`
-                                          ? 'underline decoration-underline underline-offset-[5px] font-bold'
-                                          : 'hover:underline decoration-underline underline-offset-[5px] hover:font-bold'
-                                      }`}
+                                      className="block w-full text-start px-4 py-3 pl-6 text-white transition-all duration-200 hover:underline decoration-underline underline-offset-[5px] hover:font-bold"
                                     >
                                       {subSubItem.label}
                                     </Link>
@@ -233,25 +223,7 @@ const Header = () => {
                                       ? `/management-support/${subItem.id}`
                                       : `/${subItem.id}`
                                   }
-                                  className={`block w-full text-start px-4 py-3 text-white transition-all duration-200 ${
-                                    currentPage === `/${subItem.id}` ||
-                                    (item.id === 'hotel-laundry' &&
-                                      currentPage === `/hotel-laundry/${subItem.id}`) ||
-                                    (item.id === 'smart-system' &&
-                                      currentPage === `/smart-system/${subItem.id}`) ||
-                                    (item.id === 'startup-guide' &&
-                                      currentPage === `/startup-guide/${subItem.id}`) ||
-                                    (item.id === 'equipment-intro' &&
-                                      currentPage === `/equipment/${subItem.id}`) ||
-                                    (item.id === 'hotel-laundry-app' &&
-                                      currentPage === `/app-guide/${subItem.id}`) ||
-                                    (item.id === 'store-info' &&
-                                      currentPage === `/store-info/${subItem.id}`) ||
-                                    (item.id === 'management-support' &&
-                                      currentPage === `/management-support/${subItem.id}`)
-                                      ? 'underline decoration-underline underline-offset-[5px] font-bold'
-                                      : 'hover:underline decoration-underline underline-offset-[5px] hover:font-bold'
-                                  }`}
+                                  className="block w-full text-start px-4 py-3 text-white transition-all duration-200 hover:underline decoration-underline underline-offset-[5px] hover:font-bold"
                                 >
                                   {subItem.label}
                                 </Link>
@@ -329,13 +301,7 @@ const Header = () => {
                                     <Link
                                       to={`/startup-guide/${subItem.id}`}
                                       onClick={handleMenuClose}
-                                      className={`block text-left w-full py-2 px-2 text-black hover:underline decoration-underline underline-offset-[5px] hover:font-bold ${
-                                        currentPage === `/startup-guide/${subItem.id}` ||
-                                        currentPage ===
-                                          `/startup-guide/${subItem.id}/store-progress`
-                                          ? 'text-[#102254] underline decoration-underline underline-offset-[5px] font-bold'
-                                          : ''
-                                      }`}
+                                      className="block text-left w-full py-2 px-2 text-black hover:underline decoration-underline underline-offset-[5px] hover:font-bold"
                                     >
                                       {subItem.label}
                                     </Link>
@@ -345,12 +311,7 @@ const Header = () => {
                                         key={subSubItem.id}
                                         to={`/startup-guide/${subItem.id}/${subSubItem.id}`}
                                         onClick={handleMenuClose}
-                                        className={`block text-left w-full py-2 px-2 pl-6 text-gray-700 hover:underline decoration-underline underline-offset-[5px] hover:font-bold ${
-                                          currentPage ===
-                                          `/startup-guide/${subItem.id}/${subSubItem.id}`
-                                            ? 'text-[#102254] underline decoration-underline underline-offset-[5px] font-bold'
-                                            : ''
-                                        }`}
+                                        className="block text-left w-full py-2 px-2 pl-6 text-gray-700 hover:underline decoration-underline underline-offset-[5px] hover:font-bold"
                                       >
                                         {subSubItem.label}
                                       </Link>
@@ -376,25 +337,7 @@ const Header = () => {
                                         : `/${subItem.id}`
                                     }
                                     onClick={handleMenuClose}
-                                    className={`text-left w-full py-2 px-2 ${
-                                      currentPage === `/${subItem.id}` ||
-                                      (item.id === 'hotel-laundry' &&
-                                        currentPage === `/hotel-laundry/${subItem.id}`) ||
-                                      (item.id === 'smart-system' &&
-                                        currentPage === `/smart-system/${subItem.id}`) ||
-                                      (item.id === 'startup-guide' &&
-                                        currentPage === `/startup-guide/${subItem.id}`) ||
-                                      (item.id === 'equipment-intro' &&
-                                        currentPage === `/equipment/${subItem.id}`) ||
-                                      (item.id === 'hotel-laundry-app' &&
-                                        currentPage === `/app-guide/${subItem.id}`) ||
-                                      (item.id === 'store-info' &&
-                                        currentPage === `/store-info/${subItem.id}`) ||
-                                      (item.id === 'management-support' &&
-                                        currentPage === `/management-support/${subItem.id}`)
-                                        ? 'text-[#102254] underline decoration-underline underline-offset-[5px] font-bold'
-                                        : 'text-black hover:underline decoration-underline underline-offset-[5px] hover:font-bold'
-                                    }`}
+                                    className="text-left w-full py-2 px-2 text-black hover:underline decoration-underline underline-offset-[5px] hover:font-bold"
                                   >
                                     {subItem.label}
                                   </Link>
