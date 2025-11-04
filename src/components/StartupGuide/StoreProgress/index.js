@@ -239,68 +239,85 @@ const StoreProgress = () => {
               )}
               {!isLoading &&
                 !error &&
-                currentStores.map((store) => (
-                  <Link
-                    key={store.id}
-                    to={`/startup-guide/low-capital-startup/store-progress/${store.id}`}
-                    className={`w-full max-w-[335px] mx-auto block transition-opacity duration-200 ${
-                      store.status === 'CLOSED' ? 'opacity-60 hover:opacity-70' : 'hover:opacity-90'
-                    }`}
-                  >
-                    {/* Store Image */}
-                    <div className="w-full h-[250px] rounded-t-2xl mb-0 overflow-hidden relative">
-                      <img
-                        src={store.thumbnail || '/images/store-progress/store-image.png'}
-                        alt={`${store.location} 매장`}
-                        className={`w-full h-full object-cover ${
-                          store.status === 'CLOSED' ? 'grayscale brightness-75' : ''
-                        }`}
-                      />
-                      {store.status
-                        ? (() => {
-                            const { text, cls } = getStatusPill(store.status);
-                            return (
-                              <span
-                                className={`absolute top-3 right-3 px-2.5 py-1 rounded-full text-xs font-semibold ${cls}`}
-                              >
-                                {text}
-                              </span>
-                            );
-                          })()
-                        : null}
-                    </div>
-
-                    {/* Store Info */}
-                    <div
-                      className={`px-3 py-2 rounded-b-2xl h-[179px] flex flex-col ${
-                        store.status === 'RECRUITING'
-                          ? 'bg-[rgba(164,198,224,0.2)]'
-                          : 'bg-[#F2F2F2]'
-                      }`}
-                    >
-                      <div className="flex justify-between items-center mb-4 px-3 flex-shrink-0">
-                        <h3 className="text-[22px] font-bold leading-[1.54] tracking-[-0.02em] text-[#1C262B] font-KoPubWorldDotum truncate pt-1.5">
-                          {store.location}
-                        </h3>
-                        {/* <span className="text-[22px] font-medium leading-[1.54] tracking-[-0.02em] text-[#1C262B] font-KoPubWorldDotum flex-shrink-0 ml-2">
-                        {store.recruited}
-                      </span> */}
+                currentStores.map((store) => {
+                  const cardContent = (
+                    <>
+                      {/* Store Image */}
+                      <div className="w-full h-[250px] rounded-t-2xl mb-0 overflow-hidden relative">
+                        <img
+                          src={store.thumbnail || '/images/store-progress/store-image.png'}
+                          alt={`${store.location} 매장`}
+                          className={`w-full h-full object-cover ${
+                            store.status === 'CLOSED' ? 'grayscale brightness-75' : ''
+                          }`}
+                        />
+                        {store.status
+                          ? (() => {
+                              const { text, cls } = getStatusPill(store.status);
+                              return (
+                                <span
+                                  className={`absolute top-3 right-3 px-2.5 py-1 rounded-full text-xs font-semibold ${cls}`}
+                                >
+                                  {text}
+                                </span>
+                              );
+                            })()
+                          : null}
                       </div>
-                      <div className="flex-1 flex items-start px-3">
-                        <div className="flex flex-col gap-2">
-                          {store.details.split('\n').map((line, index) => (
-                            <div key={index} className="flex items-start gap-2">
-                              <div className="w-1.5 h-1.5 bg-[#1C262B] rounded-full mt-2 flex-shrink-0"></div>
-                              <p className="text-[18px] font-medium leading-[1.3] tracking-[-0.02em] text-[#1C262B] font-KoPubWorldDotum text-left">
-                                {line}
-                              </p>
-                            </div>
-                          ))}
+
+                      {/* Store Info */}
+                      <div
+                        className={`px-3 py-2 rounded-b-2xl h-[179px] flex flex-col ${
+                          store.status === 'RECRUITING'
+                            ? 'bg-[rgba(164,198,224,0.2)]'
+                            : 'bg-[#F2F2F2]'
+                        }`}
+                      >
+                        <div className="flex justify-between items-center mb-4 px-3 flex-shrink-0">
+                          <h3 className="text-[22px] font-bold leading-[1.54] tracking-[-0.02em] text-[#1C262B] font-KoPubWorldDotum truncate pt-1.5">
+                            {store.location}
+                          </h3>
+                          {/* <span className="text-[22px] font-medium leading-[1.54] tracking-[-0.02em] text-[#1C262B] font-KoPubWorldDotum flex-shrink-0 ml-2">
+                          {store.recruited}
+                        </span> */}
+                        </div>
+                        <div className="flex-1 flex items-start px-3">
+                          <div className="flex flex-col gap-2">
+                            {store.details.split('\n').map((line, index) => (
+                              <div key={index} className="flex items-start gap-2">
+                                <div className="w-1.5 h-1.5 bg-[#1C262B] rounded-full mt-2 flex-shrink-0"></div>
+                                <p className="text-[18px] font-medium leading-[1.3] tracking-[-0.02em] text-[#1C262B] font-KoPubWorldDotum text-left">
+                                  {line}
+                                </p>
+                              </div>
+                            ))}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </Link>
-                ))}
+                    </>
+                  );
+
+                  if (store.status === 'CLOSED') {
+                    return (
+                      <div
+                        key={store.id}
+                        className="w-full max-w-[335px] mx-auto block transition-opacity duration-200 opacity-60 cursor-not-allowed"
+                      >
+                        {cardContent}
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <Link
+                      key={store.id}
+                      to={`/startup-guide/low-capital-startup/store-progress/${store.id}`}
+                      className="w-full max-w-[335px] mx-auto block transition-opacity duration-200 hover:opacity-90"
+                    >
+                      {cardContent}
+                    </Link>
+                  );
+                })}
             </div>
 
             {/* Pagination */}
