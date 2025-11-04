@@ -3,14 +3,14 @@ import ImageUpload from './ImageUpload';
 // 중복 import 제거
 import {
   statusOptions,
-  targetRecruitsOptions,
-  interiorOptions,
-  floorOptions,
-  sizeOptions,
-  washingMachineOptions,
-  dryerOptions,
-  operatingHoursOptions,
-  areaTypeOptions,
+  // targetRecruitsOptions,
+  // interiorOptions,
+  // floorOptions,
+  // sizeOptions,
+  // washingMachineOptions,
+  // dryerOptions,
+  // operatingHoursOptions,
+  // areaTypeOptions,
 } from './constants';
 
 // ----- helpers (module scope: stable across renders) -----
@@ -21,10 +21,10 @@ const isUndecidedValue = (value) => {
   return false;
 };
 
-const normalizeSelect = (value) => {
-  if (isUndecidedValue(value)) return 'undecided';
-  return value ?? '';
-};
+// const normalizeSelect = (value) => {
+//   if (isUndecidedValue(value)) return 'undecided';
+//   return value ?? '';
+// };
 
 const toNumberOrZero = (value) => {
   if (isUndecidedValue(value)) return 0;
@@ -41,28 +41,15 @@ const StoreForm = ({ store, onBack, onSave }) => {
     // storeBasicInfo
     storeName: store?.storeBasicInfo?.storeName || '',
     status: store?.storeBasicInfo?.status || 'WAITING',
-    targetRecruits: normalizeSelect(store?.storeBasicInfo?.targetRecruits),
+    targetRecruits: store?.storeBasicInfo?.targetRecruits || '',
+    currentRecruits: store?.storeBasicInfo?.currentRecruits || '',
     targetOpeningDate: store?.storeBasicInfo?.targetOpeningDate || '',
-    areaSqm: normalizeSelect(store?.storeBasicInfo?.areaSqm),
-    washingMachines: normalizeSelect(store?.storeBasicInfo?.washingMachines),
-    dryers: normalizeSelect(store?.storeBasicInfo?.dryers),
-    operatingHours: normalizeSelect(store?.storeBasicInfo?.operatingHours),
-    areaType: normalizeSelect(store?.storeBasicInfo?.areaType),
 
-    // storeDetails
-    detailsLocation: store?.storeDetails?.detailsLocation || '',
-    detailsInterior: normalizeSelect(store?.storeDetails?.detailsInterior),
-    detailsFloor: normalizeSelect(store?.storeDetails?.detailsFloor),
+    // storeDetails - 월세, 권리금만 유지
     detailsRent: store?.storeDetails?.detailsRent || '',
     detailsDeposit: store?.storeDetails?.detailsDeposit || '',
-    detailsStartupCost: store?.storeDetails?.detailsStartupCost || '',
-    detailsParking: store?.storeDetails?.detailsParking || '',
-    detailsSize: store?.storeDetails?.detailsSize || '',
 
-    // storeDescription
-    householdCountInRadius: store?.storeDescription?.householdCountInRadius || '',
-    populationByAgeGroup: store?.storeDescription?.populationByAgeGroup || '',
-    competitorStores: store?.storeDescription?.competitorStores || '',
+    // 상권 정보 - 하나의 textarea로 통합
     locationAnalysis: store?.storeDescription?.locationAnalysis || '',
   });
 
@@ -94,28 +81,15 @@ const StoreForm = ({ store, onBack, onSave }) => {
       // storeBasicInfo
       storeName: store?.storeBasicInfo?.storeName || '',
       status: store?.storeBasicInfo?.status || 'WAITING',
-      targetRecruits: normalizeSelect(store?.storeBasicInfo?.targetRecruits),
+      targetRecruits: store?.storeBasicInfo?.targetRecruits || '',
+      currentRecruits: store?.storeBasicInfo?.currentRecruits || '',
       targetOpeningDate: store?.storeBasicInfo?.targetOpeningDate || '',
-      areaSqm: normalizeSelect(store?.storeBasicInfo?.areaSqm),
-      washingMachines: normalizeSelect(store?.storeBasicInfo?.washingMachines),
-      dryers: normalizeSelect(store?.storeBasicInfo?.dryers),
-      operatingHours: normalizeSelect(store?.storeBasicInfo?.operatingHours),
-      areaType: normalizeSelect(store?.storeBasicInfo?.areaType),
 
-      // storeDetails
-      detailsLocation: store?.storeDetails?.detailsLocation || '',
-      detailsInterior: normalizeSelect(store?.storeDetails?.detailsInterior),
-      detailsFloor: normalizeSelect(store?.storeDetails?.detailsFloor),
+      // storeDetails - 월세, 권리금만 유지
       detailsRent: store?.storeDetails?.detailsRent || '',
       detailsDeposit: store?.storeDetails?.detailsDeposit || '',
-      detailsStartupCost: store?.storeDetails?.detailsStartupCost || '',
-      detailsParking: store?.storeDetails?.detailsParking || '',
-      detailsSize: store?.storeDetails?.detailsSize || '',
 
-      // storeDescription
-      householdCountInRadius: store?.storeDescription?.householdCountInRadius || '',
-      populationByAgeGroup: store?.storeDescription?.populationByAgeGroup || '',
-      competitorStores: store?.storeDescription?.competitorStores || '',
+      // 상권 정보 - 하나의 textarea로 통합
       locationAnalysis: store?.storeDescription?.locationAnalysis || '',
     });
 
@@ -148,6 +122,39 @@ const StoreForm = ({ store, onBack, onSave }) => {
     }));
   };
 
+  // 숫자만 입력 가능하도록 처리
+  const handleNumberInput = (e) => {
+    const { name, value } = e.target;
+    // 숫자만 허용 (빈 문자열도 허용)
+    if (value === '' || /^\d+$/.test(value)) {
+      setFormData((prev) => {
+        const newData = { ...prev, [name]: value };
+
+        // 현재 모집 인원이 목표 모집 인원보다 클 수 없음
+        if (name === 'currentRecruits' && value !== '') {
+          const targetValue = parseInt(prev.targetRecruits || '0', 10);
+          const currentValue = parseInt(value, 10);
+          if (targetValue > 0 && currentValue > targetValue) {
+            // 목표보다 크면 목표 값으로 제한
+            newData.currentRecruits = targetValue.toString();
+          }
+        }
+
+        // 목표 모집 인원이 변경되면 현재 모집 인원도 조정
+        if (name === 'targetRecruits' && value !== '') {
+          const targetValue = parseInt(value, 10);
+          const currentValue = parseInt(prev.currentRecruits || '0', 10);
+          if (currentValue > targetValue) {
+            // 현재가 목표보다 크면 목표 값으로 조정
+            newData.currentRecruits = targetValue.toString();
+          }
+        }
+
+        return newData;
+      });
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -158,24 +165,11 @@ const StoreForm = ({ store, onBack, onSave }) => {
       { key: 'storeName', label: '매장명' },
       { key: 'status', label: '상태' },
       { key: 'targetRecruits', label: '목표 모집 인원' },
+      { key: 'currentRecruits', label: '현재 모집 인원' },
       { key: 'targetOpeningDate', label: '목표 오픈 시기' },
-      { key: 'areaSqm', label: '평수' },
-      { key: 'washingMachines', label: '세탁기 대수' },
-      { key: 'dryers', label: '건조기 대수' },
-      { key: 'operatingHours', label: '운영시간' },
-      { key: 'areaType', label: '지역 특성' },
-      { key: 'detailsLocation', label: '상세 위치 정보' },
-      { key: 'detailsInterior', label: '인테리어 상태' },
-      { key: 'detailsFloor', label: '층수' },
       { key: 'detailsRent', label: '월세 정보' },
-      { key: 'detailsDeposit', label: '보증금 정보' },
-      { key: 'detailsStartupCost', label: '창업 비용 정보' },
-      { key: 'detailsParking', label: '주차 정보' },
-      { key: 'detailsSize', label: '규모 정보' },
-      { key: 'householdCountInRadius', label: '반경 내 가구수' },
-      { key: 'populationByAgeGroup', label: '연령대별 인구' },
-      { key: 'competitorStores', label: '경쟁 매장 수' },
-      { key: 'locationAnalysis', label: '입지 분석' },
+      { key: 'detailsDeposit', label: '권리금' },
+      { key: 'locationAnalysis', label: '상권 정보' },
     ];
 
     const missingFields = requiredFields.filter(
@@ -203,30 +197,17 @@ const StoreForm = ({ store, onBack, onSave }) => {
         detailAddress: formData.detailAddress,
       },
       storeBasicInfo: {
-        areaSqm: toNumberOrZero(formData.areaSqm),
-        targetRecruits: toNumberOrZero(formData.targetRecruits),
-        areaType: normalizeSelect(formData.areaType),
         storeName: formData.storeName,
-        operatingHours: normalizeSelect(formData.operatingHours),
-        washingMachines: toNumberOrZero(formData.washingMachines),
         status: formData.status,
+        currentRecruits: toNumberOrZero(formData.currentRecruits),
+        targetRecruits: toNumberOrZero(formData.targetRecruits),
         targetOpeningDate: formData.targetOpeningDate,
-        dryers: toNumberOrZero(formData.dryers),
       },
       storeDetails: {
-        detailsLocation: formData.detailsLocation,
-        detailsInterior: normalizeSelect(formData.detailsInterior),
-        detailsFloor: normalizeSelect(formData.detailsFloor),
         detailsRent: formData.detailsRent,
         detailsDeposit: formData.detailsDeposit,
-        detailsStartupCost: formData.detailsStartupCost,
-        detailsParking: formData.detailsParking,
-        detailsSize: formData.detailsSize,
       },
       storeDescription: {
-        householdCountInRadius: formData.householdCountInRadius,
-        populationByAgeGroup: formData.populationByAgeGroup,
-        competitorStores: formData.competitorStores,
         locationAnalysis: formData.locationAnalysis,
       },
     };
@@ -451,23 +432,53 @@ const StoreForm = ({ store, onBack, onSave }) => {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
+                현재 모집 인원 *
+              </label>
+              <input
+                type="text"
+                name="currentRecruits"
+                value={formData.currentRecruits || ''}
+                onChange={handleNumberInput}
+                onKeyPress={(e) => {
+                  // 숫자만 입력 허용
+                  if (
+                    !/^\d$/.test(e.key) &&
+                    e.key !== 'Backspace' &&
+                    e.key !== 'Delete' &&
+                    e.key !== 'Tab'
+                  ) {
+                    e.preventDefault();
+                  }
+                }}
+                required
+                placeholder="숫자만 입력 가능합니다."
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
                 목표 모집 인원 *
               </label>
-              <select
+              <input
+                type="text"
                 name="targetRecruits"
                 value={formData.targetRecruits || ''}
-                onChange={handleInputChange}
+                onChange={handleNumberInput}
+                onKeyPress={(e) => {
+                  // 숫자만 입력 허용
+                  if (
+                    !/^\d$/.test(e.key) &&
+                    e.key !== 'Backspace' &&
+                    e.key !== 'Delete' &&
+                    e.key !== 'Tab'
+                  ) {
+                    e.preventDefault();
+                  }
+                }}
                 required
+                placeholder="숫자만 입력 가능합니다."
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
-              >
-                <option value="">선택하세요</option>
-                <option value="undecided">미정</option>
-                {targetRecruitsOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
+              />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -486,159 +497,10 @@ const StoreForm = ({ store, onBack, onSave }) => {
           </div>
         </div>
 
-        {/* 매장 정보 */}
-        <div>
-          <h4 className="text-lg font-medium text-gray-900 mb-4">매장 정보</h4>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">평수 *</label>
-              <select
-                name="areaSqm"
-                value={formData.areaSqm || ''}
-                onChange={handleInputChange}
-                required
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
-              >
-                <option value="">선택하세요</option>
-                <option value="undecided">미정</option>
-                {sizeOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">세탁기 대수 *</label>
-              <select
-                name="washingMachines"
-                value={formData.washingMachines || ''}
-                onChange={handleInputChange}
-                required
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
-              >
-                <option value="">선택하세요</option>
-                <option value="undecided">미정</option>
-                {washingMachineOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">건조기 대수 *</label>
-              <select
-                name="dryers"
-                value={formData.dryers || ''}
-                onChange={handleInputChange}
-                required
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
-              >
-                <option value="">선택하세요</option>
-                <option value="undecided">미정</option>
-                {dryerOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">운영시간 *</label>
-              <select
-                name="operatingHours"
-                value={formData.operatingHours || ''}
-                onChange={handleInputChange}
-                required
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
-              >
-                <option value="">선택하세요</option>
-                <option value="undecided">미정</option>
-                {operatingHoursOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">지역 특성 *</label>
-              <select
-                name="areaType"
-                value={formData.areaType || ''}
-                onChange={handleInputChange}
-                required
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
-              >
-                <option value="">선택하세요</option>
-                <option value="undecided">미정</option>
-                {areaTypeOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-        </div>
-
         {/* 상세 정보 */}
         <div>
           <h4 className="text-lg font-medium text-gray-900 mb-4">상세 정보</h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                상세 위치 정보 *
-              </label>
-              <input
-                type="text"
-                name="detailsLocation"
-                value={formData.detailsLocation}
-                onChange={handleInputChange}
-                required
-                placeholder="서울시 동작구 상도동"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                인테리어 상태 *
-              </label>
-              <select
-                name="detailsInterior"
-                value={formData.detailsInterior}
-                onChange={handleInputChange}
-                required
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
-              >
-                <option value="">선택하세요</option>
-                <option value="undecided">미정</option>
-                {interiorOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">층수 *</label>
-              <select
-                name="detailsFloor"
-                value={formData.detailsFloor}
-                onChange={handleInputChange}
-                required
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
-              >
-                <option value="">선택하세요</option>
-                <option value="undecided">미정</option>
-                {floorOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">월세 정보 *</label>
               <input
@@ -663,103 +525,28 @@ const StoreForm = ({ store, onBack, onSave }) => {
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">창업비용 *</label>
-              <input
-                type="text"
-                name="detailsStartupCost"
-                value={formData.detailsStartupCost}
-                onChange={handleInputChange}
-                required
-                placeholder="창업비용 3000만원"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">주차 상세 *</label>
-              <input
-                type="text"
-                name="detailsParking"
-                value={formData.detailsParking}
-                onChange={handleInputChange}
-                required
-                placeholder="주차 가능 - 매장 앞 4대"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">면적 *</label>
-              <input
-                type="text"
-                name="detailsSize"
-                value={formData.detailsSize}
-                onChange={handleInputChange}
-                required
-                placeholder="전용 52.99m²"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
-              />
-            </div>
           </div>
         </div>
 
-        {/* 설명 정보 */}
+        {/* 상권 정보 */}
         <div>
-          <h4 className="text-lg font-medium text-gray-900 mb-4">설명 정보</h4>
-          <div className="space-y-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                반경 내 가구 수 *
-              </label>
-              <input
-                type="text"
-                name="householdCountInRadius"
-                value={formData.householdCountInRadius}
-                onChange={handleInputChange}
-                required
-                placeholder="반경 500m 내 약 1,200가구"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                연령대별 인구 *
-              </label>
-              <input
-                type="text"
-                name="populationByAgeGroup"
-                value={formData.populationByAgeGroup}
-                onChange={handleInputChange}
-                required
-                placeholder="20-30대 40%, 30-40대 35%, 40-50대 25%"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                경쟁업체 현황 *
-              </label>
-              <input
-                type="text"
-                name="competitorStores"
-                value={formData.competitorStores}
-                onChange={handleInputChange}
-                required
-                placeholder="반경 1km 내 세탁소 2개소, 무인세탁방 1개소"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">입지 분석 *</label>
-              <textarea
-                name="locationAnalysis"
-                value={formData.locationAnalysis}
-                onChange={handleInputChange}
-                rows={4}
-                required
-                placeholder="인근 주거 밀집 지역과 생활 편의시설이 결합된 안정적인 상권에 위치한 무인세탁방 매물로, 바로 영업이 가능하며 꾸준한 수익 창출이 기대되는 입지입니다."
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
-              />
-            </div>
+          <h4 className="text-lg font-medium text-gray-900 mb-4">상권 정보</h4>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">상권 분석 내용 *</label>
+            <textarea
+              name="locationAnalysis"
+              value={formData.locationAnalysis}
+              onChange={handleInputChange}
+              rows={8}
+              required
+              placeholder="반경내 세대수: 약 5,000세대
+연령대: 20-40대 직장인 비중 65%
+경쟁매장: 주변 세탁소 2개, 세탁물 수거함 3곳
+입지분석: 지하철역 도보 5분, 버스정류장 인접
+주변 상권: 상가밀집지역, 오피스빌딩 다수"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
+            />
+            <p className="text-xs text-gray-500 mt-1">엔터 키로 줄바꿈하여 여러 줄로 입력하세요.</p>
           </div>
         </div>
 

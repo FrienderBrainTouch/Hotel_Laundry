@@ -29,7 +29,7 @@ const LowCapitalStartup = () => {
   return (
     <section className="py-20 bg-white">
       <div className="flex justify-center">
-        <div className="w-full xs:max-w-[355px] sm:max-w-[535px] md:max-w-[728px] lg:max-w-[924px] xl:max-w-[1200px] 2xl:max-w-[1400px] mx-auto">
+        <div className="w-[70%] mx-auto">
           {/* 이미지 섹션 */}
           <div className="space-y-0">
             <img
@@ -162,7 +162,7 @@ const LowCapitalStartup = () => {
           <div className="text-center mt-8 xs:mt-6 sm:mt-8 md:mt-10 lg:mt-12 xl:mt-14 2xl:mt-16">
             <Link
               to="/startup-guide/low-capital-startup/store-progress"
-              className="inline-block bg-[#102254] text-white px-4 py-3 xs:px-6 xs:py-3 sm:px-6 sm:py-3 md:px-8 md:py-4 lg:px-10 lg:py-4 xl:px-12 xl:py-5 2xl:px-16 2xl:py-6 rounded-lg text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl xl:text-2xl 2xl:text-3xl font-bold hover:bg-[#0a1a3a] transition-colors duration-200"
+              className="inline-block bg-[#102254] text-white px-6 py-4 xs:px-8 xs:py-4 sm:px-10 sm:py-5 md:px-12 md:py-6 lg:px-16 lg:py-7 xl:px-20 xl:py-8 2xl:px-24 2xl:py-10 rounded-lg text-base xs:text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold hover:bg-[#0a1a3a] transition-colors duration-200"
             >
               지금 바로 진행 매장 확인하기
             </Link>
