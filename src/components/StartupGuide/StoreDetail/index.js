@@ -103,14 +103,14 @@ const StoreDetail = () => {
         parking: details.detailsParking,
         size: details.detailsSize,
       },
+      // 더미데이터
       marketAnalysis: {
         title: '상권 분석',
-        items: [
-          `반경내 세대수: ${getDisplayValue(description.householdCountInRadius)}`,
-          `연령대: ${getDisplayValue(description.populationByAgeGroup)}`,
-          `경쟁매장: ${getDisplayValue(description.competitorStores)}`,
-          `입지분석: ${getDisplayValue(description.locationAnalysis)}`,
-        ],
+        text: getDisplayValue(
+          // description.locationAnalysis ||
+          //   description.marketAnalysis ||
+          '반경내 세대수: 약 5,000세대\n연령대: 20-40대 직장인 비중 65%\n경쟁매장: 주변 세탁소 2개, 세탁물 수거함 3곳\n입지분석: 지하철역 도보 5분, 버스정류장 인접\n주변 상권: 상가밀집지역, 오피스빌딩 다수'
+        ),
       },
     };
   }, [data]);
@@ -119,84 +119,38 @@ const StoreDetail = () => {
     if (!storeData) return [];
     return [
       {
-        icon: '/images/store-detail/icons/location-icon.png',
         label: '주소',
         value: getDisplayValue(storeData?.details?.location),
       },
       {
-        icon: '/images/store-detail/icons/floor-icon.png',
         label: '매장명',
         value: getDisplayValue(storeData?.basicInfo?.storeName),
       },
       {
-        icon: '/images/store-detail/icons/floor-icon.png',
-        label: '상태',
+        label: '모집 상태',
         value: getStoreStatusLabel(storeData?.basicInfo?.status),
       },
       {
-        icon: '/images/store-detail/icons/size-icon.png',
+        // TODO: api 수정되면 연동 필요, value만 바꾸면 됨
+        // basicInfo.targetRecruits을 basicInfo.{원하는필드명}으로 변경
         label: '목표 모집 인원',
         value: getDisplayValue(storeData?.basicInfo?.targetRecruits),
       },
       {
-        icon: '/images/store-detail/icons/size-icon.png',
-        label: '목표 오픈 시기',
+        label: '오픈 예정일',
         value: getDisplayValue(storeData?.basicInfo?.targetOpeningDate),
       },
       {
-        icon: '/images/store-detail/icons/size-icon.png',
         label: '면적(㎡)',
         value: getDisplayValue(storeData?.basicInfo?.areaSqm),
       },
       {
-        icon: '/images/store-detail/icons/rent-icon.png',
-        label: '세탁기 대수',
-        value: getDisplayValue(storeData?.basicInfo?.washingMachines),
-      },
-      {
-        icon: '/images/store-detail/icons/rent-icon.png',
-        label: '건조기 대수',
-        value: getDisplayValue(storeData?.basicInfo?.dryers),
-      },
-      {
-        icon: '/images/store-detail/icons/startup-cost-icon.png',
-        label: '운영시간',
-        value: getDisplayValue(storeData?.basicInfo?.operatingHours),
-      },
-      {
-        icon: '/images/store-detail/icons/startup-cost-icon.png',
-        label: '지역 특성',
-        value: getDisplayValue(storeData?.basicInfo?.areaType),
-      },
-      {
-        icon: '/images/store-detail/icons/floor-icon.png',
-        label: '층수',
-        value: getDisplayValue(storeData?.details?.floor),
-      },
-      {
-        icon: '/images/store-detail/icons/size-icon.png',
-        label: '면적',
-        value: getDisplayValue(storeData?.details?.size),
-      },
-      {
-        icon: '/images/store-detail/icons/rent-icon.png',
         label: '보증금/월세',
         value: getDisplayValue(storeData?.details?.rent),
       },
       {
-        icon: '/images/store-detail/icons/deposit-icon.png',
         label: '권리금',
         value: getDisplayValue(storeData?.details?.deposit),
-      },
-      {
-        icon: '/images/store-detail/icons/startup-cost-icon.png',
-        label: '창업비용',
-        value: getDisplayValue(storeData?.details?.startupCost),
-      },
-      {
-        icon: '/images/store-detail/icons/location-icon.png',
-        label: '주차',
-        value: getDisplayValue(storeData?.details?.parking),
       },
     ];
   }, [storeData]);
@@ -378,38 +332,6 @@ const StoreDetail = () => {
                     </div>
                   ))}
                 </div>
-
-                {/* Icons Column - 주석 처리 */}
-                {/* <div className="flex gap-8">
-                    <div className="flex flex-col gap-6 w-[42px] flex-shrink-0">
-                      {detailItems.map((item, index) => (
-                        <div key={index} className="flex items-center justify-center">
-                          {index === 7 ? (
-                            <div className="w-[42px] h-[42px] flex items-center justify-center">
-                              <img
-                                src={item.icon}
-                                alt={`아이콘 ${index + 1}`}
-                                className="w-[33.25px] h-[29.75px]"
-                              />
-                            </div>
-                          ) : (
-                            <div className="w-[30px] h-[30px] flex items-center justify-center">
-                              <img src={item.icon} alt={`아이콘 ${index + 1}`} className="w-6 h-6" />
-                            </div>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                    <div className="flex-1">
-                      {detailItems.map((item, index) => (
-                        <div key={index} className="mb-4 last:mb-0">
-                          <p className="text-[20px] font-medium leading-[1.54] tracking-[-0.02em] text-black font-KoPubWorldDotum">
-                            {item.value}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div> */}
               </div>
             </div>
 
@@ -424,17 +346,20 @@ const StoreDetail = () => {
             <div className="mb-12 xs:mb-8 sm:mb-10 md:mb-12 lg:mb-14 xl:mb-16 2xl:mb-20">
               <div className="bg-[#F3F4F6] rounded-xl xs:rounded-2xl p-4 xs:p-6 sm:p-6 md:p-8 lg:p-8 xl:p-10 2xl:p-12">
                 <div className="flex flex-col gap-3 xs:gap-3 sm:gap-4 md:gap-4 lg:gap-5 xl:gap-5 2xl:gap-6">
-                  {(storeData?.marketAnalysis?.items || []).map((item, index) => (
-                    <div
-                      key={index}
-                      className="flex items-start gap-2 xs:gap-2 sm:gap-3 md:gap-3 lg:gap-3 xl:gap-3 2xl:gap-4"
-                    >
-                      <div className="w-1.5 h-1.5 bg-black rounded-full mt-2 xs:mt-2 sm:mt-2 md:mt-3 lg:mt-3 xl:mt-3 2xl:mt-3 flex-shrink-0"></div>
-                      <p className="text-[14px] xs:text-[16px] sm:text-[18px] md:text-[18px] lg:text-[20px] xl:text-[20px] 2xl:text-[20px] font-medium leading-[1.54] tracking-[-0.02em] text-black font-KoPubWorldDotum">
-                        {item}
-                      </p>
-                    </div>
-                  ))}
+                  {(storeData?.marketAnalysis?.text || '')
+                    .split('\n')
+                    .filter((line) => line.trim() !== '')
+                    .map((line, index) => (
+                      <div
+                        key={index}
+                        className="flex items-start gap-2 xs:gap-2 sm:gap-3 md:gap-3 lg:gap-3 xl:gap-3 2xl:gap-4"
+                      >
+                        <div className="w-1.5 h-1.5 bg-black rounded-full mt-2 xs:mt-2 sm:mt-2 md:mt-3 lg:mt-3 xl:mt-3 2xl:mt-3 flex-shrink-0"></div>
+                        <p className="text-[14px] xs:text-[16px] sm:text-[18px] md:text-[18px] lg:text-[20px] xl:text-[20px] 2xl:text-[20px] font-medium leading-[1.54] tracking-[-0.02em] text-black font-KoPubWorldDotum">
+                          {line.trim()}
+                        </p>
+                      </div>
+                    ))}
                 </div>
               </div>
             </div>

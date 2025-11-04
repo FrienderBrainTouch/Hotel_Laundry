@@ -53,6 +53,7 @@ const StoreProgress = () => {
         status: s.status || null,
         details: detailsLines.join('\n'),
         thumbnail: toImageUrl(s.imageKey),
+        targetRecruits: s.targetRecruits || null,
       };
     });
   }, [data]);
@@ -263,6 +264,13 @@ const StoreProgress = () => {
                               );
                             })()
                           : null}
+                        {/* 목표 모집 인원 - 우측 하단 */}
+                        {/* TODO: api 수정되면 연동 필요, value만 바꾸면 됨, targetRecruits을 {원하는필드명}으로 변경 */}
+                        {store.targetRecruits && store.status !== 'CLOSED' && (
+                          <div className="absolute bottom-3 right-3 bg-black bg-opacity-70 text-white px-2.5 py-1 rounded-lg text-xs xs:text-sm font-semibold">
+                            {store.targetRecruits}
+                          </div>
+                        )}
                       </div>
 
                       {/* Store Info */}
