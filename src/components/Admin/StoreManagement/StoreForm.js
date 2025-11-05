@@ -65,11 +65,19 @@ const StoreForm = ({ store, onBack, onSave }) => {
     };
   });
 
+  // 상권 분석 이미지 (여러 개)
+  const [locationAnalysisImages, setLocationAnalysisImages] = useState(
+    store?.locationAnalysisImages || []
+  );
+
   // 새로 업로드된 파일들을 별도로 관리
   const [newFiles, setNewFiles] = useState({
     main: null,
     gallery: [],
   });
+
+  // 상권 분석 이미지 새 파일들
+  const [newLocationAnalysisFiles, setNewLocationAnalysisFiles] = useState([]);
 
   // 상세 데이터 도착 시 폼/이미지 상태 동기화
   useEffect(() => {
@@ -104,8 +112,13 @@ const StoreForm = ({ store, onBack, onSave }) => {
       gallery: store?.galleryImages ?? galleryFromIncoming,
     });
 
+    // 상권 분석 이미지 동기화
+    console.log('🔄 상권 분석 이미지 동기화:', store?.locationAnalysisImages);
+    setLocationAnalysisImages(store?.locationAnalysisImages || []);
+
     // 새 파일 캐시 초기화
     setNewFiles({ main: null, gallery: [] });
+    setNewLocationAnalysisFiles([]);
   }, [store]);
 
   console.log('🔍 StoreForm render - images state:', {
@@ -113,6 +126,9 @@ const StoreForm = ({ store, onBack, onSave }) => {
     gallery: images.gallery,
     mainType: typeof images.main,
     galleryLength: images.gallery?.length,
+    locationAnalysisImages: locationAnalysisImages,
+    locationAnalysisImagesLength: locationAnalysisImages?.length,
+    storeLocationAnalysisImages: store?.locationAnalysisImages,
   });
 
   // 기존 URL->File 선변환 로직 제거 (서버가 existingImageIdsInOrder를 받음)
@@ -122,6 +138,59 @@ const StoreForm = ({ store, onBack, onSave }) => {
       ...prev,
       [name]: type === 'checkbox' ? checked : value,
     }));
+  };
+
+  // 상권 분석 이미지 업로드 핸들러 (여러 개)
+  const handleLocationAnalysisImagesChange = (e) => {
+    const files = Array.from(e.target.files || []);
+    if (files.length === 0) return;
+
+    // 최대 10개 제한
+    const currentCount = locationAnalysisImages.length;
+    const remainingSlots = 10 - currentCount;
+    
+    if (files.length > remainingSlots) {
+      alert(`상권 분석 이미지는 최대 10개까지 업로드 가능합니다.\n현재 ${currentCount}개, ${remainingSlots}개 더 추가 가능합니다.`);
+      return;
+    }
+
+    // 이미지 파일 타입 체크
+    const invalidFiles = files.filter(file => !file.type.startsWith('image/'));
+    if (invalidFiles.length > 0) {
+      alert('이미지 파일만 업로드 가능합니다.');
+      return;
+    }
+
+    // 파일 크기 제한 (30MB)
+    const MAX_SIZE = 30 * 1024 * 1024;
+    const oversizeFiles = files.filter(file => file.size > MAX_SIZE);
+    if (oversizeFiles.length > 0) {
+      alert(`이미지 파일 크기는 최대 30MB까지 가능합니다.\n문제 파일: ${oversizeFiles[0].name}`);
+      return;
+    }
+
+    // 미리보기 URL 생성 및 상태 업데이트
+    const newPreviews = files.map(file => URL.createObjectURL(file));
+    setLocationAnalysisImages(prev => [...prev, ...newPreviews]);
+    setNewLocationAnalysisFiles(prev => [...prev, ...files]);
+  };
+
+  // 상권 분석 이미지 개별 삭제 핸들러
+  const handleLocationAnalysisImageRemove = (index) => {
+    const imageToRemove = locationAnalysisImages[index];
+    
+    // blob URL이면 메모리 해제
+    if (typeof imageToRemove === 'string' && imageToRemove.startsWith('blob:')) {
+      URL.revokeObjectURL(imageToRemove);
+      // blob URL인 경우 새 파일 배열에서도 제거
+      const blobIndex = locationAnalysisImages.slice(0, index).filter(img => 
+        typeof img === 'string' && img.startsWith('blob:')
+      ).length;
+      setNewLocationAnalysisFiles(prev => prev.filter((_, i) => i !== blobIndex));
+    }
+
+    // 이미지 배열에서 제거
+    setLocationAnalysisImages(prev => prev.filter((_, i) => i !== index));
   };
 
   // 숫자만 입력 가능하도록 처리
@@ -185,6 +254,12 @@ const StoreForm = ({ store, onBack, onSave }) => {
       return;
     }
 
+    // 상권 분석 이미지 검증 (필수 - 최소 1개)
+    if (!locationAnalysisImages || locationAnalysisImages.length === 0) {
+      alert('상권 분석 이미지를 최소 1개 이상 등록해 주세요.');
+      return;
+    }
+
     if (missingFields.length > 0) {
       const missingLabels = missingFields.map((field) => field.label).join(', ');
       alert(`다음 필수 항목을 입력해 주세요:\n${missingLabels}`);
@@ -195,24 +270,32 @@ const StoreForm = ({ store, onBack, onSave }) => {
     const formDataToSend = new FormData();
 
     const dto = {
-      address: {
-        address: formData.address,
-        detailAddress: formData.detailAddress,
+      infoDto: {
+        address: {
+          address: formData.address,
+          detailAddress: formData.detailAddress,
+        },
+        storeBasicInfo: {
+          storeName: formData.storeName,
+          status: formData.status,
+          currentRecruits: toNumberOrZero(formData.currentRecruits),
+          targetRecruits: toNumberOrZero(formData.targetRecruits),
+          targetOpeningDate: formData.targetOpeningDate,
+          areaSqm: formData.areaSqm,
+        },
+        storeDetails: {
+          detailsRent: formData.detailsRent,
+          detailsDeposit: formData.detailsDeposit,
+        },
+        storeDescription: {
+          locationAnalysis: formData.locationAnalysis,
+        },
       },
-      storeBasicInfo: {
-        storeName: formData.storeName,
-        status: formData.status,
-        currentRecruits: toNumberOrZero(formData.currentRecruits),
-        targetRecruits: toNumberOrZero(formData.targetRecruits),
-        targetOpeningDate: formData.targetOpeningDate,
-        areaSqm: formData.areaSqm,
+      imagesDto: {
+        existingImageIdsInOrder: [],
       },
-      storeDetails: {
-        detailsRent: formData.detailsRent,
-        detailsDeposit: formData.detailsDeposit,
-      },
-      storeDescription: {
-        locationAnalysis: formData.locationAnalysis,
+      businessImagesDto: {
+        existingBusinessImageIdsInOrder: [],
       },
     };
 
@@ -267,6 +350,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
     }
 
     // 파일 용량 제한 검사 (단일 30MB, 총합 500MB)
+    // 상권 분석 이미지는 별도 파트로 전송하므로 filesToAppend에 포함하지 않음
     const MAX_SINGLE = 30 * 1024 * 1024; // 30MB
     const MAX_TOTAL = 500 * 1024 * 1024; // 500MB
 
@@ -278,7 +362,14 @@ const StoreForm = ({ store, onBack, onSave }) => {
       return;
     }
 
-    const totalSize = calcTotalSize(filesToAppend);
+    // 상권 분석 이미지 용량 체크
+    const oversizeLocationFile = newLocationAnalysisFiles.find((f) => f.size > MAX_SINGLE);
+    if (oversizeLocationFile) {
+      alert(`상권 분석 이미지 파일 크기는 최대 30MB까지 가능합니다.\n파일: ${oversizeLocationFile.name}`);
+      return;
+    }
+
+    const totalSize = calcTotalSize(filesToAppend) + calcTotalSize(newLocationAnalysisFiles);
     if (totalSize > MAX_TOTAL) {
       alert('이미지 총 용량은 최대 500MB까지 가능합니다.');
       return;
@@ -286,15 +377,40 @@ const StoreForm = ({ store, onBack, onSave }) => {
 
     // DTO에 existing ids 포함 (수정 모드에서만 의미 있음)
     if (store) {
-      dto.existingImageIdsInOrder = existingImageIdsInOrder;
+      dto.imagesDto.existingImageIdsInOrder = existingImageIdsInOrder;
     }
 
-    // files 첨부
+    // files 첨부 (메인 + 갤러리 이미지) → storeImages
     if (filesToAppend.length > 0) {
       filesToAppend.forEach((f) => formDataToSend.append('files', f));
     } else {
       // 서버가 MultipartFile 파트를 필수로 요구하므로, 빈 파일로 파트 존재를 보장
       formDataToSend.append('files', new Blob([], { type: 'application/octet-stream' }), 'empty');
+    }
+
+    // 상권 분석 이미지 별도 첨부 → images (businessImages)
+    if (newLocationAnalysisFiles.length > 0) {
+      newLocationAnalysisFiles.forEach((file) => {
+        if (file instanceof File) {
+          formDataToSend.append('images', file);
+        }
+      });
+    }
+
+    // 수정 모드: 남아있는 기존 businessImages의 id 추출
+    if (store && store.existingBusinessImages) {
+      const remainingBusinessUrlSet = new Set(
+        locationAnalysisImages.filter((item) => typeof item === 'string' && !item.startsWith('blob:'))
+      );
+      
+      const existingBusinessImageIds = store.existingBusinessImages
+        .filter((img) => img?.url && remainingBusinessUrlSet.has(img.url))
+        .map((img) => img.id)
+        .filter((id) => id != null);
+      
+      if (existingBusinessImageIds.length > 0) {
+        dto.businessImagesDto.existingBusinessImageIdsInOrder = existingBusinessImageIds;
+      }
     }
 
     // dto 추가
@@ -310,6 +426,12 @@ const StoreForm = ({ store, onBack, onSave }) => {
         type: f.type,
         size: f.size,
       })),
+      locationAnalysisImages: newLocationAnalysisFiles.map(f => ({
+        name: f.name,
+        type: f.type,
+        size: f.size,
+      })),
+      locationAnalysisImagesCount: newLocationAnalysisFiles.length,
     });
 
     // 디버깅: 실제 전송 형식 확인
@@ -339,13 +461,16 @@ const StoreForm = ({ store, onBack, onSave }) => {
           entries.push({ key, value: preview });
         }
       });
-      console.group('\uD83D\uDDC3\uFE0F FormData Preview (about to send)');
+      console.group('🗃️ FormData Preview (about to send)');
       console.log('Endpoint:', store ? `PATCH /admin/stores/${store.id}` : 'POST /admin/stores');
       console.table(entries);
       const filesCount = entries.filter((e) => e.key === 'files' && e.file).length;
-      console.log('files appended:', filesCount, filesCount === 0 ? '(null로 전송)' : '');
+      const imagesCount = entries.filter((e) => e.key === 'images' && e.file).length;
+      console.log('files (storeImages) appended:', filesCount, filesCount === 0 ? '(null로 전송)' : '');
+      console.log('images (businessImages) appended:', imagesCount);
       if (store) {
-        console.log('dto.existingImageIdsInOrder:', dto.existingImageIdsInOrder);
+        console.log('dto.imagesDto.existingImageIdsInOrder:', dto.imagesDto.existingImageIdsInOrder);
+        console.log('dto.businessImagesDto.existingBusinessImageIdsInOrder:', dto.businessImagesDto.existingBusinessImageIdsInOrder);
       }
       console.groupEnd();
     } catch (e) {
@@ -571,7 +696,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
         {/* 이미지 업로드 */}
         <div>
           <h4 className="text-lg font-medium text-gray-900 mb-4">이미지 업로드</h4>
-          <div className="space-y-4">
+          <div className="space-y-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 메인 이미지 *
@@ -592,6 +717,82 @@ const StoreForm = ({ store, onBack, onSave }) => {
               newFiles={newFiles}
               setNewFiles={setNewFiles}
             />
+
+            {/* 상권 분석 이미지 */}
+            <div className="border-t border-gray-200 pt-6">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                상권 분석 이미지 * (최대 10개)
+                <span className="text-xs text-gray-500 ml-2">권장 크기: 1200x800px, 파일당 최대 30MB</span>
+              </label>
+              
+              {/* 이미지 미리보기 그리드 */}
+              {locationAnalysisImages.length > 0 && (
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-4">
+                  {locationAnalysisImages.map((image, index) => (
+                    <div key={index} className="relative group">
+                      <img
+                        src={image}
+                        alt={`상권 분석 ${index + 1}`}
+                        className="w-full h-32 object-cover rounded-lg border border-gray-300"
+                        onError={(e) => {
+                          console.error('❌ 상권 분석 이미지 로드 실패:', image);
+                          e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100"%3E%3Crect fill="%23ddd" width="100" height="100"/%3E%3Ctext fill="%23999" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3E로드 실패%3C/text%3E%3C/svg%3E';
+                          e.target.onerror = null; // 무한 루프 방지
+                        }}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => handleLocationAnalysisImageRemove(index)}
+                        className="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-600 transition-colors opacity-0 group-hover:opacity-100"
+                      >
+                        ×
+                      </button>
+                      <div className="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white text-xs px-2 py-1 rounded">
+                        {index + 1}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* 업로드 버튼 */}
+              {locationAnalysisImages.length < 10 && (
+                <div className="mt-2">
+                  <label className="inline-block cursor-pointer">
+                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 hover:border-brand-blue transition-colors">
+                      <div className="text-center">
+                        <svg
+                          className="mx-auto h-12 w-12 text-gray-400"
+                          stroke="currentColor"
+                          fill="none"
+                          viewBox="0 0 48 48"
+                        >
+                          <path
+                            d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                            strokeWidth={2}
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                        <p className="mt-2 text-sm text-gray-600">
+                          클릭하여 상권 분석 이미지 업로드
+                        </p>
+                        <p className="mt-1 text-xs text-gray-500">
+                          PNG, JPG, GIF 최대 30MB ({locationAnalysisImages.length}/10)
+                        </p>
+                      </div>
+                    </div>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      onChange={handleLocationAnalysisImagesChange}
+                      className="hidden"
+                    />
+                  </label>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 

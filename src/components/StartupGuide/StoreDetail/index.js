@@ -54,6 +54,12 @@ const StoreDetail = () => {
     const originalMainImage = images[0] || '/images/store-detail/store-main-image.png';
     const originalGalleryImages = images.slice(1);
 
+    // 상권 분석 이미지 (businessImages) 파싱
+    const businessImageKeys = Array.isArray(src.businessImages)
+      ? src.businessImages.map((img) => (typeof img === 'string' ? img : img?.key)).filter(Boolean)
+      : [];
+    const businessImages = businessImageKeys.map(toImageUrl);
+
     // 선택된 갤러리 이미지가 있으면 메인과 갤러리 이미지 교체
     let displayMainImage = originalMainImage;
     let displayGalleryImages = originalGalleryImages;
@@ -120,6 +126,7 @@ const StoreDetail = () => {
           description.locationAnalysis ||
             '반경내 세대수: 약 5,000세대\n연령대: 20-40대 직장인 비중 65%\n경쟁매장: 주변 세탁소 2개, 세탁물 수거함 3곳\n입지분석: 지하철역 도보 5분, 버스정류장 인접\n주변 상권: 상가밀집지역, 오피스빌딩 다수'
         ),
+        images: businessImages,
       },
     };
   }, [data, selectedImageIndex]);
@@ -273,9 +280,37 @@ const StoreDetail = () => {
               </h2>
             </div>
 
+            {/* 상권 분석 이미지 */}
+            {storeData?.marketAnalysis?.images &&
+              storeData.marketAnalysis.images.length > 0 && (
+                <div className="mb-8 xs:mb-6 sm:mb-8 md:mb-10 lg:mb-12 xl:mb-12 2xl:mb-16">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 xs:gap-4 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-6 2xl:gap-8">
+                    {storeData.marketAnalysis.images.map((image, index) => (
+                      <div
+                        key={index}
+                        className="relative w-full aspect-[4/3] rounded-lg xs:rounded-xl overflow-hidden bg-white shadow-sm"
+                      >
+                        <img
+                          src={image}
+                          alt={`상권 분석 이미지 ${index + 1}`}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            console.error('❌ 상권 분석 이미지 로드 실패:', image);
+                            e.target.src =
+                              'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100"%3E%3Crect fill="%23ddd" width="100" height="100"/%3E%3Ctext fill="%23999" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3E로드 실패%3C/text%3E%3C/svg%3E';
+                            e.target.onerror = null;
+                          }}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
             {/* Market Analysis Card */}
             <div className="mb-12 xs:mb-8 sm:mb-10 md:mb-12 lg:mb-14 xl:mb-16 2xl:mb-20">
               <div className="bg-[#F3F4F6] rounded-xl xs:rounded-2xl p-4 xs:p-6 sm:p-6 md:p-8 lg:p-8 xl:p-10 2xl:p-12">
+                {/* 상권 분석 텍스트 */}
                 <div className="flex flex-col gap-3 xs:gap-3 sm:gap-4 md:gap-4 lg:gap-5 xl:gap-5 2xl:gap-6">
                   {(storeData?.marketAnalysis?.text || '')
                     .split('\n')
