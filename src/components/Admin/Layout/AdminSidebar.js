@@ -6,7 +6,8 @@ const AdminSidebar = ({ isOpen, onClose }) => {
 
   const menuItems = [
     { path: '/admin', label: '대시보드', icon: '📊' },
-    { path: '/admin/stores', label: '매장 관리', icon: '🏪' },
+    { path: '/admin/stores', label: '창업 매장 관리', icon: '🏪' },
+    { path: '/admin/operating-stores', label: '운영 매장 현황', icon: '🏬' },
     { path: '/admin/inquiries', label: '문의 관리', icon: '📝' },
   ];
 

@@ -34,10 +34,10 @@ const Dashboard = () => {
           {/* 지역별 문의 비율 */}
           {/* <InquiryRegionChart /> */}
 
-          {/* 최근 업데이트된 매장 */}
+          {/* 최근 업데이트된 창업 매장 */}
           <div className="bg-white p-4 lg:p-6 rounded-lg shadow-sm border border-gray-200">
             <h3 className="text-base lg:text-lg font-semibold text-gray-900 mb-3 lg:mb-4">
-              최근 업데이트된 매장
+              최근 업데이트된 창업 매장
             </h3>
             <RecentUpdates />
           </div>

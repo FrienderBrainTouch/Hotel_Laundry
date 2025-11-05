@@ -113,8 +113,8 @@ const StoreManagement = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">매장 관리</h2>
-          <p className="text-gray-600">매장 정보를 등록, 수정, 삭제할 수 있습니다.</p>
+          <h2 className="text-3xl font-bold text-gray-900 mb-2">창업 매장 관리</h2>
+          <p className="text-gray-600">창업 예정 매장 정보를 등록, 수정, 삭제할 수 있습니다.</p>
         </div>
         {activeTab === 'list' && (
           <button
