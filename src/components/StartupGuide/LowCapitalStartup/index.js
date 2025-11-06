@@ -1,31 +1,7 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const LowCapitalStartup = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const slides = [
-    '/images/LowcapitalStartup/lowCap3-slide1.png',
-    '/images/LowcapitalStartup/lowCap3-slide2.png',
-    '/images/LowcapitalStartup/lowCap3-slide3.png',
-  ];
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-  };
-
-  // 자동 슬라이드
-  useEffect(() => {
-    const autoSlide = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 2000); // 2초마다 자동 슬라이드
-
-    return () => clearInterval(autoSlide); // cleanup
-  }, [slides.length]);
 
   return (
     <section className="py-20 bg-white">
@@ -49,7 +25,7 @@ const LowCapitalStartup = () => {
               className="w-full"
             />
 
-            <div className="relative w-full bg-[#e1e7f3] pt-[70px] pb-[30px] text-center">
+            <div className="w-full bg-[#e1e7f3] pt-[70px] pb-[30px] text-center">
               <div className="mb-5">
                 <p
                   className="text-[#6e8aa9] text-[16px] xs:text-[18px] sm:text-[22px] md:text-[26px] lg:text-[28px] xl:text-[30px] 2xl:text-[32px] font-semibold pb-3 xs:pb-4 sm:pb-5"
@@ -66,64 +42,12 @@ const LowCapitalStartup = () => {
                 </div>
               </div>
 
-              <div className="relative overflow-hidden">
+              <div className="w-full">
                 <img
-                  src={slides[currentSlide]}
-                  alt={`소자본창업 슬라이드 ${currentSlide + 1}`}
-                  className="w-full transition-opacity duration-500"
+                  src="/images/LowcapitalStartup/lowCap3-slide2.png"
+                  alt="소자본창업 공유창업 수익 배분"
+                  className="w-full"
                 />
-              </div>
-
-              <button
-                onClick={prevSlide}
-                className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full shadow-lg transition-all z-10"
-                aria-label="이전 슬라이드"
-              >
-                <svg
-                  className="w-6 h-6 text-gray-800"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 19l-7-7 7-7"
-                  />
-                </svg>
-              </button>
-              <button
-                onClick={nextSlide}
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full shadow-lg transition-all z-10"
-                aria-label="다음 슬라이드"
-              >
-                <svg
-                  className="w-6 h-6 text-gray-800"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </button>
-
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-                {slides.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentSlide(index)}
-                    className={`w-2 h-2 rounded-full transition-all ${
-                      currentSlide === index ? 'bg-[#102254] w-8' : 'bg-white/60'
-                    }`}
-                    aria-label={`슬라이드 ${index + 1}로 이동`}
-                  />
-                ))}
               </div>
             </div>
 
