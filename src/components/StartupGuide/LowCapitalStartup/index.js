@@ -33,7 +33,7 @@ const LowCapitalStartup = () => {
         <div className="w-[70%] mx-auto">
           {/* 새 이미지 */}
           <div className="space-y-0">
-            <img src="/images/low-capital-final.png" alt="소자본창업" className="w-full" />
+            <img src="/images/low-capital-final-final.png" alt="소자본창업" className="w-full" />
           </div>
 
           {/* 기존 코드 주석 처리 */}
