@@ -1,43 +1,43 @@
 import React from 'react';
-// import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const LowCapitalStartup = () => {
-  // const [currentSlide, setCurrentSlide] = useState(0);
-  // const slides = [
-  //   '/images/LowcapitalStartup/lowCap3-slide1.png',
-  //   '/images/LowcapitalStartup/lowCap3-slide2.png',
-  //   '/images/LowcapitalStartup/lowCap3-slide3.png',
-  // ];
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const slides = [
+    '/images/LowcapitalStartup/lowCap3-slide1.png',
+    '/images/LowcapitalStartup/lowCap3-slide2.png',
+    '/images/LowcapitalStartup/lowCap3-slide3.png',
+  ];
 
-  // const nextSlide = () => {
-  //   setCurrentSlide((prev) => (prev + 1) % slides.length);
-  // };
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  };
 
-  // const prevSlide = () => {
-  //   setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-  // };
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  };
 
-  // // 자동 슬라이드
-  // useEffect(() => {
-  //   const autoSlide = setInterval(() => {
-  //     setCurrentSlide((prev) => (prev + 1) % slides.length);
-  //   }, 2000); // 2초마다 자동 슬라이드
+  // 자동 슬라이드
+  useEffect(() => {
+    const autoSlide = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 2000); // 2초마다 자동 슬라이드
 
-  //   return () => clearInterval(autoSlide); // cleanup
-  // }, [slides.length]);
+    return () => clearInterval(autoSlide); // cleanup
+  }, [slides.length]);
 
   return (
     <section className="py-20 bg-white">
       <div className="flex justify-center">
-        <div className="w-[70%] mx-auto">
-          {/* 새 이미지 */}
-          <div className="space-y-0">
+        <div className="w-full mx-auto">
+          {/* 데스크톱 (1024px 이상): 새 통합 이미지 */}
+          <div className="hidden lg:block">
             <img src="/images/low-capital-final-final.png" alt="소자본창업" className="w-full" />
           </div>
 
-          {/* 기존 코드 주석 처리 */}
-          {/* <div className="space-y-0">
+          {/* 모바일/태블릿 (1024px 미만): 기존 이미지들 */}
+          <div className="block lg:hidden space-y-0">
             <img
               src="/images/LowcapitalStartup/lowCap1.png"
               alt="소자본창업 1"
@@ -157,7 +157,7 @@ const LowCapitalStartup = () => {
               alt="소자본창업 9"
               className="w-full"
             />
-          </div> */}
+          </div>
 
           {/* CTA 버튼 */}
           <div className="text-center mt-8 xs:mt-6 sm:mt-8 md:mt-10 lg:mt-12 xl:mt-14 2xl:mt-16">
