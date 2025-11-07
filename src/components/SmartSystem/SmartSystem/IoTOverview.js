@@ -67,6 +67,21 @@ const IoTOverview = () => {
               </div>
             </div>
           </div>
+
+          {/* YouTube 영상 */}
+          <div className="mt-[30px] sm:mt-[40px] md:mt-[50px] lg:mt-[60px] xl:mt-[70px] 2xl:mt-[80px] w-full xs:w-[355px] sm:w-[535px] md:w-[728px] lg:w-[924px] xl:w-[1200px] 2xl:w-[1400px] mx-auto">
+            <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+              <iframe
+                className="absolute top-0 left-0 w-full h-full rounded-[20px] sm:rounded-[25px] md:rounded-[30px] lg:rounded-[35px] xl:rounded-[40px] 2xl:rounded-[40px]"
+                src="https://www.youtube.com/embed/bUzoGZ1h-Qg?si=GPVEpdwl_mHkOEwo"
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
+            </div>
+          </div>
         </div>
       </div>
     </section>
