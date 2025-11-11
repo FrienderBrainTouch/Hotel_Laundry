@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useMetaTags } from '../hooks/useMetaTags';
 
 // SVG 아이콘들을 URL로 불러옵니다. 이 방식은 모든 React 환경에서 동작합니다.
@@ -76,6 +76,13 @@ const fetchMachineData = async (serialNumber) => {
   try {
     const baseUrl = process.env.REACT_APP_HOTEL_BASE_URL;
     const response = await fetch(`${baseUrl}/kiosk/machine/machines-by-store/${serialNumber}`);
+    
+    // 404 에러 체크
+    if (response.status === 404) {
+      console.warn('⚠️ 매장 장비 정보가 등록되지 않음 (404)');
+      return { isServiceUnavailable: true };
+    }
+    
     const result = await response.json();
 
     if (result.success) {
@@ -508,53 +515,89 @@ const Chart = ({ data }) => {
 
 // 메인 매장 상세 페이지 컴포넌트
 const StoreDetail = () => {
-  const { serialNumber } = useParams();
+  const { serialNumber } = useParams(); // URL 파라미터 (serialNumber)
   const navigate = useNavigate();
+  const location = useLocation();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [machineData, setMachineData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isServiceUnavailable, setIsServiceUnavailable] = useState(false);
   const [filterType, setFilterType] = useState('전체');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const filterRef = useRef(null);
 
-  const storeName = getStoreNameBySerial(serialNumber);
+  // location.state에서 매장 기본 정보 가져오기 (StoreCard에서 전달)
+  const storeInfo = location.state || {};
+  const storeName = storeInfo.storeName || getStoreNameBySerial(serialNumber) || '알 수 없는 매장';
 
   // 매장 상세 페이지 전용 메타태그 설정 (기본값 사용)
   useMetaTags();
 
-  // API 데이터 로드 함수
-  const loadMachineData = useCallback(async () => {
+  // 초기 데이터 로드 함수
+  const loadAllData = useCallback(async () => {
     if (!serialNumber) {
+      setError('매장 정보를 불러올 수 없습니다.');
       setLoading(false);
       return;
     }
 
     setLoading(true);
     setError(null);
+    setIsServiceUnavailable(false);
 
-    const data = await fetchMachineData(serialNumber);
-    if (data) {
-      setMachineData(data);
-    } else {
-      setError('데이터를 불러올 수 없습니다.');
+    try {
+      // serialNumber로 바로 장비 정보 조회
+      const data = await fetchMachineData(serialNumber);
+      if (data) {
+        if (data.isServiceUnavailable) {
+          // 404 에러 - 서비스 준비중 상태
+          setIsServiceUnavailable(true);
+          setMachineData(null);
+        } else {
+          // 정상 데이터
+          setMachineData(data);
+          setIsServiceUnavailable(false);
+        }
+      } else {
+        console.warn('⚠️ 장비 정보를 조회할 수 없습니다.');
+      }
+    } catch (err) {
+      console.error('❌ 데이터 로드 실패:', err);
+      setError('데이터를 불러오는 중 오류가 발생했습니다.');
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   }, [serialNumber]);
 
-  // 새로고침 함수
+  // 새로고침 함수 (장비 정보만 새로고침)
   const handleRefresh = async () => {
+    if (!serialNumber) {
+      alert('장비 정보를 새로고침할 수 없습니다.');
+      return;
+    }
+
     setIsRefreshing(true);
-    await loadMachineData();
+    const data = await fetchMachineData(serialNumber);
+    if (data) {
+      if (data.isServiceUnavailable) {
+        // 404 에러 - 서비스 준비중 상태
+        setIsServiceUnavailable(true);
+        setMachineData(null);
+      } else {
+        // 정상 데이터
+        setMachineData(data);
+        setIsServiceUnavailable(false);
+      }
+    }
     setIsRefreshing(false);
   };
 
   // API 데이터 로드
   useEffect(() => {
-    loadMachineData();
-  }, [loadMachineData]);
+    loadAllData();
+  }, [loadAllData]);
 
   // 외부 클릭 시 드롭다운 닫기
   useEffect(() => {
@@ -570,12 +613,16 @@ const StoreDetail = () => {
     };
   }, []);
 
-  // 기본 매장 데이터 (이미지가 없는 지점용) - API 데이터 우선 사용
-  const defaultStore = {
-    name: machineData?.name || `호텔런드리 ${storeName}`,
-    address: machineData?.address?.value || '주소 정보를 불러올 수 없습니다.',
-    phone: getStorePhone(storeName), // 전화번호는 하드코딩된 매핑 사용
-    tags: ['20평형', '서울'],
+  // 매장 정보 구성 (location.state 우선, 없으면 하드코딩 데이터 사용)
+  const storeAddress = storeInfo.address || machineData?.address?.value || '주소 정보를 불러올 수 없습니다.';
+  const storePhone = getStorePhone(storeName);
+  const storeRegion = storeInfo.region || '서울';
+  
+  const currentStore = {
+    name: `호텔런드리 ${storeName}`,
+    address: storeAddress,
+    phone: storePhone,
+    tags: ['20평형', storeRegion],
     images: getStoreImages(storeName),
     // API 데이터로부터 실제 세탁기 타입별 개수 계산
     machineTypes: getMachineTypesSummary(machineData?.machines || []),
@@ -584,22 +631,6 @@ const StoreDetail = () => {
     chartData: modal_chart,
     chartDescription:
       '개점 이후 누적 수익이 꾸준히 증가하고 있는 매장입니다. 실제 데이터를 통해 안정적인 성장 흐름을 확인할 수 있습니다.',
-  };
-
-  // API 데이터와 기본 매장 데이터를 조합하여 currentStore 생성
-  const currentStore = {
-    ...defaultStore,
-    // API에서 받아온 데이터가 있으면 사용, 없으면 기본값
-    name: machineData?.name || defaultStore.name,
-    address: machineData?.address?.value || defaultStore.address,
-    phone: getStorePhone(storeName), // 전화번호는 하드코딩된 매핑 사용
-    tags: defaultStore.tags,
-    // 세탁기 타입별 개수 계산 (API 데이터 기반)
-    machineTypes: getMachineTypesSummary(machineData?.machines || []),
-    // API에서 받아온 실제 세탁기 데이터 사용
-    machines: mapApiDataToMachines(machineData?.machines || []),
-    chartData: defaultStore.chartData,
-    chartDescription: defaultStore.chartDescription,
   };
 
   const images = currentStore.images || [];
@@ -793,24 +824,36 @@ const StoreDetail = () => {
           <h3 className="text-[20px] sm:text-[22px] md:text-[24px] lg:text-[26px] xl:text-[28px] 2xl:text-[30px] font-bold text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.4px] sm:tracking-[-0.44px] md:tracking-[-0.48px] lg:tracking-[-0.52px] xl:tracking-[-0.56px] 2xl:tracking-[-0.6px] mb-6">
             매장 장비 현황
           </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {machineTypes.map((machineType, index) => (
-              <div
-                key={index}
-                className="flex items-center space-x-3 p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow"
-              >
-                <machineType.icon className="w-8 h-8 text-gray-600 flex-shrink-0" />
-                <div>
-                  <p className="text-[14px] sm:text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] 2xl:text-[22px] font-medium text-[#1C262B] font-KoPubWorldDotum">
-                    {machineType.name}
-                  </p>
-                  <p className="text-[12px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] text-gray-600 font-KoPubWorldDotum">
-                    {machineType.count}대
-                  </p>
+          {isServiceUnavailable ? (
+            <div className="flex flex-col items-center justify-center py-16 px-4 bg-gray-50 rounded-lg border border-gray-200">
+              <div className="text-gray-400 text-5xl mb-4">🔧</div>
+              <p className="text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] 2xl:text-[26px] font-medium text-gray-700 font-KoPubWorldDotum">
+                서비스 준비중입니다.
+              </p>
+              <p className="text-[12px] sm:text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] 2xl:text-[22px] text-gray-500 mt-2 font-KoPubWorldDotum">
+                곧 매장 장비 정보가 등록될 예정입니다.
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {machineTypes.map((machineType, index) => (
+                <div
+                  key={index}
+                  className="flex items-center space-x-3 p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+                >
+                  <machineType.icon className="w-8 h-8 text-gray-600 flex-shrink-0" />
+                  <div>
+                    <p className="text-[14px] sm:text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] 2xl:text-[22px] font-medium text-[#1C262B] font-KoPubWorldDotum">
+                      {machineType.name}
+                    </p>
+                    <p className="text-[12px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px] text-gray-600 font-KoPubWorldDotum">
+                      {machineType.count}대
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* 실시간 세탁기 사용 현황 */}
@@ -905,7 +948,17 @@ const StoreDetail = () => {
               </div>
             </div>
           </div>
-          {filteredMachines.length > 0 ? (
+          {isServiceUnavailable ? (
+            <div className="flex flex-col items-center justify-center py-16 px-4 bg-gray-50 rounded-lg border border-gray-200">
+              <div className="text-gray-400 text-5xl mb-4">🔧</div>
+              <p className="text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] 2xl:text-[26px] font-medium text-gray-700 font-KoPubWorldDotum">
+                서비스 준비중입니다.
+              </p>
+              <p className="text-[12px] sm:text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] 2xl:text-[22px] text-gray-500 mt-2 font-KoPubWorldDotum">
+                곧 매장 장비 정보가 등록될 예정입니다.
+              </p>
+            </div>
+          ) : filteredMachines.length > 0 ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
               {filteredMachines.map((machine) => {
                 const IconComponent = getMachineIcon(machine.type);

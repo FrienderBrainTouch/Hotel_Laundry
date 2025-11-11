@@ -10,6 +10,7 @@ const OperatingStoreForm = ({ store, onBack, onSave }) => {
     phone: store?.phone || '',
     areaSqm: store?.areaSqm || '',
     status: store?.status || 'OPERATING',
+    serialNumber: store?.serialNumber || '',
   });
 
   const [images, setImages] = useState(() => {
@@ -17,10 +18,19 @@ const OperatingStoreForm = ({ store, onBack, onSave }) => {
     const incoming = Array.isArray(store?.images) ? store.images : [];
     const mainFromIncoming = incoming.length > 0 ? incoming[0] : null;
     const galleryFromIncoming = incoming.length > 1 ? incoming.slice(1) : [];
+    
     return {
       main: store?.mainImage ?? mainFromIncoming,
       gallery: store?.galleryImages ?? galleryFromIncoming,
     };
+  });
+
+  console.log('🔍 OperatingStoreForm render - images state:', {
+    main: images.main,
+    gallery: images.gallery,
+    mainType: typeof images.main,
+    galleryLength: images.gallery?.length,
+    storeExistingImages: store?.existingImages,
   });
 
   // 새로 업로드된 파일들을 별도로 관리
@@ -40,6 +50,7 @@ const OperatingStoreForm = ({ store, onBack, onSave }) => {
       phone: store?.phone || '',
       areaSqm: store?.areaSqm || '',
       status: store?.status || 'OPERATING',
+      serialNumber: store?.serialNumber || '',
     });
 
     // 이미지 동기화
@@ -107,20 +118,44 @@ const OperatingStoreForm = ({ store, onBack, onSave }) => {
     // FormData 생성
     const formDataToSend = new FormData();
 
-    // DTO 생성
-    const dto = {
-      storeName: formData.storeName,
-      address: {
-        address: formData.address,
-        detailAddress: formData.detailAddress,
-      },
-      region: formData.region,
-      phone: formData.phone,
-      areaSqm: formData.areaSqm,
-      status: formData.status,
-    };
+    // DTO 생성 (생성/수정 모드에 따라 구조 다름)
+    let dto;
+    
+    if (store) {
+      // 수정 모드: UpdateOperatingStoreDto
+      dto = {
+        operatingStoreId: store.storeId || store.operatingStoreId,
+        info: {
+          storeName: formData.storeName,
+          address: {
+            address: formData.address,
+            detailAddress: formData.detailAddress,
+          },
+          region: formData.region,
+          phone: formData.phone,
+          areaSqm: formData.areaSqm,
+          serialNumber: formData.serialNumber ? parseInt(formData.serialNumber, 10) : null,
+          status: formData.status,
+        },
+        existedImages: [], // 아래에서 채울 예정
+      };
+    } else {
+      // 생성 모드: CreateOperatingStoreDto
+      dto = {
+        storeName: formData.storeName,
+        address: {
+          address: formData.address,
+          detailAddress: formData.detailAddress,
+        },
+        region: formData.region,
+        phone: formData.phone,
+        areaSqm: formData.areaSqm,
+        status: formData.status,
+        serialNumber: formData.serialNumber ? parseInt(formData.serialNumber, 10) : null,
+      };
+    }
 
-    // 수정 모드: 기존 이미지 ID 처리
+    // 수정 모드: 기존 이미지 ID 처리 (StoreForm.js와 동일한 방식)
     const filesToAppend = [];
     const seenFiles = new Set();
     const addFileUnique = (file) => {
@@ -142,17 +177,21 @@ const OperatingStoreForm = ({ store, onBack, onSave }) => {
       allItems.filter((item) => typeof item === 'string' && item.trim() !== '')
     );
 
-    // 2. 수정 모드: 원래 순서를 유지하면서, 남아있는 것만 필터링
-    let existingImageIdsInOrder = [];
-    if (store && Array.isArray(store?.existingImages)) {
-      existingImageIdsInOrder = store.existingImages
-        .filter((img) => img?.url && remainingUrlSet.has(img.url))
-        .map((img) => img.id)
-        .filter((id) => id != null);
+    // 2. 수정 모드: 원래 순서(store.existingImages)를 유지하면서, 남아있는 것만 필터링
+    const existingImageIdsInOrder = Array.isArray(store?.existingImages)
+      ? store.existingImages
+          .filter((img) => img?.url && remainingUrlSet.has(img.url))
+          .map((img) => img.id)
+          .filter((id) => id != null)
+      : [];
+
+    // 수정 모드: DTO에 existedImages 추가
+    if (store && dto.existedImages !== undefined) {
+      dto.existedImages = existingImageIdsInOrder;
     }
 
     // 3. 새 파일 수집
-    // 3-1. newFiles에서 실제 File 객체 수집
+    // 3-1. newFiles에서 실제 File 객체 수집 (생성/수정 모드 공통)
     if (newFiles?.main instanceof File) {
       addFileUnique(newFiles.main);
     }
@@ -189,26 +228,21 @@ const OperatingStoreForm = ({ store, onBack, onSave }) => {
       return;
     }
 
-    // 수정 모드: existingImageIds 추가
-    if (store && existingImageIdsInOrder.length > 0) {
-      dto.existingImageIdsInOrder = existingImageIdsInOrder;
+    // files 첨부
+    if (filesToAppend.length > 0) {
+      filesToAppend.forEach((f) => formDataToSend.append('files', f));
+    } else {
+      // 서버가 MultipartFile 파트를 필수로 요구하므로, 빈 파일로 파트 존재를 보장
+      formDataToSend.append('files', new Blob([], { type: 'application/octet-stream' }), 'empty');
     }
 
     // DTO 추가
     formDataToSend.append('dto', JSON.stringify(dto));
 
-    // files 첨부
-    if (filesToAppend.length > 0) {
-      filesToAppend.forEach((f) => formDataToSend.append('files', f));
-    } else if (!store) {
-      // 생성 모드에서 파일이 없으면 빈 파일 추가 (서버 요구사항에 따라)
-      formDataToSend.append('files', new Blob([], { type: 'application/octet-stream' }), 'empty');
-    }
-
     // 디버깅: 파일 수집 상태 확인
     console.log('🔍 OperatingStore File Collection Debug:', {
       mode: store ? '수정' : '생성',
-      existingImageIdsInOrder: store ? existingImageIdsInOrder : '(생성 모드)',
+      existedImages: store ? dto.existedImages : '(생성 모드)',
       newFilesCount: filesToAppend.length,
       newFiles: filesToAppend.map((f) => ({
         name: f.name,
@@ -217,6 +251,47 @@ const OperatingStoreForm = ({ store, onBack, onSave }) => {
       })),
       dto: dto,
     });
+
+    // 디버깅: 실제 전송 형식 확인
+    try {
+      const entries = [];
+      formDataToSend.forEach((value, key) => {
+        if (value instanceof File) {
+          entries.push({
+            key,
+            file: {
+              name: value.name,
+              type: value.type,
+              size: value.size,
+            },
+          });
+        } else {
+          let preview = String(value);
+          // dto는 JSON 문자열이므로 파싱 가능 여부 확인
+          if (key === 'dto') {
+            try {
+              const parsed = JSON.parse(preview);
+              preview = { parsed }; // 구조 미리보기
+            } catch (_) {
+              // 파싱 실패 시 원문 출력
+            }
+          }
+          entries.push({ key, value: preview });
+        }
+      });
+      console.group('🗃️ FormData Preview (about to send)');
+      console.log('Endpoint:', store ? 'PATCH /admin/operating-store' : 'POST /admin/operating-store');
+      console.table(entries);
+      const filesCount = entries.filter((e) => e.key === 'files' && e.file).length;
+      console.log('files appended:', filesCount, filesCount === 0 ? '(empty blob로 전송)' : '');
+      if (store) {
+        console.log('dto.existedImages:', dto.existedImages);
+        console.log('dto.operatingStoreId:', dto.operatingStoreId);
+      }
+      console.groupEnd();
+    } catch (e) {
+      console.warn('FormData preview failed:', e);
+    }
 
     onSave(formDataToSend);
   };
@@ -332,6 +407,20 @@ const OperatingStoreForm = ({ store, onBack, onSave }) => {
                 <option value="WAITING">운영 대기 중</option>
                 <option value="CLOSED">운영 중단</option>
               </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                일련번호
+                <span className="text-xs text-gray-500 ml-2">(선택 사항, 숫자만 입력)</span>
+              </label>
+              <input
+                type="number"
+                name="serialNumber"
+                value={formData.serialNumber || ''}
+                onChange={handleInputChange}
+                placeholder="숫자만 입력"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
+              />
             </div>
           </div>
         </div>

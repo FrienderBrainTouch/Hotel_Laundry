@@ -3,60 +3,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import storeImage from './StoreListImage/store_example.svg';
 
-// 매장별 serialNumber 매핑 객체
-const STORE_SERIAL_MAPPINGS = {
-  신길점: '1001',
-  관악조원점: '20002',
-  조원점: '20002', // 기존 호환성 유지
-  서울대입구점: '1003',
-  신림점: '20004',
-  미사헤븐시티점: '20006',
-  성내점: '1007',
-  청룡점: '1008',
-  동탄역점: '20009',
-  동탄실리콘앨리점: '20010',
-  송도랜드마크점: '20011',
-  광교상현점: '20012',
-  상도점: '1013',
-  보라매점: '1014',
-  평택점: '20015',
-  광주용봉점: '40016',
-  화곡점: '1017',
-  낙성대점: '1018',
-  서울대행운점: '1020',
-  평촌역점: '20021',
-  봉천점: '1022',
-  샤로수길점: '1023',
-  갈매점: '20024',
-  한양대학로점: '20025',
-  도래울점: '20026',
-  서울대학점: '1027',
-  분당장안점: '20028',
-  장항점: '20029',
-  성남금광점: '20030',
-  독산점: '9031',
-  서교점: '1032',
-  안산중앙역점: '20033',
-  광양중동점: '40034',
-  봉천중앙점: '1035',
-  사당점: '1036',
-  평촌아이에스비즈점: '20037', // CSV와 매칭
-  아이에스비즈점: '20037', // 기존 호환성 유지
-  경희대점: '1038',
-  신림서원점: '1039',
-  곡반정점: '20040',
-  신림서림점: '1041',
-  금정점: '20042',
-  신림역점: '1043',
-  신림본점: '1044',
-  포천이동교점: '20045',
-  항동점: '1046',
-  서울대점: '1047',
-  수진역점: '20048',
-  마장점: '1049',
-  난곡점: '1050',
-};
-
 // 각 지점별 첫 번째 이미지 파일명 매핑
 const getStoreImage = (storeName) => {
   const imageMap = {
@@ -126,11 +72,24 @@ const StoreCard = ({ store }) => {
   const navigate = useNavigate();
 
   const handleStoreClick = () => {
-    const serialNumber = STORE_SERIAL_MAPPINGS[store.name];
-    if (serialNumber) {
-      navigate(`/store-info/store-status/${serialNumber}`);
+    // serialNumber가 있으면 상세 페이지로 이동
+    if (store.serialNumber) {
+      navigate(`/store-info/store-status/${store.serialNumber}`, {
+        state: { 
+          storeId: store.storeId,
+          storeName: store.name,
+          address: store.address,
+          region: store.region,
+          serialNumber: store.serialNumber
+        }
+      });
+    } else if (store.storeId) {
+      // serialNumber가 없는 경우 경고 (장비 정보를 볼 수 없음)
+      console.warn(`매장 "${store.name}"에 serialNumber가 없습니다.`, store);
+      alert('해당 매장은 아직 장비 정보가 등록되지 않았습니다.');
     } else {
-      console.warn(`매장명 "${store.name}"에 대한 serialNumber를 찾을 수 없습니다.`);
+      console.warn(`매장 "${store.name}"의 ID가 없습니다.`, store);
+      alert('해당 매장의 상세 정보를 불러올 수 없습니다.');
     }
   };
 
