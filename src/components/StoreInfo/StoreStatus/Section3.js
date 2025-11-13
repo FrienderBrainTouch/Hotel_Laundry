@@ -58,6 +58,7 @@ const Section3 = () => {
     };
 
     fetchStores();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeFilter]);
 
   // 필터링 로직 (그 외 지역만 프론트에서 처리)

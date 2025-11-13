@@ -87,6 +87,7 @@ const OperatingStores = () => {
     if (view === 'list') {
       fetchStores();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, selectedStatus, selectedRegion, searchTerm, view]);
 
   // 매장 등록 핸들러
