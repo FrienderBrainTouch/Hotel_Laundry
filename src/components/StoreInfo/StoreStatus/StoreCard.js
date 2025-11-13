@@ -3,7 +3,23 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import storeImage from './StoreListImage/store_example.svg';
 
-// 각 지점별 첫 번째 이미지 파일명 매핑
+// 이미지 URL 생성 함수
+const buildImageUrl = (thumbnailKey) => {
+  if (!thumbnailKey) return null;
+  
+  // 이미 절대 URL인 경우
+  if (/^https?:\/\//i.test(thumbnailKey)) {
+    return thumbnailKey;
+  }
+  
+  // IMAGE_BASE_URL + key 형태로 구성
+  const baseUrl = process.env.REACT_APP_IMAGE_BASE_URL || '';
+  if (!baseUrl) return null;
+  
+  return `${baseUrl}${thumbnailKey}`;
+};
+
+// 각 지점별 첫 번째 이미지 파일명 매핑 (fallback용)
 const getStoreImage = (storeName) => {
   const imageMap = {
     독산점: 'image 332.png',
@@ -72,33 +88,45 @@ const StoreCard = ({ store }) => {
   const navigate = useNavigate();
 
   const handleStoreClick = () => {
-    // serialNumber가 있으면 상세 페이지로 이동
-    if (store.serialNumber) {
-      navigate(`/store-info/store-status/${store.serialNumber}`, {
+    // storeId가 있으면 상세 페이지로 이동 (serialNumber는 선택사항)
+    if (store.storeId) {
+      // serialNumber가 없는 경우 'null'을 URL에 전달
+      const urlSerial = store.serialNumber || 'null';
+      
+      navigate(`/store-info/store-status/${urlSerial}`, {
         state: { 
           storeId: store.storeId,
           storeName: store.name,
           address: store.address,
           region: store.region,
-          serialNumber: store.serialNumber
+          serialNumber: store.serialNumber || null
         }
       });
-    } else if (store.storeId) {
-      // serialNumber가 없는 경우 경고 (장비 정보를 볼 수 없음)
-      console.warn(`매장 "${store.name}"에 serialNumber가 없습니다.`, store);
-      alert('해당 매장은 아직 장비 정보가 등록되지 않았습니다.');
     } else {
       console.warn(`매장 "${store.name}"의 ID가 없습니다.`, store);
       alert('해당 매장의 상세 정보를 불러올 수 없습니다.');
     }
   };
 
+  // 이미지 URL 결정: thumbnailKey 우선, 없으면 하드코딩된 이미지, 그것도 없으면 기본 이미지
+  const imageUrl = store.thumbnailKey 
+    ? buildImageUrl(store.thumbnailKey)
+    : getStoreImage(store.name);
+
   return (
     <div
       onClick={handleStoreClick}
       className="bg-white rounded-lg shadow-md overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 font-pretendard cursor-pointer"
     >
-      <img src={getStoreImage(store.name)} alt={store.name} className="w-full h-48 object-cover" />
+      <img 
+        src={imageUrl || storeImage} 
+        alt={store.name} 
+        className="w-full h-48 object-cover"
+        onError={(e) => {
+          // 이미지 로드 실패시 기본 이미지로 대체
+          e.target.src = storeImage;
+        }}
+      />
       <div className="p-6">
         <h3 className="font-bold text-section-title mb-2">{store.name}</h3>
         <p className="flex items-center text-gray-600 text-20 mb-4">

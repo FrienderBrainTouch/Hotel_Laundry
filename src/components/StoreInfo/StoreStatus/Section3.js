@@ -45,6 +45,7 @@ const Section3 = () => {
           address: `${store.address.address} ${store.address.detailAddress}`,
           region: store.region,
           serialNumber: store.serialNumber,
+          thumbnailKey: store.thumbnailKey, // 이미지 키 추가
         }));
 
         setStores(transformedStores);

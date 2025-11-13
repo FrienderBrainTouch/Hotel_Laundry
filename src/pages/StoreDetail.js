@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useMetaTags } from '../hooks/useMetaTags';
+import useApi from '../hooks/useApi';
 
 // SVG 아이콘들을 URL로 불러옵니다. 이 방식은 모든 React 환경에서 동작합니다.
 import subImage from '../components/StoreInfo/StoreStatus/ModalImage/modal_sub.svg';
@@ -518,8 +519,10 @@ const StoreDetail = () => {
   const { serialNumber } = useParams(); // URL 파라미터 (serialNumber)
   const navigate = useNavigate();
   const location = useLocation();
+  const api = useApi();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [machineData, setMachineData] = useState(null);
+  const [storeDetail, setStoreDetail] = useState(null); // API로 조회한 매장 상세 정보
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isServiceUnavailable, setIsServiceUnavailable] = useState(false);
@@ -530,14 +533,14 @@ const StoreDetail = () => {
 
   // location.state에서 매장 기본 정보 가져오기 (StoreCard에서 전달)
   const storeInfo = location.state || {};
-  const storeName = storeInfo.storeName || getStoreNameBySerial(serialNumber) || '알 수 없는 매장';
+  const storeId = storeInfo.storeId;
 
   // 매장 상세 페이지 전용 메타태그 설정 (기본값 사용)
   useMetaTags();
 
   // 초기 데이터 로드 함수
   const loadAllData = useCallback(async () => {
-    if (!serialNumber) {
+    if (!storeId) {
       setError('매장 정보를 불러올 수 없습니다.');
       setLoading(false);
       return;
@@ -548,20 +551,34 @@ const StoreDetail = () => {
     setIsServiceUnavailable(false);
 
     try {
-      // serialNumber로 바로 장비 정보 조회
-      const data = await fetchMachineData(serialNumber);
-      if (data) {
-        if (data.isServiceUnavailable) {
-          // 404 에러 - 서비스 준비중 상태
-          setIsServiceUnavailable(true);
-          setMachineData(null);
+      // 1. storeId로 매장 상세 정보 조회
+      console.log('🔍 매장 상세 정보 조회 - storeId:', storeId);
+      const storeData = await api.get(`/operating-stores/${storeId}`);
+      console.log('✅ 매장 상세 정보 조회 성공:', storeData);
+      setStoreDetail(storeData);
+
+      // 2. serialNumber가 있으면 장비 정보 조회
+      if (serialNumber && serialNumber !== 'null') {
+        const machineApiData = await fetchMachineData(serialNumber);
+        if (machineApiData) {
+          if (machineApiData.isServiceUnavailable) {
+            // 404 에러 - 서비스 준비중 상태
+            setIsServiceUnavailable(true);
+            setMachineData(null);
+          } else {
+            // 정상 데이터
+            setMachineData(machineApiData);
+            setIsServiceUnavailable(false);
+          }
         } else {
-          // 정상 데이터
-          setMachineData(data);
-          setIsServiceUnavailable(false);
+          console.warn('⚠️ 장비 정보를 조회할 수 없습니다.');
+          setIsServiceUnavailable(true);
         }
       } else {
-        console.warn('⚠️ 장비 정보를 조회할 수 없습니다.');
+        // serialNumber가 없으면 장비 정보 없음
+        console.warn('⚠️ serialNumber가 없습니다. 장비 정보를 표시할 수 없습니다.');
+        setIsServiceUnavailable(true);
+        setMachineData(null);
       }
     } catch (err) {
       console.error('❌ 데이터 로드 실패:', err);
@@ -569,11 +586,12 @@ const StoreDetail = () => {
     } finally {
       setLoading(false);
     }
-  }, [serialNumber]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [storeId, serialNumber]);
 
   // 새로고침 함수 (장비 정보만 새로고침)
   const handleRefresh = async () => {
-    if (!serialNumber) {
+    if (!serialNumber || serialNumber === 'null') {
       alert('장비 정보를 새로고침할 수 없습니다.');
       return;
     }
@@ -613,17 +631,39 @@ const StoreDetail = () => {
     };
   }, []);
 
-  // 매장 정보 구성 (location.state 우선, 없으면 하드코딩 데이터 사용)
-  const storeAddress = storeInfo.address || machineData?.address?.value || '주소 정보를 불러올 수 없습니다.';
-  const storePhone = getStorePhone(storeName);
-  const storeRegion = storeInfo.region || '서울';
+  // 이미지 URL 생성 함수
+  const buildImageUrl = (imageKey) => {
+    if (!imageKey) return null;
+    if (/^https?:\/\//i.test(imageKey)) return imageKey;
+    const baseUrl = process.env.REACT_APP_IMAGE_BASE_URL || '';
+    if (!baseUrl) return null;
+    return `${baseUrl}${imageKey}`;
+  };
+
+  // 매장 정보 구성 (API로 조회한 storeDetail 사용)
+  const storeName = storeDetail?.storeName || storeInfo.storeName || getStoreNameBySerial(serialNumber) || '알 수 없는 매장';
+  const storeAddress = storeDetail?.address 
+    ? `${storeDetail.address.address || ''} ${storeDetail.address.detailAddress || ''}`.trim()
+    : storeInfo.address || '주소 정보를 불러올 수 없습니다.';
+  const storePhone = storeDetail?.phone || getStorePhone(storeName);
+  const storeRegion = storeDetail?.region || storeInfo.region || '서울';
+  
+  // API 이미지 처리 (images 배열에서 key 추출)
+  const apiImages = storeDetail?.images 
+    ? storeDetail.images
+        .map(img => buildImageUrl(typeof img === 'string' ? img : img?.key))
+        .filter(Boolean)
+    : [];
+  
+  // API 이미지가 있으면 사용, 없으면 하드코딩된 이미지 사용
+  const storeImages = apiImages.length > 0 ? apiImages : getStoreImages(storeName);
   
   const currentStore = {
     name: `호텔런드리 ${storeName}`,
     address: storeAddress,
     phone: storePhone,
     tags: ['20평형', storeRegion],
-    images: getStoreImages(storeName),
+    images: storeImages,
     // API 데이터로부터 실제 세탁기 타입별 개수 계산
     machineTypes: getMachineTypesSummary(machineData?.machines || []),
     // API에서 받아온 실제 세탁기 데이터 사용
@@ -828,7 +868,7 @@ const StoreDetail = () => {
             <div className="flex flex-col items-center justify-center py-16 px-4 bg-gray-50 rounded-lg border border-gray-200">
               <div className="text-gray-400 text-5xl mb-4">🔧</div>
               <p className="text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] 2xl:text-[26px] font-medium text-gray-700 font-KoPubWorldDotum">
-                서비스 준비중입니다.
+                해당 매장은 아직 장비 정보가 등록되지 않았습니다.
               </p>
               <p className="text-[12px] sm:text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] 2xl:text-[22px] text-gray-500 mt-2 font-KoPubWorldDotum">
                 곧 매장 장비 정보가 등록될 예정입니다.
@@ -952,7 +992,7 @@ const StoreDetail = () => {
             <div className="flex flex-col items-center justify-center py-16 px-4 bg-gray-50 rounded-lg border border-gray-200">
               <div className="text-gray-400 text-5xl mb-4">🔧</div>
               <p className="text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] 2xl:text-[26px] font-medium text-gray-700 font-KoPubWorldDotum">
-                서비스 준비중입니다.
+                해당 매장은 아직 장비 정보가 등록되지 않았습니다.
               </p>
               <p className="text-[12px] sm:text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] 2xl:text-[22px] text-gray-500 mt-2 font-KoPubWorldDotum">
                 곧 매장 장비 정보가 등록될 예정입니다.
