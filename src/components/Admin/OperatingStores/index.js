@@ -2,6 +2,27 @@ import React, { useState, useEffect } from 'react';
 import OperatingStoreForm from './OperatingStoreForm';
 import useApi from '../../../hooks/useApi';
 
+// 대한민국 광역시/도 목록
+const REGION_OPTIONS = [
+  { value: '서울', label: '서울특별시' },
+  { value: '부산', label: '부산광역시' },
+  { value: '대구', label: '대구광역시' },
+  { value: '인천', label: '인천광역시' },
+  { value: '광주', label: '광주광역시' },
+  { value: '대전', label: '대전광역시' },
+  { value: '울산', label: '울산광역시' },
+  { value: '세종', label: '세종특별자치시' },
+  { value: '경기', label: '경기도' },
+  { value: '강원', label: '강원특별자치도' },
+  { value: '충북', label: '충청북도' },
+  { value: '충남', label: '충청남도' },
+  { value: '전북', label: '전북특별자치도' },
+  { value: '전남', label: '전라남도' },
+  { value: '경북', label: '경상북도' },
+  { value: '경남', label: '경상남도' },
+  { value: '제주', label: '제주특별자치도' },
+];
+
 const OperatingStores = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(0); // 서버는 0부터 시작
@@ -91,9 +112,10 @@ const OperatingStores = () => {
       const response = await api.get(`/operating-stores/${storeId}`);
       
       // 이미지 URL 생성 및 existingImages 구성
+      const imageBaseUrl = process.env.REACT_APP_IMAGE_BASE_URL || '';
       const existingImages = response.images?.map((img) => ({
         id: img.imageId,
-        url: `${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080'}/images/${img.key}`,
+        url: imageBaseUrl ? `${imageBaseUrl}${img.key}` : '',
         key: img.key,
       })) || [];
 
@@ -159,6 +181,40 @@ const OperatingStores = () => {
     } catch (error) {
       console.error('❌ 저장 실패:', error);
       alert(`저장에 실패했습니다: ${error.message}`);
+    }
+  };
+
+  // 매장 삭제 핸들러
+  const handleDeleteStore = async (store) => {
+    const storeId = store.storeId || store.operatingStoreId || store.id;
+    const storeName = store.storeName || '선택한 매장';
+    
+    if (!storeId) {
+      alert('매장 ID를 찾을 수 없습니다.');
+      return;
+    }
+
+    // 삭제 확인
+    if (!window.confirm(`정말로 "${storeName}"을(를) 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.`)) {
+      return;
+    }
+
+    try {
+      setLoading(true);
+      console.log('🗑️ 삭제 요청 - operatingStoreId:', storeId);
+      
+      await api.del(`/admin/operating-store/${storeId}`);
+      
+      console.log('✅ 삭제 성공');
+      alert('운영 매장이 삭제되었습니다.');
+      
+      // 목록 새로고침
+      fetchStores();
+    } catch (error) {
+      console.error('❌ 삭제 실패:', error);
+      alert(`삭제에 실패했습니다: ${error.message}`);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -277,15 +333,11 @@ const OperatingStores = () => {
               className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue text-sm"
             >
               <option value="">전체 지역</option>
-              <option value="서울">서울</option>
-              <option value="경기">경기</option>
-              <option value="인천">인천</option>
-              <option value="부산">부산</option>
-              <option value="대구">대구</option>
-              <option value="광주">광주</option>
-              <option value="대전">대전</option>
-              <option value="울산">울산</option>
-              <option value="세종">세종</option>
+              {REGION_OPTIONS.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
             </select>
 
             <select
@@ -383,18 +435,26 @@ const OperatingStores = () => {
                       {formatDate(store.modifiedAt)}
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap text-center">
-                      <button 
-                        onClick={() => {
-                          console.log('🔍 수정 버튼 클릭 - store 객체:', store);
-                          console.log('🔍 store.storeId:', store.storeId);
-                          console.log('🔍 store.operatingStoreId:', store.operatingStoreId);
-                          console.log('🔍 store.id:', store.id);
-                          handleEditStore(store);
-                        }}
-                        className="text-brand-blue hover:text-brand-dark text-sm font-medium"
-                      >
-                        수정
-                      </button>
+                      <div className="flex items-center justify-center gap-3">
+                        <button 
+                          onClick={() => {
+                            console.log('🔍 수정 버튼 클릭 - store 객체:', store);
+                            console.log('🔍 store.storeId:', store.storeId);
+                            console.log('🔍 store.operatingStoreId:', store.operatingStoreId);
+                            console.log('🔍 store.id:', store.id);
+                            handleEditStore(store);
+                          }}
+                          className="text-brand-blue hover:text-brand-dark text-sm font-medium"
+                        >
+                          수정
+                        </button>
+                        <button 
+                          onClick={() => handleDeleteStore(store)}
+                          className="text-red-600 hover:text-red-800 text-sm font-medium"
+                        >
+                          삭제
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))

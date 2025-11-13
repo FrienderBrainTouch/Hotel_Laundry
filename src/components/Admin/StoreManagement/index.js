@@ -89,14 +89,8 @@ const StoreManagement = () => {
         return '';
       }
       
-      // base가 /upload로 끝나는 경우 (e.g., http://localhost:8080/upload)
-      // → http://localhost:8080/upload/{key} 형식으로 변환
-      let url;
-      if (base.endsWith('/')) {
-        url = `${base}${key}`;
-      } else {
-        url = `${base}/${key}`;
-      }
+      // base + key 형식으로 변환
+      const url = `${base}${key}`;
       
       console.log('🔗 buildImageUrl:', { base, key, result: url });
       return url;

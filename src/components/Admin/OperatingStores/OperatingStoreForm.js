@@ -1,6 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import ImageUpload from '../StoreManagement/ImageUpload';
 
+// 대한민국 광역시/도 목록
+const REGION_OPTIONS = [
+  { value: '서울', label: '서울특별시' },
+  { value: '부산', label: '부산광역시' },
+  { value: '대구', label: '대구광역시' },
+  { value: '인천', label: '인천광역시' },
+  { value: '광주', label: '광주광역시' },
+  { value: '대전', label: '대전광역시' },
+  { value: '울산', label: '울산광역시' },
+  { value: '세종', label: '세종특별자치시' },
+  { value: '경기', label: '경기도' },
+  { value: '강원', label: '강원특별자치도' },
+  { value: '충북', label: '충청북도' },
+  { value: '충남', label: '충청남도' },
+  { value: '전북', label: '전북특별자치도' },
+  { value: '전남', label: '전라남도' },
+  { value: '경북', label: '경상북도' },
+  { value: '경남', label: '경상남도' },
+  { value: '제주', label: '제주특별자치도' },
+];
+
 const OperatingStoreForm = ({ store, onBack, onSave }) => {
   const [formData, setFormData] = useState({
     storeName: store?.storeName || '',
@@ -336,15 +357,20 @@ const OperatingStoreForm = ({ store, onBack, onSave }) => {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">지역 *</label>
-              <input
-                type="text"
+              <select
                 name="region"
                 value={formData.region || ''}
                 onChange={handleInputChange}
                 required
-                placeholder="서울"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
-              />
+              >
+                <option value="">지역을 선택하세요</option>
+                {REGION_OPTIONS.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">주소 *</label>

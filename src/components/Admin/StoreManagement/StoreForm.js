@@ -269,34 +269,35 @@ const StoreForm = ({ store, onBack, onSave }) => {
     // FormData 생성 - 스웨거 방식
     const formDataToSend = new FormData();
 
-    const dto = {
-      infoDto: {
-        address: {
-          address: formData.address,
-          detailAddress: formData.detailAddress,
-        },
-        storeBasicInfo: {
-          storeName: formData.storeName,
-          status: formData.status,
-          currentRecruits: toNumberOrZero(formData.currentRecruits),
-          targetRecruits: toNumberOrZero(formData.targetRecruits),
-          targetOpeningDate: formData.targetOpeningDate,
-          areaSqm: formData.areaSqm,
-        },
-        storeDetails: {
-          detailsRent: formData.detailsRent,
-          detailsDeposit: formData.detailsDeposit,
-        },
-        storeDescription: {
-          locationAnalysis: formData.locationAnalysis,
-        },
+    // 기본 정보 DTO
+    const infoDto = {
+      address: {
+        address: formData.address,
+        detailAddress: formData.detailAddress,
       },
-      imagesDto: {
-        existingImageIdsInOrder: [],
+      storeBasicInfo: {
+        storeName: formData.storeName,
+        status: formData.status,
+        currentRecruits: toNumberOrZero(formData.currentRecruits),
+        targetRecruits: toNumberOrZero(formData.targetRecruits),
+        targetOpeningDate: formData.targetOpeningDate,
+        areaSqm: formData.areaSqm,
       },
-      businessImagesDto: {
-        existingBusinessImageIdsInOrder: [],
+      storeDetails: {
+        detailsRent: formData.detailsRent,
+        detailsDeposit: formData.detailsDeposit,
       },
+      storeDescription: {
+        locationAnalysis: formData.locationAnalysis,
+      },
+    };
+
+    // 이미지 메타데이터 DTO들
+    const imagesDto = {
+      existingImageIdsInOrder: [],
+    };
+    const businessImagesDto = {
+      existingBusinessImageIdsInOrder: [],
     };
 
     // 수정 모드: 남아있는 기존 이미지의 id 추출 + 새 파일 수집
@@ -377,7 +378,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
 
     // DTO에 existing ids 포함 (수정 모드에서만 의미 있음)
     if (store) {
-      dto.imagesDto.existingImageIdsInOrder = existingImageIdsInOrder;
+      imagesDto.existingImageIdsInOrder = existingImageIdsInOrder;
     }
 
     // files 첨부 (메인 + 갤러리 이미지) → storeImages
@@ -409,16 +410,30 @@ const StoreForm = ({ store, onBack, onSave }) => {
         .filter((id) => id != null);
       
       if (existingBusinessImageIds.length > 0) {
-        dto.businessImagesDto.existingBusinessImageIdsInOrder = existingBusinessImageIds;
+        businessImagesDto.existingBusinessImageIdsInOrder = existingBusinessImageIds;
       }
     }
 
-    // dto 추가
-    formDataToSend.append('dto', JSON.stringify(dto));
+    // dto 추가 - 생성과 수정 모드에 따라 다른 구조 사용
+    let finalDto;
+    if (store) {
+      // 수정 모드: dto 안에 infoDto, imagesDto, businessImagesDto로 감싸기
+      finalDto = {
+        infoDto: infoDto,
+        imagesDto: imagesDto,
+        businessImagesDto: businessImagesDto,
+      };
+    } else {
+      // 생성 모드: infoDto를 그대로 사용
+      finalDto = infoDto;
+    }
+    
+    formDataToSend.append('dto', JSON.stringify(finalDto));
 
     // 디버깅: 파일 수집 상태 확인
     console.log('🔍 File Collection Debug:', {
       mode: store ? '수정' : '생성',
+      dtoStructure: store ? 'Wrapped (infoDto, imagesDto, businessImagesDto)' : 'Flat (직접)',
       existingImageIdsInOrder: store ? existingImageIdsInOrder : '(생성 모드)',
       newFilesCount: filesToAppend.length,
       newFiles: filesToAppend.map((f) => ({
@@ -469,8 +484,8 @@ const StoreForm = ({ store, onBack, onSave }) => {
       console.log('files (storeImages) appended:', filesCount, filesCount === 0 ? '(null로 전송)' : '');
       console.log('images (businessImages) appended:', imagesCount);
       if (store) {
-        console.log('dto.imagesDto.existingImageIdsInOrder:', dto.imagesDto.existingImageIdsInOrder);
-        console.log('dto.businessImagesDto.existingBusinessImageIdsInOrder:', dto.businessImagesDto.existingBusinessImageIdsInOrder);
+        console.log('imagesDto.existingImageIdsInOrder:', imagesDto.existingImageIdsInOrder);
+        console.log('businessImagesDto.existingBusinessImageIdsInOrder:', businessImagesDto.existingBusinessImageIdsInOrder);
       }
       console.groupEnd();
     } catch (e) {
