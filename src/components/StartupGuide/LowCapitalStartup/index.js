@@ -7,6 +7,30 @@ const LowCapitalStartup = () => {
     <section className="py-20 bg-white">
       <div className="flex justify-center">
         <div className="w-full mx-auto">
+          {/* 페이지 제목 */}
+          <div className="text-center mb-12 sm:mb-16 md:mb-20 lg:mb-24 px-4">
+            <h1 className="hero-title text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[120px] font-bold text-primary">
+              호텔런드리만의<br className="sm:hidden" /> 소규모 창업
+            </h1>
+          </div>
+
+          {/* 유튜브 영상 */}
+          <div className="mb-8 sm:mb-12 md:mb-16 lg:mb-20 px-4 sm:px-6 md:px-8 lg:px-16">
+            <div className="max-w-5xl mx-auto">
+              <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+                <iframe 
+                  className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
+                  src="https://www.youtube.com/embed/XujIAFTmirM?si=un3ebSyPfyyvF634" 
+                  title="YouTube video player" 
+                  frameBorder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  referrerPolicy="strict-origin-when-cross-origin" 
+                  allowFullScreen
+                />
+              </div>
+            </div>
+          </div>
+
           {/* 데스크톱 (1024px 이상): 새 통합 이미지 */}
           <div className="hidden lg:block">
             <img src="/images/low-capital-final-final.png" alt="소자본창업" className="w-full" />
