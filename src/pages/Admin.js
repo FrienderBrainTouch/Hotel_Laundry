@@ -3,6 +3,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import AdminLayout from '../components/Admin/Layout/AdminLayout';
 import Dashboard from '../components/Admin/Dashboard';
 import StoreManagement from '../components/Admin/StoreManagement';
+import OperatingStores from '../components/Admin/OperatingStores';
 import InquiryManagement from '../components/Admin/InquiryManagement';
 import { useAdminSessionCheck } from '../hooks/queries/useAdminAuth';
 
@@ -50,6 +51,7 @@ const Admin = () => {
       <Routes>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/stores" element={<StoreManagement />} />
+        <Route path="/operating-stores" element={<OperatingStores />} />
         <Route path="/inquiries" element={<InquiryManagement />} />
         <Route path="/inquiries/:id" element={<InquiryManagement />} />
       </Routes>

@@ -38,7 +38,8 @@ const StoreProgress = () => {
     const toImageUrl = (v) => {
       if (!v) return '';
       if (typeof v === 'string' && /^https?:\/\//i.test(v)) return v;
-      const base = process.env.REACT_APP_IMAGE_BASE_URL;
+      const base = process.env.REACT_APP_IMAGE_BASE_URL || '';
+      if (!base) return '';
       return `${base}${v}`;
     };
     return list.map((s) => {
