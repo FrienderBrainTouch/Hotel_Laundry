@@ -262,6 +262,7 @@ const OperatingStores = () => {
         day: '2-digit',
         hour: '2-digit',
         minute: '2-digit',
+        timeZone: 'Asia/Seoul', // 한국 시간대 명시
       });
     } catch {
       return '-';
