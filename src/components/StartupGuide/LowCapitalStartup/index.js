@@ -9,7 +9,22 @@ const LowCapitalStartup = () => {
         <div className="w-full mx-auto">
           {/* 데스크톱 (1024px 이상): 새 통합 이미지 */}
           <div className="hidden lg:block">
-            <img src="/images/low-capital-final-final.png" alt="소자본창업" className="w-full" />
+            <img src="/images/low-capital-final-final1.png" alt="소자본창업" className="w-full" />
+            {/* 유튜브 영상 */}
+            <div className="w-full">
+              <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+                <iframe 
+                  className="absolute top-0 left-0 w-full h-full"
+                  src="https://www.youtube.com/embed/XujIAFTmirM?si=un3ebSyPfyyvF634" 
+                  title="YouTube video player" 
+                  frameBorder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  referrerPolicy="strict-origin-when-cross-origin" 
+                  allowFullScreen
+                />
+              </div>
+            </div>
+            <img src="/images/low-capital-final-final2.png" alt="소자본창업" className="w-full" />
           </div>
 
           {/* 모바일/태블릿 (1024px 미만): 기존 이미지들 */}
@@ -24,6 +39,21 @@ const LowCapitalStartup = () => {
               alt="소자본창업 2"
               className="w-full"
             />
+
+            {/* 유튜브 영상 */}
+            <div className="w-full">
+              <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+                <iframe 
+                  className="absolute top-0 left-0 w-full h-full"
+                  src="https://www.youtube.com/embed/XujIAFTmirM?si=un3ebSyPfyyvF634" 
+                  title="YouTube video player" 
+                  frameBorder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  referrerPolicy="strict-origin-when-cross-origin" 
+                  allowFullScreen
+                />
+              </div>
+            </div>
 
             <div className="w-full bg-[#e1e7f3] pt-[70px] pb-[30px] text-center">
               <div className="mb-5">
