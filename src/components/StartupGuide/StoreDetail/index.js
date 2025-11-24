@@ -25,8 +25,8 @@ const StoreDetail = () => {
   const { storeId } = useParams();
   const { data, isLoading, error } = useStoreDetail(storeId);
 
-  // 선택된 갤러리 이미지 인덱스 (메인 이미지 표시용)
-  const [selectedImageIndex, setSelectedImageIndex] = useState(null);
+  // 현재 표시 중인 메인 이미지 인덱스
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const storeData = useMemo(() => {
     if (!data) return null;
@@ -44,42 +44,22 @@ const StoreDetail = () => {
     const toImageUrl = (v) => {
       if (!v) return '';
       if (typeof v === 'string' && /^https?:\/\//i.test(v)) return v;
-      const base = process.env.REACT_APP_IMAGE_BASE_URL;
+      const base = process.env.REACT_APP_IMAGE_BASE_URL || '';
+      if (!base) return '';
       return `${base}${v}`;
     };
-    const imageKeys = Array.isArray(src.images)
-      ? src.images.map((img) => (typeof img === 'string' ? img : img?.key)).filter(Boolean)
+    
+    // storeImages 파싱 (매장 이미지들)
+    const storeImageKeys = Array.isArray(src.storeImages)
+      ? src.storeImages.map((img) => (typeof img === 'string' ? img : img?.key)).filter(Boolean)
       : [];
-    const images = imageKeys.map(toImageUrl);
-    const originalMainImage = images[0] || '/images/store-detail/store-main-image.png';
-    const originalGalleryImages = images.slice(1);
-
-    // 선택된 갤러리 이미지가 있으면 메인과 갤러리 이미지 교체
-    let displayMainImage = originalMainImage;
-    let displayGalleryImages = originalGalleryImages;
-
-    if (selectedImageIndex !== null && originalGalleryImages[selectedImageIndex]) {
-      // 선택된 갤러리 이미지를 메인으로
-      displayMainImage = originalGalleryImages[selectedImageIndex];
-      // 원래 메인 이미지를 갤러리 첫 번째로, 선택된 이미지는 제외
-      displayGalleryImages = [
-        originalMainImage,
-        ...originalGalleryImages.filter((_, idx) => idx !== selectedImageIndex),
-      ];
-    }
-
-    // 교체 후 갤러리에서 원래 갤러리 인덱스를 찾기 위한 맵핑 생성
-    const galleryIndexMap = displayGalleryImages.map((img, idx) => {
-      if (idx === 0 && selectedImageIndex !== null) {
-        return null; // 원래 메인 이미지
-      }
-      if (selectedImageIndex !== null && idx > 0) {
-        // 원래 갤러리에서 인덱스 찾기
-        const originalIdx = originalGalleryImages.findIndex((origImg) => origImg === img);
-        return originalIdx >= 0 ? originalIdx : null;
-      }
-      return idx; // 교체 전 상태
-    });
+    const storeImages = storeImageKeys.map(toImageUrl);
+    
+    // 상권 분석 이미지 (businessImages) 파싱
+    const businessImageKeys = Array.isArray(src.businessImages)
+      ? src.businessImages.map((img) => (typeof img === 'string' ? img : img?.key)).filter(Boolean)
+      : [];
+    const businessImages = businessImageKeys.map(toImageUrl);
 
     const basicInfo = src.basicInfo || {};
     const details = src.details || {};
@@ -89,10 +69,7 @@ const StoreDetail = () => {
       id: src.storeId,
       location,
       title: basicInfo.storeName || location,
-      mainImage: displayMainImage,
-      galleryImages: displayGalleryImages,
-      originalMainImage, // 원래 메인 이미지 (복원용)
-      galleryIndexMap, // 갤러리 인덱스 맵핑 (원래 갤러리 인덱스 찾기용)
+      storeImages: storeImages.length > 0 ? storeImages : ['/images/store-detail/store-main-image.png'],
       basicInfo: {
         storeName: basicInfo.storeName,
         status: basicInfo.status,
@@ -120,9 +97,10 @@ const StoreDetail = () => {
           description.locationAnalysis ||
             '반경내 세대수: 약 5,000세대\n연령대: 20-40대 직장인 비중 65%\n경쟁매장: 주변 세탁소 2개, 세탁물 수거함 3곳\n입지분석: 지하철역 도보 5분, 버스정류장 인접\n주변 상권: 상가밀집지역, 오피스빌딩 다수'
         ),
+        images: businessImages,
       },
     };
-  }, [data, selectedImageIndex]);
+  }, [data]);
 
   const detailItems = useMemo(() => {
     if (!storeData) return [];
@@ -186,55 +164,64 @@ const StoreDetail = () => {
                 </h1>
               )}
 
-              {/* Main Store Image */}
-              <div className="w-full h-[200px] xs:h-[250px] sm:h-[300px] md:h-[350px] lg:h-[400px] xl:h-[450px] 2xl:h-[500px] rounded-xl xs:rounded-2xl overflow-hidden mb-8 xs:mb-6 sm:mb-8 md:mb-10 lg:mb-12 xl:mb-12 2xl:mb-16">
+              {/* Main Store Image Gallery */}
+              <div className="relative w-full h-[200px] xs:h-[250px] sm:h-[300px] md:h-[350px] lg:h-[400px] xl:h-[450px] 2xl:h-[500px] rounded-xl xs:rounded-2xl overflow-hidden mb-8 xs:mb-6 sm:mb-8 md:mb-10 lg:mb-12 xl:mb-12 2xl:mb-16">
                 <img
-                  src={storeData?.mainImage || '/images/store-detail/store-main-image.png'}
-                  alt={`${storeData?.location || ''} 매장`}
+                  src={storeData?.storeImages?.[currentImageIndex] || '/images/store-detail/store-main-image.png'}
+                  alt={`${storeData?.location || ''} 매장 ${currentImageIndex + 1}`}
                   className="w-full h-full object-cover"
                 />
-              </div>
-            </div>
-
-            {/* Gallery Images */}
-            <div className="mb-12 xs:mb-8 sm:mb-10 md:mb-12 lg:mb-14 xl:mb-16 2xl:mb-20">
-              <div className="flex gap-3 xs:gap-4 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-6 2xl:gap-8 overflow-x-auto pb-4">
-                {(storeData?.galleryImages || []).map((image, index) => {
-                  // 원래 메인 이미지가 갤러리 첫 번째로 왔는지 확인
-                  const isOriginalMain =
-                    selectedImageIndex !== null &&
-                    index === 0 &&
-                    image === storeData?.originalMainImage;
-                  // 현재 갤러리 인덱스에 해당하는 원래 갤러리 인덱스
-                  const originalGalleryIndex = storeData?.galleryIndexMap?.[index];
-
-                  return (
-                    <div
-                      key={index}
+                
+                {/* 이미지가 2개 이상일 때만 네비게이션 버튼 표시 */}
+                {storeData?.storeImages && storeData.storeImages.length > 1 && (
+                  <>
+                    {/* 이전 버튼 */}
+                    <button
                       onClick={() => {
-                        if (isOriginalMain) {
-                          // 원래 메인 이미지 클릭 시 원래 상태로 복원
-                          setSelectedImageIndex(null);
-                        } else if (
-                          originalGalleryIndex !== null &&
-                          originalGalleryIndex !== undefined
-                        ) {
-                          // 갤러리 이미지 클릭 시 해당 원래 인덱스로 교체
-                          setSelectedImageIndex(originalGalleryIndex);
-                        }
+                        setCurrentImageIndex((prev) => 
+                          prev === 0 ? storeData.storeImages.length - 1 : prev - 1
+                        );
                       }}
-                      className={`flex-shrink-0 w-[180px] h-[180px] xs:w-[200px] xs:h-[200px] sm:w-[220px] sm:h-[220px] md:w-[240px] md:h-[240px] lg:w-[250px] lg:h-[250px] xl:w-[260px] xl:h-[260px] 2xl:w-[264px] 2xl:h-[264px] rounded-lg xs:rounded-xl overflow-hidden cursor-pointer hover:opacity-90 transition-opacity ${
-                        selectedImageIndex === originalGalleryIndex ? 'ring-2 ring-blue-500' : ''
-                      }`}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition-colors"
+                      aria-label="이전 이미지"
                     >
-                      <img
-                        src={image}
-                        alt={`${storeData?.location || ''} 갤러리 ${index + 1}`}
-                        className="w-full h-full object-cover"
-                      />
+                      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                      </svg>
+                    </button>
+
+                    {/* 다음 버튼 */}
+                    <button
+                      onClick={() => {
+                        setCurrentImageIndex((prev) => 
+                          prev === storeData.storeImages.length - 1 ? 0 : prev + 1
+                        );
+                      }}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition-colors"
+                      aria-label="다음 이미지"
+                    >
+                      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+
+                    {/* 인디케이터 점들 */}
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                      {storeData.storeImages.map((_, index) => (
+                        <button
+                          key={index}
+                          onClick={() => setCurrentImageIndex(index)}
+                          className={`w-2 h-2 rounded-full transition-all ${
+                            index === currentImageIndex 
+                              ? 'bg-white w-6' 
+                              : 'bg-white/50 hover:bg-white/70'
+                          }`}
+                          aria-label={`${index + 1}번째 이미지로 이동`}
+                        />
+                      ))}
                     </div>
-                  );
-                })}
+                  </>
+                )}
               </div>
             </div>
 
@@ -273,9 +260,37 @@ const StoreDetail = () => {
               </h2>
             </div>
 
+            {/* 상권 분석 이미지 */}
+            {storeData?.marketAnalysis?.images &&
+              storeData.marketAnalysis.images.length > 0 && (
+                <div className="mb-8 xs:mb-6 sm:mb-8 md:mb-10 lg:mb-12 xl:mb-12 2xl:mb-16">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 xs:gap-4 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-6 2xl:gap-8">
+                    {storeData.marketAnalysis.images.map((image, index) => (
+                      <div
+                        key={index}
+                        className="relative w-full aspect-[4/3] rounded-lg xs:rounded-xl overflow-hidden bg-white shadow-sm"
+                      >
+                        <img
+                          src={image}
+                          alt={`상권 분석 이미지 ${index + 1}`}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            console.error('❌ 상권 분석 이미지 로드 실패:', image);
+                            e.target.src =
+                              'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100"%3E%3Crect fill="%23ddd" width="100" height="100"/%3E%3Ctext fill="%23999" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3E로드 실패%3C/text%3E%3C/svg%3E';
+                            e.target.onerror = null;
+                          }}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
             {/* Market Analysis Card */}
             <div className="mb-12 xs:mb-8 sm:mb-10 md:mb-12 lg:mb-14 xl:mb-16 2xl:mb-20">
               <div className="bg-[#F3F4F6] rounded-xl xs:rounded-2xl p-4 xs:p-6 sm:p-6 md:p-8 lg:p-8 xl:p-10 2xl:p-12">
+                {/* 상권 분석 텍스트 */}
                 <div className="flex flex-col gap-3 xs:gap-3 sm:gap-4 md:gap-4 lg:gap-5 xl:gap-5 2xl:gap-6">
                   {(storeData?.marketAnalysis?.text || '')
                     .split('\n')

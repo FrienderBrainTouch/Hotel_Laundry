@@ -58,21 +58,48 @@ const StoreManagement = () => {
   // 편집 모드일 때 상세 데이터를 불러와 폼 초기값으로 변환
   const detailQuery = useStoreDetail(selectedStore?.id || null);
   const formInitial = useMemo(() => {
-    if (!selectedStore || !detailQuery?.data) return selectedStore; // 신규 등록 또는 로딩 중
+    console.log('🔧 formInitial useMemo 실행:', {
+      selectedStore: selectedStore?.id,
+      hasDetailData: !!detailQuery?.data,
+      detailQuery: detailQuery?.data
+    });
+    
+    if (!selectedStore || !detailQuery?.data) {
+      console.log('⚠️ selectedStore 또는 detailQuery.data 없음, selectedStore 반환');
+      return selectedStore; // 신규 등록 또는 로딩 중
+    }
     const d = detailQuery.data;
 
     // 이미지 키를 절대 URL로 변환(미리보기 용) - 변경된 DTO(images: [{imageId, key}]) 대응
     const imageBase = process.env.REACT_APP_IMAGE_BASE_URL || '';
     const buildImageUrl = (base, key) => {
-      if (!key) return '';
-      if (/^https?:\/\//i.test(key)) return key; // already absolute
-      if (base.includes('key=')) return `${base}${encodeURIComponent(key)}`; // e.g., ...?key=
-      if (/\?$/.test(base)) return `${base}key=${encodeURIComponent(key)}`; // ends with ?
-      if (base.includes('?')) return `${base}&key=${encodeURIComponent(key)}`; // has other params
-      if (/\/$/.test(base)) return `${base}${key}`; // path join fallback
-      return `${base}?key=${encodeURIComponent(key)}`; // default query style
+      if (!key) {
+        console.warn('⚠️ buildImageUrl: key가 없습니다');
+        return '';
+      }
+      
+      // 이미 절대 URL인 경우
+      if (/^https?:\/\//i.test(key)) {
+        console.log('✅ buildImageUrl: 이미 절대 URL -', key);
+        return key;
+      }
+      
+      if (!base) {
+        console.error('❌ buildImageUrl: REACT_APP_IMAGE_BASE_URL이 설정되지 않았습니다');
+        return '';
+      }
+      
+      // base + key 형식으로 변환
+      const url = `${base}${key}`;
+      
+      console.log('🔗 buildImageUrl:', { base, key, result: url });
+      return url;
     };
-    const rawImages = d?.raw?.images || d.images || [];
+
+    // storeImages 처리 (메인 + 갤러리)
+    // raw 객체 안에 실제 데이터가 있을 수 있으므로 raw를 먼저 체크
+    const rawImages = d?.raw?.storeImages || d?.storeImages || d?.raw?.images || d?.images || [];
+    console.log('🖼️ storeImages 파싱:', { rawImages });
     const existingImages = Array.isArray(rawImages)
       ? rawImages
           .map((img) => {
@@ -87,25 +114,61 @@ const StoreManagement = () => {
       : [];
     const imageUrls = existingImages.map((x) => x.url);
 
+    // businessImages 처리 (상권 분석 이미지)
+    // raw 객체 안에 실제 데이터가 있을 수 있으므로 raw를 먼저 체크
+    const rawBusinessImages = d?.raw?.businessImages || d?.businessImages || [];
+    console.log('📊 businessImages 파싱:', { rawBusinessImages });
+    const existingBusinessImages = Array.isArray(rawBusinessImages)
+      ? rawBusinessImages
+          .map((img) => {
+            if (!img) return null;
+            const key = typeof img === 'string' ? img : img.key;
+            const id = typeof img === 'string' ? undefined : img.imageId;
+            if (!key) return null;
+            const url = buildImageUrl(imageBase, key);
+            return { id, url };
+          })
+          .filter(Boolean)
+      : [];
+    const businessImageUrls = existingBusinessImages.map((x) => x.url);
+
+    console.log('📦 formInitial 생성:', {
+      storeId: selectedStore?.id,
+      imageBase,
+      rawStoreImages: d?.storeImages,
+      existingImages,
+      imageUrls,
+      rawBusinessImages: d?.businessImages,
+      existingBusinessImages,
+      businessImageUrls,
+      fullData: d,
+    });
+
     return {
       id: selectedStore.id, // 수정 모드 식별용
-      address: { address: d.address || '', detailAddress: d.detailAddress || '' },
+      address: { 
+        address: d.raw?.address?.address || d.address?.address || d.address || '', 
+        detailAddress: d.raw?.address?.detailAddress || d.address?.detailAddress || d.detailAddress || '' 
+      },
       storeBasicInfo: {
-        targetRecruits: d.targetRecruits ?? '',
-        currentRecruits: d.currentRecruits || '',
-        storeName: d.storeName || '',
-        status: d.status || 'WAITING',
-        targetOpeningDate: d.targetOpeningDate || '',
+        targetRecruits: d.raw?.basicInfo?.targetRecruits ?? d.basicInfo?.targetRecruits ?? d.targetRecruits ?? '',
+        currentRecruits: d.raw?.basicInfo?.currentRecruits ?? d.basicInfo?.currentRecruits ?? d.currentRecruits ?? '',
+        storeName: d.raw?.basicInfo?.storeName ?? d.basicInfo?.storeName ?? d.storeName ?? '',
+        status: d.raw?.basicInfo?.status ?? d.basicInfo?.status ?? d.status ?? 'WAITING',
+        targetOpeningDate: d.raw?.basicInfo?.targetOpeningDate ?? d.basicInfo?.targetOpeningDate ?? d.targetOpeningDate ?? '',
+        areaSqm: d.raw?.basicInfo?.areaSqm ?? d.basicInfo?.areaSqm ?? d.areaSqm ?? '',
       },
       storeDetails: {
-        detailsRent: d.detailsRent || '',
-        detailsDeposit: d.detailsDeposit || '',
+        detailsRent: d.raw?.details?.detailsRent ?? d.details?.detailsRent ?? d.detailsRent ?? '',
+        detailsDeposit: d.raw?.details?.detailsDeposit ?? d.details?.detailsDeposit ?? d.detailsDeposit ?? '',
       },
       storeDescription: {
-        locationAnalysis: d.locationAnalysis || '',
+        locationAnalysis: d.raw?.description?.locationAnalysis ?? d.description?.locationAnalysis ?? d.locationAnalysis ?? '',
       },
       images: imageUrls,
-      existingImages, // [{ id, url }]
+      existingImages, // [{ id, url }] - storeImages
+      locationAnalysisImages: businessImageUrls,
+      existingBusinessImages, // [{ id, url }] - businessImages
     };
   }, [selectedStore, detailQuery?.data]);
 
@@ -113,8 +176,8 @@ const StoreManagement = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">매장 관리</h2>
-          <p className="text-gray-600">매장 정보를 등록, 수정, 삭제할 수 있습니다.</p>
+          <h2 className="text-3xl font-bold text-gray-900 mb-2">창업 매장 관리</h2>
+          <p className="text-gray-600">창업 예정 매장 정보를 등록, 수정, 삭제할 수 있습니다.</p>
         </div>
         {activeTab === 'list' && (
           <button
