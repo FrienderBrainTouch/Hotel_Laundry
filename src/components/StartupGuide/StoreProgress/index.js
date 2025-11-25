@@ -291,7 +291,7 @@ const StoreProgress = () => {
                           : null}
                         {store.targetRecruits && store.status !== 'CLOSED' && (
                           <div className="absolute bottom-3 right-3 bg-black bg-opacity-70 text-white px-2.5 py-1 rounded-lg text-xs xs:text-sm font-semibold">
-                            {store.recruitsText}
+                            모집인원 {store.recruitsText}
                           </div>
                         )}
                       </div>
