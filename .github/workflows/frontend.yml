@@ -197,38 +197,73 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: SSH connectivity test
-        uses: appleboy/ssh-action@v0.1.7
-        with:
-          host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          password: ${{ secrets.SERVER_PASSWORD }}
-          script: |
-            echo "✅ SSH connected from GitHub Actions"
-            hostname
-            pwd
-          
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
           name: build-${{ github.sha }}
           path: build
 
-      - name: Clear target dir
+      # [추가됨] 1. 파일 전송 속도를 위해 압축 (수천 개의 파일을 1개로 만듦)
+      - name: Tar build files
+        run: tar -czf build.tar.gz -C build .
+
+      # [수정됨] 2. 압축된 파일 1개만 서버로 전송 (매우 빠름)
+      # /tmp 디렉토리나 사용자 홈 디렉토리로 먼저 보냅니다.
+      - name: Transfer compressed file to Server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          source: "build.tar.gz"
+          target: "/home/${{ secrets.SERVER_USERNAME }}/" # 홈 디렉토리로 전송
+
+      # [수정됨] 3. 서버에서 압축 해제 및 '치기(Swap)' 방식으로 무중단 배포
+      - name: Extract and Swap (Zero Downtime)
         uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
-            rm -rf /var/www/html/*
+            # 에러 발생 시 스크립트 중단
+            set -e
 
-      - name: Deploy to Server
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          password: ${{ secrets.SERVER_PASSWORD }}
-          source: "build/*"
-          target: "/var/www/html"
-          strip_components: 1
+            # 변수 설정
+            TAR_FILE="/home/${{ secrets.SERVER_USERNAME }}/build.tar.gz"
+            DEPLOY_DIR="/var/www/html"
+            NEW_DIR="/var/www/html_new"
+            BACKUP_DIR="/var/www/html_old"
+
+            echo "🚀 배포 시작..."
+
+            # 1. 새 배포를 위한 임시 디렉토리 생성 (기존에 있다면 삭제 후 생성)
+            rm -rf $NEW_DIR
+            mkdir -p $NEW_DIR
+
+            # 2. 압축 해제 (임시 디렉토리에)
+            echo "📦 압축 해제 중..."
+            tar -xzf $TAR_FILE -C $NEW_DIR
+
+            # 3. 폴더 스위칭 (순식간에 교체됨 - 무중단)
+            # 기존 html 폴더가 있다면 _old로 백업하고, 새 폴더를 html로 변경
+            echo "🔄 서비스 교체 중..."
+            
+            # (옵션) 기존 폴더가 있는지 확인
+            if [ -d "$DEPLOY_DIR" ]; then
+              # 기존 폴더를 백업 이름으로 변경 (잠시 보관)
+              # 백업 폴더가 이미 있다면 삭제
+              rm -rf $BACKUP_DIR
+              mv $DEPLOY_DIR $BACKUP_DIR
+            fi
+
+            # 새 폴더를 정식 폴더명으로 변경
+            mv $NEW_DIR $DEPLOY_DIR
+
+            # 4. 정리 작업
+            echo "🧹 정리 중..."
+            rm -f $TAR_FILE
+            # (선택사항) 백업 폴더 삭제. 바로 지우거나 나중에 지워도 됨.
+            rm -rf $BACKUP_DIR 
+
+            echo "✅ 배포 완료!"
