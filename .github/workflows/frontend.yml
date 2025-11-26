@@ -207,6 +207,10 @@ jobs:
       - name: Tar build files
         run: tar -czf build.tar.gz -C build .
 
+     # [추가] 파일 크기 확인용
+      - name: Check file size
+        run: ls -lh build.tar.gz
+
       # [수정됨] 2. 압축된 파일 1개만 서버로 전송 (매우 빠름)
       # /tmp 디렉토리나 사용자 홈 디렉토리로 먼저 보냅니다.
       - name: Transfer compressed file to Server
