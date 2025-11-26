@@ -11,6 +11,7 @@ import StoreProgress from '../components/StartupGuide/StoreProgress';
 import StoreDetail from '../components/StartupGuide/StoreDetail';
 import StoreInquiry from '../components/StartupGuide/StoreInquiry';
 import { useMetaTags } from '../hooks/useMetaTags';
+import { ASSET_URL } from '../utils/constants';
 
 const StartupGuidePage = () => {
   const location = useLocation();
@@ -25,7 +26,7 @@ const StartupGuidePage = () => {
       '무인세탁 창업, 셀프빨래방 창업, 소자본창업, 창업가이드, 점주인터뷰, 사업설명회, 창업비용, 무인창업',
     ogTitle: '무인세탁 창업 안내 - 호텔런드리',
     ogDescription: '무인세탁 창업을 위한 완벽한 가이드와 점주 인터뷰를 확인하세요.',
-    ogImage: 'https://hotellaundry.co.kr/images/main-Images/main-slide-1.png',
+    ogImage: `${ASSET_URL}/images/main-Images/main-slide-1.png`,
     ogUrl: 'https://hotellaundry.co.kr/startup-guide',
     canonical: 'https://hotellaundry.co.kr/startup-guide',
   });

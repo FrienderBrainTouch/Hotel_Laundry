@@ -1,21 +1,12 @@
 import React from 'react';
-import step1 from './image/step1.svg';
-import step2 from './image/step2.svg';
-import step3 from './image/step3.svg';
-import step4 from './image/step4.svg';
-import step5 from './image/step5.svg';      
-import num01 from './image/num01.svg';
-import num02 from './image/num02.svg';
-import num03 from './image/num03.svg';
-import num04 from './image/num04.svg';
-import num05 from './image/num05.svg';
+import { ASSET_URL } from '../../../utils/constants';
 
 const processStepsData = [
-  { step: num01, icon: step1, title: '상담 신청', details: ['창업 문의 접수 및 기본 창업 정보 제공', '창업 희망 지역, 예산, 규모 등 1차 조건 확인'] },
-  { step: num02, icon: step2, title: '상권 분석 & 입지 제안', details: ['전문가 상권 분석 및 수익 컨설팅', '입지 조건별 맞춤 시뮬레이션 제시'] },
-  { step: num03, icon: step3, title: '계약 및 매장 설계',   details: ['창업 조건 확정 후 가맹 계약 체결', '매장 맞춤 인테리어 설계 및 공사 진행'] },
-  { step: num04, icon: step4, title: '장비 설치 & 본사 교육', details: ['스마트 세탁 장비 설치 및 테스트', '운영법, 정산 시스템, 고객 응대 교육 진행'] },
-  { step: num05, icon: step5, title: '매장 오픈 & 본사 운영 지원', details: ['오픈 마케팅 진행 및 초기 고객 유입 지원', '24시간 원격 관리 및 콜센터 운영 개시'] },
+  { step: `${ASSET_URL}/image/num01.svg`, icon: `${ASSET_URL}/image/step1.svg`, title: '상담 신청', details: ['창업 문의 접수 및 기본 창업 정보 제공', '창업 희망 지역, 예산, 규모 등 1차 조건 확인'] },
+  { step: `${ASSET_URL}/image/num02.svg`, icon: `${ASSET_URL}/image/step2.svg`, title: '상권 분석 & 입지 제안', details: ['전문가 상권 분석 및 수익 컨설팅', '입지 조건별 맞춤 시뮬레이션 제시'] },
+  { step: `${ASSET_URL}/image/num03.svg`, icon: `${ASSET_URL}/image/step3.svg`, title: '계약 및 매장 설계',   details: ['창업 조건 확정 후 가맹 계약 체결', '매장 맞춤 인테리어 설계 및 공사 진행'] },
+  { step: `${ASSET_URL}/image/num04.svg`, icon: `${ASSET_URL}/image/step4.svg`, title: '장비 설치 & 본사 교육', details: ['스마트 세탁 장비 설치 및 테스트', '운영법, 정산 시스템, 고객 응대 교육 진행'] },
+  { step: `${ASSET_URL}/image/num05.svg`, icon: `${ASSET_URL}/image/step5.svg`, title: '매장 오픈 & 본사 운영 지원', details: ['오픈 마케팅 진행 및 초기 고객 유입 지원', '24시간 원격 관리 및 콜센터 운영 개시'] },
 ];
 
 const Section5 = () => {

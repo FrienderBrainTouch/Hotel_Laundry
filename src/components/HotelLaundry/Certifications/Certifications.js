@@ -1,38 +1,26 @@
 import React, { useState } from 'react';
-import esgCert from '../../../image/esg 확인서.png';
-import innovationCert from '../../../image/혁신중소기업확인서.png';
-import ventureCert from '../../../image/벤처기업.png';
-import trademarkCert from '../../../image/상표등록증.png';
-import copyrightCert from '../../../image/저작권.png';
-import brandAward from '../../../image/브랜드대상.png';
-import techInnovationAward from '../../../image/기술혁신확인서.png';
-import patent1 from '../../../image/특허1.png';
-import patent2 from '../../../image/특허2.png';
-import patent3 from '../../../image/특허3.png';
-import patent4 from '../../../image/특허4.png';
-import patent5 from '../../../image/특허5.png';
-import patent6 from '../../../image/특허6.png';
+import { ASSET_URL } from '../../../utils/constants';
 
 const Certifications = () => {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const patents = [
-    { image: patent1 },
-    { image: patent2 },
-    { image: patent3 },
-    { image: patent4 },
-    { image: patent5 },
-    { image: patent6 },
+    { image: `${ASSET_URL}/image/특허1.png` },
+    { image: `${ASSET_URL}/image/특허2.png` },
+    { image: `${ASSET_URL}/image/특허3.png` },
+    { image: `${ASSET_URL}/image/특허4.png` },
+    { image: `${ASSET_URL}/image/특허5.png` },
+    { image: `${ASSET_URL}/image/특허6.png` },
   ];
 
   const certifications = [
-    { image: esgCert },
-    { image: innovationCert },
-    { image: ventureCert },
-    { image: trademarkCert },
-    { image: copyrightCert },
-    { image: brandAward },
-    { image: techInnovationAward },
+    { image: `${ASSET_URL}/image/esg 확인서.png` },
+    { image: `${ASSET_URL}/image/혁신중소기업확인서.png` },
+    { image: `${ASSET_URL}/image/벤처기업.png` },
+    { image: `${ASSET_URL}/image/상표등록증.png` },
+    { image: `${ASSET_URL}/image/저작권.png` },
+    { image: `${ASSET_URL}/image/브랜드대상.png` },
+    { image: `${ASSET_URL}/image/기술혁신확인서.png` },
   ];
 
   return (
@@ -42,7 +30,7 @@ const Certifications = () => {
           {/* 메인 이미지 */}
           <div className="mb-[30px] sm:mb-[30px] md:mb-[30px] lg:mb-[40px] xl:mb-[50px] 2xl:mb-[50px]">
             <img
-              src="/images/CompanyInfo/Company-2-1.png"
+              src={`${ASSET_URL}/images/CompanyInfo/Company-2-1.png`}
               alt="호텔런드리 세탁 시설"
               className="mx-auto object-cover rounded-[30px] sm:rounded-[40px] md:rounded-[40px] lg:rounded-[50px] xl:rounded-[50px] 2xl:rounded-[50px] w-full h-auto xs:w-[355px] xs:h-[180px] sm:w-[535px] sm:h-[200px] md:w-[728px] md:h-[300px] lg:w-[924px] lg:h-[300px] xl:w-[1200px] xl:h-[350px] 2xl:w-[1400px] 2xl:h-[400px]"
             />

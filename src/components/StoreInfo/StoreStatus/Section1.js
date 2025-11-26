@@ -1,7 +1,5 @@
 import React from 'react';
-import ListChartImage from './StoreListImage/ListChartImage.svg';
-import ListMap from './StoreListImage/ListMap.svg';
-import BannerImg from '../../../image/banner.jpg';
+import { ASSET_URL } from '../../../utils/constants';
 
 const Section1 = () => {
   return (
@@ -11,7 +9,7 @@ const Section1 = () => {
           {/* 메인 이미지 */}
           <div className="mb-[30px] sm:mb-[30px] md:mb-[30px] lg:mb-[40px] xl:mb-[50px] 2xl:mb-[50px]">
             <img
-              src={BannerImg}
+              src={`${ASSET_URL}/image/banner.jpg`}
               alt="호텔런드리 매장 현황"
               className="mx-auto object-cover rounded-[30px] sm:rounded-[40px] md:rounded-[40px] lg:rounded-[50px] xl:rounded-[50px] 2xl:rounded-[50px] w-full h-auto xs:w-[355px] xs:h-[180px] sm:w-[535px] sm:h-[200px] md:w-[728px] md:h-[300px] lg:w-[924px] lg:h-[300px] xl:w-[1200px] xl:h-[350px] 2xl:w-[1400px] 2xl:h-[400px]"
             />
@@ -39,10 +37,18 @@ const Section1 = () => {
           {/* 차트와 지도 */}
           <div className="grid md:grid-cols-2 gap-8">
             <div className="bg-white p-6 rounded-lg shadow-lg">
-              <img src={ListChartImage} alt="전국 매장 현황 이미지" className="w-full h-auto" />
+              <img
+                src={`${ASSET_URL}/StoreListImage/ListChartImage.svg`}
+                alt="전국 매장 현황 이미지"
+                className="w-full h-auto"
+              />
             </div>
             <div className="bg-white p-6 rounded-lg shadow-lg">
-              <img src={ListMap} alt="전국 매장 현황 이미지" className="w-full h-auto" />
+              <img
+                src={`${ASSET_URL}/StoreListImage/ListMap.svg`}
+                alt="전국 매장 현황 이미지"
+                className="w-full h-auto"
+              />
             </div>
           </div>
         </div>

@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import automaticImg from '../image/smartoperation.jpg';
-import placetherapyImg from '../image/placetherapy.png';
-import techbrandImg from '../image/techbrand.png';
-import trustserviceImg from '../image/trustservice.png';
+import { ASSET_URL } from '../../../utils/constants';
 
 const Section3 = () => {
   const [activeTab, setActiveTab] = useState('smart');
@@ -37,25 +34,25 @@ const Section3 = () => {
       id: 'tech',
       title: '기술개발팀',
       subtitle: 'IoT 장비 제어,\n키오스크 시스템, 앱 연동',
-      icon: '/images/CompanyInfo/Company-infra-1.svg'
+      icon: `${ASSET_URL}/images/CompanyInfo/Company-infra-1.svg`
     },
     {
       id: 'design',
       title: '디자인팀',
       subtitle: '브랜드 UI/UX,\n매장 인테리어, 제품 디자인',
-      icon: '/images/CompanyInfo/Company-infra-2.svg'
+      icon: `${ASSET_URL}/images/CompanyInfo/Company-infra-2.svg`
     },
     {
       id: 'mechanical',
       title: '기계기술팀',
       subtitle: '세탁·건조 장비 설계,\n자동화 시스템 구축',
-      icon: '/images/CompanyInfo/Company-infra-3.svg'
+      icon: `${ASSET_URL}/images/CompanyInfo/Company-infra-3.svg`
     },
     {
       id: 'marketing',
       title: '마케팅팀',
       subtitle: '가맹 오픈 마케팅,\nSNS 홍보, 운영 전략 지원',
-      icon: '/images/CompanyInfo/Company-infra-4.svg'
+      icon: `${ASSET_URL}/images/CompanyInfo/Company-infra-4.svg`
     }
   ];
 
@@ -67,10 +64,10 @@ const Section3 = () => {
   ];
 
   const tabImages = {
-    smart: automaticImg,
-    space: placetherapyImg,
-    brand: techbrandImg,
-    trust: trustserviceImg
+    smart: `${ASSET_URL}/image/smartoperation.jpg`,
+    space: `${ASSET_URL}/image/placetherapy.png`,
+    brand: `${ASSET_URL}/image/techbrand.png`,
+    trust: `${ASSET_URL}/image/trustservice.png`
   };
 
   const tabContents = {

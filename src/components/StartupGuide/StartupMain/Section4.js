@@ -1,21 +1,19 @@
 import React from 'react';
-import onejob from './image/onejob.svg';
-import twojob from './image/twojob.svg';
-import cash from './image/cash-coin.svg';
+import { ASSET_URL } from '../../../utils/constants';
 
 const startupOptionsData = [
   {
-    icon: onejob,
+    icon: `${ASSET_URL}/image/onejob.svg`,
     title: '전업 창업자형',
     features: ['직접 운영, 수익 극대화', '전담 관리로 매출 최적화'],
   },
   {
-    icon: twojob,
+    icon: `${ASSET_URL}/image/twojob.svg`,
     title: '투잡 창업자형',
     features: ['무인 운영 + 본사 원격 대응', '부업으로도 가능한 스마트 창업'],
   },
   {
-    icon: cash,
+    icon: `${ASSET_URL}/image/cash-coin.svg`,
     title: '소자본 창업자형',
     features: ['10평 기준 인테리어 무상 지원', '비용 부담 낮은 효율형 창업'],
   },

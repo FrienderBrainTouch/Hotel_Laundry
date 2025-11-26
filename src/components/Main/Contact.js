@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ASSET_URL } from '../../utils/constants';
 
 const Contact = () => {
   return (
@@ -9,7 +10,7 @@ const Contact = () => {
         <div
           className="absolute top-0 left-0 w-full h-full bg-cover bg-center"
           style={{
-            backgroundImage: 'url(/images/main-Images/main-contact.png)',
+            backgroundImage: `url(${ASSET_URL}/images/main-Images/main-contact.png)`,
             filter: 'blur(10px)',
           }}
         ></div>

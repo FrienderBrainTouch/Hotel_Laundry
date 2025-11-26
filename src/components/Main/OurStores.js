@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ASSET_URL } from '../../utils/constants';
 
 const OurStores = () => {
   const [selectedStore, setSelectedStore] = useState(null);
@@ -10,52 +11,52 @@ const OurStores = () => {
   const storeData = [
     {
       id: 0,
-      name: "호텔런드리 동탄실리콘앨리점",
-      address: "경기도 화성시 동탄영천로 150",
-      image: "/images/main-Images/ourStore/dongtanElle.png"
+      name: '호텔런드리 동탄실리콘앨리점',
+      address: '경기도 화성시 동탄영천로 150',
+      image: `${ASSET_URL}/images/main-Images/ourStore/dongtanElle.png`,
     },
     {
       id: 1,
-      name: "호텔런드리 갤러미아점",
-      address: "서울특별시 강남구 테헤란로 152",
-      image: "/images/main-Images/ourStore/Gallmea.png"
+      name: '호텔런드리 갤러미아점',
+      address: '서울특별시 강남구 테헤란로 152',
+      image: `${ASSET_URL}/images/main-Images/ourStore/Gallmea.png`,
     },
     {
       id: 2,
-      name: "호텔런드리 봉천점",
-      address: "서울특별시 관악구 장군봉2길 29",
-      image: "/images/main-Images/ourStore/bongchun.png"
+      name: '호텔런드리 봉천점',
+      address: '서울특별시 관악구 장군봉2길 29',
+      image: `${ASSET_URL}/images/main-Images/ourStore/bongchun.png`,
     },
     {
       id: 3,
-      name: "호텔런드리 청룡점",
-      address: "서울특별시 관악구 청룡8길 32",
-      image: "/images/main-Images/ourStore/chungRyong.png"
+      name: '호텔런드리 청룡점',
+      address: '서울특별시 관악구 청룡8길 32',
+      image: `${ASSET_URL}/images/main-Images/ourStore/chungRyong.png`,
     },
     {
       id: 4,
-      name: "호텔런드리 상도점",
-      address: "서울특별시 동작구 성대로37길 11",
-      image: "/images/main-Images/ourStore/sangdo.png"
+      name: '호텔런드리 상도점',
+      address: '서울특별시 동작구 성대로37길 11',
+      image: `${ASSET_URL}/images/main-Images/ourStore/sangdo.png`,
     },
     {
       id: 5,
-      name: "호텔런드리 미사헤이븐시티점",
-      address: "경기도 하남시 미사강변한강로 295",
-      image: "/images/main-Images/ourStore/misaHeavenCity.png"
+      name: '호텔런드리 미사헤이븐시티점',
+      address: '경기도 하남시 미사강변한강로 295',
+      image: `${ASSET_URL}/images/main-Images/ourStore/misaHeavenCity.png`,
     },
     {
       id: 6,
-      name: "호텔런드리 신림점",
-      address: "서울특별시 관악구 봉천로4길 25",
-      image: "/images/main-Images/ourStore/sillim.png"
+      name: '호텔런드리 신림점',
+      address: '서울특별시 관악구 봉천로4길 25',
+      image: `${ASSET_URL}/images/main-Images/ourStore/sillim.png`,
     },
     {
       id: 7,
-      name: "호텔런드리 서울대점",
-      address: "서울특별시 관악구 신림로11길 76",
-      image: "/images/main-Images/ourStore/seouluniv.png"
-    }
+      name: '호텔런드리 서울대점',
+      address: '서울특별시 관악구 신림로11길 76',
+      image: `${ASSET_URL}/images/main-Images/ourStore/seouluniv.png`,
+    },
   ];
 
   const handleStoreClick = (index) => {

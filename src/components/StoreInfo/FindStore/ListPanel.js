@@ -1,6 +1,5 @@
 import React from 'react';
-import Next from '../StoreStatus/StoreListImage/next.svg';
-import ToNext from '../StoreStatus/StoreListImage/tonext.svg';
+import { ASSET_URL } from '../../../utils/constants';
 
 const ListPanel = ({ stores, totalPages, currentPage, handlePageChange }) => {
   return (
@@ -42,14 +41,14 @@ const ListPanel = ({ stores, totalPages, currentPage, handlePageChange }) => {
               disabled={currentPage === 1} 
               className="p-2 text-gray-500 hover:text-gray-800 disabled:opacity-50"
             >
-              <img src={ToNext} alt="마지막 이전 페이지" className="h-5 w-5 rotate-180" />
+              <img src={`${ASSET_URL}/StoreListImage/tonext.svg`} alt="마지막 이전 페이지" className="h-5 w-5 rotate-180" />
             </button>
             <button 
               onClick={() => handlePageChange(currentPage - 1)} 
               disabled={currentPage === 1} 
               className="p-2 text-gray-500 hover:text-gray-800 disabled:opacity-50"
             >
-              <img src={Next} alt="이전 페이지" className="h-5 w-5 rotate-180" />
+              <img src={`${ASSET_URL}/StoreListImage/next.svg`} alt="이전 페이지" className="h-5 w-5 rotate-180" />
             </button>
 
             {Array.from({ length: totalPages }, (_, index) => (
@@ -71,14 +70,14 @@ const ListPanel = ({ stores, totalPages, currentPage, handlePageChange }) => {
               disabled={currentPage === totalPages} 
               className="p-2 text-gray-500 hover:text-gray-800 disabled:opacity-50"
             >
-              <img src={Next} alt="다음 페이지" className="h-5 w-5" />
+              <img src={`${ASSET_URL}/StoreListImage/next.svg`} alt="다음 페이지" className="h-5 w-5" />
             </button>
             <button 
               onClick={() => handlePageChange(totalPages)} 
               disabled={currentPage === totalPages} 
               className="p-2 text-gray-500 hover:text-gray-800 disabled:opacity-50"
             >
-              <img src={ToNext} alt="마지막 페이지" className="h-5 w-5" />
+              <img src={`${ASSET_URL}/StoreListImage/tonext.svg`} alt="마지막 페이지" className="h-5 w-5" />
             </button>
           </nav>
         </div>

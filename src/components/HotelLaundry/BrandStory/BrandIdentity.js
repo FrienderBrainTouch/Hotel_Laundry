@@ -1,6 +1,5 @@
 import React from 'react';
-import logoEn from '../../../image/logo.png';
-import logoKr from '../../../image/logo-kr.png';
+import { ASSET_URL } from '../../../utils/constants';
 
 const BrandIdentity = () => {
   return (
@@ -88,7 +87,7 @@ const BrandIdentity = () => {
                   <div className="bg-white rounded-xl p-8 shadow-sm text-center">
                     <div className="mb-6">
                       <img
-                        src={logoEn}
+                        src={`${ASSET_URL}/image/logo.png`}
                         alt="HOTEL LAUNDRY Logo"
                         className="w-full h-auto max-h-48 mx-auto"
                       />
@@ -100,7 +99,7 @@ const BrandIdentity = () => {
                   <div className="bg-white rounded-xl p-8 shadow-sm text-center">
                     <div className="mb-6">
                       <img
-                        src={logoKr}
+                        src={`${ASSET_URL}/image/logo-kr.png`}
                         alt="호텔 런드리 로고"
                         className="w-full h-auto max-h-48 mx-auto"
                       />

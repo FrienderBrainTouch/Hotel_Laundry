@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { ASSET_URL } from '../../../utils/constants';
 
 const Header = () => {
   const location = useLocation();
@@ -130,10 +131,10 @@ const Header = () => {
         <div className="flex items-center py-4">
           <Link to="/" className="block">
             <picture>
-              <source media="(min-width: 1024px)" srcSet="/images/Header/lg-xl-2xl-logo.png" />
-              <source media="(min-width: 768px)" srcSet="/images/Header/md-logo.png" />
+              <source media="(min-width: 1024px)" srcSet={`${ASSET_URL}/images/Header/lg-xl-2xl-logo.png`} />
+              <source media="(min-width: 768px)" srcSet={`${ASSET_URL}/images/Header/md-logo.png`} />
               <img
-                src="/images/Header/xs-sm-logo.png"
+                src={`${ASSET_URL}/images/Header/xs-sm-logo.png`}
                 alt="로고"
                 className="w-auto h-auto object-contain"
               />
@@ -259,8 +260,8 @@ const Header = () => {
                           <img
                             src={
                               expandedSubmenu === item.id
-                                ? '/images/chevron-up.svg'
-                                : '/images/chevron-down.svg'
+                                ? `${ASSET_URL}/images/chevron-up.svg`
+                                : `${ASSET_URL}/images/chevron-down.svg`
                             }
                             alt="화살표"
                             className="w-3 h-2"
@@ -380,20 +381,20 @@ const Header = () => {
             >
               {isMenuOpen ? (
                 <picture>
-                  <source media="(min-width: 768px)" srcSet="/images/Header/md-X.svg" />
-                  <source media="(min-width: 640px)" srcSet="/images/Header/sm-X.svg" />
+                  <source media="(min-width: 768px)" srcSet={`${ASSET_URL}/images/Header/md-X.svg`} />
+                  <source media="(min-width: 640px)" srcSet={`${ASSET_URL}/images/Header/sm-X.svg`} />
                   <img
-                    src="/images/Header/xs-X.svg"
+                    src={`${ASSET_URL}/images/Header/xs-X.svg`}
                     alt="닫기"
                     className="w-auto h-auto object-contain"
                   />
                 </picture>
               ) : (
                 <picture>
-                  <source media="(min-width: 768px)" srcSet="/images/Header/md-hamburger.svg" />
-                  <source media="(min-width: 640px)" srcSet="/images/Header/sm-hamburger.svg" />
+                  <source media="(min-width: 768px)" srcSet={`${ASSET_URL}/images/Header/md-hamburger.svg`} />
+                  <source media="(min-width: 640px)" srcSet={`${ASSET_URL}/images/Header/sm-hamburger.svg`} />
                   <img
-                    src="/images/Header/xs-hamburger.svg"
+                    src={`${ASSET_URL}/images/Header/xs-hamburger.svg`}
                     alt="메뉴"
                     className="w-auto h-auto object-contain"
                   />

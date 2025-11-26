@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import homeIcon from '../common/home.svg';
+import { ASSET_URL } from '../../utils/constants';
 
 const Breadcrumb = ({
   items = [],
@@ -45,7 +45,7 @@ const Breadcrumb = ({
         {showHome && (
           <>
             <Link to="/">
-              <img src={homeIcon} alt="홈" />
+              <img src={`${ASSET_URL}/icons/home.svg`} alt="홈" />
             </Link>
             <span className="text-brand-dark text-20">/</span>
           </>

@@ -1,5 +1,5 @@
 import React from 'react';
-import SearchIcon from './StoreFinderImage/search_icon.svg';
+import { ASSET_URL } from '../../../utils/constants';
 
 const Section1 = ({ searchKeyword, setSearchKeyword, handleSearch }) => {
   return (
@@ -28,7 +28,7 @@ const Section1 = ({ searchKeyword, setSearchKeyword, handleSearch }) => {
                 className="w-full px-4 py-3 border rounded-lg pr-12 text-lg"
               />
               <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 p-1">
-                <img src={SearchIcon} alt="검색" className="w-6 h-6" />
+                <img src={`${ASSET_URL}/StoreFinderImage/search_icon.svg`} alt="검색" className="w-6 h-6" />
               </button>
             </form>
           </div>

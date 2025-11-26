@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ASSET_URL } from '../../utils/constants';
 
 const AboutUs = () => {
   const navigate = useNavigate();
@@ -169,7 +170,7 @@ const AboutUs = () => {
                   <div className="text-center px-8 sm:px-4 md:px-8">
                     <div className=" flex justify-center">
                       <img
-                        src={`/images/main-Images/${feature.icon}`}
+                        src={`${ASSET_URL}/images/main-Images/${feature.icon}`}
                         alt={feature.title}
                         className="w-16 h-16 sm:w-16 sm:h-16 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-[93px] xl:h-[93px] 2xl:w-[118px] 2xl:h-[118px]"
                       />

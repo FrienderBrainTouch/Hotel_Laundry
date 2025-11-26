@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+import { ASSET_URL } from '../../utils/constants';
 
 const Hero = () => {
   // 1. video 태그를 직접 가리키기 위해 ref를 생성합니다.
@@ -31,7 +32,7 @@ const Hero = () => {
         controlsList="nodownload nofullscreen noremoteplayback"
         onContextMenu={(e) => e.preventDefault()}
       >
-        <source src="/Videos/MainBanner_h264_silent.mp4" type="video/mp4" />
+        <source src={`${ASSET_URL}/MainBanner_h264_silent.mp4`} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 

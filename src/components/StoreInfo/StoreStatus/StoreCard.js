@@ -1,21 +1,21 @@
 // src/components/StoreInfo/pages/StoreCard.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import storeImage from './StoreListImage/store_example.svg';
+import { ASSET_URL } from '../../../utils/constants';
 
 // 이미지 URL 생성 함수
 const buildImageUrl = (thumbnailKey) => {
   if (!thumbnailKey) return null;
-  
+
   // 이미 절대 URL인 경우
   if (/^https?:\/\//i.test(thumbnailKey)) {
     return thumbnailKey;
   }
-  
+
   // IMAGE_BASE_URL + key 형태로 구성
   const baseUrl = process.env.REACT_APP_IMAGE_BASE_URL || '';
   if (!baseUrl) return null;
-  
+
   return `${baseUrl}${thumbnailKey}`;
 };
 
@@ -75,13 +75,13 @@ const getStoreImage = (storeName) => {
   const imageName = imageMap[storeName];
   if (imageName) {
     try {
-      return require(`./RealStoreImage/${storeName}/${imageName}`);
+      return `${ASSET_URL}/images/RealStoreImage/${storeName}/${imageName}`;
     } catch (error) {
       console.warn(`이미지를 찾을 수 없습니다: ${storeName}/${imageName}`);
-      return storeImage; // 기본 이미지 사용
+      return `${ASSET_URL}/StoreListImage/store_example.svg`; // 기본 이미지 사용
     }
   }
-  return storeImage; // 기본 이미지 사용
+  return `${ASSET_URL}/StoreListImage/store_example.svg`; // 기본 이미지 사용
 };
 
 const StoreCard = ({ store }) => {
@@ -92,15 +92,15 @@ const StoreCard = ({ store }) => {
     if (store.storeId) {
       // serialNumber가 없는 경우 'null'을 URL에 전달
       const urlSerial = store.serialNumber || 'null';
-      
+
       navigate(`/store-info/store-status/${urlSerial}`, {
-        state: { 
+        state: {
           storeId: store.storeId,
           storeName: store.name,
           address: store.address,
           region: store.region,
-          serialNumber: store.serialNumber || null
-        }
+          serialNumber: store.serialNumber || null,
+        },
       });
     } else {
       console.warn(`매장 "${store.name}"의 ID가 없습니다.`, store);
@@ -109,7 +109,7 @@ const StoreCard = ({ store }) => {
   };
 
   // 이미지 URL 결정: thumbnailKey 우선, 없으면 하드코딩된 이미지, 그것도 없으면 기본 이미지
-  const imageUrl = store.thumbnailKey 
+  const imageUrl = store.thumbnailKey
     ? buildImageUrl(store.thumbnailKey)
     : getStoreImage(store.name);
 
@@ -118,13 +118,13 @@ const StoreCard = ({ store }) => {
       onClick={handleStoreClick}
       className="bg-white rounded-lg shadow-md overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 font-pretendard cursor-pointer"
     >
-      <img 
-        src={imageUrl || storeImage} 
-        alt={store.name} 
+      <img
+        src={imageUrl || `${ASSET_URL}/StoreListImage/store_example.svg`}
+        alt={store.name}
         className="w-full h-48 object-cover"
         onError={(e) => {
           // 이미지 로드 실패시 기본 이미지로 대체
-          e.target.src = storeImage;
+          e.target.src = `${ASSET_URL}/StoreListImage/store_example.svg`;
         }}
       />
       <div className="p-6">
