@@ -1,11 +1,12 @@
 import React from 'react';
+import { ASSET_URL } from '../../../utils/constants';
 
 const Section4 = () => {
   return (
     <section 
       className="py-16 relative"
       style={{
-        backgroundImage: 'url(/images/CompanyInfo/Company-gradient.png)',
+        backgroundImage: `url(${ASSET_URL}/images/CompanyInfo/Company-gradient.png)`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat'
@@ -23,7 +24,7 @@ const Section4 = () => {
           {/* 로고 */}
           <div className="mb-8 flex justify-center">
             <img 
-              src="/images/logo.svg" 
+              src={`${ASSET_URL}/images/logo.svg`} 
               alt="Hotel Laundry Logo"
               className="
                 w-[108px] h-[67px] flex-shrink-0

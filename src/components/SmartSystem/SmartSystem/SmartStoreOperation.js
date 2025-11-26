@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
-import iotControlImg from '../image/IOT.png';
-import customerAppImg from '../image/appforcustomer.png';
-import smsServiceImg from '../image/snsservice.png';
-import autoDiscountImg from '../image/autoDiscountSysyemt.png';
-import aiMarketingImg from '../image/AiOperationMarcketing.png';
+import { ASSET_URL } from '../../../utils/constants';
 
 const SmartStoreOperation = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -15,7 +11,7 @@ const SmartStoreOperation = () => {
         "기기 오류 발생 시 원격 대응",
         "현장 방문 없이 본사에서 즉시 문제 해결 가능"
       ],
-      backgroundImage: iotControlImg
+      backgroundImage: `${ASSET_URL}/image/IOT.png`
     },
     {
       id: 2,
@@ -24,7 +20,7 @@ const SmartStoreOperation = () => {
         "실시간 매장 상태 및 시간대별 예약 가능",
         "모바일 결제 및 쿠폰 수령 기능 포함"
       ],
-      backgroundImage: customerAppImg
+      backgroundImage: `${ASSET_URL}/image/appforcustomer.png`
     },
     {
       id: 3,
@@ -33,7 +29,7 @@ const SmartStoreOperation = () => {
         "세탁 및 건조 종료 5분 전 문자 안내",
         "고객 대기시간 절감"
       ],
-      backgroundImage: smsServiceImg
+      backgroundImage: `${ASSET_URL}/image/snsservice.png`
     },
     {
       id: 4,
@@ -42,7 +38,7 @@ const SmartStoreOperation = () => {
         "성수/비혼잡 시간대 자동 할인 적용",
         "장비 가동률 증가 → 매출 증가"
       ],
-      backgroundImage: autoDiscountImg
+      backgroundImage: `${ASSET_URL}/image/autoDiscountSysyemt.png`
     },
     {
       id: 5,
@@ -51,7 +47,7 @@ const SmartStoreOperation = () => {
         "고객 이용 패턴 기반 쿠폰 발행",
         "신규/재방문 고객 활성화 유도"
       ],
-      backgroundImage: aiMarketingImg
+      backgroundImage: `${ASSET_URL}/image/AiOperationMarcketing.png`
     }
   ];
 

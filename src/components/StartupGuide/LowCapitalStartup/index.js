@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ASSET_URL } from '../../../utils/constants';
 
 const LowCapitalStartup = () => {
 
@@ -9,7 +10,7 @@ const LowCapitalStartup = () => {
         <div className="w-full mx-auto">
           {/* 데스크톱 (1024px 이상): 새 통합 이미지 */}
           <div className="hidden lg:block">
-            <img src="/images/low-capital-final-final1.png" alt="소자본창업" className="w-full" />
+            <img src={`${ASSET_URL}/images/low-capital-final-final1.png`} alt="소자본창업" className="w-full" />
             {/* 유튜브 영상 */}
             <div className="w-full">
               <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
@@ -24,18 +25,18 @@ const LowCapitalStartup = () => {
                 />
               </div>
             </div>
-            <img src="/images/low-capital-final-final2.png" alt="소자본창업" className="w-full" />
+            <img src={`${ASSET_URL}/images/low-capital-final-final2.png`} alt="소자본창업" className="w-full" />
           </div>
 
           {/* 모바일/태블릿 (1024px 미만): 기존 이미지들 */}
           <div className="block lg:hidden space-y-0">
             <img
-              src="/images/LowcapitalStartup/lowCap1.png"
+              src={`${ASSET_URL}/images/LowcapitalStartup/lowCap1.png`}
               alt="소자본창업 1"
               className="w-full"
             />
             <img
-              src="/images/LowcapitalStartup/lowCap2.png"
+              src={`${ASSET_URL}/images/LowcapitalStartup/lowCap2.png`}
               alt="소자본창업 2"
               className="w-full"
             />
@@ -74,7 +75,7 @@ const LowCapitalStartup = () => {
 
               <div className="w-full">
                 <img
-                  src="/images/LowcapitalStartup/lowCap3-slide2.png"
+                  src={`${ASSET_URL}/images/LowcapitalStartup/lowCap3-slide2.png`}
                   alt="소자본창업 공유창업 수익 배분"
                   className="w-full"
                 />
@@ -82,32 +83,32 @@ const LowCapitalStartup = () => {
             </div>
 
             <img
-              src="/images/LowcapitalStartup/lowCap4.png"
+              src={`${ASSET_URL}/images/LowcapitalStartup/lowCap4.png`}
               alt="소자본창업 4"
               className="w-full"
             />
             <img
-              src="/images/LowcapitalStartup/lowCap5.png"
+              src={`${ASSET_URL}/images/LowcapitalStartup/lowCap5.png`}
               alt="소자본창업 5"
               className="w-full"
             />
             <img
-              src="/images/LowcapitalStartup/lowCap6.png"
+              src={`${ASSET_URL}/images/LowcapitalStartup/lowCap6.png`}
               alt="소자본창업 6"
               className="w-full"
             />
             <img
-              src="/images/LowcapitalStartup/lowCap7.png"
+              src={`${ASSET_URL}/images/LowcapitalStartup/lowCap7.png`}
               alt="소자본창업 7"
               className="w-full"
             />
             <img
-              src="/images/LowcapitalStartup/lowCap8.png"
+              src={`${ASSET_URL}/images/LowcapitalStartup/lowCap8.png`}
               alt="소자본창업 8"
               className="w-full"
             />
             <img
-              src="/images/LowcapitalStartup/lowCap9.png"
+              src={`${ASSET_URL}/images/LowcapitalStartup/lowCap9.png`}
               alt="소자본창업 9"
               className="w-full"
             />

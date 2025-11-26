@@ -1,4 +1,5 @@
 import React from 'react';
+import { ASSET_URL } from '../../../utils/constants';
 
 const LaundryTech = () => {
   return (
@@ -30,7 +31,7 @@ const LaundryTech = () => {
         <div className="flex justify-center items-center mb-16">
           <div className="w-72 h-72 xs:w-80 xs:h-80 sm:w-96 sm:h-96 md:w-[400px] md:h-[400px] lg:w-[500px] lg:h-[500px] xl:w-[600px] xl:h-[600px] 2xl:w-[700px] 2xl:h-[700px]">
             <img
-              src="/images/hotel-tech.png"
+              src={`${ASSET_URL}/images/hotel-tech.png`}
               alt="IoT 복합플랫폼 도넛 그래프"
               className="w-full h-full object-contain"
               // style={{

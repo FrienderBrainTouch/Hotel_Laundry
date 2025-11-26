@@ -1,4 +1,5 @@
 import React from 'react';
+import { ASSET_URL } from '../../../utils/constants';
 
 // 재사용 가능한 카드 컴포넌트
 const RevenueCard = ({ imageSrc, alt, title, description }) => {
@@ -30,25 +31,25 @@ const SmartRevenue = () => {
   // 카드 데이터 배열
   const revenueCards = [
     {
-      imageSrc: "/images/SmartSystem/smartmodel-1.svg",
+      imageSrc: `${ASSET_URL}/images/SmartSystem/smartmodel-1.svg`,
       alt: "장비 원격제어",
       title: "장비 원격제어",
       description: "스마트폰으로 제어 및 진단"
     },
     {
-      imageSrc: "/images/SmartSystem/smartmodel-2.svg",
+      imageSrc: `${ASSET_URL}/images/SmartSystem/smartmodel-2.svg`,
       alt: "세탁조 살균",
       title: "세탁조 살균",
       description: "HOCL 살균수, 매회 자동 세척"
     },
     {
-      imageSrc: "/images/SmartSystem/smartmodel-3.svg",
+      imageSrc: `${ASSET_URL}/images/SmartSystem/smartmodel-3.svg`,
       alt: "장비 예약",
       title: "장비 예약",
       description: "앱 통해 시간 예약 가능"
     },
     {
-      imageSrc: "/images/SmartSystem/smartmodel-4.svg",
+      imageSrc: `${ASSET_URL}/images/SmartSystem/smartmodel-4.svg`,
       alt: "정산 리포트 제공",
       title: "정산 리포트 제공",
       description: "가맹점 전용 정산 리포트 제공"

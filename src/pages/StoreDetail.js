@@ -2,13 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useMetaTags } from '../hooks/useMetaTags';
 import useApi from '../hooks/useApi';
-
-// SVG 아이콘들을 URL로 불러옵니다. 이 방식은 모든 React 환경에서 동작합니다.
-import subImage from '../components/StoreInfo/StoreStatus/ModalImage/modal_sub.svg';
-import washerUrl from '../components/StoreInfo/StoreStatus/ModalImage/modal_washer.svg';
-import shoeWasherUrl from '../components/StoreInfo/StoreStatus/ModalImage/modal_shoe.svg';
-import hangerUrl from '../components/StoreInfo/StoreStatus/ModalImage/modal_hanger.svg';
-import modal_chart from '../components/StoreInfo/StoreStatus/ModalImage/modal_chart.svg';
+import { ASSET_URL } from '../utils/constants';
 
 // 매장별 serialNumber 매핑 객체
 const STORE_SERIAL_MAPPINGS = {
@@ -77,13 +71,13 @@ const fetchMachineData = async (serialNumber) => {
   try {
     const baseUrl = process.env.REACT_APP_HOTEL_BASE_URL;
     const response = await fetch(`${baseUrl}/kiosk/machine/machines-by-store/${serialNumber}`);
-    
+
     // 404 에러 체크
     if (response.status === 404) {
       console.warn('⚠️ 매장 장비 정보가 등록되지 않음 (404)');
       return { isServiceUnavailable: true };
     }
-    
+
     const result = await response.json();
 
     if (result.success) {
@@ -443,7 +437,7 @@ const getStoreImages = (storeName) => {
 
       limitedImages.forEach((imageName) => {
         try {
-          const imagePath = require(`../components/StoreInfo/StoreStatus/RealStoreImage/${storeName}/${imageName}`);
+          const imagePath = `${ASSET_URL}/images/RealStoreImage/${storeName}/${imageName}`;
           loadedImages.push(imagePath);
         } catch (imageError) {
           console.warn(`개별 이미지 로드 실패: ${storeName}/${imageName}`, imageError);
@@ -451,22 +445,26 @@ const getStoreImages = (storeName) => {
       });
 
       // 성공적으로 로드된 이미지가 있으면 반환, 없으면 기본 이미지
-      return loadedImages.length > 0 ? loadedImages : [subImage];
+      return loadedImages.length > 0 ? loadedImages : [`${ASSET_URL}/ModalImage/modal_sub.svg`];
     } catch (error) {
       console.warn(`이미지 폴더 접근 실패: ${storeName}`, error);
-      return [subImage]; // 기본 이미지 사용
+      return [`${ASSET_URL}/ModalImage/modal_sub.svg`]; // 기본 이미지 사용
     }
   }
-  return [subImage]; // 기본 이미지 사용
+  return [`${ASSET_URL}/ModalImage/modal_sub.svg`]; // 기본 이미지 사용
 };
 
 // 각 아이콘을 <img> 태그를 사용하는 컴포넌트로 만듭니다.
 // 이렇게 하면 className으로 크기 조절이 가능합니다.
-const WasherIcon = ({ className }) => <img src={washerUrl} alt="Washer" className={className} />;
-const ShoeWasherIcon = ({ className }) => (
-  <img src={shoeWasherUrl} alt="Shoe Washer" className={className} />
+const WasherIcon = ({ className }) => (
+  <img src={`${ASSET_URL}/ModalImage/modal_washer.svg`} alt="Washer" className={className} />
 );
-const HangerIcon = ({ className }) => <img src={hangerUrl} alt="Hanger" className={className} />;
+const ShoeWasherIcon = ({ className }) => (
+  <img src={`${ASSET_URL}/ModalImage/modal_shoe.svg`} alt="Shoe Washer" className={className} />
+);
+const HangerIcon = ({ className }) => (
+  <img src={`${ASSET_URL}/ModalImage/modal_hanger.svg`} alt="Hanger" className={className} />
+);
 
 const Chart = ({ data }) => {
   // data가 import된 이미지인 경우 이미지로 표시
@@ -641,23 +639,27 @@ const StoreDetail = () => {
   };
 
   // 매장 정보 구성 (API로 조회한 storeDetail 사용)
-  const storeName = storeDetail?.storeName || storeInfo.storeName || getStoreNameBySerial(serialNumber) || '알 수 없는 매장';
-  const storeAddress = storeDetail?.address 
+  const storeName =
+    storeDetail?.storeName ||
+    storeInfo.storeName ||
+    getStoreNameBySerial(serialNumber) ||
+    '알 수 없는 매장';
+  const storeAddress = storeDetail?.address
     ? `${storeDetail.address.address || ''} ${storeDetail.address.detailAddress || ''}`.trim()
     : storeInfo.address || '주소 정보를 불러올 수 없습니다.';
   const storePhone = storeDetail?.phone || getStorePhone(storeName);
   const storeRegion = storeDetail?.region || storeInfo.region || '서울';
-  
+
   // API 이미지 처리 (images 배열에서 key 추출)
-  const apiImages = storeDetail?.images 
+  const apiImages = storeDetail?.images
     ? storeDetail.images
-        .map(img => buildImageUrl(typeof img === 'string' ? img : img?.key))
+        .map((img) => buildImageUrl(typeof img === 'string' ? img : img?.key))
         .filter(Boolean)
     : [];
-  
+
   // API 이미지가 있으면 사용, 없으면 하드코딩된 이미지 사용
   const storeImages = apiImages.length > 0 ? apiImages : getStoreImages(storeName);
-  
+
   const currentStore = {
     name: `호텔런드리 ${storeName}`,
     address: storeAddress,
@@ -668,7 +670,7 @@ const StoreDetail = () => {
     machineTypes: getMachineTypesSummary(machineData?.machines || []),
     // API에서 받아온 실제 세탁기 데이터 사용
     machines: mapApiDataToMachines(machineData?.machines || []),
-    chartData: modal_chart,
+    chartData: `${ASSET_URL}/ModalImage/modal_chart.svg`,
     chartDescription:
       '개점 이후 누적 수익이 꾸준히 증가하고 있는 매장입니다. 실제 데이터를 통해 안정적인 성장 흐름을 확인할 수 있습니다.',
   };
@@ -808,7 +810,7 @@ const StoreDetail = () => {
               src={
                 images && images.length > 0 && images[currentImageIndex]
                   ? images[currentImageIndex]
-                  : subImage
+                  : `${ASSET_URL}/ModalImage/modal_sub.svg`
               }
               alt={currentStore.name || '매장 이미지'}
               className="w-full h-64 md:h-96 object-cover rounded-lg bg-gray-200"

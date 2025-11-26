@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import clothImg from '../../../image/cloth.png';
+import { ASSET_URL } from '../../../utils/constants';
 
 const SelfDryCleaning = () => {
   return (
@@ -292,7 +292,7 @@ const SelfDryCleaning = () => {
           <div className="mb-16">
             <div className="rounded-lg overflow-hidden h-62">
               <img
-                src={clothImg}
+                src={`${ASSET_URL}/image/cloth.png`}
                 alt="드라이클리닝 서비스 이미지"
                 className="w-full h-full object-cover"
               />

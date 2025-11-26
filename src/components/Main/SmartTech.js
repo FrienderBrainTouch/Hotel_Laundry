@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
-import mainImage2 from '../../image/ai_iot.jpeg';
+import { ASSET_URL } from '../../utils/constants';
 
-const slideLeft = '/images/slide-left.svg';
-const slideRight = '/images/slide-right.svg';
-const mainSmart1 = '/images/main-Images/main-change-01.png';
-const mainSmart3 = '/images/main-Images/main-change-03.png';
+const slideLeft = `${ASSET_URL}/images/slide-left.svg`;
+const slideRight = `${ASSET_URL}/images/slide-right.svg`;
+const mainSmart1 = `${ASSET_URL}/images/main-Images/main-change-01.png`;
+const mainSmart3 = `${ASSET_URL}/images/main-Images/main-change-03.png`;
 
 const SmartTech = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(true);
   const [isAnimating, setIsAnimating] = useState(false); // rapid click guard
   const animTimeoutRef = useRef(null);
-  
+
   // 터치/드래그 슬라이드 관련 상태
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
@@ -26,24 +26,20 @@ const SmartTech = () => {
         title: '셀프 드라이클리닝 도입 수익 걱정 끝!',
         subtitles: [
           '이불 세탁과 양복 드라이클리닝이\n하나의 세탁기에서 모두 가능',
-          '세탁소나 크린토**를 위협하는 가장\n강력한 매출 극대화'
+          '세탁소나 크린토**를 위협하는 가장\n강력한 매출 극대화',
         ],
       },
       {
         id: 2,
-        image: mainImage2,
+        image: `${ASSET_URL}/image/ai_iot.jpeg`,
         title: 'IOT기반 스마트 매장',
-        subtitles: [
-          '대기 시간 없는 세탁고객\n일하지 않아도 되는 점주',
-        ],
+        subtitles: ['대기 시간 없는 세탁고객\n일하지 않아도 되는 점주'],
       },
       {
         id: 3,
         image: mainSmart1,
         title: '새벽에도 걸려오는 고객전화 스트레스로부터 해방!',
-        subtitles: [
-          '전 매장 24시간 통합 콜센터운영을 통한\n고객전화 스트레스 해결'
-        ],
+        subtitles: ['전 매장 24시간 통합 콜센터운영을 통한\n고객전화 스트레스 해결'],
       },
     ],
     []
@@ -66,7 +62,7 @@ const SmartTech = () => {
 
   const handleTouchEnd = () => {
     if (!isDragging || !touchStart || !touchEnd) return;
-    
+
     const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > 50;
     const isRightSwipe = distance < -50;
@@ -76,7 +72,7 @@ const SmartTech = () => {
     } else if (isRightSwipe) {
       prevSlide();
     }
-    
+
     setIsDragging(false);
     setTouchStart(null);
     setTouchEnd(null);
@@ -97,7 +93,7 @@ const SmartTech = () => {
 
   const handleMouseUp = () => {
     if (!isDragging || !touchStart || !touchEnd) return;
-    
+
     const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > 50;
     const isRightSwipe = distance < -50;
@@ -107,7 +103,7 @@ const SmartTech = () => {
     } else if (isRightSwipe) {
       prevSlide();
     }
-    
+
     setIsDragging(false);
     setTouchStart(null);
     setTouchEnd(null);
@@ -138,7 +134,6 @@ const SmartTech = () => {
     beginAnimation();
     setCurrentIndex((prev) => (prev === 0 ? slidesLength - 1 : prev - 1));
   }, [isAnimating, beginAnimation, slidesLength]);
-
 
   // 래핑 로직: 마지막 클론 도달 시(= slidesLength) 0으로 점프
   useEffect(() => {
@@ -221,7 +216,7 @@ const SmartTech = () => {
           </button>
 
           {/* Unified Slide Track (mobile + desktop) */}
-          <div 
+          <div
             className="relative overflow-hidden w-full h-[350px] sm:h-[500px] md:h-[500px] lg:h-[550px] xl:h-[600px] min-h-[350px] select-none"
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
@@ -255,7 +250,10 @@ const SmartTech = () => {
                         </h3>
                         <div className="space-y-2">
                           {slide.subtitles.map((subtitle, index) => (
-                            <p key={index} className="text-[#1C262B] font-['KoPubWorldDotum'] text-[12px] sm:text-[14px] leading-relaxed whitespace-pre-line">
+                            <p
+                              key={index}
+                              className="text-[#1C262B] font-['KoPubWorldDotum'] text-[12px] sm:text-[14px] leading-relaxed whitespace-pre-line"
+                            >
                               {subtitle}
                             </p>
                           ))}
@@ -278,7 +276,10 @@ const SmartTech = () => {
                         </h3>
                         <div className="space-y-2">
                           {slide.subtitles.map((subtitle, index) => (
-                            <p key={index} className="text-[#1C262B] font-['KoPubWorldDotum'] text-[14px] md:text-[16px] leading-relaxed whitespace-pre-line">
+                            <p
+                              key={index}
+                              className="text-[#1C262B] font-['KoPubWorldDotum'] text-[14px] md:text-[16px] leading-relaxed whitespace-pre-line"
+                            >
                               {subtitle}
                             </p>
                           ))}
@@ -306,7 +307,10 @@ const SmartTech = () => {
                       </h3>
                       <div className="space-y-2">
                         {slide.subtitles.map((subtitle, index) => (
-                          <p key={index} className="text-[#1C262B] font-['KoPubWorldDotum'] text-[14px] lg:text-[16px] xl:text-[18px] leading-relaxed whitespace-pre-line">
+                          <p
+                            key={index}
+                            className="text-[#1C262B] font-['KoPubWorldDotum'] text-[14px] lg:text-[16px] xl:text-[18px] leading-relaxed whitespace-pre-line"
+                          >
                             {subtitle}
                           </p>
                         ))}

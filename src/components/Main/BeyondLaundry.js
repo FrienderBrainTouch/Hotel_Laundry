@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { ASSET_URL } from '../../utils/constants';
 
 const BeyondLaundry = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -39,7 +40,7 @@ const BeyondLaundry = () => {
           '친환경 세제와 물로 하는 웨트클리닝은 이미 미국과 유럽에서 발암물질의 유기용제 드라이클리닝을 대체하고 있습니다.',
         ],
       },
-      image: '/images/main-Images/main-Beyond-3.png',
+      image: `${ASSET_URL}/images/main-Images/main-Beyond-3.png`,
       link: '/equipment/self-dry-cleaning',
     },
     {
@@ -70,7 +71,7 @@ const BeyondLaundry = () => {
           '현장 결제와 줄서기 기능, 문자 알림 등 다양한 편의성으로 찾아가는 세탁 브랜드가 되고 있습니다.',
         ],
       },
-      image: '/images/main-Images/main-Beyond-2.png',
+      image: `${ASSET_URL}/images/main-Images/main-Beyond-2.png`,
       link: '/app-guide/app-download',
     },
     {
@@ -101,7 +102,7 @@ const BeyondLaundry = () => {
           '민첩한 고객 응대는 고객의 만족을 높이고 완전한 무인 운영을 가능하게 합니다.',
         ],
       },
-      image: '/images/main-Images/main-Beyond-1.png',
+      image: `${ASSET_URL}/images/main-Images/main-Beyond-1.png`,
       link: '/smart-system',
     },
     {
@@ -132,7 +133,7 @@ const BeyondLaundry = () => {
           '365일 모든 전화 응대를 본사가 직접 받고 원격으로 처리하여 노동없는 제테크창업을 제공 합니다.',
         ],
       },
-      image: '/images/main-Images/main-Beyond-5.png',
+      image: `${ASSET_URL}/images/main-Images/main-Beyond-5.png`,
       link: '/management-support',
     },
     {
@@ -163,7 +164,7 @@ const BeyondLaundry = () => {
           '독보적인 쿠폰 시스템은 고객 재방문과 매출 차별화로 이어집니다.',
         ],
       },
-      image: '/images/main-Images/main-Beyond-6.png',
+      image: `${ASSET_URL}/images/main-Images/main-Beyond-6.png`,
       link: '/smart-system/advanced-technology',
     },
     {
@@ -200,7 +201,7 @@ const BeyondLaundry = () => {
           '고객의 안심과 브랜드 신뢰를 쌓아 갑니다.',
         ],
       },
-      image: '/images/main-Images/main-Beyond-4.png',
+      image: `${ASSET_URL}/images/main-Images/main-Beyond-4.png`,
       link: '/smart-system/status-management',
     },
   ];

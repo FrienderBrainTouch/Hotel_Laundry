@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useStoreDetail } from '../../../hooks/queries/useStores';
+import { ASSET_URL } from '../../../utils/constants';
 
 // 매장 상태를 한글로 변환하는 함수
 const getStoreStatusLabel = (status) => {
@@ -69,7 +70,7 @@ const StoreDetail = () => {
       id: src.storeId,
       location,
       title: basicInfo.storeName || location,
-      storeImages: storeImages.length > 0 ? storeImages : ['/images/store-detail/store-main-image.png'],
+      storeImages: storeImages.length > 0 ? storeImages : [`${ASSET_URL}/images/store-detail/store-main-image.png`],
       basicInfo: {
         storeName: basicInfo.storeName,
         status: basicInfo.status,
@@ -167,7 +168,7 @@ const StoreDetail = () => {
               {/* Main Store Image Gallery */}
               <div className="relative w-full h-[200px] xs:h-[250px] sm:h-[300px] md:h-[350px] lg:h-[400px] xl:h-[450px] 2xl:h-[500px] rounded-xl xs:rounded-2xl overflow-hidden mb-8 xs:mb-6 sm:mb-8 md:mb-10 lg:mb-12 xl:mb-12 2xl:mb-16">
                 <img
-                  src={storeData?.storeImages?.[currentImageIndex] || '/images/store-detail/store-main-image.png'}
+                  src={storeData?.storeImages?.[currentImageIndex] || `${ASSET_URL}/images/store-detail/store-main-image.png`}
                   alt={`${storeData?.location || ''} 매장 ${currentImageIndex + 1}`}
                   className="w-full h-full object-cover"
                 />

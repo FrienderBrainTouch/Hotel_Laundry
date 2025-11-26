@@ -1,10 +1,5 @@
 import React from 'react';
-import gif1920 from '../../image/whyhotellaundry-1920.gif';
-import gif1440 from '../../image/whyhotellaundry-1440.gif';
-import gif1024 from '../../image/whyhotellaundry-1024.gif';
-import gif768 from '../../image/whyhotellaundry-768.gif';
-import gif575 from '../../image/whyhotellaundry-575.gif';
-import gif375 from '../../image/whyhotellaundry-375.gif';
+import { ASSET_URL } from '../../utils/constants';
 
 const WhyHotelLaundry = () => {
   return (
@@ -31,14 +26,32 @@ const WhyHotelLaundry = () => {
       <div className="mb-[50px]">
         <div className="flex items-center justify-center">
           <picture className="w-full 2xl:h-[430px] object-cover opacity-15">
-            <source media="(min-width: 1536px)" srcSet={gif1920} />
-            <source media="(min-width: 1280px)" srcSet={gif1440} />
-            <source media="(min-width: 1024px)" srcSet={gif1024} />
-            <source media="(min-width: 768px)" srcSet={gif768} />
-            <source media="(min-width: 640px)" srcSet={gif575} />
-            <source media="(min-width: 375px)" srcSet={gif375} />
+            <source
+              media="(min-width: 1536px)"
+              srcSet={`${ASSET_URL}/image/whyhotellaundry-1920.gif`}
+            />
+            <source
+              media="(min-width: 1280px)"
+              srcSet={`${ASSET_URL}/image/whyhotellaundry-1440.gif`}
+            />
+            <source
+              media="(min-width: 1024px)"
+              srcSet={`${ASSET_URL}/image/whyhotellaundry-1024.gif`}
+            />
+            <source
+              media="(min-width: 768px)"
+              srcSet={`${ASSET_URL}/image/whyhotellaundry-768.gif`}
+            />
+            <source
+              media="(min-width: 640px)"
+              srcSet={`${ASSET_URL}/image/whyhotellaundry-575.gif`}
+            />
+            <source
+              media="(min-width: 375px)"
+              srcSet={`${ASSET_URL}/image/whyhotellaundry-375.gif`}
+            />
             <img
-              src={gif375}
+              src={`${ASSET_URL}/image/whyhotellaundry-375.gif`}
               alt="Why Hotel Laundry Background"
               className="w-full 2xl:h-[430px] object-cover opacity-15"
             />
