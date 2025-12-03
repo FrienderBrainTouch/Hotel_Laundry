@@ -254,11 +254,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
       return;
     }
 
-    // 상권 분석 이미지 검증 (필수 - 최소 1개)
-    if (!locationAnalysisImages || locationAnalysisImages.length === 0) {
-      alert('상권 분석 이미지를 최소 1개 이상 등록해 주세요.');
-      return;
-    }
+    // 상권 분석 이미지는 선택사항으로 변경 (백엔드에서 필수가 아님)
 
     if (missingFields.length > 0) {
       const missingLabels = missingFields.map((field) => field.label).join(', ');
@@ -736,7 +732,7 @@ const StoreForm = ({ store, onBack, onSave }) => {
             {/* 상권 분석 이미지 */}
             <div className="border-t border-gray-200 pt-6">
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                상권 분석 이미지 * (최대 10개)
+                상권 분석 이미지 (최대 10개)
                 <span className="text-xs text-gray-500 ml-2">권장 크기: 1200x800px, 파일당 최대 30MB</span>
               </label>
               
