@@ -86,7 +86,7 @@ const StoreList = ({ onEditStore }) => {
 
     return storesData.content.map((store) => ({
       id: store.storeId,
-      name: `호텔런드리 ${store.location}점`,
+      name: `호텔런드리 ${store.storeName}점`,
       location: [store.location, store.detailLocation].filter(Boolean).join(' '),
       area: `${store.areaSqm}평`,
       status: getStatusText(store.status),
