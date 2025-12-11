@@ -9,14 +9,7 @@ const FloatingMenu = () => {
 
   // 카탈로그 다운로드 함수
   const handleCatalogDownload = () => {
-    // PDF 파일 다운로드
-    const link = document.createElement('a');
-    link.href = `${ASSET_URL}/documents/2024 호텔런드리 소개.pdf`;
-    link.download = '2024 호텔런드리 소개.pdf';
-    link.target = '_blank';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    alert('카탈로그 준비중입니다.');
   };
 
   // Contact 페이지에서는 플로팅 메뉴를 표시하지 않음
@@ -28,11 +21,23 @@ const FloatingMenu = () => {
     <>
       {/* 데스크톱 버전 */}
       <div className="fixed right-6 z-50 hidden md:block" style={{ bottom: '15%' }}>
-        <div className="bg-[#082567] rounded-lg shadow-lg border border-[#082567] w-[75px] h-[250px]">
+        <div className="bg-[#082567] rounded-lg shadow-lg border border-[#082567] w-[75px] h-[333px]">
+          {/* 블로그 */}
+          <a
+            href="https://m.blog.naver.com/hotellaundry?proxyReferer=&noTrackingCode=true"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center text-white hover:bg-[#2d5a8b] transition-colors rounded-t-lg w-full h-1/4"
+          >
+            <img src="/floating_blog.svg" alt="블로그" className="w-12 h-12" />
+          </a>
+
+          <div className="border-t border-[#FFFFFF]"></div>
+
           {/* 매장찾기 */}
           <Link
             to="/find-store"
-            className="flex items-center justify-center text-white hover:bg-[#2d5a8b] transition-colors rounded-t-lg w-full h-1/3"
+            className="flex items-center justify-center text-white hover:bg-[#2d5a8b] transition-colors w-full h-1/4"
           >
             <img src={`${ASSET_URL}/icons/floating_search.svg`} alt="매장찾기" className="w-12 h-12" />
           </Link>
@@ -41,7 +46,7 @@ const FloatingMenu = () => {
 
           {/* 카탈로그 다운받기 */}
           <button
-            className="flex items-center justify-center text-white hover:bg-[#2d5a8b] transition-colors w-full h-1/3"
+            className="flex items-center justify-center text-white hover:bg-[#2d5a8b] transition-colors w-full h-1/4"
             onClick={handleCatalogDownload}
           >
             <img src={`${ASSET_URL}/icons/floating_catalog.svg`} alt="카탈로그 다운받기" className="w-12 h-12" />
@@ -52,7 +57,7 @@ const FloatingMenu = () => {
           {/* 문의하기 */}
           <Link
             to="/contact"
-            className="flex items-center justify-center text-white hover:bg-[#2d5a8b] transition-colors rounded-b-lg w-full h-1/3"
+            className="flex items-center justify-center text-white hover:bg-[#2d5a8b] transition-colors rounded-b-lg w-full h-1/4"
           >
             <img src={`${ASSET_URL}/icons/floating_contact.svg`} alt="문의하기" className="w-12 h-12" />
           </Link>
@@ -64,10 +69,23 @@ const FloatingMenu = () => {
         {/* 펼쳐진 메뉴 */}
         {isExpanded && (
           <div className="absolute bottom-16 right-0 bg-[#082567] rounded-lg shadow-lg border border-[#082567] w-[100px] mb-2">
+            {/* 블로그 */}
+            <a
+              href="https://m.blog.naver.com/hotellaundry?proxyReferer=&noTrackingCode=true"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center text-white hover:bg-[#082567] transition-colors rounded-t-lg w-full h-8 text-xs font-medium px-2"
+              onClick={() => setIsExpanded(false)}
+            >
+              블로그
+            </a>
+
+            <div className="border-t border-[#FFFFFF]"></div>
+
             {/* 매장찾기 */}
             <Link
               to="/find-store"
-              className="flex items-center justify-center text-white hover:bg-[#082567] transition-colors rounded-t-lg w-full h-8 text-xs font-medium px-2"
+              className="flex items-center justify-center text-white hover:bg-[#082567] transition-colors w-full h-8 text-xs font-medium px-2"
               onClick={() => setIsExpanded(false)}
             >
               매장찾기
