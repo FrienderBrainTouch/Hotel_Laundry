@@ -3,11 +3,7 @@ import { useAdminContactDetail, useUpdateContactStatus } from '../../../hooks/qu
 
 const InquiryDetail = ({ inquiry, onBack }) => {
   const { data, isLoading, error } = useAdminContactDetail(inquiry?.contactId);
-<<<<<<< Updated upstream
   const updateStatusMutation = useUpdateContactStatus();
-=======
-  const updateStatusMutation = useUpdateContactStatus(inquiry?.contactId);
->>>>>>> Stashed changes
   const [status, setStatus] = useState('UNCHECKED');
   const [isSaving, setIsSaving] = useState(false);
 
@@ -23,7 +19,6 @@ const InquiryDetail = ({ inquiry, onBack }) => {
   };
 
   const handleSave = async () => {
-<<<<<<< Updated upstream
     if (!inquiry?.contactId) {
       alert('문의 ID가 없습니다.');
       return;
@@ -47,15 +42,6 @@ const InquiryDetail = ({ inquiry, onBack }) => {
       alert('문의 상태 업데이트에 실패했습니다. 다시 시도해 주세요.');
     } finally {
       setIsSaving(false);
-=======
-    try {
-      await updateStatusMutation.mutateAsync(status);
-      alert('상태가 성공적으로 변경되었습니다.');
-      onBack();
-    } catch (error) {
-      console.error('Status update failed:', error);
-      alert('상태 변경에 실패했습니다. 다시 시도해주세요.');
->>>>>>> Stashed changes
     }
   };
 
@@ -273,17 +259,10 @@ const InquiryDetail = ({ inquiry, onBack }) => {
           </button>
           <button
             onClick={handleSave}
-<<<<<<< Updated upstream
             disabled={isSaving || updateStatusMutation.isPending}
             className="px-6 py-2 bg-brand-blue hover:bg-brand-dark text-white rounded-md font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSaving || updateStatusMutation.isPending ? '저장 중...' : '저장'}
-=======
-            disabled={updateStatusMutation.isPending}
-            className="px-6 py-2 bg-brand-blue hover:bg-brand-dark text-white rounded-md font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {updateStatusMutation.isPending ? '저장 중...' : '저장'}
->>>>>>> Stashed changes
           </button>
         </div>
       </div>

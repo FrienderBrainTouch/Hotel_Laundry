@@ -106,7 +106,6 @@ export function useAdminContactDetail(contactId) {
   });
 }
 
-<<<<<<< Updated upstream
 // 관리자용 문의 상태 변경: POST /contacts/admin/update/{contactId}?status={status}
 export function useUpdateContactStatus() {
   const api = useApi(process.env.REACT_APP_API_BASE_URL);
@@ -134,31 +133,6 @@ export function useUpdateContactStatus() {
       console.error('❌ 문의 상태 업데이트 실패:', {
         status: error?.status,
         message: error?.message,
-=======
-// 문의 상태 변경: POST /contacts/admin/update/{contactId}?status=UNCHECKED
-export function useUpdateContactStatus(contactId) {
-  const api = useApi(process.env.REACT_APP_API_BASE_URL);
-  const qc = useQueryClient();
-
-  return useMutation({
-    mutationKey: ['updateContactStatus', contactId],
-    mutationFn: (status) =>
-      api.post(`/contacts/admin/update/${contactId}`, null, {
-        query: { status },
-      }),
-    onSuccess: () => {
-      console.log('✅ Contact status updated successfully');
-      // 목록 및 상세 캐시 무효화
-      qc.invalidateQueries({ queryKey: [...CONTACTS_KEY, 'admin'] });
-      qc.invalidateQueries({ queryKey: [...CONTACTS_KEY, 'admin', 'detail', contactId] });
-    },
-    onError: (error) => {
-      console.error('❌ Contact status update failed:', {
-        name: error?.name,
-        message: error?.message,
-        status: error?.status,
-        url: error?.url,
->>>>>>> Stashed changes
         body: error?.body ?? error?.data,
       });
     },
