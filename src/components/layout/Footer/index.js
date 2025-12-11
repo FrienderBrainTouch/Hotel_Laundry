@@ -4,14 +4,7 @@ import { ASSET_URL } from '../../../utils/constants';
 const Footer = () => {
   // 카탈로그 다운로드 함수
   const handleCatalogDownload = () => {
-    // PDF 파일 다운로드
-    const link = document.createElement('a');
-    link.href = `${ASSET_URL}/documents/hotel-laundry-catalog.pdf`;
-    link.download = 'hotel-laundry-catalog.pdf';
-    link.target = '_blank';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    alert('카탈로그 준비중입니다.');
   };
 
   return (
