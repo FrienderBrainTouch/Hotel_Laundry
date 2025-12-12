@@ -4,7 +4,13 @@ import { ASSET_URL } from '../../../utils/constants';
 const Footer = () => {
   // 카탈로그 다운로드 함수
   const handleCatalogDownload = () => {
-    alert('카탈로그 준비중입니다.');
+    const link = document.createElement('a');
+    link.href = `${ASSET_URL}/documents/new_catalog_1212.pdf`;
+    link.download = 'hotel-laundry-catalog.pdf';
+    link.target = '_blank';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -22,18 +28,6 @@ const Footer = () => {
                 alt="Hotel Laundry Logo"
                 className="w-[71px] h-[44px] sm:w-[71px] sm:h-[44px] md:w-[71px] md:h-[44px] lg:w-[109px] lg:h-[68px] xl:w-[122px] xl:h-[76px] 2xl:w-[122px] 2xl:h-[76px]"
               />
-              <a
-                href="https://m.blog.naver.com/hotellaundry?proxyReferer=&noTrackingCode=true"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="cursor-pointer hover:opacity-80 transition-opacity"
-              >
-                <img
-                  src="/footer_blog.svg"
-                  alt="Blog"
-                  className="h-[22px] sm:h-[22px] md:h-[22px] lg:h-[34px] xl:h-[38px] 2xl:h-[38px] w-auto"
-                />
-              </a>
             </div>
 
             {/* 개인정보처리방침 및 이메일무단수집거부 */}

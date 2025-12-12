@@ -9,7 +9,13 @@ const FloatingMenu = () => {
 
   // 카탈로그 다운로드 함수
   const handleCatalogDownload = () => {
-    alert('카탈로그 준비중입니다.');
+    const link = document.createElement('a');
+    link.href = `${ASSET_URL}/documents/new_catalog_1212.pdf`;
+    link.download = 'hotel-laundry-catalog.pdf';
+    link.target = '_blank';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   // Contact 페이지에서는 플로팅 메뉴를 표시하지 않음
