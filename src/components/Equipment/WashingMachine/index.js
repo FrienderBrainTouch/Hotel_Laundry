@@ -118,12 +118,12 @@ const WashingMachine = () => {
               {/* 스마트 세탁기 33kg */}
               <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg">
                 <h2 className="text-2xl font-bold text-[#102254] mb-6 text-center">
-                  스마트 세탁기 33kg
+                  스마트 세탁기 특대형
                 </h2>
                 <div className="space-y-3">
                   <div className="flex justify-between items-center py-2 border-b border-gray-200">
                     <span className="font-semibold text-gray-700">세탁용량</span>
-                    <span className="text-[#102254] font-bold">33kg</span>
+                    <span className="text-[#102254] font-bold">최대용량 33kg</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b border-gray-200">
                     <span className="font-semibold text-gray-700">전기사양</span>
@@ -158,12 +158,12 @@ const WashingMachine = () => {
               {/* 스마트 세탁기 23kg */}
               <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg">
                 <h2 className="text-2xl font-bold text-[#102254] mb-6 text-center">
-                  스마트 세탁기 23kg
+                  스마트 세탁기 대형
                 </h2>
                 <div className="space-y-3">
                   <div className="flex justify-between items-center py-2 border-b border-gray-200">
                     <span className="font-semibold text-gray-700">세탁용량</span>
-                    <span className="text-[#102254] font-bold">23kg</span>
+                    <span className="text-[#102254] font-bold">최대용량 23kg</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b border-gray-200">
                     <span className="font-semibold text-gray-700">전기사양</span>
