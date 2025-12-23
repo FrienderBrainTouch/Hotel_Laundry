@@ -60,15 +60,12 @@ const StoreFinder = () => {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [stores, setStores] = useState([]);
-  const [loading, setLoading] = useState(false);
   const api = useApi();
 
   // 운영 매장 목록 조회
   useEffect(() => {
     const fetchStores = async () => {
       try {
-        setLoading(true);
-
         const params = new URLSearchParams({
           page: '0',
           size: '1000', // 모든 데이터 가져오기 (프론트에서 페이지네이션)
@@ -108,8 +105,6 @@ const StoreFinder = () => {
       } catch (error) {
         console.error('❌ 운영 매장 목록 조회 실패:', error);
         setStores([]);
-      } finally {
-        setLoading(false);
       }
     };
 
