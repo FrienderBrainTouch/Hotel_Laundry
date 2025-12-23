@@ -96,8 +96,8 @@ const StoreFinder = () => {
             // 더미 데이터에서 좌표 가져오기 (있으면 사용, 없으면 null)
             latitude: dummyStore?.latitude || null,
             longitude: dummyStore?.longitude || null,
-            // 전화번호는 API에 없을 수 있으므로 옵셔널
-            phone: store.phoneNumber || '02-1577-2657',
+            // 전화번호는 기본값만 사용
+            phone: '02-1577-2657',
           };
         });
 
