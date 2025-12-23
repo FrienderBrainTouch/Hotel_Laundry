@@ -1,9 +1,10 @@
 // src/components/StoreInfo/pages/FindStore/StoreFinder.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Section1 from './Section1';
 import Section2 from './Section2';
+import useApi from '../../../hooks/useApi';
 
-// 동일한 더미 데이터 사용
+// 더미 데이터 - 좌표만 사용
 const dummyStores = [
   { id: 1, name: '독산점', address: '서울특별시 금천구 두산로3길 16 101동 1층 101호', region: '서울', latitude: 37.4712478895047, longitude: 126.889346013619 },
   { id: 2, name: '관악조원점', address: '서울특별시 관악구 남부순환로143가길 13 1층 101호 호텔런드리 관악조원점', region: '서울', latitude: 37.4824926037917, longitude: 126.909843277714 },
@@ -58,8 +59,65 @@ const dummyStores = [
 const StoreFinder = () => {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [stores, setStores] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const api = useApi();
 
-  const filteredStores = dummyStores.filter(store => {
+  // 운영 매장 목록 조회
+  useEffect(() => {
+    const fetchStores = async () => {
+      try {
+        setLoading(true);
+
+        const params = new URLSearchParams({
+          page: '0',
+          size: '1000', // 모든 데이터 가져오기 (프론트에서 페이지네이션)
+          sort: 'storeName,asc',
+        });
+
+        // 운영 중인 매장만 조회
+        params.append('status', 'OPERATING');
+
+        const response = await api.get(`/operating-stores?${params.toString()}`);
+
+        // API 응답 데이터를 변환
+        const transformedStores = response.content.map((store) => {
+          // 더미 데이터에서 같은 이름이나 주소로 좌표 찾기
+          const dummyStore = dummyStores.find(
+            d => d.name === store.storeName || 
+            (store.address && d.address.includes(store.address.address))
+          );
+
+          return {
+            storeId: store.storeId,
+            id: store.storeId, // 호환성을 위해 id도 추가
+            name: store.storeName,
+            address: `${store.address.address} ${store.address.detailAddress}`,
+            region: store.region,
+            serialNumber: store.serialNumber,
+            thumbnailKey: store.thumbnailKey,
+            // 더미 데이터에서 좌표 가져오기 (있으면 사용, 없으면 null)
+            latitude: dummyStore?.latitude || null,
+            longitude: dummyStore?.longitude || null,
+            // 전화번호는 API에 없을 수 있으므로 옵셔널
+            phone: store.phoneNumber || '02-1577-2657',
+          };
+        });
+
+        setStores(transformedStores);
+      } catch (error) {
+        console.error('❌ 운영 매장 목록 조회 실패:', error);
+        setStores([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStores();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const filteredStores = stores.filter(store => {
     const keyword = searchKeyword.toLowerCase();
     return store.name.toLowerCase().includes(keyword) || store.address.toLowerCase().includes(keyword);
   });

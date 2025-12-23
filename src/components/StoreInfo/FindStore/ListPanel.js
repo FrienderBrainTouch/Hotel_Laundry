@@ -19,7 +19,7 @@ const ListPanel = ({ stores, totalPages, currentPage, handlePageChange }) => {
                   <div className="flex-1">
                     <h3 className="text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] 2xl:text-[26px] font-bold text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.32px] sm:tracking-[-0.36px] md:tracking-[-0.4px] lg:tracking-[-0.44px] xl:tracking-[-0.48px] 2xl:tracking-[-0.52px]">{store.name}</h3>
                     <p className="text-[12px] sm:text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] 2xl:text-[22px] text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.24px] sm:tracking-[-0.28px] md:tracking-[-0.32px] lg:tracking-[-0.36px] xl:tracking-[-0.4px] 2xl:tracking-[-0.44px] mt-[4px] sm:mt-[6px] md:mt-[8px] lg:mt-[10px] xl:mt-[12px] 2xl:mt-[14px]">{store.address}</p>
-                    <p className="text-[12px] sm:text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] 2xl:text-[22px] text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.24px] sm:tracking-[-0.28px] md:tracking-[-0.32px] lg:tracking-[-0.36px] xl:tracking-[-0.4px] 2xl:tracking-[-0.44px] mt-[4px] sm:mt-[6px] md:mt-[8px] lg:mt-[10px] xl:mt-[12px] 2xl:mt-[14px]">02-1577-2657</p>
+                    <p className="text-[12px] sm:text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] 2xl:text-[22px] text-[#1C262B] font-KoPubWorldDotum leading-normal tracking-[-0.24px] sm:tracking-[-0.28px] md:tracking-[-0.32px] lg:tracking-[-0.36px] xl:tracking-[-0.4px] 2xl:tracking-[-0.44px] mt-[4px] sm:mt-[6px] md:mt-[8px] lg:mt-[10px] xl:mt-[12px] 2xl:mt-[14px]">{store.phone || '02-1577-2657'}</p>
                   </div>
                 </div>
               </div>
