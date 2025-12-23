@@ -90,14 +90,9 @@ const StoreFinder = () => {
             id: store.storeId, // 호환성을 위해 id도 추가
             name: store.storeName,
             address: `${store.address.address} ${store.address.detailAddress}`,
-            region: store.region,
-            serialNumber: store.serialNumber,
-            thumbnailKey: store.thumbnailKey,
             // 더미 데이터에서 좌표 가져오기 (있으면 사용, 없으면 null)
             latitude: dummyStore?.latitude || null,
             longitude: dummyStore?.longitude || null,
-            // 전화번호는 기본값만 사용
-            phone: '02-1577-2657',
           };
         });
 
