@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import contactButton from './image/contact_button.svg';
+import { ASSET_URL } from '../../../utils/constants';
 
 const Section6 = () => {
   return (
@@ -11,7 +11,7 @@ const Section6 = () => {
         </h1>
         <Link to="/contact">
           <img 
-            src={contactButton} 
+            src={`${ASSET_URL}/image/contact_button.svg`} 
             alt="문의하기 버튼" 
             className="mx-auto cursor-pointer w-40 h-14 sm:w-48 sm:h-16 md:w-56 md:h-18 hover:opacity-80 transition-opacity" 
           />

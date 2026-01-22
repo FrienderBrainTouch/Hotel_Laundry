@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import BannerImg from '../../../image/banner.jpg';
+import { ASSET_URL } from '../../../utils/constants';
 
 const WashingMachine = () => {
   const [activeTab, setActiveTab] = useState('domestic');
@@ -13,7 +13,7 @@ const WashingMachine = () => {
           <div className="mb-[30px] sm:mb-[30px] md:mb-[30px] lg:mb-[40px] xl:mb-[50px] 2xl:mb-[50px]">
             <div className="relative">
               <img
-                src={BannerImg}
+                src={`${ASSET_URL}/image/banner.jpg`}
                 alt="호텔런드리 스마트 세탁기"
                 className="mx-auto object-cover rounded-[30px] sm:rounded-[40px] md:rounded-[40px] lg:rounded-[50px] xl:rounded-[50px] 2xl:rounded-[50px] w-full h-auto xs:w-[355px] xs:h-[180px] sm:w-[535px] sm:h-[200px] md:w-[728px] md:h-[300px] lg:w-[924px] lg:h-[300px] xl:w-[1200px] xl:h-[350px] 2xl:w-[1400px] 2xl:h-[400px]"
               />
@@ -118,12 +118,12 @@ const WashingMachine = () => {
               {/* 스마트 세탁기 33kg */}
               <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg">
                 <h2 className="text-2xl font-bold text-[#102254] mb-6 text-center">
-                  스마트 세탁기 33kg
+                  스마트 세탁기 특대형
                 </h2>
                 <div className="space-y-3">
                   <div className="flex justify-between items-center py-2 border-b border-gray-200">
                     <span className="font-semibold text-gray-700">세탁용량</span>
-                    <span className="text-[#102254] font-bold">33kg</span>
+                    <span className="text-[#102254] font-bold">최대용량 33kg</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b border-gray-200">
                     <span className="font-semibold text-gray-700">전기사양</span>
@@ -158,12 +158,12 @@ const WashingMachine = () => {
               {/* 스마트 세탁기 23kg */}
               <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg">
                 <h2 className="text-2xl font-bold text-[#102254] mb-6 text-center">
-                  스마트 세탁기 23kg
+                  스마트 세탁기 대형
                 </h2>
                 <div className="space-y-3">
                   <div className="flex justify-between items-center py-2 border-b border-gray-200">
                     <span className="font-semibold text-gray-700">세탁용량</span>
-                    <span className="text-[#102254] font-bold">23kg</span>
+                    <span className="text-[#102254] font-bold">최대용량 23kg</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b border-gray-200">
                     <span className="font-semibold text-gray-700">전기사양</span>

@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Pagination from '../../common/Pagination';
 import { useStoresList } from '../../../hooks/queries/useStores';
+import { ASSET_URL } from '../../../utils/constants';
 
 const StoreProgress = () => {
   const [activeFilter, setActiveFilter] = useState('all');
@@ -116,7 +117,7 @@ const StoreProgress = () => {
               <div className="bg-[#F6F8FD] rounded-[10px] p-3 xs:p-4 sm:p-4 md:p-5 lg:p-6 xl:p-6 2xl:p-8 flex flex-col items-center text-center w-full h-[200px] xs:h-[220px] sm:h-[240px] md:h-[250px] lg:h-[260px] xl:h-[270px] 2xl:h-[280px] justify-center gap-3 xs:gap-3 sm:gap-4 md:gap-4 lg:gap-5 xl:gap-5 2xl:gap-6">
                 <div className="w-20 h-20 bg-[#FAFAFA] rounded-full flex items-center justify-center shadow-[0px_3px_7px_0px_rgba(0,0,0,0.15)]">
                   <img
-                    src="/images/store-progress/investment-icon.svg"
+                    src={`${ASSET_URL}/images/store-progress/investment-icon.svg`}
                     alt="초기 투자금 절감"
                     className="w-12 h-12"
                   />
@@ -137,7 +138,7 @@ const StoreProgress = () => {
               <div className="bg-[#F6F8FD] rounded-[10px] p-3 xs:p-4 sm:p-4 md:p-5 lg:p-6 xl:p-6 2xl:p-8 flex flex-col items-center text-center w-full h-[200px] xs:h-[220px] sm:h-[240px] md:h-[250px] lg:h-[260px] xl:h-[270px] 2xl:h-[280px] justify-center gap-3 xs:gap-3 sm:gap-4 md:gap-4 lg:gap-5 xl:gap-5 2xl:gap-6">
                 <div className="w-20 h-20 bg-[#FAFAFA] rounded-full flex items-center justify-center shadow-[0px_3px_7px_0px_rgba(0,0,0,0.15)]">
                   <img
-                    src="/images/store-progress/risk-icon.svg"
+                    src={`${ASSET_URL}/images/store-progress/risk-icon.svg`}
                     alt="리스크 최소화"
                     className="w-12 h-12"
                   />
@@ -158,7 +159,7 @@ const StoreProgress = () => {
               <div className="bg-[#F6F8FD] rounded-[10px] p-3 xs:p-4 sm:p-4 md:p-5 lg:p-6 xl:p-6 2xl:p-8 flex flex-col items-center text-center w-full h-[200px] xs:h-[220px] sm:h-[240px] md:h-[250px] lg:h-[260px] xl:h-[270px] 2xl:h-[280px] justify-center gap-3 xs:gap-3 sm:gap-4 md:gap-4 lg:gap-5 xl:gap-5 2xl:gap-6">
                 <div className="w-20 h-20 bg-[#FAFAFA] rounded-full flex items-center justify-center shadow-[0px_3px_7px_0px_rgba(0,0,0,0.15)]">
                   <img
-                    src="/images/store-progress/operation-icon.svg"
+                    src={`${ASSET_URL}/images/store-progress/operation-icon.svg`}
                     alt="안정적 운영"
                     className="w-12 h-12"
                   />
@@ -179,7 +180,7 @@ const StoreProgress = () => {
               <div className="bg-[#F6F8FD] rounded-[10px] p-3 xs:p-4 sm:p-4 md:p-5 lg:p-6 xl:p-6 2xl:p-8 flex flex-col items-center text-center w-full h-[200px] xs:h-[220px] sm:h-[240px] md:h-[250px] lg:h-[260px] xl:h-[270px] 2xl:h-[280px] justify-center gap-3 xs:gap-3 sm:gap-4 md:gap-4 lg:gap-5 xl:gap-5 2xl:gap-6">
                 <div className="w-20 h-20 bg-[#FAFAFA] rounded-full flex items-center justify-center shadow-[0px_3px_7px_0px_rgba(0,0,0,0.15)]">
                   <img
-                    src="/images/store-progress/expansion-icon.svg"
+                    src={`${ASSET_URL}/images/store-progress/expansion-icon.svg`}
                     alt="확장성"
                     className="w-12 h-12"
                   />
@@ -271,7 +272,7 @@ const StoreProgress = () => {
                       {/* Store Image */}
                       <div className="w-full h-[250px] rounded-t-2xl mb-0 overflow-hidden relative flex-shrink-0">
                         <img
-                          src={store.thumbnail || '/images/store-progress/store-image.png'}
+                          src={store.thumbnail || `${ASSET_URL}/images/store-progress/store-image.png`}
                           alt={`${store.location} 매장`}
                           className={`w-full h-full object-cover ${
                             store.status === 'CLOSED' ? 'grayscale brightness-75' : ''
@@ -291,7 +292,7 @@ const StoreProgress = () => {
                           : null}
                         {store.targetRecruits && store.status !== 'CLOSED' && (
                           <div className="absolute bottom-3 right-3 bg-black bg-opacity-70 text-white px-2.5 py-1 rounded-lg text-xs xs:text-sm font-semibold">
-                            {store.recruitsText}
+                            모집인원 {store.recruitsText}
                           </div>
                         )}
                       </div>

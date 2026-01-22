@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { ASSET_URL } from '../../../utils/constants';
 
 const Header = () => {
   const location = useLocation();
@@ -130,10 +131,10 @@ const Header = () => {
         <div className="flex items-center py-4">
           <Link to="/" className="block">
             <picture>
-              <source media="(min-width: 1024px)" srcSet="/images/Header/lg-xl-2xl-logo.png" />
-              <source media="(min-width: 768px)" srcSet="/images/Header/md-logo.png" />
+              <source media="(min-width: 1024px)" srcSet={`${ASSET_URL}/images/Header/lg-xl-2xl-logo.png`} />
+              <source media="(min-width: 768px)" srcSet={`${ASSET_URL}/images/Header/md-logo.png`} />
               <img
-                src="/images/Header/xs-sm-logo.png"
+                src={`${ASSET_URL}/images/Header/xs-sm-logo.png`}
                 alt="로고"
                 className="w-auto h-auto object-contain"
               />
@@ -259,8 +260,8 @@ const Header = () => {
                           <img
                             src={
                               expandedSubmenu === item.id
-                                ? '/images/chevron-up.svg'
-                                : '/images/chevron-down.svg'
+                                ? `${ASSET_URL}/images/chevron-up.svg`
+                                : `${ASSET_URL}/images/chevron-down.svg`
                             }
                             alt="화살표"
                             className="w-3 h-2"
@@ -353,24 +354,41 @@ const Header = () => {
             </nav>
           )}
 
-          {/* 문의하기 버튼 */}
-          <Link
-            to="/contact"
-            className="
-                flex items-center justify-center 
-                w-[86px] h-[35px] sm:w-[90px] sm:h-[38px] md:w-[95px] md:h-[38px] lg:w-[100px] lg:h-[40px] xl:w-[120px] xl:h-[42px] 2xl:w-[140px] 2xl:h-[50px]
-                bg-white rounded-[5px] sm:rounded-[7px] md:rounded-[7px] lg:rounded-[7px] xl:rounded-[7px] 2xl:rounded-[7px]
-                text-[#102254] font-pretendard 
-                text-[16px] sm:text-[18px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[26px]
-                font-bold leading-normal
-                whitespace-nowrap 
-                transition-all duration-200 
-                hover:scale-[1.02] active:scale-[0.98]
-                flex-shrink-0
-              "
-          >
-            문의하기
-          </Link>
+          {/* 블로그 아이콘과 문의하기 버튼 그룹 */}
+          <div className="flex items-center gap-[6px] sm:gap-[8px] md:gap-[10px]">
+            {/* 블로그 아이콘 */}
+            <a
+              href="https://m.blog.naver.com/hotellaundry?proxyReferer=&noTrackingCode=true"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center flex-shrink-0 cursor-pointer hover:opacity-80 transition-opacity"
+            >
+              <img
+                src="/header_blog.svg"
+                alt="Blog"
+                className="h-[35px] sm:h-[38px] md:h-[38px] lg:h-[40px] xl:h-[42px] 2xl:h-[50px] w-auto"
+              />
+            </a>
+
+            {/* 문의하기 버튼 */}
+            <Link
+              to="/contact"
+              className="
+                  flex items-center justify-center 
+                  w-[86px] h-[35px] sm:w-[90px] sm:h-[38px] md:w-[95px] md:h-[38px] lg:w-[100px] lg:h-[40px] xl:w-[120px] xl:h-[42px] 2xl:w-[140px] 2xl:h-[50px]
+                  bg-white rounded-[5px] sm:rounded-[7px] md:rounded-[7px] lg:rounded-[7px] xl:rounded-[7px] 2xl:rounded-[7px]
+                  text-[#102254] font-pretendard 
+                  text-[16px] sm:text-[18px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[26px]
+                  font-bold leading-normal
+                  whitespace-nowrap 
+                  transition-all duration-200 
+                  hover:scale-[1.02] active:scale-[0.98]
+                  flex-shrink-0
+                "
+            >
+              문의하기
+            </Link>
+          </div>
 
           {/* 햄버거 메뉴/X 버튼 - 모바일에서만 표시 */}
           {isMobile && (
@@ -380,20 +398,20 @@ const Header = () => {
             >
               {isMenuOpen ? (
                 <picture>
-                  <source media="(min-width: 768px)" srcSet="/images/Header/md-X.svg" />
-                  <source media="(min-width: 640px)" srcSet="/images/Header/sm-X.svg" />
+                  <source media="(min-width: 768px)" srcSet={`${ASSET_URL}/images/Header/md-X.svg`} />
+                  <source media="(min-width: 640px)" srcSet={`${ASSET_URL}/images/Header/sm-X.svg`} />
                   <img
-                    src="/images/Header/xs-X.svg"
+                    src={`${ASSET_URL}/images/Header/xs-X.svg`}
                     alt="닫기"
                     className="w-auto h-auto object-contain"
                   />
                 </picture>
               ) : (
                 <picture>
-                  <source media="(min-width: 768px)" srcSet="/images/Header/md-hamburger.svg" />
-                  <source media="(min-width: 640px)" srcSet="/images/Header/sm-hamburger.svg" />
+                  <source media="(min-width: 768px)" srcSet={`${ASSET_URL}/images/Header/md-hamburger.svg`} />
+                  <source media="(min-width: 640px)" srcSet={`${ASSET_URL}/images/Header/sm-hamburger.svg`} />
                   <img
-                    src="/images/Header/xs-hamburger.svg"
+                    src={`${ASSET_URL}/images/Header/xs-hamburger.svg`}
                     alt="메뉴"
                     className="w-auto h-auto object-contain"
                   />

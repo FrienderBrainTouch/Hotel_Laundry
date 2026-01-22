@@ -1,28 +1,16 @@
 import React from 'react';
+import { ASSET_URL } from '../../../utils/constants';
 
 const Footer = () => {
   // 카탈로그 다운로드 함수
   const handleCatalogDownload = () => {
-    // PDF 파일 다운로드 (public/documents 폴더에 파일이 있다고 가정)
     const link = document.createElement('a');
-    link.href = '/documents/hotel-laundry-catalog.pdf';
+    link.href = `${ASSET_URL}/documents/new_catalog_1212.pdf`;
     link.download = 'hotel-laundry-catalog.pdf';
     link.target = '_blank';
-
-    // 파일 존재 여부 확인 후 다운로드
-    fetch('/documents/hotel-laundry-catalog.pdf')
-      .then((response) => {
-        if (response.ok) {
-          link.click();
-        } else {
-          // 파일이 없을 경우 사용자에게 알림
-          alert('카탈로그 파일을 준비 중입니다. 잠시 후 다시 시도해 주세요.');
-        }
-      })
-      .catch((error) => {
-        console.error('카탈로그 다운로드 오류:', error);
-        alert('카탈로그 다운로드 중 오류가 발생했습니다.');
-      });
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -34,9 +22,9 @@ const Footer = () => {
           {/* 왼쪽 영역 - 로고와 연락처 정보 */}
           <div className="flex flex-col">
             {/* 로고 */}
-            <div className="flex items-center mb-4">
+            <div className="flex items-center gap-4 mb-4">
               <img
-                src="/images/logo.svg"
+                src={`${ASSET_URL}/images/logo.svg`}
                 alt="Hotel Laundry Logo"
                 className="w-[71px] h-[44px] sm:w-[71px] sm:h-[44px] md:w-[71px] md:h-[44px] lg:w-[109px] lg:h-[68px] xl:w-[122px] xl:h-[76px] 2xl:w-[122px] 2xl:h-[76px]"
               />

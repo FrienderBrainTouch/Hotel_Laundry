@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import developmentImg from '../image/development.png';
-import automaticImg from '../image/automatic.png';
-import cleaningImg from '../image/cleaning.png';
+import { ASSET_URL } from '../../../utils/constants';
 
 const Section2 = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -10,22 +8,22 @@ const Section2 = () => {
     {
       title: 'TECHNOLOGY',
       subtitle: 'IoT 기반 세탁 기기 제어 시스템 개발 및 운영',
-      image: '/images/CompanyInfo/Company-2-1.png',
+      image: `${ASSET_URL}/images/CompanyInfo/Company-2-1.png`,
     },
     {
       title: 'DEVELOPMENT',
       subtitle: '스마트 세탁장비 및 자동화 솔루션 연구 개발',
-      image: developmentImg,
+      image: `${ASSET_URL}/image/development.png`,
     },
     {
       title: 'AUTOMATION',
       subtitle: '세탁공정의 전 과정 자동화 및 무인화 설계',
-      image: automaticImg,
+      image: `${ASSET_URL}/image/automatic.png`,
     },
     {
       title: 'CLEANING',
       subtitle: '호텔급 침구 전문 클리닝 및 살균 세탁 서비스',
-      image: cleaningImg,
+      image: `${ASSET_URL}/image/cleaning.png`,
     },
   ];
 

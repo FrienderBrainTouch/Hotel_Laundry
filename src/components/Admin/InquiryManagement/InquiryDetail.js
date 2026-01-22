@@ -252,7 +252,8 @@ const InquiryDetail = ({ inquiry, onBack }) => {
         <div className="flex justify-end space-x-4 pt-6 border-t border-gray-200">
           <button
             onClick={onBack}
-            className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors"
+            disabled={updateStatusMutation.isPending}
+            className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             취소
           </button>

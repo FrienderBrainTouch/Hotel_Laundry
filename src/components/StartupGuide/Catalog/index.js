@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
+import { ASSET_URL } from '../../../utils/constants';
 
 const Catalog = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const pdfFiles = [
     {
       name: "호텔런드리 메인 PDF",
-      path: "/documents/hotel-laundry-catalog.pdf",
+      path: `${ASSET_URL}/documents/hotel-laundry-catalog.pdf`,
       description: "호텔런드리 기본 카탈로그"
     },
     {
       name: "2024 호텔런드리 소개",
-      path: "/documents/2024 호텔런드리 소개.pdf",
+      path: `${ASSET_URL}/documents/2024 호텔런드리 소개.pdf`,
       description: "2024년 최신 호텔런드리 소개서"
     }
   ];
@@ -18,17 +19,17 @@ const Catalog = () => {
   const promotionalImages = [
     {
       name: "홍보이미지 1",
-      path: "/documents/호텔런드리_홍보이미지(1).jpg",
+      path: `${ASSET_URL}/documents/호텔런드리_홍보이미지(1).jpg`,
       description: "호텔런드리 홍보이미지"
     },
     {
       name: "홍보이미지 2",
-      path: "/documents/호텔런드리_홍보이미지(2).jpg",
+      path: `${ASSET_URL}/documents/호텔런드리_홍보이미지(2).jpg`,
       description: "호텔런드리 홍보이미지"
     },
     {
       name: "홍보이미지 3",
-      path: "/documents/호텔런드리_홍보이미지(3).jpg",
+      path: `${ASSET_URL}/documents/호텔런드리_홍보이미지(3).jpg`,
       description: "호텔런드리 홍보이미지"
     }
   ];
@@ -36,17 +37,17 @@ const Catalog = () => {
   const brochureImages = [
     {
       name: "3단 안내책자 (앞면)",
-      path: "/documents/호텔런드리_3단 안내책자(앞).jpg",
+      path: `${ASSET_URL}/documents/호텔런드리_3단 안내책자(앞).jpg`,
       description: "호텔런드리 3단 안내책자 앞면"
     },
     {
       name: "3단 안내책자 (뒤면)",
-      path: "/documents/호텔런드리_3단 안내책자(뒤).jpg",
+      path: `${ASSET_URL}/documents/호텔런드리_3단 안내책자(뒤).jpg`,
       description: "호텔런드리 3단 안내책자 뒤면"
     },
     {
       name: "홍보포스터",
-      path: "/documents/호텔런드리_홍보포스터.jpg",
+      path: `${ASSET_URL}/documents/호텔런드리_홍보포스터.jpg`,
       description: "호텔런드리 홍보포스터"
     }
   ];

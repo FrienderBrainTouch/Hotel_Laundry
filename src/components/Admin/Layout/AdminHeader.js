@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAdminLogout } from '../../../hooks/queries/useAdminAuth';
-import logoKr from '../../../image/logo-kr.png';
+import { ASSET_URL } from '../../../utils/constants';
 
 const AdminHeader = ({ onMenuClick }) => {
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ const AdminHeader = ({ onMenuClick }) => {
               </svg>
             </button>
             <img
-              src={logoKr}
+              src={`${ASSET_URL}/image/logo-kr.png`}
               alt="호텔런드리"
               className="h-6 lg:h-8 w-auto cursor-pointer"
               onClick={() => navigate('/admin/dashboard')}
