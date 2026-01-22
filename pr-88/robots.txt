@@ -1,0 +1,35 @@
+# 호텔런드리 - 호텔 세탁 서비스 robots.txt
+# 셀프빨래방, 소자본창업, 무인창업, 빨래방, 재테크, 워시업, 워시업코리아, 호텔런드리
+
+User-agent: *
+Allow: /
+
+# 주요 페이지 허용
+Allow: /hotel-laundry
+Allow: /smart-system
+Allow: /startup-guide
+Allow: /store-info
+Allow: /equipment
+Allow: /app-guide
+Allow: /management-support
+Allow: /contact
+
+# 정적 파일 허용
+Allow: /images/
+Allow: /documents/
+Allow: /Videos/
+
+# 불필요한 파일 차단
+Disallow: /node_modules/
+Disallow: /src/
+Disallow: /*.json$
+Disallow: /*.js$
+Disallow: /*.css$
+Disallow: /package.json
+Disallow: /package-lock.json
+
+# 사이트맵 위치
+Sitemap: https://hotellaundry.co.kr/sitemap.xml
+
+
+#DaumWebMasterTool:eae0b49419141540f7862046ef412310962edccf12b091a2f092a1630eb25853:ONlUpuqeSOfNDUaeYw1UKg==
