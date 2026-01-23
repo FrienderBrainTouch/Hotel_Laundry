@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- 메인 페이지 -->
+  <url>
+    <loc>https://hotellaundry.co.kr/</loc>
+    <lastmod>2024-12-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <!-- 호텔런드리 소개 -->
+  <url>
+    <loc>https://hotellaundry.co.kr/hotel-laundry/company-intro</loc>
+    <lastmod>2024-12-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- 브랜드 스토리 -->
+  <url>
+    <loc>https://hotellaundry.co.kr/hotel-laundry/brand-story</loc>
+    <lastmod>2024-12-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- 연혁 -->
+  <url>
+    <loc>https://hotellaundry.co.kr/hotel-laundry/history</loc>
+    <lastmod>2024-12-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- 인증/특허 -->
+  <url>
+    <loc>https://hotellaundry.co.kr/hotel-laundry/certifications</loc>
+    <lastmod>2024-12-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- 스마트 시스템 -->
+  <url>
+    <loc>https://hotellaundry.co.kr/smart-system/smart-system</loc>
+    <lastmod>2024-12-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- 첨단 기술 -->
+  <url>
+    <loc>https://hotellaundry.co.kr/smart-system/advanced-technology</loc>
+    <lastmod>2024-12-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- 위생 관리 -->
+  <url>
+    <loc>https://hotellaundry.co.kr/smart-system/status-management</loc>
+    <lastmod>2024-12-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- 창업 안내 -->
+  <url>
+    <loc>https://hotellaundry.co.kr/startup-guide/startup-guide-main</loc>
+    <lastmod>2024-12-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- 점주 인터뷰 -->
+  <url>
+    <loc>https://hotellaundry.co.kr/startup-guide/store-owner-interview</loc>
+    <lastmod>2024-12-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- 단독 창업 -->
+  <url>
+    <loc>https://hotellaundry.co.kr/startup-guide/solo-startup</loc>
+    <lastmod>2024-12-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- 사업 설명회 -->
+  <url>
+    <loc>https://hotellaundry.co.kr/startup-guide/business-seminar</loc>
+    <lastmod>2024-12-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- 카탈로그 -->
+  <url>
+    <loc>https://hotellaundry.co.kr/startup-guide/catalog</loc>
+    <lastmod>2024-12-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- 세탁기 -->
+  <url>
+    <loc>https://hotellaundry.co.kr/equipment/washing-machine</loc>
+    <lastmod>2024-12-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- 건조기 -->
+  <url>
+    <loc>https://hotellaundry.co.kr/equipment/dryer</loc>
+    <lastmod>2024-12-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- 셀프 드라이클리닝 -->
+  <url>
+    <loc>https://hotellaundry.co.kr/equipment/self-dry-cleaning</loc>
+    <lastmod>2024-12-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- 지역 플랫폼 -->
+  <url>
+    <loc>https://hotellaundry.co.kr/app-guide/local-platform</loc>
+    <lastmod>2024-12-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- 당일 수거서비스 -->
+  <url>
+    <loc>https://hotellaundry.co.kr/app-guide/same-day-pickup</loc>
+    <lastmod>2024-12-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- 앱 다운로드 -->
+  <url>
+    <loc>https://hotellaundry.co.kr/app-guide/app-download</loc>
+    <lastmod>2024-12-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- 매장 현황 -->
+  <url>
+    <loc>https://hotellaundry.co.kr/store-info/store-status</loc>
+    <lastmod>2024-12-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- 매장 찾기 -->
+  <url>
+    <loc>https://hotellaundry.co.kr/store-info/find-store</loc>
+    <lastmod>2024-12-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- 관리 지원 -->
+  <url>
+    <loc>https://hotellaundry.co.kr/management-support/management-support</loc>
+    <lastmod>2024-12-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- 중앙관제 -->
+  <url>
+    <loc>https://hotellaundry.co.kr/management-support/central-control</loc>
+    <lastmod>2024-12-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- 매장 관리 -->
+  <url>
+    <loc>https://hotellaundry.co.kr/management-support/store-management</loc>
+    <lastmod>2024-12-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- 문의하기 -->
+  <url>
+    <loc>https://hotellaundry.co.kr/contact</loc>
+    <lastmod>2024-12-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+</urlset>

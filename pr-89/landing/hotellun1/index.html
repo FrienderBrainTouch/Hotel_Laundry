@@ -1,0 +1,857 @@
+<html lang="ko">
+  <head>
+    <base href="https://future-news.co.kr/hotellun1/" />
+    <title>업계최초 공유창업 셀프빨래방</title>
+    <!--제이쿼리-->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!-- RESET -->
+    <link href="../resources/common/css/reset.css" rel="stylesheet" />
+    <!--Swiper 25/04/09 업데이트-->
+    <script src="../resources/common/js/swiper-bundle_ver11.min.js"></script>
+    <link rel="stylesheet" href="../resources/common/js/swiper-bundle_ver11.min.css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!--폰트-->
+    <link href="https://webfontworld.github.io/pretendard/Pretendard.css" rel="stylesheet" />
+    <!--FontAwesome 스크립트-->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <style type="text/css">
+      /* App 내 표시 품질 개선을 위한 최소 오버라이드 */
+      /* 전역 영향 최소화를 위해 동일 파일 내부 최상단에 둡니다 */
+      img {
+        height: auto;
+      }
+      .sbSwiper {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+      }
+      .sbSwiper .swiper-wrapper {
+        align-items: center;
+      }
+      .sbSwiper .swiper-slide {
+        height: auto !important;
+        padding: 0 !important;
+      }
+      .sbSwiper .swiper-slide img {
+        display: block;
+        width: auto !important;
+        max-width: 100% !important;
+        height: auto !important;
+        max-height: 420px !important;
+        object-fit: contain !important;
+        margin: 0 auto !important;
+      }
+      @media (max-width: 1024px) {
+        .sbSwiper .swiper-slide img {
+          max-height: 360px !important;
+        }
+      }
+      @media (max-width: 640px) {
+        .sbSwiper .swiper-slide img {
+          max-height: 300px !important;
+        }
+      }
+      /* 버튼 출렁 애니메이션 제거 (원하는 경우 복구 가능) */
+      .dbform .db-btn-wrap button {
+        animation: none !important;
+      }
+      /* 고정 배너 가리기 (원하면 삭제) */
+      .wing-banner {
+        display: none !important;
+      }
+      * {
+        font-family: 'Pretendard', sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        color: #111;
+        letter-spacing: -1px;
+        background-color: #f8f8fd;
+      }
+      li {
+        list-style: none;
+      }
+      a {
+        text-decoration: none;
+        color: #111;
+      }
+      img {
+        width: 100%;
+        border: 0;
+        display: block;
+      }
+      /*자동완성 효과 끄기*/
+      input:-webkit-autofill,
+      input:-webkit-autofill:hover,
+      input:-webkit-autofill:focus,
+      input:-webkit-autofill:active {
+        transition: background-color 5000s ease-in-out 0s;
+        -webkit-transition: background-color 9999s ease-out;
+        -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+        /*배경색 지정*/
+        -webkit-text-fill-color: #333 !important;
+        /*글자색 지정*/
+      }
+      /*포커스 아웃라인 끄기*/
+      input:focus {
+        outline: none;
+      }
+      span {
+        font-weight: unset;
+      }
+      .red {
+        color: red;
+      }
+      .point_c {
+        color: #194a89;
+      }
+      .container {
+        margin: 0 auto;
+        max-width: 700px;
+      }
+      #main {
+        position: relative;
+      }
+      #main .main_txt {
+        position: absolute;
+      }
+      #sb_wrap {
+        padding-top: 70px; /* 여백 축소 */
+        padding-bottom: 30px; /* 하단 여백 축소 */
+        background-color: #e1e7f3;
+        text-align: center;
+      }
+      #sb_wrap .sectit {
+        margin-bottom: 20px;
+      }
+      .sbSwiper {
+        height: auto !important;
+        max-height: 520px;
+      }
+      .sbSwiper .swiper-wrapper {
+        height: auto !important;
+      }
+      .sbSwiper .swiper-slide {
+        height: auto !important;
+      }
+      #sb_wrap .sectit p {
+        letter-spacing: 10px;
+        color: #6e8aa9;
+        font-size: 30px;
+        font-weight: 600;
+        padding-bottom: 20px;
+      }
+      #sb_wrap .sectit .tit {
+        font-size: 44px;
+        font-weight: 700;
+        line-height: 1.2;
+      }
+      #sb_wrap .sectit .stxt {
+        font-size: 16px;
+        padding-top: 20px;
+      }
+      .swiper {
+        width: 100%;
+        height: 100%;
+      }
+      .swiper-slide {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .swiper .swiper-pagination {
+        display: none;
+      }
+      .swiper-button-next,
+      .swiper-button-prev {
+        background-size: 100% auto;
+        background-position: center;
+        width: 30px;
+        height: 64px;
+      }
+      .swiper-button-next {
+        background: url(../resources/startup/hotellun1/arrow_r.png) no-repeat;
+        left: auto;
+        right: 0;
+      }
+      .swiper-button-prev {
+        background: url(../resources/startup/hotellun1/arrow_l.png) no-repeat;
+        right: auto;
+        left: 0;
+      }
+      .swiper-button-next::after,
+      .swiper-button-prev::after {
+        display: none;
+      }
+      /*form*/
+      .dbform {
+        width: 100%;
+        background-color: #0a1729;
+        margin: 0 auto;
+        padding: 60px 0;
+      }
+      .dbform .dbtit {
+        text-align: center;
+        padding-bottom: 30px;
+        color: #fff;
+      }
+      .dbform .dbtit .count {
+        font-size: 24px;
+      }
+      .limit {
+        color: yellow;
+      }
+      .dbform .dbtit img {
+        max-width: 500px;
+        width: 95%;
+        margin: -15px auto;
+      }
+      .dbform .dbtit .txt {
+        font-size: 18px;
+      }
+      .dbform form {
+        width: 95%;
+        max-width: 450px;
+        margin: 0 auto;
+        box-sizing: border-box;
+      }
+      .dbform .input-wrap ul {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        flex-wrap: wrap;
+        width: 100%;
+      }
+      .dbform .input-wrap ul li {
+        display: flex;
+        width: 100%;
+        align-items: center;
+      }
+      .dbform .input-wrap ul li > label {
+        max-width: 70px;
+        width: 100%;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .dbform .input-wrap ul li input[type='text'],
+      .dbform .input-wrap ul li input[type='tel'],
+      .dbform .input-wrap ul li select {
+        padding: 0 8px;
+        height: 48px;
+        line-height: 48px;
+        background: #fff;
+        border-radius: 5px;
+        width: 100%;
+        font-size: 16px;
+        letter-spacing: -1px;
+        border: none;
+      }
+      .tel_span {
+        display: flex;
+        gap: 10px;
+        width: 100%;
+      }
+      .tel_span span {
+        flex-basis: 32%;
+        flex-grow: 1;
+      }
+      .dbform .st-btn {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        width: 100%;
+      }
+      .dbform .st-btn span.w30 {
+        width: 100%;
+      }
+      .dbform .st-btn input[type='radio'] {
+        appearance: none;
+        display: none;
+      }
+      .dbform .st-btn input[type='radio']:checked + label {
+        background: #0c8a15;
+        font-weight: bold;
+      }
+      .dbform .st-btn input[type='radio'] + label {
+        display: block;
+        width: 100%;
+        padding: 17px;
+        border-radius: 5px;
+        background: #aaa;
+        color: #fff;
+        text-align: center;
+        cursor: pointer;
+      }
+      .dbform .input-wrap ul li input[type='radio'],
+      .dbform .input-wrap ul li input[type='checkbox'] {
+        padding: 0;
+        width: unset;
+        margin-right: 5px;
+      }
+      .agree-wrap {
+        margin: 15px 0;
+        width: 100%;
+      }
+      .agree-wrap li {
+        margin-bottom: 5px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        text-align: left;
+        gap: 2px;
+        position: relative;
+      }
+      .agree-wrap li:last-child {
+        margin-bottom: 0px;
+      }
+      .agree-wrap p {
+        margin-bottom: 0;
+        font-size: 13px;
+        line-height: 22px;
+        letter-spacing: -0.5px;
+        text-align: center;
+      }
+      .agree-wrap span {
+        font-weight: 700;
+        color: #fff;
+      }
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+      .agree-wrap input[type='checkbox'] + label {
+        position: relative;
+        cursor: pointer;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 15px 0 20px;
+        font-size: 14px;
+        line-height: 1;
+      }
+      /*체크박스 svg*/
+      .agree-wrap input[type='checkbox'] + label:before {
+        content: '';
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        top: 50%;
+        left: 0;
+        transform: translate(0, -50%);
+        background: url(../resources/rent/dgwccw/input_ag.svg) no-repeat;
+        background-size: cover;
+      }
+      .agree-wrap input[type='checkbox']:checked + label:before {
+        background: url(../resources/rent/dgwccw/input_ag_check.svg) no-repeat;
+        background-size: cover;
+      }
+      .agree-wrap a {
+        display: block;
+        padding: 2px 8px;
+        line-height: 1.3;
+        border-radius: 3px;
+        background: #fff;
+        font-size: 10px;
+        color: #444;
+      }
+      .agree-wrap p input {
+        margin-right: 3px;
+      }
+      .dbform .db-btn-wrap {
+        margin-top: 30px;
+      }
+      .dbform .db-btn-wrap button {
+        display: block;
+        width: 100%;
+        height: 150px;
+        border: 0;
+        background-image: url(../resources/startup/hotellun1/dbbtn_up.png);
+        background-position: center top;
+        background-repeat: no-repeat;
+        background-size: 100%;
+        padding: 0 10px 40px 10px;
+        color: #0a1729;
+        font-size: 30px;
+        letter-spacing: -1px;
+        font-weight: 700;
+        cursor: pointer;
+        animation: motion-effect 1.5s step-end infinite;
+      }
+      @keyframes motion-effect {
+        50% {
+          padding-bottom: 25px;
+          background-image: url(../resources/startup/hotellun1/dbbtn_down.png);
+        }
+      }
+      footer {
+        background-color: #333;
+        color: #fff;
+        font-size: 16px;
+        line-height: 26px;
+        text-align: center;
+        padding: 30px;
+        box-sizing: border-box;
+      }
+      /*모바일*/
+      @media screen and (max-width: 500px) {
+        #sb_wrap {
+          padding-top: 50px;
+        }
+        #sb_wrap .sectit p {
+          font-size: 20px;
+        }
+        #sb_wrap .sectit .tit {
+          font-size: 34px;
+        }
+        #sb_wrap .sectit .stxt {
+          font-size: 14px;
+        }
+        .swiper-button-next,
+        .swiper-button-prev {
+          background-size: 100% auto;
+          background-position: center;
+          width: 25px;
+          height: 54px;
+        }
+        .dbform .db-btn-wrap button {
+          width: 350px;
+          margin: 0 auto;
+          height: 120px;
+          padding: 0 10px 35px 10px;
+          font-size: 24px;
+        }
+        @keyframes motion-effect {
+          50% {
+            padding-bottom: 20px;
+            background-image: url(../resources/startup/hotellun1/dbbtn_down.png);
+          }
+        }
+      }
+      @media screen and (max-width: 400px) {
+        .dbform .dbtit .count {
+          font-size: 20px;
+        }
+        .dbform .dbtit .txt {
+          font-size: 16px;
+        }
+        .dbform .db-btn-wrap button {
+          width: 320px;
+          margin: 0 auto;
+          height: 100px;
+          padding: 0 10px 15px 10px;
+          font-size: 24px;
+        }
+        @keyframes motion-effect {
+          50% {
+            padding-bottom: 05px;
+            background-image: url(../resources/startup/hotellun1/dbbtn_down.png);
+          }
+        }
+        .dbform .input-wrap ul li > label {
+          max-width: 50px;
+        }
+      }
+      .wing-banner {
+        bottom: 20%;
+        right: 50%;
+        margin-right: -350px;
+        position: fixed;
+        z-index: 2;
+        text-align: center;
+      }
+      .wing-banner img {
+        width: 100px;
+      }
+      @media screen and (max-width: 800px) {
+        .wing-banner {
+          bottom: 3%;
+          right: -0%;
+          margin-right: 0;
+          position: fixed;
+          z-index: 2;
+          text-align: center;
+        }
+        .wing-banner img {
+          width: 80px;
+        }
+      }
+    </style>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta name="keywords" content="업계최초 공유창업 셀프빨래방" />
+    <meta name="news_keywords" content="업계최초 공유창업 셀프빨래방" />
+    <meta name="description" content="업계최초 공유창업 셀프빨래방" />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:site_name" content="호텔런드리" />
+    <meta property="og:title" content="업계최초 공유창업 셀프빨래방" />
+    <meta property="og:url" content="future-news.co.kr/hotellun1" />
+    <meta property="og:description" content="업계최초 공유창업 셀프빨래방" />
+    <meta property="og:image" content="" />
+    <meta property="dable:author" content="" />
+    <meta property="dable:image" content="" />
+    <meta property="dable:item_id" content="11754" />
+    <meta property="article:section" content="" />
+    <meta property="article:section2" content="" />
+    <meta property="article:published_time" content="" />
+    <meta property="article:author" content="" />
+    <meta property="article:id" content="11754" />
+    <meta name="twitter:card" content="" />
+    <meta name="twitter:site" content="호텔런드리" />
+    <meta name="twitter:creator" content="호텔런드리" />
+    <meta name="twitter:url" content="future-news.co.kr/hotellun1" />
+    <meta name="twitter:image" content="" />
+    <meta name="twitter:title" content="업계최초 공유창업 셀프빨래방" />
+    <meta name="twitter:description" content="업계최초 공유창업 셀프빨래방" />
+    <meta property="discovery:articleId" content="11754" />
+    <meta property="discovery:thumbnail" content="" />
+    <meta property="dd:content_id" content="11754" />
+    <meta property="dd:author" content="" />
+    <meta property="dd:category" content="," />
+    <meta property="dd:published_time" content="" />
+    <meta property="dd:modified_time" content="" />
+    <meta property="dd:publisher" content="호텔런드리" />
+    <meta property="dd:availability" content="true" />
+    <script src="../valid_chk.js"></script>
+    <script src="https://karrot-pixel.business.daangn.com/0.4/karrot-pixel.umd.js"></script>
+    <script>
+      window.karrotPixel.init('1758875726762229000');
+      window.karrotPixel.track('ViewPage');
+    </script>
+    <script id="default_scrt">
+      document.addEventListener('DOMContentLoaded', function () {
+        var forms = document.getElementsByTagName('form');
+        for (var i = 0; i < forms.length; i++) {
+          var form = forms[i];
+          var input_page = document.createElement('input');
+          input_page.type = 'hidden';
+          input_page.name = 'land_pg_idx';
+          input_page.value = '11754';
+          form.appendChild(input_page);
+          var input_ptn = document.createElement('input');
+          input_ptn.type = 'hidden';
+          input_ptn.name = 'land_ptn_idx';
+          input_ptn.value = '1808';
+          form.appendChild(input_ptn);
+          var input_api = document.createElement('input');
+          input_api.type = 'hidden';
+          input_api.name = 'pg_api_yn';
+          input_api.value = 'N';
+          form.appendChild(input_api);
+          var input_auth = document.createElement('input');
+          input_auth.type = 'hidden';
+          input_auth.name = 'pg_sms_yn';
+          input_auth.value = 'N';
+          form.appendChild(input_auth);
+          var input_redirect = document.createElement('input');
+          input_redirect.type = 'hidden';
+          input_redirect.name = 'pg_redirect_url';
+          input_redirect.value = '';
+          form.appendChild(input_redirect);
+          var input_alert = document.createElement('input');
+          input_alert.type = 'hidden';
+          input_alert.name = 'pg_alert_msg';
+          input_alert.value = '';
+          form.appendChild(input_alert);
+          var input_popup = document.createElement('input');
+          input_popup.type = 'hidden';
+          input_popup.name = 'pg_popup_img';
+          input_popup.value = '';
+          form.appendChild(input_popup);
+          var input_empno = document.createElement('input');
+          input_empno.type = 'hidden';
+          input_empno.name = 'land_empno';
+          input_empno.value = '1045';
+          form.appendChild(input_empno);
+          var input_deptno = document.createElement('input');
+          input_deptno.type = 'hidden';
+          input_deptno.name = 'mb_deptno';
+          input_deptno.value = '3';
+          form.appendChild(input_deptno);
+          var input_ptn = document.createElement('input');
+          input_ptn.type = 'hidden';
+          input_ptn.name = 'pg_db_sms_yn';
+          input_ptn.value = 'Y';
+          form.appendChild(input_ptn);
+          var input_share = document.createElement('input');
+          input_share.type = 'hidden';
+          input_share.name = 'ban_phone';
+          input_share.value = '';
+          form.appendChild(input_share);
+        }
+      });
+    </script>
+  </head>
+
+  <!-- Danggeun Market Code -->
+
+  <!-- End Danggeun Market Code -->
+
+  <body data-aos-easing="ease" data-aos-duration="1200" data-aos-delay="0">
+    <div class="container">
+      <div id="main" data-aos="fade-up" class="aos-init aos-animate">
+        <img
+          src="../resources/startup/hotellun1/main_txt_251001.png"
+          class="main_txt aos-init aos-animate"
+          data-aos="fade-up"
+          data-aos-delay="500"
+        />
+        <img src="../resources/startup/hotellun1/main_bg.png" class="main_bg" />
+      </div>
+      <img
+        src="../resources/startup/hotellun1/img1_251001_2.jpg"
+        data-aos="fade-up"
+        class="aos-init"
+      />
+
+      <div id="sb_wrap" data-aos="fade-up" class="aos-init">
+        <div class="sectit">
+          <p>공유창업 수익 배분</p>
+          <div class="tit">
+            실제 매장 <span class="point_c">공유창업주 순익</span>을<br />
+            투명하게 공개합니다
+          </div>
+          <div class="stxt">※본사가 지분에 참여하여 모든 관리 및 운영을 도와드립니다.</div>
+        </div>
+        <div class="swiper sbSwiper swiper-initialized swiper-horizontal swiper-backface-hidden">
+          <div
+            class="swiper-wrapper"
+            id="swiper-wrapper-70f33eff0fbe9ab7"
+            aria-live="off"
+            style="
+              transition-duration: 0ms;
+              transform: translate3d(-1460px, 0px, 0px);
+              transition-delay: 0ms;
+            "
+          >
+            <div
+              class="swiper-slide swiper-slide-next"
+              style="width: 700px; margin-right: 30px"
+              role="group"
+              aria-label="1 / 3"
+              data-swiper-slide-index="0"
+            >
+              <img src="../resources/startup/hotellun1/sb1_1.png" />
+            </div>
+            <div
+              class="swiper-slide swiper-slide-prev"
+              style="width: 700px; margin-right: 30px"
+              role="group"
+              aria-label="2 / 3"
+              data-swiper-slide-index="1"
+            >
+              <img src="../resources/startup/hotellun1/sb1_2.png" />
+            </div>
+
+            <div
+              class="swiper-slide swiper-slide-active"
+              role="group"
+              aria-label="3 / 3"
+              data-swiper-slide-index="2"
+              style="width: 700px; margin-right: 30px"
+            >
+              <img src="../resources/startup/hotellun1/sb1_3_250925.png" />
+            </div>
+          </div>
+          <div
+            class="swiper-button-next"
+            tabindex="0"
+            role="button"
+            aria-label="Next slide"
+            aria-controls="swiper-wrapper-70f33eff0fbe9ab7"
+          ></div>
+          <div
+            class="swiper-button-prev"
+            tabindex="0"
+            role="button"
+            aria-label="Previous slide"
+            aria-controls="swiper-wrapper-70f33eff0fbe9ab7"
+          ></div>
+          <div
+            class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal"
+          >
+            <span
+              class="swiper-pagination-bullet"
+              tabindex="0"
+              role="button"
+              aria-label="Go to slide 1"
+            ></span
+            ><span
+              class="swiper-pagination-bullet"
+              tabindex="0"
+              role="button"
+              aria-label="Go to slide 2"
+            ></span
+            ><span
+              class="swiper-pagination-bullet swiper-pagination-bullet-active"
+              tabindex="0"
+              role="button"
+              aria-label="Go to slide 3"
+              aria-current="true"
+            ></span>
+          </div>
+          <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+        </div>
+      </div>
+      <img src="../resources/startup/hotellun1/img2.jpg" data-aos="fade-up" class="aos-init" />
+      <div id="sec2">
+        <img src="../resources/startup/hotellun1/sec2_1.jpg" data-aos="fade-up" class="aos-init" />
+        <img
+          src="../resources/startup/hotellun1/sec2_2_250930.jpg"
+          data-aos="fade-up"
+          class="aos-init"
+        />
+        <img src="../resources/startup/hotellun1/sec2_3.jpg" data-aos="fade-up" class="aos-init" />
+        <img src="../resources/startup/hotellun1/sec2_4.jpg" data-aos="fade-up" class="aos-init" />
+      </div>
+      <img
+        src="../resources/startup/hotellun1/img3_250930.jpg"
+        data-aos="fade-up"
+        class="aos-init"
+      />
+
+      <footer>
+        업체명 : 호텔런드리<br />
+        우선상담 : 070-8095-2310<!--br>
+           주소 : <br>
+           대표자명 : <br>
+          사업자번호 : <br>
+          이메일 : -->
+      </footer>
+      <div class="wing-banner">
+        <a href="tel:070-8095-2310"><img src="../resources/startup/hotellun1/wing.png" /></a>
+      </div>
+    </div>
+    <!--form (head js 링크 필수)-->
+    <script>
+      AOS.init({
+        duration: 1200,
+      });
+    </script>
+    <script>
+      //디비 여러개시 아이디값 별도 추가입력
+      $('#input1').on('keyup', function () {
+        if (this.value.length == 4) {
+          $('#input2').focus();
+        }
+      });
+      $('#input2').on('keyup', function () {
+        if (this.value.length == 4) {
+          $(this).blur();
+        }
+      });
+      //디비 여러개시 아이디값 별도 추가입력
+      $('#input3').on('keyup', function () {
+        if (this.value.length == 4) {
+          $('#input4').focus();
+        }
+      });
+      $('#input4').on('keyup', function () {
+        if (this.value.length == 4) {
+          $(this).blur();
+        }
+      });
+      $(function () {
+        var isComposing = false;
+        $('.kr')
+          // 조합 시작 플래그
+          .on('compositionstart', function () {
+            isComposing = true;
+          })
+          // 조합 종료 후 한 번 필터링
+          .on('compositionend', function () {
+            isComposing = false;
+            filterAndAlert(this);
+          })
+          // 일반 입력(붙여넣기, 백스페이스 포함)
+          .on('input', function () {
+            if (!isComposing) {
+              filterAndAlert(this);
+            }
+          });
+        function filterAndAlert(el) {
+          var v = el.value;
+          // 유니코드 Hangul Jamo, Compatibility Jamo, Syllables 영역만 허용
+          var filtered = v.replace(/[^\u1100-\u11FF\u3131-\u318E\uAC00-\uD7A3]+/g, '');
+          if (v !== filtered) {
+            alert('한글만 입력 가능합니다.');
+            el.value = filtered;
+          }
+        }
+      });
+      $(function () {
+        $('.num').keyup(function (event) {
+          regexp = /[^0-9]/gi;
+          v = $(this).val();
+          if (regexp.test(v)) {
+            alert('숫자만 입력가능 합니다.');
+            $(this).val(v.replace(regexp, ''));
+          }
+        });
+      });
+    </script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const limitEls = document.querySelectorAll('.limit');
+        const minLimit = 2;
+        limitEls.forEach(function (limitEl) {
+          let current = parseInt(limitEl.textContent.trim(), 10);
+          const timer = setInterval(function () {
+            if (current > minLimit) {
+              current--;
+              limitEl.textContent = current;
+            } else {
+              clearInterval(timer);
+            }
+          }, 13000);
+        });
+      });
+    </script>
+    <script>
+      var swiper = new Swiper('.sbSwiper', {
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+        loop: true,
+      });
+    </script>
+  </body>
+</html>
