@@ -1,8 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ASSET_URL } from '../../../utils/constants';
 
+const VIDEO_SLIDES = [
+  {
+    title: '1편 드라이클리닝 - 호텔런드리 당신의 비상세탁소!',
+    embedUrl: 'https://www.youtube.com/embed/dCfJ1sxTo54',
+  },
+  {
+    title: '2편 드라이클리닝 - 겨울준비는 호텔런드리에서!',
+    embedUrl: 'https://www.youtube.com/embed/HZN-EHvrJDw',
+  },
+  {
+    title: '3편 드라이클리닝 - 우리 아빠의 양복 지킴이 호텔런드리!',
+    embedUrl: 'https://www.youtube.com/embed/doku7b0O_Yw',
+  },
+];
+
 const SelfDryCleaning = () => {
+  const [currentVideoSlide, setCurrentVideoSlide] = useState(0);
+
   return (
     <section className="py-20 bg-white">
       <div className="flex justify-center">
@@ -26,6 +43,85 @@ const SelfDryCleaning = () => {
                 <span className="hidden 2xl:block">
                   빨래방과 드라이클리닝을 하나로 경제성을 극대화 하였습니다!
                 </span>
+              </div>
+
+              {/* 유튜브 영상 슬라이드 */}
+              <div className="mb-10 w-full max-w-4xl mx-auto">
+                <div className="relative overflow-hidden rounded-[20px] sm:rounded-[25px] md:rounded-[30px]">
+                  <div
+                    className="flex transition-transform duration-500 ease-in-out"
+                    style={{ transform: `translateX(-${currentVideoSlide * 100}%)` }}
+                  >
+                    {VIDEO_SLIDES.map((slide, index) => (
+                      <div key={index} className="w-full flex-shrink-0 px-1">
+                        <h3 className="text-center text-base sm:text-lg md:text-xl font-bold text-[#102254] mb-3 md:mb-4">
+                          {slide.title}
+                        </h3>
+                        <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+                          <iframe
+                            className="absolute top-0 left-0 w-full h-full rounded-[16px] sm:rounded-[20px]"
+                            src={slide.embedUrl}
+                            title={slide.title}
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerPolicy="strict-origin-when-cross-origin"
+                            allowFullScreen
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                {/* 슬라이드 버튼 & 인디케이터 */}
+                <div className="flex items-center justify-center gap-4 mt-4">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setCurrentVideoSlide((prev) => (prev === 0 ? VIDEO_SLIDES.length - 1 : prev - 1))
+                    }
+                    className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+                    aria-label="이전 영상"
+                  >
+                    <svg
+                      className="w-6 h-6 text-[#102254]"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+                  <div className="flex gap-2">
+                    {VIDEO_SLIDES.map((_, index) => (
+                      <button
+                        key={index}
+                        type="button"
+                        onClick={() => setCurrentVideoSlide(index)}
+                        className={`w-3 h-3 rounded-full transition-colors ${
+                          index === currentVideoSlide ? 'bg-[#102254]' : 'bg-gray-300'
+                        }`}
+                        aria-label={`${index + 1}편으로 이동`}
+                      />
+                    ))}
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setCurrentVideoSlide((prev) => (prev === VIDEO_SLIDES.length - 1 ? 0 : prev + 1))
+                    }
+                    className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+                    aria-label="다음 영상"
+                  >
+                    <svg
+                      className="w-6 h-6 text-[#102254]"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </div>
               </div>
 
               {/* 설명 텍스트 */}

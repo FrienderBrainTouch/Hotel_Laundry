@@ -1,6 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+const VIDEO_SLIDES = [
+  { title: '키오스크 사용법 회원', embedUrl: 'https://www.youtube.com/embed/tvugCTs-oJI' },
+  { title: '키오스크 사용법 비회원', embedUrl: 'https://www.youtube.com/embed/f1-petfY79I' },
+  { title: '어플로 세탁 이용방법', embedUrl: 'https://www.youtube.com/embed/n40X5O73tNo' },
+  { title: '어플로 세탁기 예약방법', embedUrl: 'https://www.youtube.com/embed/c6gh-lbsIqU' },
+  { title: '줄서기 기능 사용법', embedUrl: 'https://www.youtube.com/embed/TSqJmnsGDYQ' },
+  { title: '시작 재전송 사용법', embedUrl: 'https://www.youtube.com/embed/4K671-sMYoY' },
+  { title: '셀프 드라이클리닝 사용법', embedUrl: 'https://www.youtube.com/embed/bZK2iQ4CQ4g' },
+  { title: '앱 주요기능 안내', embedUrl: 'https://www.youtube.com/embed/BBxfbYqKzkU' },
+];
 
 const AppFeatures = () => {
+  const [currentVideoSlide, setCurrentVideoSlide] = useState(0);
   const features = [
     {
       icon: '📱',
@@ -93,6 +105,103 @@ const AppFeatures = () => {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* 키오스크 & 앱 사용법 유튜브 슬라이드 */}
+        <div className="mt-16 mb-16">
+          <h3 className="text-24 lg:text-28 font-['KoPubWorldBatang'] font-bold text-[#102254] mb-8 text-center">
+            키오스크 & 앱 사용법
+          </h3>
+          <div className="w-full max-w-4xl mx-auto">
+            <div className="relative overflow-hidden rounded-[20px] sm:rounded-[25px] md:rounded-[30px]">
+              <div
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(-${currentVideoSlide * 100}%)` }}
+              >
+                {VIDEO_SLIDES.map((slide, index) => (
+                  <div key={index} className="w-full flex-shrink-0 px-1">
+                    <h4 className="text-center text-base sm:text-lg md:text-xl font-['KoPubWorldDotum'] font-bold text-[#102254] mb-3 md:mb-4">
+                      {slide.title}
+                    </h4>
+                    <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+                      <iframe
+                        className="absolute top-0 left-0 w-full h-full rounded-[16px] sm:rounded-[20px]"
+                        src={slide.embedUrl}
+                        title={slide.title}
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerPolicy="strict-origin-when-cross-origin"
+                        allowFullScreen
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="flex items-center justify-center gap-2 sm:gap-4 mt-4 flex-wrap">
+              <button
+                type="button"
+                onClick={() =>
+                  setCurrentVideoSlide((prev) =>
+                    prev === 0 ? VIDEO_SLIDES.length - 1 : prev - 1
+                  )
+                }
+                className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+                aria-label="이전 영상"
+              >
+                <svg
+                  className="w-6 h-6 text-[#102254]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 19l-7-7 7-7"
+                  />
+                </svg>
+              </button>
+              <div className="flex gap-1.5 sm:gap-2 flex-wrap justify-center max-w-full">
+                {VIDEO_SLIDES.map((_, index) => (
+                  <button
+                    key={index}
+                    type="button"
+                    onClick={() => setCurrentVideoSlide(index)}
+                    className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-colors flex-shrink-0 ${
+                      index === currentVideoSlide ? 'bg-[#102254]' : 'bg-gray-300'
+                    }`}
+                    aria-label={`${index + 1}번 영상으로 이동`}
+                  />
+                ))}
+              </div>
+              <button
+                type="button"
+                onClick={() =>
+                  setCurrentVideoSlide((prev) =>
+                    prev === VIDEO_SLIDES.length - 1 ? 0 : prev + 1
+                  )
+                }
+                className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+                aria-label="다음 영상"
+              >
+                <svg
+                  className="w-6 h-6 text-[#102254]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
         </div>
 
         {/* 추가 정보 */}
