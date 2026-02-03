@@ -58,15 +58,19 @@ const SelfDryCleaning = () => {
                           {slide.title}
                         </h3>
                         <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
-                          <iframe
-                            className="absolute top-0 left-0 w-full h-full rounded-[16px] sm:rounded-[20px]"
-                            src={slide.embedUrl}
-                            title={slide.title}
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            referrerPolicy="strict-origin-when-cross-origin"
-                            allowFullScreen
-                          />
+                          {index === currentVideoSlide ? (
+                            <iframe
+                              className="absolute top-0 left-0 w-full h-full rounded-[16px] sm:rounded-[20px]"
+                              src={slide.embedUrl}
+                              title={slide.title}
+                              frameBorder="0"
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                              referrerPolicy="strict-origin-when-cross-origin"
+                              allowFullScreen
+                            />
+                          ) : (
+                            <div className="absolute top-0 left-0 w-full h-full rounded-[16px] sm:rounded-[20px] bg-gray-100" />
+                          )}
                         </div>
                       </div>
                     ))}
