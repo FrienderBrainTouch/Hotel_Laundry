@@ -8,7 +8,10 @@ import { useMetaTags } from '../hooks/useMetaTags';
 
 const AppGuidePage = () => {
   const location = useLocation();
-  const currentPath = location.pathname.split('/').pop() || 'local-platform';
+  const pathParts = location.pathname.split('/').filter(Boolean);
+  const lastPart = pathParts[pathParts.length - 1];
+  const currentPath =
+    lastPart && lastPart !== 'app-guide' ? lastPart : 'app-download';
   
   // 앱 가이드 페이지 전용 메타태그 설정 (기본값 사용)
   useMetaTags();
@@ -16,13 +19,18 @@ const AppGuidePage = () => {
   const breadcrumbItems = [
     {
       label: '앱 가이드',
-      link: '/app-guide',
+      link: '/app-guide/app-download',
       isActive: false,
     },
     {
       label: getCurrentPageLabel(currentPath),
       hasDropdown: true,
       dropdownItems: [
+        {
+          label: '사용 가이드 / APP',
+          link: '/app-guide/app-download',
+          isActive: currentPath === 'app-download',
+        },
         {
           label: '지역 플랫폼',
           link: '/app-guide/local-platform',
@@ -32,11 +40,6 @@ const AppGuidePage = () => {
           label: '당일 수거서비스',
           link: '/app-guide/same-day-pickup',
           isActive: currentPath === 'same-day-pickup',
-        },
-        {
-          label: '앱 다운로드',
-          link: '/app-guide/app-download',
-          isActive: currentPath === 'app-download',
         },
       ],
     },
@@ -49,9 +52,9 @@ const AppGuidePage = () => {
       case 'same-day-pickup':
         return '당일 수거서비스';
       case 'app-download':
-        return '앱 다운로드';
+        return '사용 가이드 / APP';
       default:
-        return '지역 플랫폼';
+        return '사용 가이드 / APP';
     }
   }
 
@@ -64,7 +67,7 @@ const AppGuidePage = () => {
 
           {/* 개별 라우팅 */}
           <Routes>
-            <Route path="/" element={<LocalPlatform />} />
+            <Route path="/" element={<AppDownload />} />
             <Route path="/local-platform" element={<LocalPlatform />} />
             <Route path="/same-day-pickup" element={<SameDayPickup />} />
             <Route path="/app-download" element={<AppDownload />} />

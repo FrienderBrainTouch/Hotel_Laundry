@@ -85,9 +85,9 @@ const Header = () => {
       label: '앱 가이드',
       hasSubmenu: true,
       submenu: [
+        { id: 'app-download', label: '사용 가이드 / APP' },
         { id: 'local-platform', label: '지역 플랫폼' },
         { id: 'same-day-pickup', label: '당일 수거서비스' },
-        { id: 'app-download', label: '앱 다운로드' },
       ],
     },
     {
@@ -154,7 +154,7 @@ const Header = () => {
                         item.id === 'hotel-laundry'
                           ? '/hotel-laundry/company-intro'
                           : item.id === 'hotel-laundry-app'
-                          ? '/app-guide/local-platform'
+                          ? '/app-guide/app-download'
                           : item.id === 'smart-system'
                           ? '/smart-system/smart-system'
                           : item.id === 'startup-guide'
@@ -179,7 +179,7 @@ const Header = () => {
                         <div className="absolute top-full left-0 w-full h-2 bg-transparent" />
                         {/* 서브메뉴 */}
                         <div
-                          className="absolute top-[calc(100%+32px)] -left-6 bg-[#102254] shadow-lg z-[9999] min-w-[150px] border border-white border-t-1 rounded-b-lg"
+                          className="absolute top-[calc(100%+32px)] -left-6 bg-[#102254] shadow-lg z-[9999] min-w-[180px] border border-white border-t-1 rounded-b-lg"
                           onMouseEnter={() => setHoveredMenu(item.id)}
                           onMouseLeave={() => setHoveredMenu(null)}
                         >
@@ -190,7 +190,7 @@ const Header = () => {
                                   {/* 부모 메뉴 항목 */}
                                   <Link
                                     to={`/startup-guide/${subItem.id}`}
-                                    className="block w-full text-start px-4 py-3 text-white transition-all duration-200 hover:underline decoration-underline underline-offset-[5px] hover:font-bold"
+                                    className="block w-full text-start px-4 py-3 text-white transition-all duration-200 hover:underline decoration-underline underline-offset-[5px] hover:font-bold whitespace-nowrap"
                                   >
                                     {subItem.label}
                                   </Link>
@@ -199,7 +199,7 @@ const Header = () => {
                                     <Link
                                       key={subSubItem.id}
                                       to={`/startup-guide/${subItem.id}/${subSubItem.id}`}
-                                      className="block w-full text-start px-4 py-3 pl-6 text-white transition-all duration-200 hover:underline decoration-underline underline-offset-[5px] hover:font-bold"
+                                      className="block w-full text-start px-4 py-3 pl-6 text-white transition-all duration-200 hover:underline decoration-underline underline-offset-[5px] hover:font-bold whitespace-nowrap"
                                     >
                                       {subSubItem.label}
                                     </Link>
@@ -224,7 +224,7 @@ const Header = () => {
                                       ? `/management-support/${subItem.id}`
                                       : `/${subItem.id}`
                                   }
-                                  className="block w-full text-start px-4 py-3 text-white transition-all duration-200 hover:underline decoration-underline underline-offset-[5px] hover:font-bold"
+                                  className="block w-full text-start px-4 py-3 text-white transition-all duration-200 hover:underline decoration-underline underline-offset-[5px] hover:font-bold whitespace-nowrap"
                                 >
                                   {subItem.label}
                                 </Link>
@@ -273,7 +273,7 @@ const Header = () => {
                             item.id === 'hotel-laundry'
                               ? '/company-intro'
                               : item.id === 'hotel-laundry-app'
-                              ? '/app-download'
+                              ? '/app-guide/app-download'
                               : item.id === 'equipment-intro'
                               ? '/washing-machine'
                               : item.id === 'store-info'
@@ -290,9 +290,7 @@ const Header = () => {
                           <span>{item.label}</span>
                         </Link>
                       )}
-                      {item.hasSubmenu &&
-                        (expandedSubmenu === item.id ||
-                          (expandedSubmenu && expandedSubmenu.startsWith(`${item.id}-`))) && (
+                      {item.hasSubmenu && expandedSubmenu === item.id && (
                           <div className="bg-white mt-6 p-4 rounded-lg w-full">
                             {item.submenu.map((subItem) => (
                               <div key={subItem.id} className="mb-2 last:mb-0">
@@ -302,7 +300,7 @@ const Header = () => {
                                     <Link
                                       to={`/startup-guide/${subItem.id}`}
                                       onClick={handleMenuClose}
-                                      className="block text-left w-full py-2 px-2 text-black hover:underline decoration-underline underline-offset-[5px] hover:font-bold"
+                                      className="block text-left w-full py-2 px-2 text-black hover:underline decoration-underline underline-offset-[5px] hover:font-bold whitespace-nowrap"
                                     >
                                       {subItem.label}
                                     </Link>
@@ -312,7 +310,7 @@ const Header = () => {
                                         key={subSubItem.id}
                                         to={`/startup-guide/${subItem.id}/${subSubItem.id}`}
                                         onClick={handleMenuClose}
-                                        className="block text-left w-full py-2 px-2 pl-6 text-gray-700 hover:underline decoration-underline underline-offset-[5px] hover:font-bold"
+                                        className="block text-left w-full py-2 px-2 pl-6 text-gray-700 hover:underline decoration-underline underline-offset-[5px] hover:font-bold whitespace-nowrap"
                                       >
                                         {subSubItem.label}
                                       </Link>
@@ -338,7 +336,7 @@ const Header = () => {
                                         : `/${subItem.id}`
                                     }
                                     onClick={handleMenuClose}
-                                    className="text-left w-full py-2 px-2 text-black hover:underline decoration-underline underline-offset-[5px] hover:font-bold"
+                                    className="text-left w-full py-2 px-2 text-black hover:underline decoration-underline underline-offset-[5px] hover:font-bold whitespace-nowrap"
                                   >
                                     {subItem.label}
                                   </Link>

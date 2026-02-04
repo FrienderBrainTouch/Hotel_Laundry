@@ -4,18 +4,33 @@ import { ASSET_URL } from '../../../utils/constants';
 
 const VIDEO_SLIDES = [
   {
-    title: '1편 드라이클리닝 - 호텔런드리 당신의 비상세탁소!',
+    title: '3~4일 걸리는 드라이클리닝이 당장 급할 때!!!',
     embedUrl: 'https://www.youtube.com/embed/dCfJ1sxTo54',
   },
   {
-    title: '2편 드라이클리닝 - 겨울준비는 호텔런드리에서!',
+    title: '여러 벌의 옷을 한꺼번에 1만 5천 원이 된다고?',
     embedUrl: 'https://www.youtube.com/embed/HZN-EHvrJDw',
   },
   {
-    title: '3편 드라이클리닝 - 우리 아빠의 양복 지킴이 호텔런드리!',
+    title: '양복도 즉석에서 구김 없이 바로 입는다고',
     embedUrl: 'https://www.youtube.com/embed/doku7b0O_Yw',
   },
 ];
+
+/** 제목을 공백 기준 단어로 나누어 반응형 줄바꿈(단어 단위) 처리 */
+const TitleByWords = ({ title }) => {
+  const words = title.split(/\s+/).filter(Boolean);
+  return (
+    <>
+      {words.map((word, i) => (
+        <span key={i} className="inline">
+          {word}
+          {i < words.length - 1 ? ' ' : ''}
+        </span>
+      ))}
+    </>
+  );
+};
 
 const SelfDryCleaning = () => {
   const [currentVideoSlide, setCurrentVideoSlide] = useState(0);
@@ -54,8 +69,11 @@ const SelfDryCleaning = () => {
                   >
                     {VIDEO_SLIDES.map((slide, index) => (
                       <div key={index} className="w-full flex-shrink-0 px-1">
-                        <h3 className="text-center text-base sm:text-lg md:text-xl font-bold text-[#102254] mb-3 md:mb-4">
-                          {slide.title}
+                        <h3
+                          className="text-center text-base sm:text-lg md:text-xl font-bold text-[#102254] mb-3 md:mb-4 max-w-full"
+                          style={{ wordBreak: 'keep-all' }}
+                        >
+                          <TitleByWords title={slide.title} />
                         </h3>
                         <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
                           {index === currentVideoSlide ? (
