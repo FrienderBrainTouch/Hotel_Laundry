@@ -65,51 +65,9 @@ const AppFeatures = () => {
   return (
     <section className="py-16 lg:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* 헤더 */}
-        <div className="text-center mb-16">
-          <h2 className="section-title font-['KoPubWorldBatang'] font-bold text-[#102254] mb-4">
-            호텔런드리 앱의 특별한 기능들
-          </h2>
-          <p className="text-20 font-['KoPubWorldDotum'] text-[#1C262B] max-w-3xl mx-auto">
-            스마트한 세탁 서비스를 위한 모든 기능이 한 곳에
-          </p>
-        </div>
-
-        {/* 기능 그리드 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <div
-              key={index}
-              className="bg-gradient-to-br from-[#E3F2FD] to-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-102"
-            >
-              <div className="text-6xl mb-6 text-center">{feature.icon}</div>
-              <h3 className="text-20 font-['KoPubWorldBatang'] font-bold text-[#102254] mb-4 text-center">
-                {feature.title}
-              </h3>
-              <p className="text-20 font-['KoPubWorldDotum'] text-[#1C262B] mb-6 text-center leading-relaxed">
-                {feature.description}
-              </p>
-
-              {/* 상세 기능 리스트 */}
-              <div className="space-y-3">
-                {feature.details.map((detail, detailIndex) => (
-                  <div key={detailIndex} className="flex items-center space-x-3">
-                    <div className="w-4 h-4 bg-[#102254] rounded-full flex items-center justify-center flex-shrink-0">
-                      <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
-                    </div>
-                    <span className="text-18 font-['KoPubWorldDotum'] text-[#1C262B]">
-                      {detail}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* 키오스크 & 앱 사용법 유튜브 슬라이드 */}
-        <div className="mt-16 mb-16">
-          <h3 className="text-24 lg:text-28 font-['KoPubWorldBatang'] font-bold text-[#102254] mb-8 text-center">
+        {/* 키오스크 & 앱 사용법 유튜브 슬라이드 - 앱설치 버튼 바로 아래 */}
+        <div className="mb-16">
+          <h3 className="section-title font-['KoPubWorldBatang'] font-bold text-[#102254] mb-8 text-center">
             키오스크 & 앱 사용법
           </h3>
           <div className="w-full max-w-4xl mx-auto">
@@ -120,7 +78,7 @@ const AppFeatures = () => {
               >
                 {VIDEO_SLIDES.map((slide, index) => (
                   <div key={index} className="w-full flex-shrink-0 px-1">
-                    <h4 className="text-center text-base sm:text-lg md:text-xl font-['KoPubWorldDotum'] font-bold text-[#102254] mb-3 md:mb-4">
+                    <h4 className="text-center text-20 font-['KoPubWorldDotum'] text-[#1C262B] mb-3 md:mb-4">
                       {slide.title}
                     </h4>
                     <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
@@ -206,6 +164,48 @@ const AppFeatures = () => {
               </button>
             </div>
           </div>
+        </div>
+
+        {/* 호텔런드리 특별한 기능들 - 헤더 */}
+        <div className="text-center mb-16">
+          <h2 className="section-title font-['KoPubWorldBatang'] font-bold text-[#102254] mb-4">
+            호텔런드리 앱의 특별한 기능들
+          </h2>
+          <p className="text-20 font-['KoPubWorldDotum'] text-[#1C262B] max-w-3xl mx-auto">
+            스마트한 세탁 서비스를 위한 모든 기능이 한 곳에
+          </p>
+        </div>
+
+        {/* 기능 그리드 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {features.map((feature, index) => (
+            <div
+              key={index}
+              className="bg-gradient-to-br from-[#E3F2FD] to-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-102"
+            >
+              <div className="text-6xl mb-6 text-center">{feature.icon}</div>
+              <h3 className="text-20 font-['KoPubWorldBatang'] font-bold text-[#102254] mb-4 text-center">
+                {feature.title}
+              </h3>
+              <p className="text-20 font-['KoPubWorldDotum'] text-[#1C262B] mb-6 text-center leading-relaxed">
+                {feature.description}
+              </p>
+
+              {/* 상세 기능 리스트 */}
+              <div className="space-y-3">
+                {feature.details.map((detail, detailIndex) => (
+                  <div key={detailIndex} className="flex items-center space-x-3">
+                    <div className="w-4 h-4 bg-[#102254] rounded-full flex items-center justify-center flex-shrink-0">
+                      <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
+                    </div>
+                    <span className="text-18 font-['KoPubWorldDotum'] text-[#1C262B]">
+                      {detail}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
 
         {/* 추가 정보 */}
