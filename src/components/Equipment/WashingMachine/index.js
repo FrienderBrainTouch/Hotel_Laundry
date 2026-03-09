@@ -46,39 +46,42 @@ const WashingMachine = () => {
             <div className="text-center mx-auto text-[16px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[24px] font-light leading-normal text-[#1C262B] font-KoPubWorldDotum tracking-[-0.32px] sm:tracking-[-0.32px] md:tracking-[-0.36px] lg:tracking-[-0.4px] xl:tracking-[-0.44px] 2xl:tracking-[-0.48px]">
               <div className="block sm:hidden">
                 <p className="mb-8">
-                  스테인리스 스틸로 제작된 상업용 세탁기로 6가지 세탁 모드와 스마트 제어 시스템을
-                  제공합니다.
-                </p>
-                <p>
-                  키오스크 전용, 원격제어, 모바일 예약, 살균수 공급장치 등 다양한 옵션을 지원합니다.
+                  수입장비의 경우 하드마운트 방식의 세탁기로 소움과 진동 문제로 지하가 있거나 2층에
+                  <br />
+                  설치가 어려운 반면 호텔런드리는 소프트마운트 방식(쇼바방식)의 세탁기로 소음과 진동으로
+                  민감한 건물
+                  <br />
+                  설치에도 안정적입니다.
                 </p>
               </div>
               <div className="hidden sm:block lg:hidden">
                 <p>
-                  스테인리스 스틸로 제작된 상업용 세탁기로 6가지 세탁 모드와 스마트 제어 시스템을
-                  제공합니다.
-                </p>
-                <p>
-                  키오스크 전용, 원격제어, 모바일 예약, 살균수 공급장치 등 <br />
-                  다양한 옵션을 지원합니다.
+                  수입장비의 경우 하드마운트 방식의 세탁기로 소움과 진동 문제로 지하가 있거나 2층에
+                  <br />
+                  설치가 어려운 반면 호텔런드리는 소프트마운트 방식(쇼바방식)의 세탁기로 소음과 진동으로
+                  민감한 건물
+                  <br />
+                  설치에도 안정적입니다.
                 </p>
               </div>
               <div className="hidden lg:block xl:hidden">
                 <p>
-                  스테인리스 스틸로 제작된 상업용 세탁기로 6가지 세탁 모드와 스마트 제어 시스템을
-                  제공합니다.
-                </p>
-                <p>
-                  키오스크 전용, 원격제어, 모바일 예약, 살균수 공급장치 등 다양한 옵션을 지원합니다.
+                  수입장비의 경우 하드마운트 방식의 세탁기로 소움과 진동 문제로 지하가 있거나 2층에
+                  <br />
+                  설치가 어려운 반면 호텔런드리는 소프트마운트 방식(쇼바방식)의 세탁기로 소음과 진동으로
+                  민감한 건물
+                  <br />
+                  설치에도 안정적입니다.
                 </p>
               </div>
               <div className="hidden xl:block">
                 <p>
-                  스테인리스 스틸로 제작된 상업용 세탁기로 6가지 세탁 모드와 스마트 제어 시스템을
-                  제공합니다.
-                </p>
-                <p>
-                  키오스크 전용, 원격제어, 모바일 예약, 살균수 공급장치 등 다양한 옵션을 지원합니다.
+                  수입장비의 경우 하드마운트 방식의 세탁기로 소움과 진동 문제로 지하가 있거나 2층에
+                  <br />
+                  설치가 어려운 반면 호텔런드리는 소프트마운트 방식(쇼바방식)의 세탁기로 소음과 진동으로
+                  민감한 건물
+                  <br />
+                  설치에도 안정적입니다.
                 </p>
               </div>
             </div>
@@ -350,10 +353,8 @@ const WashingMachine = () => {
                   <div className="w-16 h-16 bg-[#102254] rounded-full flex items-center justify-center mx-auto mb-4">
                     <div className="text-white text-2xl font-bold">6</div>
                   </div>
-                  <h3 className="text-xl font-bold text-[#102254] mb-3">6가지 세탁 모드</h3>
-                  <p className="text-gray-600">
-                    다양한 세탁 요구사항에 맞춘 6가지 전문 세탁 프로그램
-                  </p>
+                  <h3 className="text-xl font-bold text-[#102254] mb-3">드라이클리닝 세탁모드</h3>
+                  <p className="text-gray-600">물로하는 웨트클리닝 모드를 최초로 도입</p>
                 </div>
                 <div className="bg-white border-2 border-[#102254] p-6 rounded-lg shadow-lg text-center">
                   <div className="w-16 h-16 bg-[#102254] rounded-full flex items-center justify-center mx-auto mb-4">
@@ -384,8 +385,8 @@ const WashingMachine = () => {
                   <div className="w-16 h-16 bg-[#102254] rounded-full flex items-center justify-center mx-auto mb-4">
                     <div className="text-white text-xl">🏢</div>
                   </div>
-                  <h3 className="text-xl font-bold text-[#102254] mb-3">상업용 설계</h3>
-                  <p className="text-gray-600">호텔, 리조트 등 상업 시설에 최적화된 대용량 설계</p>
+                  <h3 className="text-xl font-bold text-[#102254] mb-3">무진동 설계</h3>
+                  <p className="text-gray-600">소프트마운트 방식의 세탁기로 소음과 진동 문제에 적합</p>
                 </div>
               </div>
             </div>
