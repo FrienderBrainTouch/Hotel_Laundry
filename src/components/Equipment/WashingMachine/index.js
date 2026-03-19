@@ -134,7 +134,7 @@ const WashingMachine = () => {
                   </div>
                   <div className="flex justify-between items-center py-2 border-b border-gray-200">
                     <span className="font-semibold text-gray-700">탈수속도</span>
-                    <span className="text-[#102254] font-bold">600~700RPM</span>
+                    <span className="text-[#102254] font-bold">900~1160RPM</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b border-gray-200">
                     <span className="font-semibold text-gray-700">세탁코스</span>
