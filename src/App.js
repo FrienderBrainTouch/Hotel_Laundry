@@ -63,6 +63,7 @@ function Layout() {
           <Route path="/hotel-laundry/*" element={<HotelLaundryPage />} />
           <Route path="/smart-system/*" element={<SmartSystemPage />} />
           <Route path="/startup-guide/*" element={<StartupGuidePage />} />
+          <Route path="/find-store" element={<Navigate to="/store-info/find-store" replace />} />
           <Route path="/store-info/*" element={<StoreInfoPage />} />
           <Route path="/equipment/*" element={<EquipmentPage />} />
           <Route path="/app-guide/*" element={<AppGuidePage />} />

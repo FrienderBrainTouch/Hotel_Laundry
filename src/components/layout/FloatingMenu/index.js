@@ -42,7 +42,7 @@ const FloatingMenu = () => {
 
           {/* 매장찾기 */}
           <Link
-            to="/find-store"
+            to="/store-info/find-store"
             className="flex items-center justify-center text-white hover:bg-[#2d5a8b] transition-colors w-full h-1/4"
           >
             <img src={`${ASSET_URL}/icons/floating_search.svg`} alt="매장찾기" className="w-12 h-12" />
@@ -90,7 +90,7 @@ const FloatingMenu = () => {
 
             {/* 매장찾기 */}
             <Link
-              to="/find-store"
+              to="/store-info/find-store"
               className="flex items-center justify-center text-white hover:bg-[#082567] transition-colors w-full h-8 text-xs font-medium px-2"
               onClick={() => setIsExpanded(false)}
             >
