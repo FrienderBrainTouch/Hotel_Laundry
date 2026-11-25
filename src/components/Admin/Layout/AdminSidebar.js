@@ -5,11 +5,14 @@ const AdminSidebar = ({ isOpen, onClose }) => {
   const location = useLocation();
 
   const menuItems = [
-    { path: '/admin', label: '대시보드', icon: '📊' },
+    { path: '/admin/dashboard', label: '대시보드', icon: '📊' },
     { path: '/admin/stores', label: '창업 매장 관리', icon: '🏪' },
     { path: '/admin/operating-stores', label: '운영 매장 현황', icon: '🏬' },
     { path: '/admin/inquiries', label: '문의 관리', icon: '📝' },
+    { path: '/admin/popups', label: '팝업 관리', icon: '🪧' },
   ];
+  // 하위 주소(/admin/popups/new, /admin/inquiries/3 등)에서도 메뉴가 선택 상태로 보이게
+  const isActive = (path) => location.pathname === path || location.pathname.startsWith(`${path}/`);
 
   return (
     <>
@@ -30,7 +33,7 @@ const AdminSidebar = ({ isOpen, onClose }) => {
                   to={item.path}
                   onClick={onClose}
                   className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                    location.pathname === item.path
+                    isActive(item.path)
                       ? 'bg-brand-light-blue text-brand-blue border-r-2 border-brand-blue'
                       : 'text-gray-700 hover:bg-gray-50'
                   }`}

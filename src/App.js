@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 
 // layout
-import { Header, Footer, FloatingMenu } from './components/layout';
+import { Header, Footer, FloatingMenu, PopupLayer } from './components/layout';
 
 // pages
 import MainPage from './pages/Main';
@@ -73,6 +73,7 @@ function Layout() {
       </main>
       <Footer />
       <FloatingMenu currentPage={currentPage} />
+      <PopupLayer />
     </div>
   );
 }

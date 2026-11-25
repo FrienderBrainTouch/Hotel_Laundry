@@ -5,6 +5,8 @@ import Dashboard from '../components/Admin/Dashboard';
 import StoreManagement from '../components/Admin/StoreManagement';
 import OperatingStores from '../components/Admin/OperatingStores';
 import InquiryManagement from '../components/Admin/InquiryManagement';
+import PopupManagement from '../components/Admin/PopupManagement';
+import PopupForm from '../components/Admin/PopupManagement/PopupForm';
 import { useAdminSessionCheck } from '../hooks/queries/useAdminAuth';
 
 const Admin = () => {
@@ -54,6 +56,9 @@ const Admin = () => {
         <Route path="/operating-stores" element={<OperatingStores />} />
         <Route path="/inquiries" element={<InquiryManagement />} />
         <Route path="/inquiries/:id" element={<InquiryManagement />} />
+        <Route path="/popups" element={<PopupManagement />} />
+        <Route path="/popups/new" element={<PopupForm />} />
+        <Route path="/popups/:id" element={<PopupForm />} />
       </Routes>
     </AdminLayout>
   );
